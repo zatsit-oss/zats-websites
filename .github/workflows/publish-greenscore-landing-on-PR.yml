@@ -5,6 +5,7 @@ on:
   pull_request:
     paths:
       - "greenscore-landing/**"
+      - "!greenscore-landing/**.md"
 
 permissions:
   checks: write
