@@ -1,4 +1,5 @@
 ---
+import {ZATSIT_WEBSITE_URL} from "astro:env/client";
 ---
 <header class="bg-white dark:bg-gray-800 shadow-sm" role="banner">
     <nav class="container mx-auto px-4 py-4" aria-label="Main navigation">
@@ -19,7 +20,7 @@
                     <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-2 mt-2 sm:mt-0">
                         <span class="text-2xl font-bold text-primary-light dark:text-primary-dark">API Green Score web app</span>
                         <p class="text-gray-600 dark:text-gray-300">
-                            by <b>zatsit</b>
+                            <a href=`${ZATSIT_WEBSITE_URL}` target="_blank">by <b>zatsit</b></a>
                         </p>
                     </div>
                 </a>
