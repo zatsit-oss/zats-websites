@@ -1,0 +1,48 @@
+---
+name: Fetch and build Greenscore
+description: Fetch and build the greenscore
+inputs:
+  token:
+    description: 'The token to use for fetching the repository'
+    required: true
+  branch:
+    description: 'The branch to fetch for greenscore content'
+    required: false
+    default: 'main'
+  project-path:
+    description: 'The folder path to work with'
+    required: true
+  output-folder:
+    description: 'The output folder to place the built files'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'npm'
+        cache-dependency-path: ${{ inputs.project-path }}/package-lock.json
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        cd ${{ inputs.project-path }}/
+        npm install
+
+    - name: Build project
+      shell: bash
+      run: |
+        cd ${{ inputs.project-path }}/
+        npm run build
+
+    - name: Copy build files
+      shell: bash
+      run: |
+        mkdir -p public/${{ inputs.output-folder }}
+        cp -r ${{ inputs.project-path }}/dist/* public/${{ inputs.output-folder }}/
