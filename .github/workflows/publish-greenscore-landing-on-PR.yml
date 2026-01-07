@@ -15,6 +15,9 @@ concurrency:
   group: greenscore-landing-${{ github.ref || github.run_id }}
   cancel-in-progress: true
 
+env:
+  PROJECT_PATH: 'greenscore-landing'
+
 jobs:
   build_and_preview:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
@@ -28,15 +31,14 @@ jobs:
         with:
           token: ${{ secrets.GH_PAT }}
           branch: ${{ github.head_ref || github.ref_name }}
-          project-path: greenscore-landing
+          project-path: ${{ env.PROJECT_PATH }}
           output-folder: apigreenscore
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ZATSIT_GREENSCORE_STAGING }}
-          projectId: zatsit-dsi-externalsites-dev
-          target: zatsit-greenscore-d9dfb
+          entryPoint: ${{ env.PROJECT_PATH }}
           expires: 30d
 
       # needed to avoid the post action error

@@ -40,9 +40,3 @@ runs:
       run: |
         cd ${{ inputs.project-path }}/
         npm run build
-
-    - name: Copy build files
-      shell: bash
-      run: |
-        mkdir -p public/${{ inputs.output-folder }}
-        cp -r ${{ inputs.project-path }}/dist/* public/${{ inputs.output-folder }}/
