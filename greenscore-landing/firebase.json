@@ -1,0 +1,11 @@
+{
+    "hosting": {
+        "target": "zatsit-greenscore-d9dfb",
+        "public": "dist",
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ]
+    }
+}
