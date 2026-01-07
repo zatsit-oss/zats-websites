@@ -1,0 +1,45 @@
+---
+name: Fetch and build Landscape
+description: Fetch and build the landscape
+inputs:
+  token:
+    description: 'The token to use for fetching the repository'
+    required: true
+  branch:
+    description: 'The branch to fetch for landscape content'
+    required: false
+    default: 'main'
+  output-dir:
+    description: 'The output directory for the built landscape'
+    required: false
+    default: '../sustainability-portal/dist/landscape'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+        repository: 'zatsit-oss/sustainability-landscape'
+        ref: ${{ inputs.branch }}
+        token: ${{ inputs.token }}
+        path: landscape/
+
+    - name: Download landscape2
+      shell: bash
+      run: |
+        sudo apt install -y jq
+        version=$(curl -s https://api.github.com/repos/cncf/landscape2/releases/latest | jq -r '.tag_name')
+        curl --proto '=https' --tlsv1.2 -LsSf https://github.com/cncf/landscape2/releases/download/${version}/landscape2-installer.sh | sh
+
+    - name: Build landscape
+      shell: bash
+      run: |
+        cd landscape/
+        landscape2 build \
+          --data-file zats-sustainability.yml \
+          --settings-file settings.yml \
+          --guide-file guide.yml \
+          --logos-path logos \
+          --output-dir ${{ inputs.output-dir }}

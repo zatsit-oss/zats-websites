@@ -12,9 +12,6 @@ inputs:
   project-path:
     description: 'The folder path to work with'
     required: true
-  output-folder:
-    description: 'The output folder to place the built files'
-    required: true
 
 runs:
   using: 'composite'

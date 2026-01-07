@@ -5,8 +5,8 @@
   "targets": {
     "zatsit-dsi-externalsites-dev": {
       "hosting": {
-        "zatsit-greenscore-d9dfb": [
-          "zatsit-greenscore-d9dfb"
+        "zatsit-sustainability-8a058": [
+          "zatsit-sustainability-8a058"
         ]
       }
     }

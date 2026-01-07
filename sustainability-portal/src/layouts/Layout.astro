@@ -1,9 +1,15 @@
 ---
+import {Header, Footer} from '@zatit/components';
+
+
 interface Props {
   title: string;
+  displayHomeLink?: boolean;
 }
 
-const { title } = Astro.props;
+import {ZATSIT_WEBSITE_URL, BLOG_URL, GITHUB_URL, LINKEDIN_URL} from "astro:env/client";
+
+const { title , displayHomeLink = true} = Astro.props;
 ---
 
 <!doctype html>
@@ -37,6 +43,8 @@ const { title } = Astro.props;
       });
     </script>
   </head>
+  <Header title={title} displayHomeLink={displayHomeLink} website_url={ZATSIT_WEBSITE_URL} />
+
   <body
     class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300"
   >
@@ -48,5 +56,6 @@ const { title } = Astro.props;
       Skip to main content
     </a>
     <slot />
+    <Footer blog_url={BLOG_URL} linkedin_url={LINKEDIN_URL} github_url={GITHUB_URL} />
   </body>
 </html>
