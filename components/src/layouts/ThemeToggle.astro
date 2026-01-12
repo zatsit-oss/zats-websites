@@ -1,3 +1,5 @@
+---
+---
 <button
   id="theme-toggle"
   aria-label="Toggle dark mode"
@@ -39,9 +41,23 @@
 
 <script>
   const themeToggle = document.getElementById('theme-toggle');
-  
+  const wcf = document.getElementById("wcb");
+  const alreadyDark = document.getElementsByClassName("dark");
+  if(wcf && alreadyDark.length > 0){
+      wcf.classList.add("wcb-d");
+    }
+
   themeToggle?.addEventListener('click', () => {
     const isDark = document.documentElement.classList.toggle('dark');
+    //wcb specific line
+      if(wcf){
+        if (isDark) {
+            wcf.classList.add("wcb-d");
+            // document.getElementById("wcb_a").classList.add("bg-primary-dark", "text-black")
+        } else {
+            wcf.classList.remove("wcb-d");
+        }
+      }
     localStorage.theme = isDark ? 'dark' : 'light';
     // Announce theme change to screen readers
     const message = `Theme switched to ${isDark ? 'dark' : 'light'} mode`;

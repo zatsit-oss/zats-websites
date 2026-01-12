@@ -1,0 +1,55 @@
+---
+import GITHUB_SVG from "../assets/icon_github_white.svg";
+import LINKEDIN_SVG from "../assets/icon_linkedin_white.svg";
+import BLOG_SVG from "../assets/icon_blog_white.svg";
+
+const currentYear = new Date().getFullYear();
+
+interface Props {
+    blog_url: string;
+    linkedin_url: string;
+    github_url: string;
+}
+
+const {blog_url, linkedin_url, github_url} = Astro.props;
+---
+<footer class="mt-8 border-t border-gray-300 dark:border-gray-600 py-4 text-sm text-gray-600 dark:text-gray-300">
+    <div class="container mx-auto px-4 flex flex-col sm:flex-row justify-center items-center gap-y-4 sm:gap-y-0 sm:gap-x-16 mb-8">
+        <!-- Badge Website Carbon -->
+        <div class="flex-shrink-0">
+            <div id="wcb" class="carbonbadge wcb"></div>
+            <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
+        </div>
+        <div class="flex gap-4">
+            <a href={blog_url} target="_blank" rel="noopener noreferrer"
+               aria-label="Notre blog"
+               class="relative flex items-center justify-center h-[34px] w-[34px] rounded-full
+          bg-primary-light text-white dark:bg-primary-dark dark:text-black transition-colors duration-300 overflow-hidden">
+                <BLOG_SVG  class="h-5 w-5" fill="currentColor" />
+            </a>
+            <a href={linkedin_url} target="_blank" rel="noopener noreferrer"
+               aria-label="Notre page LinkedIn"
+               class="flex items-center justify-center h-[34px] w-[34px] rounded-full
+              bg-primary-light text-white dark:bg-primary-dark dark:text-black transition-colors duration-300">
+                <LINKEDIN_SVG  class="h-5 w-5" fill="currentColor" />
+            </a>
+
+            <a href={github_url} target="_blank" rel="noopener noreferrer"
+               aria-label="Notre page Github"
+               class="flex items-center justify-center h-[34px] w-[34px] rounded-full
+              bg-primary-light text-white dark:bg-primary-dark dark:text-black transition-colors duration-300">
+                <GITHUB_SVG  class="h-5 w-5" fill="currentColor" />
+            </a>
+        </div>
+    </div>
+
+    <!-- Texte copyright bas -->
+    <div class="container mx-auto px-4 text-center space-y-1">
+        <p>&copy; {currentYear} <b>zatsit</b>. All rights reserved.</p>
+        <p>
+            Pictures come from
+            <a href="https://storyset.com/" class="underline hover:text-primary-light">Storyset</a>
+        </p>
+    </div>
+</footer>
+

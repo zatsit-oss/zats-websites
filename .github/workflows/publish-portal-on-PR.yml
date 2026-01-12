@@ -1,11 +1,12 @@
 ---
-name: 🌱 Deploy Greenscore Landing on PR 🌱
+name: 🌱 Deploy Portal on PR 🌱
 
 on:
   pull_request:
     paths:
-      - "greenscore-landing/**"
-      - "!greenscore-landing/**.md"
+      - "sustainability-portal/**"
+      - "components/**"
+      - "!**/**.md"
 
 permissions:
   checks: write
@@ -13,11 +14,13 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: greenscore-landing-${{ github.ref || github.run_id }}
+  group: sustainability-portal-${{ github.ref || github.run_id }}
   cancel-in-progress: true
 
 env:
-  PROJECT_PATH: 'greenscore-landing'
+  PROJECT_PATH: 'sustainability-portal'
+  landscape: ${{ github.event.inputs.landscape || 'main' }}
+
 
 jobs:
   build_and_preview:
@@ -27,13 +30,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fetch and Build greenscore content
+      - name: Fetch and Build content
         uses: ./.github/actions/astro
         with:
           token: ${{ secrets.GH_PAT }}
           branch: ${{ github.head_ref || github.ref_name }}
           project-path: ${{ env.PROJECT_PATH }}
-          output-folder: apigreenscore
+
+      - name: Fetch and Build Landscape content
+        uses: ./.github/actions/landscape2
+        with:
+          token: ${{ secrets.GH_PAT }}
+          branch: ${{ env.landscape }}
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:

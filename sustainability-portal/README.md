@@ -1,7 +1,7 @@
-# API Green Score - Landing Page
+# Sustainability portal
 
-This project is a simple landing page to present the zats-greenscore project.
-All illustrations by [Storyset](https://storyset.com).
+This project groups all the landing pages and static websites for sustainability purposes.
+All illustrations are provided by [Storyset](https://storyset.com).
 
 ## 🚀 Project Structure
 

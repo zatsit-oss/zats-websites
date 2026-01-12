@@ -1,0 +1,104 @@
+---
+name: Publish Sustainability Portal
+
+on:
+  push:
+    paths:
+      - "sustainability-portal/**"
+      - "components/**"
+      - "!**/**.md"
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'Environment (production, staging)'
+        required: true
+        type: choice
+        options:
+          - production
+          - staging
+        default: production
+      landscape:
+        description: 'Landscape: Branch to deploy (default: main)'
+        required: false
+        default: main
+
+permissions:
+  checks: write
+  contents: read
+
+concurrency:
+  group: ${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+
+env:
+  PROJECT_PATH: 'sustainability-portal'
+  environment: ${{ github.event.inputs.env || 'production' }}
+  landscape: ${{ github.event.inputs.landscape || 'main' }}
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: kanga333/variable-mapper@master
+        with:
+          key: "${{ env.environment }}"
+          map: |
+            {
+              "production": {
+                "google_project_id": "${{ vars.GOOGLE_PROJECT_ID_PROD }}",
+                "bucket_name": "${{ vars.GCS_BUCKET_NAME_PROD }}",
+                "service_account__secret_name": "GOOGLE_STORAGE_SERVICE_ACCOUNT_ZATSIT_SUSTAINABILITY_PROD"
+              },
+              "staging": {
+                "google_project_id": "${{ vars.GOOGLE_PROJECT_ID_DEV }}",
+                "bucket_name": "${{ vars.GCS_BUCKET_NAME_STAGING }}",
+                "service_account__secret_name": "GOOGLE_STORAGE_SERVICE_ACCOUNT_ZATSIT_SUSTAINABILITY_STAGING"
+              }
+            }
+
+      - name: Fetch and Build content
+        uses: ./.github/actions/astro
+        with:
+          token: ${{ secrets.GH_PAT }}
+          branch: ${{ github.head_ref || github.ref_name }}
+          project-path: ${{ env.PROJECT_PATH }}
+
+      - name: Fetch and Build Landscape content
+        uses: ./.github/actions/landscape2
+        with:
+          token: ${{ secrets.GH_PAT }}
+          branch: ${{ env.landscape }}
+
+      - uses: 'google-github-actions/auth@v2'
+        with:
+          project_id: ${{ env.google_project_id }}
+          credentials_json: ${{ secrets[env.service_account__secret_name] }}
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v2'
+
+      - name: Clean Google Storage files
+        run: |
+          touch dummy.txt
+          gsutil -q cp dummy.txt gs://${{ env.bucket_name }}/
+          gsutil -q -m rm -r -f gs://${{ env.bucket_name }}/*
+          rm dummy.txt
+
+      - name: Upload to Cloud Storage
+        id: 'upload-folder'
+        uses: 'google-github-actions/upload-cloud-storage@v2'
+        with:
+          path: 'sustainability-portal/dist/'
+          destination: ${{ env.bucket_name }}
+          parent: false
+          gzip: false
+
+      # needed to avoid the post action error
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1

@@ -1,12 +1,13 @@
-# Zatsit Sustainability Websites
+# Zatsit Websites
 
-This is a monorepo hosting all websites and landing pages for **Zatsit's sustainable web initiatives**.
+This is a monorepo hosting all websites and landing pages for **Zatsit's web projects**.
 
 ## 🚀 Projects
 
 The following projects are hosted in this repository:
 
-- **[GreenScore Landing Page](./greenscore-landing/README.md)**: A landing page presenting the GreenScore project.
+- **[Components Library](./components/README.md)**: A library of reusable Astro Components for **zatsit** needs.
+- **[Sustainability-portal](sustainability-portal/README.md)**: A Sustanability portal that host our Sustanaiblity landings, or static web pages (Landscape for example).
 
 ## 📁 Documentation Files
 
@@ -23,7 +24,8 @@ This repository uses a monorepo structure to manage multiple related websites:
 ```text
 /
 ├── .github/            # Shared GitHub Actions workflows
-├── greenscore-landing/ # GreenScore landing page (Astro)
+├── components          # Reusable Astro components library
+├── sustainability-portal # Sustainability portal project (Astro)
 ├── CONTRIBUTING.md     # Contributing guidelines
 ├── DEVELOPERS.md       # Developer guide
 ├── CODE_OF_CONDUCT.md  # Code of conduct
@@ -37,10 +39,10 @@ Each project is independent and has its own `README.md` with specific installati
 1. **Read the documentation**: Check out [DEVELOPERS.md](./DEVELOPERS.md) to set up your environment
 2. Navigate to the project directory:
    ```bash
-   cd greenscore-landing
+   cd sustainability-portal
    ```
 3. Follow the instructions in the project's `README.md`.
 
 ---
 
-*Zatsit - Promoting a more sustainable web.*
+**zatsit** - Promoting a more sustainable web.

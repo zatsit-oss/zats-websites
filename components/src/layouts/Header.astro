@@ -1,5 +1,13 @@
 ---
-import {ZATSIT_WEBSITE_URL} from "astro:env/client";
+import {ThemeToggle, BackToHome} from "../index";
+
+interface Props {
+    title: string;
+    website_url: string;
+    displayHomeLink: boolean;
+}
+
+const {title, displayHomeLink, website_url} = Astro.props;
 ---
 <header class="bg-white dark:bg-gray-800 shadow-sm" role="banner">
     <nav class="container mx-auto px-4 py-4" aria-label="Main navigation">
@@ -18,13 +26,17 @@ import {ZATSIT_WEBSITE_URL} from "astro:env/client";
                               d="m6.12,251.54c-2.24,4.03-4.24,8.14-6.12,12.28,11.17,69.43,53.77,128.31,112.75,161.65,40.07-82.16,79.93-163.88,119.75-245.53-56.89-34.36-172.23-25.87-226.38,71.59"/>
                     </svg>
                     <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-2 mt-2 sm:mt-0">
-                        <span class="text-2xl font-bold text-primary-light dark:text-primary-dark">API Green Score web app</span>
+                        <span class="text-2xl font-bold text-primary-light dark:text-primary-dark">{title}</span>
                         <p class="text-gray-600 dark:text-gray-300">
-                            <a href=`${ZATSIT_WEBSITE_URL}` target="_blank">by <b>zatsit</b></a>
+                            <a href={website_url} target="_blank">by <b>zatsit</b></a>
                         </p>
                     </div>
                 </a>
             </div>
         </div>
     </nav>
+    <ThemeToggle/>
+    {displayHomeLink == true &&
+            <BackToHome/>
+    }
 </header>
