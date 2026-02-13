@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LocationIcon from '../assets/icons/location.svg';
+import MailIcon from '../assets/icons/mail.svg';
+---
+
+<Layout title="Nous trouver" description="Localisez les bureaux de zatsit a Lille, Euratechnopole.">
+  <section class="section--hero">
+    <div class="container">
+      <div class="max-w-3xl mx-auto">
+        <h1 class="section-title--lg text-center">
+          Nous <span class="text-gradient">trouver</span>
+        </h1>
+
+        <div class="mt-12 grid md:grid-cols-2 gap-8">
+          <div class="card p-6">
+            <div class="flex items-start gap-3 mb-4">
+              <LocationIcon class="icon-md icon-primary flex-shrink-0" />
+              <div>
+                <h2 class="item-title">Adresse</h2>
+                <p class="item-description">
+                  EURATECHNOPOLYS<br />
+                  2 Allee de la Haye du Temple<br />
+                  59160 Lille
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card p-6">
+            <div class="flex items-start gap-3 mb-4">
+              <MailIcon class="icon-md icon-primary flex-shrink-0" />
+              <div>
+                <h2 class="item-title">Contact</h2>
+                <a href="mailto:contact@zatsit.fr" class="link-primary">
+                  contact@zatsit.fr
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,11 @@
+---
+import LogoIcon from '../assets/icons/logo.svg';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<LogoIcon class={className} />

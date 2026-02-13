@@ -1,0 +1,108 @@
+---
+import { BLOG_URL, LINKEDIN_URL, GITHUB_URL } from 'astro:env/client';
+import Logo from './Logo.astro';
+import GithubIcon from '../assets/icons/github.svg';
+import LinkedinIcon from '../assets/icons/linkedin.svg';
+import BlogIcon from '../assets/icons/blog.svg';
+import TwitterIcon from '../assets/icons/twitter.svg';
+import MailIcon from '../assets/icons/mail.svg';
+import LocationIcon from '../assets/icons/location.svg';
+import ExternalLinkIcon from '../assets/icons/external-link.svg';
+import BadgeIcon from '../assets/icons/badge.svg';
+import WttjIcon from '../assets/icons/wttj.svg';
+---
+
+<footer class="footer">
+  <div class="container py-12 md:py-16">
+    <div class="footer-grid">
+      <!-- Mission -->
+      <div class="lg:col-span-2">
+        <Logo class="h-8 w-auto icon-primary mb-4" />
+        <p class="text-muted text-lg leading-relaxed max-w-md">
+          Engager notre <strong class="text-[var(--color-text)]">expertise numerique</strong> au service
+          de l'<strong class="text-[var(--color-text)]">impact</strong> des entreprises, en creant un ecosysteme
+          <strong class="text-[var(--color-text)]">durable</strong>, <strong class="text-[var(--color-text)]">partenarial</strong>
+          et <strong class="text-[var(--color-text)]">positif</strong>.
+        </p>
+        <div class="mt-6 inline-flex items-center gap-2 badge bg-[var(--color-bg)]">
+          <BadgeIcon class="icon-md text-green-500" />
+          <span>EcoVadis Silver</span>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="footer-section-title">Contact</h3>
+        <ul class="footer-list">
+          <li>
+            <a href="mailto:contact@zatsit.fr" class="link-icon">
+              <MailIcon class="icon-md" />
+              contact@zatsit.fr
+            </a>
+          </li>
+          <li class="address">
+            <LocationIcon class="icon-md address-icon" />
+            <span>
+              EURATECHNOPOLYS<br />
+              2 Allee de la Haye du Temple<br />
+              59160 Lille
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Social -->
+      <div>
+        <h3 class="footer-section-title">Nous suivre</h3>
+        <ul class="footer-list">
+          <li>
+            <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="link-icon">
+              <BlogIcon class="icon-md" />
+              Blog
+              <ExternalLinkIcon class="icon-sm" />
+            </a>
+          </li>
+          <li>
+            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="link-icon">
+              <GithubIcon class="icon-md" />
+              GitHub
+              <ExternalLinkIcon class="icon-sm" />
+            </a>
+          </li>
+          <li>
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="link-icon">
+              <LinkedinIcon class="icon-md" />
+              LinkedIn
+              <ExternalLinkIcon class="icon-sm" />
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/zatsit_" target="_blank" rel="noopener noreferrer" class="link-icon">
+              <TwitterIcon class="icon-md" />
+              Twitter / X
+              <ExternalLinkIcon class="icon-sm" />
+            </a>
+          </li>
+          <li>
+            <a href="https://www.welcometothejungle.com/fr/companies/zatsit" target="_blank" rel="noopener noreferrer" class="link-icon">
+              <WttjIcon class="icon-md" />
+              Welcome to the Jungle
+              <ExternalLinkIcon class="icon-sm" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-copyright">
+      <p class="footer-copyright-text">
+        zatsit - {new Date().getFullYear()} &bull; Site statique eco-concu
+      </p>
+      <div class="footer-legal-links">
+        <a href="/legal-notice" class="link">Mentions legales</a>
+        <a href="/privacy-policy" class="link">Politique de confidentialite</a>
+      </div>
+    </div>
+  </div>
+</footer>

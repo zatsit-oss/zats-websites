@@ -1,0 +1,37 @@
+{
+  "title": "Mentions",
+  "titleHighlight": "légales",
+  "description": "Mentions légales du site zatsit.fr",
+  "lastUpdated": "2026-01-23",
+  "sections": [
+    {
+      "id": "editor",
+      "title": "Éditeur du site",
+      "content": "zatsit SAS au capital de 10 000 €\nImmatriculée au RCS de Lille sous le numéro 979 488 822\n2 allée de la Haye du Temple\n59160 Lomme, France"
+    },
+    {
+      "id": "contact",
+      "title": "Contact",
+      "content": "Email : ",
+      "link": {
+        "text": "contact@zatsit.fr",
+        "url": "mailto:contact@zatsit.fr"
+      }
+    },
+    {
+      "id": "director",
+      "title": "Directeur de la publication",
+      "content": "Yves Delnatte, Directeur Associé"
+    },
+    {
+      "id": "hosting",
+      "title": "Hébergement",
+      "content": "Google Ireland Limited\nSociété étrangère immatriculée au RCS sous le numéro 799 769 161\nBarrow Street, Dublin\nN° TVA : FR 79 799769161\nwww.google.com | +353 1 436 1000"
+    },
+    {
+      "id": "intellectual-property",
+      "title": "Propriété intellectuelle",
+      "content": "L'ensemble du contenu de ce site (textes, images, logos) est la propriété de zatsit, sauf mention contraire. Toute reproduction est interdite sans autorisation préalable."
+    }
+  ]
+}

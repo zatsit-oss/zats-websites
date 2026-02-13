@@ -1,0 +1,55 @@
+{
+  "sectionTitle": "Ce que nous",
+  "sectionTitleHighlight": "proposons",
+  "sectionDescription": "Nos consultants ont déjà fait leurs preuves. En plus d'être expérimentés, nous nous efforçons de coder différemment et intelligemment.",
+  "items": [
+    {
+      "id": "code",
+      "title": "Artisans du code",
+      "icon": "code-bracket",
+      "description": "Nous sommes avant tout développeurs. Nous construisons des applications bien conçues, basées sur nos technologies de prédilection et en accord avec vos besoins.",
+      "technologies": ["Java", ".NET", "Rust", "JavaScript", "TypeScript", "Spring"],
+      "tags": ["#softwareCraftmanship", "#cleanCode", "#tdd", "#ddd", "#tests"]
+    },
+    {
+      "id": "mobile",
+      "title": "Excellence mobile",
+      "icon": "device-mobile",
+      "description": "Nous façonnons des applications mobiles intuitives et performantes. Les solutions du marché n'ont aucun secret pour nous.",
+      "technologies": ["Flutter", "Android", "iOS"],
+      "tags": ["#flutter", "#android", "#ios", "#architecture", "#deploiement", "#testing"]
+    },
+    {
+      "id": "devops",
+      "title": "Déploiements automatisés",
+      "icon": "rocket",
+      "description": "Ce que nous développons, nous le déployons n'importe où, et avec du code.",
+      "technologies": ["GitHub Actions", "Helm", "Terraform", "Ansible"],
+      "tags": ["#devOps", "#iac", "#container", "#cicd"]
+    },
+    {
+      "id": "architecture",
+      "title": "(Cloud) Architectures",
+      "icon": "cloud",
+      "description": "Nous définissons des architectures applicatives modernes et des architectures solutions robustes basées sur les patterns les plus éprouvés.",
+      "technologies": ["OpenAPI", "C4Model", "Diagram-as-code"],
+      "tags": ["#softwareArchitect", "#techLeader", "#cleanArchitecture", "#hexagonalArchitecture", "#CQRS", "#eventDriven", "#microServices"]
+    },
+    {
+      "id": "consulting",
+      "title": "Conseil et expertise",
+      "icon": "briefcase",
+      "description": "Notre collectif vous accompagne sur toutes vos problématiques techniques.",
+      "technologies": ["Audit", "Workshops", "CTO as a Service"],
+      "tags": ["#audit", "#workshops", "#CtoAsAService", "#openSourceSoftware"]
+    },
+    {
+      "id": "training",
+      "title": "Formations",
+      "icon": "academic-cap",
+      "description": "La connaissance ne vaut que si elle est partagée. Nous pouvons intervenir dans vos équipes dans le cadre de BBL ou de formations.",
+      "technologies": ["BBL", "Formations", "Open Source"],
+      "tags": ["#bbl", "#formations", "#openSource"]
+    }
+  ]
+}

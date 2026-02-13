@@ -1,0 +1,76 @@
+{
+  "photos": [
+    { "src": "/images/team/groupe.webp", "alt": "L'équipe Zatsit au complet" },
+    { "src": "/images/team/reunion.webp", "alt": "Réunion de travail en équipe" },
+    { "src": "/images/team/collaboration.webp", "alt": "Espace de collaboration" },
+    { "src": "/images/team/discussion.webp", "alt": "Discussion informelle entre collègues" },
+    { "src": "/images/team/binome.webp", "alt": "Travail en binôme" },
+    { "src": "/images/team/detente.webp", "alt": "Espace détente avec vélo" }
+  ],
+  "stats": [
+    { "value": "36", "label": "Talents", "icon": "users" },
+    { "value": "9 ans", "label": "Expérience moyenne", "icon": "briefcase" },
+    { "value": "37 ans", "label": "Âge moyen", "icon": "calendar" },
+    { "value": "5%", "label": "Turnover", "icon": "refresh" }
+  ],
+  "contractTypes": [
+    { "type": "CDI", "percentage": 46 },
+    { "type": "Freelances", "percentage": 39 },
+    { "type": "Portage salarial", "percentage": 15 }
+  ],
+  "leadership": [
+    {
+      "name": "Cyril Delbecq",
+      "role": "Co-fondateur",
+      "linkedin": "https://www.linkedin.com/in/cyrildelbecq/",
+      "photo": "/images/team/cyril.jpeg"
+    },
+    {
+      "name": "Emmanuel Péru",
+      "role": "CTO Associé",
+      "linkedin": "https://www.linkedin.com/in/emmanuel-peru-10111274/",
+      "photo": "/images/team/emmanuel.jpeg"
+    },
+    {
+      "name": "Flavien Bailleul",
+      "role": "Co-fondateur",
+      "linkedin": "https://www.linkedin.com/in/flavien-bailleul/",
+      "photo": "/images/team/flavien.jpeg"
+    },
+    {
+      "name": "Ludovic Dussart",
+      "role": "CTO Associé",
+      "linkedin": "https://www.linkedin.com/in/ludovic-dussart-846a8063/",
+      "photo": "/images/team/ludovic.jpeg"
+    },
+    {
+      "name": "Océane Deloux",
+      "role": "Responsable RH",
+      "linkedin": "https://www.linkedin.com/in/océane-deloux/",
+      "photo": "/images/team/oceane.jpeg"
+    },
+    {
+      "name": "Yves Delnatte",
+      "role": "Co-fondateur",
+      "linkedin": "https://www.linkedin.com/in/🤔✨yves-delnatte-🎙🙏🏻-58a43472/",
+      "photo": "/images/team/yves.jpeg"
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "Célia",
+      "role": "Développeuse Full Stack",
+      "quote": "Je suis développeuse fullstack depuis plus de 10 ans, un peu touche-à-tout, fortement intéressée par la qualité du code, le travail en équipe, et le service rendu par mon travail. J'adore apprendre de nouvelles choses constamment dans tous les domaines, je suis très curieuse. J'aime aussi partager ce que j'apprends."
+    },
+    {
+      "name": "Guillaume",
+      "role": "Développeur",
+      "quote": "Après des études en philosophie et une première carrière dans la restauration, j'ai décidé, il y a quatre ans, de me reconvertir dans l'IT. Curieux, je suis toujours à la recherche de nouvelles compétences à acquérir et des meilleures pratiques de développement."
+    },
+    {
+      "name": "Lucas",
+      "role": "Développeur",
+      "quote": "Je suis développeur fullstack (Java/TypeScript) avec une appétence pour Rust mais aussi une expertise sur la réduction de la consommation et l'amélioration des performances techniques des applications."
+    }
+  ]
+}

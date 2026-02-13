@@ -1,0 +1,32 @@
+{
+  "title": "Politique de",
+  "titleHighlight": "confidentialité",
+  "description": "Politique de confidentialité et protection des données personnelles du site zatsit.fr",
+  "lastUpdated": "2026-01-23",
+  "sections": [
+    {
+      "id": "data-collection",
+      "title": "Collecte des données",
+      "content": "Ce site est éco-conçu et minimaliste. Nous ne collectons aucune donnée personnelle via ce site. Aucun cookie de tracking n'est utilisé. Seul un cookie technique peut être utilisé pour mémoriser votre préférence de thème (clair/sombre)."
+    },
+    {
+      "id": "email-contact",
+      "title": "Contact par email",
+      "content": "Si vous nous contactez par email, vos données (adresse email, contenu du message) seront utilisées uniquement pour répondre à votre demande. Elles ne seront ni vendues ni partagées avec des tiers."
+    },
+    {
+      "id": "rights",
+      "title": "Vos droits",
+      "content": "Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ces droits, contactez-nous à ",
+      "link": {
+        "text": "contact@zatsit.fr",
+        "url": "mailto:contact@zatsit.fr"
+      }
+    },
+    {
+      "id": "hosting",
+      "title": "Hébergement",
+      "content": "Ce site est hébergé par Google Ireland Limited dont les serveurs peuvent être situés hors de l'Union Européenne. Google s'engage à respecter le RGPD."
+    }
+  ]
+}

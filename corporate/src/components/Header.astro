@@ -1,0 +1,90 @@
+---
+import Logo from './Logo.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import MailIcon from '../assets/icons/mail.svg';
+import MenuIcon from '../assets/icons/menu.svg';
+import CloseIcon from '../assets/icons/close.svg';
+
+const navLinks = [
+  { href: '/', label: 'Accueil' },
+  { href: '/team', label: 'L\'équipe' },
+  { href: '/tech', label: 'Notre tech' },
+  { href: '/work-with-us', label: 'Travaillons ensemble' },
+  { href: '/careers', label: 'Nos offres d\'emploi' },
+  { href: '/find-us', label: 'Nous trouver' },
+];
+---
+
+<header class="header glass">
+  <nav class="container header-nav">
+    <a href="/" aria-label="Zatsit - Accueil">
+      <Logo class="header-logo" />
+    </a>
+
+    <div class="hidden lg:flex items-center gap-8">
+      {navLinks.map(link => (
+        <a href={link.href} class="nav-link">{link.label}</a>
+      ))}
+    </div>
+
+    <div class="header-actions">
+      <a href="mailto:contact@zatsit.fr" class="hidden md:flex link-icon text-sm">
+        <MailIcon class="icon-md" />
+        contact@zatsit.fr
+      </a>
+
+      <ThemeToggle />
+
+      <button
+        id="mobile-menu-btn"
+        class="mobile-menu-btn"
+        aria-label="Ouvrir le menu"
+        aria-expanded="false"
+      >
+        <MenuIcon class="icon-md menu-open-icon" />
+        <CloseIcon class="icon-md menu-close-icon hidden" />
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="mobile-menu hidden">
+    <div class="container mobile-menu-content">
+      {navLinks.map(link => (
+        <a href={link.href} class="mobile-nav-link">{link.label}</a>
+      ))}
+      <a href="mailto:contact@zatsit.fr" class="link-icon py-2">
+        <MailIcon class="icon-md" />
+        contact@zatsit.fr
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  function initMobileMenu() {
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const openIcon = document.querySelector('.menu-open-icon');
+    const closeIcon = document.querySelector('.menu-close-icon');
+
+    function toggleMenu() {
+      const isExpanded = menuBtn?.getAttribute('aria-expanded') === 'true';
+      menuBtn?.setAttribute('aria-expanded', (!isExpanded).toString());
+      mobileMenu?.classList.toggle('hidden');
+      openIcon?.classList.toggle('hidden');
+      closeIcon?.classList.toggle('hidden');
+    }
+
+    // Reset menu state on navigation
+    mobileMenu?.classList.add('hidden');
+    openIcon?.classList.remove('hidden');
+    closeIcon?.classList.add('hidden');
+    menuBtn?.setAttribute('aria-expanded', 'false');
+
+    menuBtn?.removeEventListener('click', toggleMenu);
+    menuBtn?.addEventListener('click', toggleMenu);
+  }
+
+  initMobileMenu();
+  document.addEventListener('astro:after-swap', initMobileMenu);
+</script>

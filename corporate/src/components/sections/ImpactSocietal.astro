@@ -1,0 +1,95 @@
+---
+import { GITHUB_URL } from 'astro:env/client';
+import ExternalLinkIcon from '../../assets/icons/external-link.svg';
+import OpenSourceIcon from '../../assets/icons/opensource.svg';
+
+// Triangle layout with fixed positions
+// Cards 100x100px, container 420x220px
+// Aligned with hexagon above (Open source at x:160 like Écoconception)
+//        [0]
+//     [2]   [1]
+const engagements = [
+  { name: 'Open source', icon: 'osi', x: 160, y: 0 },   // Top center (aligned with Écoconception)
+  { name: 'Associations', icon: 'heart', x: 270, y: 120 },      // Bottom right
+  { name: 'Gouvernance', icon: 'users', x: 50, y: 120 },        // Bottom left
+];
+---
+
+<section class="section section--surface">
+  <div class="container">
+    <div class="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center lg:items-start">
+      <div class="max-w-xl text-center lg:text-left">
+        <h2 class="section-title mb-8">
+          Impact <span class="text-gradient-glow">sociétal</span>
+        </h2>
+
+        <div class="content-block">
+          <p>
+            zatsit s'investit dans le tissu associatif et caritatif en apportant son soutien financier et son expertise pour apporter du sens.
+          </p>
+          <p>
+            Nous sommes fiers de notre gouvernance d'entreprise transparente et partagée, où la collaboration et la responsabilité sont au cœur de notre modèle.
+          </p>
+          <p>
+            Consultez notre <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="link-primary">Github <ExternalLinkIcon class="icon-sm" /></a> pour découvrir nos premières initiatives open source à vocation d'impact.
+          </p>
+        </div>
+      </div>
+
+      <div id="engagement-triangle" class="engagement-triangle">
+        {engagements.map((engagement, index) => (
+          <div
+            class={`partner-card ${index === 0 ? 'active' : ''}`}
+            data-index={index}
+            style={`left: ${engagement.x}px; top: ${engagement.y}px;`}
+          >
+            {engagement.icon === 'osi' && (
+              <OpenSourceIcon class="partner-icon" />
+            )}
+            {engagement.icon !== 'osi' && (
+              <svg class="partner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                {engagement.icon === 'heart' && (
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                )}
+                {engagement.icon === 'users' && (
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                )}
+              </svg>
+            )}
+            <span class="partner-name">{engagement.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function initEngagementTriangle() {
+    const container = document.getElementById('engagement-triangle');
+    if (!container) return;
+
+    const cards = container.querySelectorAll('.partner-card');
+    if (cards.length === 0) return;
+
+    let currentIndex = 0;
+    let intervalId: number;
+
+    function highlightNext() {
+      cards.forEach(card => card.classList.remove('active'));
+      cards[currentIndex].classList.add('active');
+      currentIndex = (currentIndex + 1) % cards.length;
+    }
+
+    // Start animation
+    intervalId = setInterval(highlightNext, 2000);
+
+    // Cleanup on page navigation (ViewTransitions)
+    document.addEventListener('astro:before-swap', () => {
+      clearInterval(intervalId);
+    }, { once: true });
+  }
+
+  initEngagementTriangle();
+  document.addEventListener('astro:after-swap', initEngagementTriangle);
+</script>
