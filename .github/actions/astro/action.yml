@@ -1,6 +1,6 @@
 ---
-name: Fetch and build Greenscore
-description: Fetch and build the greenscore
+name: Build Astro project
+description: Build an Astro project from the monorepo
 inputs:
   token:
     description: 'The token to use for fetching the repository'
