@@ -32,7 +32,7 @@
   --color-accent-1: #06b6d4;
   --color-accent-2: #8b5cf6;
   --color-accent-3: #ec4899;
-  --color-text-gradient: linear-gradient(135deg, #0f15fd, #7c3aed, #ec4899);
+  --color-text-gradient: linear-gradient(to bottom, #0F15FD 0%, #020466 100%);
   --glass-bg: rgba(255, 255, 255, 0.9);
   --glass-border: rgba(15, 21, 253, 0.1);
   --card-bg: #f8fafc;
@@ -68,7 +68,7 @@
   --color-primary-hover: #0a0ecc;
   --color-secondary: #0f15fd;
   --color-secondary-hover: #0a0ecc;
-  --color-text-gradient: linear-gradient(45deg, #0f15fd, #2a0a89);
+  --color-text-gradient: linear-gradient(to bottom, #0F15FD 0%, #020466 100%);
   --glass-bg: rgba(255, 255, 255, 0.9);
   --glass-border: rgba(15, 21, 253, 0.1);
   --card-bg: #f8fafc;
@@ -154,12 +154,10 @@ button:hover {
 
 /* Animated gradient text with glow - Stripe style */
 .text-gradient-glow {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-accent-2), var(--color-accent-3), var(--color-primary));
-  background-size: 300% 300%;
+  background: var(--color-text-gradient);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradient-text-shift 4s ease-in-out infinite;
   filter: drop-shadow(0 0 30px color-mix(in srgb, var(--color-primary) 50%, transparent));
 }
 
