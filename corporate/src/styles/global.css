@@ -374,7 +374,9 @@ button:hover {
 
 .tag {
   @apply px-2 py-1 text-xs font-medium rounded;
-  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  color: var(--color-primary);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 25%, transparent);
 }
 
 .tag--muted {
