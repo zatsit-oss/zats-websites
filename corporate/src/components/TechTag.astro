@@ -1,0 +1,28 @@
+---
+import { technologyIconMap } from '../data/technology-icons';
+import pkg from '../../package.json';
+
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+const displayMode = (pkg as any).zatsit?.technologyDisplay ?? 'label';
+const slug = technologyIconMap[name];
+const hasIcon = displayMode === 'icon' && slug;
+---
+
+{hasIcon ? (
+  <span class="tech-icon-wrapper" title={name}>
+    <img
+      src={`/images/technologies/${slug}.svg`}
+      alt={name}
+      class="tech-icon"
+      width="32"
+      height="32"
+      loading="lazy"
+    />
+  </span>
+) : (
+  <span class="tag">{name}</span>
+)}

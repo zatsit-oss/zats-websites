@@ -415,6 +415,21 @@ button:hover {
   color: var(--color-primary);
 }
 
+.tech-icon-wrapper {
+  @apply inline-flex items-center justify-center p-1.5 rounded;
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 25%, transparent);
+}
+
+.tech-icon {
+  @apply w-5 h-5;
+  transition: transform 0.2s ease;
+}
+
+.tech-icon-wrapper:hover .tech-icon {
+  transform: scale(1.15);
+}
+
 /* ==========================================================================
    Layout - Header
    ========================================================================== */

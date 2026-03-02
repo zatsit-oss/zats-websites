@@ -1,5 +1,6 @@
 ---
 import { getEntry } from 'astro:content';
+import TechTag from '../TechTag.astro';
 import CodeBracketIcon from '../../assets/icons/code-bracket.svg';
 import DeviceMobileIcon from '../../assets/icons/device-mobile.svg';
 import RocketIcon from '../../assets/icons/rocket.svg';
@@ -44,7 +45,7 @@ const iconMap: Record<string, any> = {
 
             <div class="flex flex-wrap gap-2 mb-4">
               {service.technologies.map((tech) => (
-                <span class="tag">{tech}</span>
+                <TechTag name={tech} />
               ))}
             </div>
 

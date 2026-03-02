@@ -18,5 +18,8 @@
   },
   "devDependencies": {
     "typescript": "^5.8.3"
+  },
+  "zatsit": {
+    "technologyDisplay": "icon"
   }
 }

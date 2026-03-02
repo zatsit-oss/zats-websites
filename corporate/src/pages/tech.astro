@@ -1,6 +1,7 @@
 ---
 import { getEntry } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import TechTag from '../components/TechTag.astro';
 import LeafIcon from '../assets/icons/leaf.svg';
 import BriefcaseIcon from '../assets/icons/briefcase.svg';
 import OpensourceIcon from '../assets/icons/opensource.svg';
@@ -127,7 +128,7 @@ const methodIcons: Record<string, typeof BadgeIcon> = {
               </div>
               <div class="flex flex-wrap gap-2">
                 {stack.technologies.map((tech) => (
-                  <span class="tag">{tech}</span>
+                  <TechTag name={tech} />
                 ))}
               </div>
             </div>
