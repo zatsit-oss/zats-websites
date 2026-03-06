@@ -16,7 +16,7 @@ These components appear on every page.
 - Logo (links to homepage)
 - Navigation links:
   - Accueil → `/`
-  - Travaillons ensemble → `/work-with-us`
+  - Travaillons ensemble → `/join-us`
   - Nos offres d'emploi → `/careers`
   - Nous trouver → `/find-us`
 - Contact email (desktop only)
@@ -131,7 +131,7 @@ These components appear on every page.
 - Strategic partner for tech challenges
 - Passionate and experienced consultants
 
-**CTA**: "Travaillons ensemble" → `/work-with-us`
+**CTA**: "Travaillons ensemble" → `/join-us`
 
 ---
 
@@ -161,9 +161,9 @@ Each card includes:
 
 ## Secondary Pages
 
-### Work With Us (`src/pages/work-with-us.astro`)
+### Join Us (`src/pages/join-us.astro`)
 
-**URL**: `/work-with-us`
+**URL**: `/join-us`
 
 **Purpose**: Contact page for potential clients.
 

@@ -36,7 +36,7 @@ zatsit-website/
 │   │   └── Layout.astro        # Main page layout
 │   ├── pages/                  # File-based routing
 │   │   ├── index.astro         # Homepage
-│   │   ├── work-with-us.astro  # Contact page
+│   │   ├── join-us.astro  # Contact page
 │   │   ├── careers.astro       # Job offers page
 │   │   ├── find-us.astro       # Location page
 │   │   ├── legal-notice.astro  # Legal mentions

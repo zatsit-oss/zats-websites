@@ -816,6 +816,269 @@ button:hover {
 }
 
 /* ==========================================================================
+   Orbit Ring (Tech page - profile distribution)
+   ========================================================================== */
+
+.orbit-ring {
+  --orbit-duration: 6s;
+  --orbit-radius: 130px;
+  --orbit-card-size: 110px;
+  position: relative;
+  width: calc(var(--orbit-radius) * 2 + var(--orbit-card-size) + 20px);
+  height: calc(var(--orbit-radius) * 2 + var(--orbit-card-size) + 20px);
+}
+
+/* Visible orbit path */
+.orbit-ring::before {
+  content: '';
+  position: absolute;
+  inset: calc(var(--orbit-card-size) / 2 + 10px);
+  border: 1px dashed var(--color-border);
+  border-radius: 50%;
+  animation: orbit-ring-spin calc(var(--orbit-duration) * 4) linear infinite;
+}
+
+.orbit-card {
+  position: absolute;
+  width: var(--orbit-card-size);
+  height: var(--orbit-card-size);
+  top: calc(50% - var(--orbit-card-size) / 2);
+  left: calc(50% - var(--orbit-card-size) / 2);
+  animation: orbit-revolve var(--orbit-duration) cubic-bezier(0.27, 0.08, 0.26, 0.7) infinite;
+  animation-delay: calc(var(--orbit-duration) / 3 * var(--orbit-index) * -1);
+}
+
+/* Counter-rotate content to keep it upright + highlight at 12h */
+.orbit-card-content {
+  @apply flex flex-col items-center justify-center rounded-full;
+  width: 100%;
+  height: 100%;
+  border: 1px dashed var(--color-border);
+  background: transparent;
+  overflow: hidden;
+  padding: 0.75rem;
+  animation:
+    orbit-counter-revolve var(--orbit-duration) cubic-bezier(0.27, 0.08, 0.26, 0.7) infinite,
+    orbit-highlight-card var(--orbit-duration) cubic-bezier(0.27, 0.08, 0.26, 0.7) infinite;
+  animation-delay: calc(var(--orbit-duration) / 3 * var(--orbit-index) * -1);
+}
+
+.orbit-card-content .partner-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex-shrink: 0;
+  animation: orbit-highlight-icon var(--orbit-duration) cubic-bezier(0.27, 0.08, 0.26, 0.7) infinite;
+  animation-delay: calc(var(--orbit-duration) / 3 * var(--orbit-index) * -1);
+}
+
+.orbit-card-content .partner-name {
+  @apply font-medium text-center;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  line-height: 1.3;
+  animation: orbit-highlight-name var(--orbit-duration) cubic-bezier(0.27, 0.08, 0.26, 0.7) infinite;
+  animation-delay: calc(var(--orbit-duration) / 3 * var(--orbit-index) * -1);
+}
+
+/* Orbit keyframes */
+@keyframes orbit-revolve {
+  0% { transform: rotate(0deg) translateY(calc(var(--orbit-radius) * -1)); }
+  100% { transform: rotate(1turn) translateY(calc(var(--orbit-radius) * -1)); }
+}
+
+@keyframes orbit-counter-revolve {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-1turn); }
+}
+
+@keyframes orbit-ring-spin {
+  100% { transform: rotate(-1turn); }
+}
+
+/* Highlight at 12h (0%/100% = top position) */
+@keyframes orbit-highlight-card {
+  0%, 100% {
+    border-color: var(--color-primary);
+    background: var(--color-bg);
+    box-shadow:
+      0 4px 20px -5px rgba(0, 0, 0, 0.15),
+      0 0 0 1px var(--color-primary),
+      0 0 20px -5px var(--color-primary);
+  }
+  20%, 80% {
+    border-color: var(--color-border);
+    background: transparent;
+    box-shadow: none;
+  }
+}
+
+@keyframes orbit-highlight-icon {
+  0%, 100% {
+    color: var(--color-primary);
+    opacity: 1;
+  }
+  20%, 80% {
+    color: var(--color-text-muted);
+    opacity: 0.5;
+  }
+}
+
+@keyframes orbit-highlight-name {
+  0%, 100% {
+    color: var(--color-text);
+    opacity: 1;
+  }
+  20%, 80% {
+    color: var(--color-text-muted);
+    opacity: 0.5;
+  }
+}
+
+/* Dark mode highlight */
+[data-theme="dark"] .orbit-card-content {
+  animation:
+    orbit-counter-revolve var(--orbit-duration) cubic-bezier(0.27, 0.08, 0.26, 0.7) infinite,
+    orbit-highlight-card-dark var(--orbit-duration) cubic-bezier(0.27, 0.08, 0.26, 0.7) infinite;
+  animation-delay: calc(var(--orbit-duration) / 3 * var(--orbit-index) * -1);
+}
+
+@keyframes orbit-highlight-card-dark {
+  0%, 100% {
+    border-color: var(--color-primary);
+    background: var(--color-surface);
+    box-shadow:
+      0 4px 30px -5px rgba(0, 0, 0, 0.4),
+      0 0 0 1px var(--color-primary),
+      0 0 30px -5px var(--color-primary);
+  }
+  20%, 80% {
+    border-color: var(--color-border);
+    background: transparent;
+    box-shadow: none;
+  }
+}
+
+/* Responsive orbit */
+@media (max-width: 639px) {
+  .orbit-ring {
+    --orbit-radius: 100px;
+    --orbit-card-size: 90px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .orbit-ring::before,
+  .orbit-card,
+  .orbit-card-content {
+    animation: none !important;
+  }
+
+  .orbit-card-content .partner-icon,
+  .orbit-card-content .partner-name {
+    animation: none !important;
+  }
+
+  .orbit-card:nth-child(1) { transform: translateY(calc(var(--orbit-radius) * -1)); }
+  .orbit-card:nth-child(2) { transform: rotate(120deg) translateY(calc(var(--orbit-radius) * -1)); }
+  .orbit-card:nth-child(3) { transform: rotate(240deg) translateY(calc(var(--orbit-radius) * -1)); }
+  .orbit-card:nth-child(2) .orbit-card-content { transform: rotate(-120deg); }
+  .orbit-card:nth-child(3) .orbit-card-content { transform: rotate(-240deg); }
+
+  .orbit-card-content .partner-icon {
+    color: var(--color-text-muted);
+    opacity: 0.5;
+  }
+
+  .orbit-card-content .partner-name {
+    color: var(--color-text-muted);
+    opacity: 0.5;
+  }
+}
+
+/* ==========================================================================
+   Ekip Cards (Join-us page)
+   ========================================================================== */
+
+.ekip-cards {
+  position: relative;
+  width: 260px;
+  height: 180px;
+  flex-shrink: 0;
+}
+
+.ekip-card {
+  position: absolute;
+  width: 220px;
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 8px 30px -8px rgba(0, 0, 0, 0.15),
+    0 2px 8px -2px rgba(0, 0, 0, 0.08);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ekip-card--back {
+  top: 0;
+  left: 0;
+  transform: rotate(-6deg);
+  z-index: 1;
+  animation: ekip-float-back 4s ease-in-out infinite;
+}
+
+.ekip-card--front {
+  top: 10px;
+  left: 30px;
+  transform: rotate(4deg);
+  z-index: 2;
+  animation: ekip-float-front 4s ease-in-out 1s infinite;
+}
+
+.ekip-cards:hover .ekip-card--back {
+  transform: rotate(-10deg) translateX(-10px);
+}
+
+.ekip-cards:hover .ekip-card--front {
+  transform: rotate(8deg) translateX(10px);
+}
+
+@keyframes ekip-float-back {
+  0%, 100% { transform: rotate(-6deg) translateY(0); }
+  50% { transform: rotate(-6deg) translateY(-6px); }
+}
+
+@keyframes ekip-float-front {
+  0%, 100% { transform: rotate(4deg) translateY(0); }
+  50% { transform: rotate(4deg) translateY(-8px); }
+}
+
+[data-theme="dark"] .ekip-card {
+  box-shadow:
+    0 8px 30px -8px rgba(0, 0, 0, 0.4),
+    0 0 20px -5px color-mix(in srgb, var(--color-primary) 15%, transparent);
+}
+
+@media (max-width: 1023px) {
+  .ekip-cards {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .ekip-cards {
+    width: 220px;
+    height: 160px;
+  }
+
+  .ekip-card {
+    width: 180px;
+  }
+
+  .ekip-card--front {
+    left: 25px;
+  }
+}
+
+/* ==========================================================================
    Leadership Cards (Team page)
    ========================================================================== */
 

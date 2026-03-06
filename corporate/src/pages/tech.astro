@@ -85,16 +85,15 @@ const methodIcons: Record<string, typeof BadgeIcon> = {
         La core team de <strong>zatsit</strong> est composée exclusivement de profils très tech :
         développeurs fullstack, architectes solutions et DevOps.
       </p>
-      <div id="roles-triangle" class="orbit-triangle mx-auto">
+      <div class="orbit-ring mx-auto">
         {roles.map((role, index) => {
           const IconComponent = stackIcons[role.icon];
           return (
-            <div
-              class={`partner-card ${index === 0 ? 'active' : ''}`}
-              data-index={index}
-            >
-              {IconComponent && <IconComponent class="partner-icon" />}
-              <span class="partner-name">{role.role}</span>
+            <div class="orbit-card" style={`--orbit-index: ${index}`}>
+              <div class="orbit-card-content">
+                {IconComponent && <IconComponent class="partner-icon" />}
+                <span class="partner-name">{role.role}</span>
+              </div>
             </div>
           );
         })}
@@ -170,11 +169,3 @@ const methodIcons: Record<string, typeof BadgeIcon> = {
     </div>
   </section>
 </Layout>
-
-<script>
-  import { initOrbitTriangle } from '../scripts/orbit-triangle';
-
-  const init = () => initOrbitTriangle('roles-triangle');
-  init();
-  document.addEventListener('astro:after-swap', init);
-</script>
