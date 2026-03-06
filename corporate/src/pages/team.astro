@@ -7,6 +7,7 @@ import BriefcaseIcon from '../assets/icons/briefcase.svg';
 import CalendarIcon from '../assets/icons/calendar.svg';
 import RefreshIcon from '../assets/icons/refresh.svg';
 import LinkedInIcon from '../assets/icons/linkedin.svg';
+import GitHubIcon from '../assets/icons/github.svg';
 
 const peopleData = await getEntry('people', 'people');
 if (!peopleData) throw new Error('People data not found');
@@ -123,13 +124,7 @@ function getInitials(name: string): string {
       </div>
       <div class="flex flex-wrap justify-center gap-6 md:gap-8 max-w-4xl mx-auto">
         {leadership.map((member) => (
-          <a
-            href={member.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="leadership-card group"
-            aria-label={`Profil LinkedIn de ${member.name}`}
-          >
+          <div class="leadership-card group">
             <div class="leadership-avatar">
               {member.photo ? (
                 <img src={member.photo} alt={member.name} class="w-full h-full object-cover" />
@@ -139,8 +134,17 @@ function getInitials(name: string): string {
             </div>
             <div class="leadership-name">{member.name}</div>
             <div class="leadership-role">{member.role}</div>
-            <LinkedInIcon class="leadership-linkedin" />
-          </a>
+            <div class="leadership-links">
+              <a href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn de ${member.name}`}>
+                <LinkedInIcon class="leadership-social-icon" />
+              </a>
+              {member.github && (
+                <a href={member.github} target="_blank" rel="noopener noreferrer" aria-label={`GitHub de ${member.name}`}>
+                  <GitHubIcon class="leadership-social-icon" />
+                </a>
+              )}
+            </div>
+          </div>
         ))}
       </div>
     </div>

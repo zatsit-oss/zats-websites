@@ -20,6 +20,7 @@ const peopleCollection = defineCollection({
       name: z.string(),
       role: z.string(),
       linkedin: z.string(),
+      github: z.string().optional(),
       photo: z.string().optional(),
     })),
     testimonials: z.array(z.object({
