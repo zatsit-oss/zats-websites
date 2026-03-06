@@ -97,20 +97,13 @@ function getInitials(name: string): string {
       <p class="text-muted text-center max-w-xl mx-auto mb-10 md:mb-14">
         Trois statuts coexistent au sein de <strong>zatsit</strong>, formant un collectif hybride et complémentaire.
       </p>
-      <div id="profile-triangle" class="engagement-triangle mx-auto">
+      <div id="profile-triangle" class="orbit-triangle mx-auto">
         {contractTypes.map((contract, index) => {
-          const positions = [
-            { x: 160, y: 0 },
-            { x: 270, y: 120 },
-            { x: 50, y: 120 },
-          ];
-          const pos = positions[index];
           const IconComponent = contractIcons[contract.icon];
           return (
             <div
               class={`partner-card ${index === 0 ? 'active' : ''}`}
               data-index={index}
-              style={`left: ${pos.x}px; top: ${pos.y}px;`}
             >
               {IconComponent && <IconComponent class="partner-icon" />}
               <span class="partner-name">{contract.type}</span>
@@ -200,30 +193,10 @@ function getInitials(name: string): string {
 </Layout>
 
 <script>
-  function initProfileTriangle() {
-    const container = document.getElementById('profile-triangle');
-    if (!container) return;
+  import { initOrbitTriangle } from '../scripts/orbit-triangle';
 
-    const cards = container.querySelectorAll('.partner-card');
-    if (cards.length === 0) return;
-
-    let currentIndex = 0;
-    let intervalId: number;
-
-    function highlightNext() {
-      cards.forEach(card => card.classList.remove('active'));
-      cards[currentIndex].classList.add('active');
-      currentIndex = (currentIndex + 1) % cards.length;
-    }
-
-    intervalId = setInterval(highlightNext, 2000);
-
-    document.addEventListener('astro:before-swap', () => {
-      clearInterval(intervalId);
-    }, { once: true });
-  }
-
-  initProfileTriangle();
-  document.addEventListener('astro:after-swap', initProfileTriangle);
+  const init = () => initOrbitTriangle('profile-triangle');
+  init();
+  document.addEventListener('astro:after-swap', init);
 </script>
 
