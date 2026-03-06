@@ -61,7 +61,7 @@ const methodIcons: Record<string, typeof BadgeIcon> = {
     </div>
   </section>
 
-  <section class="section">
+  <section class="section !pt-0 !pb-12">
     <div class="container">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 max-w-3xl mx-auto">
         {stats.map((stat) => {
@@ -81,6 +81,10 @@ const methodIcons: Record<string, typeof BadgeIcon> = {
   <section class="section section--surface">
     <div class="container">
       <h2 class="section-title text-center mb-8 md:mb-12">Répartition des profils</h2>
+      <p class="text-muted text-center max-w-xl mx-auto mb-10 md:mb-14">
+        La core team de <strong>zatsit</strong> est composée exclusivement de profils très tech :
+        développeurs fullstack, architectes solutions et DevOps.
+      </p>
       <div id="roles-triangle" class="orbit-triangle mx-auto">
         {roles.map((role, index) => {
           const IconComponent = stackIcons[role.icon];
@@ -95,6 +99,10 @@ const methodIcons: Record<string, typeof BadgeIcon> = {
           );
         })}
       </div>
+      <p class="text-muted text-center max-w-xl mx-auto mt-10 md:mt-14">
+        Pour tous les autres métiers du numérique, nous collaborons avec des partenaires et des freelances de talent,
+        sélectionnés avec la même exigence que s'ils étaient des collaborateurs <strong>zatsit</strong>.
+      </p>
     </div>
   </section>
 
