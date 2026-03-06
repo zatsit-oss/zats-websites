@@ -6,13 +6,13 @@
   },
   "stats": [
     { "value": "0.04g", "label": "CO2 par page", "icon": "leaf" },
-    { "value": "9 ans", "label": "Expérience moyenne", "icon": "briefcase" },
+    { "value": "9 ans", "label": "Expérience moyenne", "icon": "growth" },
     { "value": "100%", "label": "Open source friendly", "icon": "opensource" }
   ],
   "roles": [
-    { "role": "Développeurs Fullstack", "percentage": 85 },
-    { "role": "Architectes solutions", "percentage": 10 },
-    { "role": "Ops / DevOps", "percentage": 5 }
+    { "role": "Développeurs Fullstack", "icon": "code-bracket" },
+    { "role": "Architectes solutions", "icon": "globe" },
+    { "role": "Ops / DevOps", "icon": "cloud" }
   ],
   "stacks": [
     {

@@ -4,8 +4,12 @@ import Layout from '../layouts/Layout.astro';
 import UsersIcon from '../assets/icons/users.svg';
 import HeartIcon from '../assets/icons/heart.svg';
 import BriefcaseIcon from '../assets/icons/briefcase.svg';
+import GrowthIcon from '../assets/icons/growth.svg';
 import CalendarIcon from '../assets/icons/calendar.svg';
 import RefreshIcon from '../assets/icons/refresh.svg';
+import DocumentIcon from '../assets/icons/document.svg';
+import FreelanceIcon from '../assets/icons/freelance.svg';
+import ShieldCheckIcon from '../assets/icons/shield-check.svg';
 import LinkedInIcon from '../assets/icons/linkedin.svg';
 import GitHubIcon from '../assets/icons/github.svg';
 
@@ -13,9 +17,16 @@ const peopleData = await getEntry('people', 'people');
 if (!peopleData) throw new Error('People data not found');
 const { photos, stats, contractTypes, leadership, testimonials } = peopleData.data;
 
+const contractIcons: Record<string, typeof UsersIcon> = {
+  document: DocumentIcon,
+  freelance: FreelanceIcon,
+  'shield-check': ShieldCheckIcon,
+};
+
 const statIcons: Record<string, typeof UsersIcon> = {
   users: UsersIcon,
   briefcase: BriefcaseIcon,
+  growth: GrowthIcon,
   calendar: CalendarIcon,
   refresh: RefreshIcon,
 };
@@ -80,38 +91,32 @@ function getInitials(name: string): string {
     </div>
   </section>
 
-  <section class="section section--surface" id="repartition-section">
+  <section class="section section--surface">
     <div class="container">
-      <h2 class="section-title text-center mb-8 md:mb-12">Répartition de l'équipe</h2>
-      <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
-        {contractTypes.map((contract, index) => (
-          <div class="text-center">
-            <div class="relative w-28 h-28 mx-auto mb-4">
-              <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36" role="img" aria-label={`${contract.type}: ${contract.percentage}%`}>
-                <path
-                  class="text-[var(--color-border)]"
-                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="3"
-                />
-                <path
-                  class="gauge-progress text-[var(--color-primary)]"
-                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="3"
-                  stroke-dasharray={`${contract.percentage}, 100`}
-                  style={`--initial-offset: ${contract.percentage}; --delay: ${index * 0.2}s`}
-                />
-              </svg>
-              <div class="absolute inset-0 flex items-center justify-center">
-                <span class="gauge-value text-xl font-bold" data-value={contract.percentage}>0%</span>
-              </div>
+      <h2 class="section-title text-center mb-8 md:mb-12">Répartition des statuts</h2>
+      <p class="text-muted text-center max-w-xl mx-auto mb-10 md:mb-14">
+        Trois statuts coexistent au sein de <strong>zatsit</strong>, formant un collectif hybride et complémentaire.
+      </p>
+      <div id="profile-triangle" class="engagement-triangle mx-auto">
+        {contractTypes.map((contract, index) => {
+          const positions = [
+            { x: 160, y: 0 },
+            { x: 270, y: 120 },
+            { x: 50, y: 120 },
+          ];
+          const pos = positions[index];
+          const IconComponent = contractIcons[contract.icon];
+          return (
+            <div
+              class={`partner-card ${index === 0 ? 'active' : ''}`}
+              data-index={index}
+              style={`left: ${pos.x}px; top: ${pos.y}px;`}
+            >
+              {IconComponent && <IconComponent class="partner-icon" />}
+              <span class="partner-name">{contract.type}</span>
             </div>
-            <div class="font-semibold">{contract.type}</div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   </section>
@@ -195,9 +200,30 @@ function getInitials(name: string): string {
 </Layout>
 
 <script>
-  import { initGaugeAnimation } from '../scripts/gauge-animation';
+  function initProfileTriangle() {
+    const container = document.getElementById('profile-triangle');
+    if (!container) return;
 
-  const init = () => initGaugeAnimation('repartition-section');
-  init();
-  document.addEventListener('astro:after-swap', init);
+    const cards = container.querySelectorAll('.partner-card');
+    if (cards.length === 0) return;
+
+    let currentIndex = 0;
+    let intervalId: number;
+
+    function highlightNext() {
+      cards.forEach(card => card.classList.remove('active'));
+      cards[currentIndex].classList.add('active');
+      currentIndex = (currentIndex + 1) % cards.length;
+    }
+
+    intervalId = setInterval(highlightNext, 2000);
+
+    document.addEventListener('astro:before-swap', () => {
+      clearInterval(intervalId);
+    }, { once: true });
+  }
+
+  initProfileTriangle();
+  document.addEventListener('astro:after-swap', initProfileTriangle);
 </script>
+

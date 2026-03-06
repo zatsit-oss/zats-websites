@@ -3,7 +3,7 @@ import { getEntry } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import TechTag from '../components/TechTag.astro';
 import LeafIcon from '../assets/icons/leaf.svg';
-import BriefcaseIcon from '../assets/icons/briefcase.svg';
+import GrowthIcon from '../assets/icons/growth.svg';
 import OpensourceIcon from '../assets/icons/opensource.svg';
 import CodeBracketIcon from '../assets/icons/code-bracket.svg';
 import GlobeIcon from '../assets/icons/globe.svg';
@@ -19,7 +19,7 @@ const { intro, stats, roles, stacks, methodologies } = techData.data;
 
 const statIcons: Record<string, typeof LeafIcon> = {
   leaf: LeafIcon,
-  briefcase: BriefcaseIcon,
+  growth: GrowthIcon,
   opensource: OpensourceIcon,
 };
 
@@ -78,38 +78,29 @@ const methodIcons: Record<string, typeof BadgeIcon> = {
     </div>
   </section>
 
-  <section class="section section--surface" id="profiles-section">
+  <section class="section section--surface">
     <div class="container">
       <h2 class="section-title text-center mb-8 md:mb-12">Répartition des profils</h2>
-      <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
-        {roles.map((role, index) => (
-          <div class="text-center">
-            <div class="relative w-28 h-28 mx-auto mb-4">
-              <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36" role="img" aria-label={`${role.role}: ${role.percentage}%`}>
-                <path
-                  class="text-[var(--color-border)]"
-                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="3"
-                />
-                <path
-                  class="gauge-progress text-[var(--color-primary)]"
-                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="3"
-                  stroke-dasharray={`${role.percentage}, 100`}
-                  style={`--initial-offset: ${role.percentage}; --delay: ${index * 0.2}s`}
-                />
-              </svg>
-              <div class="absolute inset-0 flex items-center justify-center">
-                <span class="gauge-value text-xl font-bold" data-value={role.percentage}>0%</span>
-              </div>
+      <div id="roles-triangle" class="engagement-triangle mx-auto">
+        {roles.map((role, index) => {
+          const positions = [
+            { x: 160, y: 0 },
+            { x: 270, y: 120 },
+            { x: 50, y: 120 },
+          ];
+          const pos = positions[index];
+          const IconComponent = stackIcons[role.icon];
+          return (
+            <div
+              class={`partner-card ${index === 0 ? 'active' : ''}`}
+              data-index={index}
+              style={`left: ${pos.x}px; top: ${pos.y}px;`}
+            >
+              {IconComponent && <IconComponent class="partner-icon" />}
+              <span class="partner-name">{role.role}</span>
             </div>
-            <div class="font-semibold text-sm">{role.role}</div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   </section>
@@ -180,9 +171,29 @@ const methodIcons: Record<string, typeof BadgeIcon> = {
 </Layout>
 
 <script>
-  import { initGaugeAnimation } from '../scripts/gauge-animation';
+  function initRolesTriangle() {
+    const container = document.getElementById('roles-triangle');
+    if (!container) return;
 
-  const init = () => initGaugeAnimation('profiles-section');
-  init();
-  document.addEventListener('astro:after-swap', init);
+    const cards = container.querySelectorAll('.partner-card');
+    if (cards.length === 0) return;
+
+    let currentIndex = 0;
+    let intervalId: number;
+
+    function highlightNext() {
+      cards.forEach(card => card.classList.remove('active'));
+      cards[currentIndex].classList.add('active');
+      currentIndex = (currentIndex + 1) % cards.length;
+    }
+
+    intervalId = setInterval(highlightNext, 2000);
+
+    document.addEventListener('astro:before-swap', () => {
+      clearInterval(intervalId);
+    }, { once: true });
+  }
+
+  initRolesTriangle();
+  document.addEventListener('astro:after-swap', initRolesTriangle);
 </script>

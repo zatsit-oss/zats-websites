@@ -9,14 +9,14 @@
   ],
   "stats": [
     { "value": "36", "label": "Talents", "icon": "users" },
-    { "value": "9 ans", "label": "Expérience moyenne", "icon": "briefcase" },
+    { "value": "9 ans", "label": "Expérience moyenne", "icon": "growth" },
     { "value": "37 ans", "label": "Âge moyen", "icon": "calendar" },
     { "value": "5%", "label": "Turnover", "icon": "refresh" }
   ],
   "contractTypes": [
-    { "type": "CDI", "percentage": 46 },
-    { "type": "Freelances", "percentage": 39 },
-    { "type": "Portage salarial", "percentage": 15 }
+    { "type": "CDI", "icon": "document" },
+    { "type": "Freelances", "icon": "freelance" },
+    { "type": "Portage salarial", "icon": "shield-check" }
   ],
   "leadership": [
     {

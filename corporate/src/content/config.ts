@@ -14,7 +14,7 @@ const peopleCollection = defineCollection({
     })),
     contractTypes: z.array(z.object({
       type: z.string(),
-      percentage: z.number(),
+      icon: z.string(),
     })),
     leadership: z.array(z.object({
       name: z.string(),
@@ -82,7 +82,7 @@ const techCollection = defineCollection({
     })),
     roles: z.array(z.object({
       role: z.string(),
-      percentage: z.number(),
+      icon: z.string(),
     })),
     stacks: z.array(z.object({
       name: z.string(),
