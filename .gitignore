@@ -4,3 +4,8 @@ node_modules/
 
 CLAUDE.md
 .claude/
+
+.astro
+node_modules
+corporate/node_modules
+corporate/.astro

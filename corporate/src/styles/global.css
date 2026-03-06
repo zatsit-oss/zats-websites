@@ -861,7 +861,7 @@ button:hover {
 
 .carousel-track {
   @apply flex;
-  animation: carousel-scroll 30s linear infinite;
+  animation: carousel-scroll 15s linear infinite;
 }
 
 .carousel-track:hover {
@@ -887,7 +887,7 @@ button:hover {
 
 .carousel-slide img {
   @apply w-full h-48 sm:h-56 md:h-64 object-cover rounded-lg;
-  transition: transform 0.3s ease;
+  transition: transform 0.8s ease;
 }
 
 .carousel-slide img:hover {
@@ -900,6 +900,13 @@ button:hover {
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+/* Mobile: faster since slides are full-width */
+@media (max-width: 639px) {
+  .carousel-track {
+    animation-duration: 4s;
   }
 }
 
