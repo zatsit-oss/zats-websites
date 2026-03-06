@@ -16,7 +16,7 @@ These components appear on every page.
 - Logo (links to homepage)
 - Navigation links:
   - Accueil → `/`
-  - Travaillons ensemble → `/join-us`
+  - Rejoins-nous → `/join-us`
   - Nos offres d'emploi → `/careers`
   - Nous trouver → `/find-us`
 - Contact email (desktop only)
@@ -131,7 +131,7 @@ These components appear on every page.
 - Strategic partner for tech challenges
 - Passionate and experienced consultants
 
-**CTA**: "Travaillons ensemble" → `/join-us`
+**CTA**: "Rejoins-nous" → `/join-us`
 
 ---
 
@@ -168,7 +168,7 @@ Each card includes:
 **Purpose**: Contact page for potential clients.
 
 **Content**:
-- Headline: "Travaillons ensemble"
+- Headline: "Rejoins-nous"
 - Brief invitation to discuss projects
 - CTA: Email link to contact@zatsit.fr
 
