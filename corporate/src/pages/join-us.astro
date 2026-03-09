@@ -4,7 +4,7 @@ import ExternalLinkIcon from '../assets/icons/external-link.svg';
 ---
 
 <Layout title="Rejoins-nous" description="Découvrez les avantages de rejoindre zatsit : mutuelle, titres-restaurant éco-responsables et bien plus.">
-  <section class="section--hero">
+  <section class="section--hero !pb-10 md:!pb-16">
     <div class="hero-decoration">
       <div class="hero-blob hero-blob--primary"></div>
       <div class="hero-blob hero-blob--secondary"></div>
@@ -24,7 +24,7 @@ import ExternalLinkIcon from '../assets/icons/external-link.svg';
     </div>
   </section>
 
-  <section class="section">
+  <section class="section !pt-8 md:!pt-12">
     <div class="container">
       <div class="max-w-3xl mx-auto">
         <h2 class="section-title mb-8">
@@ -84,6 +84,113 @@ import ExternalLinkIcon from '../assets/icons/external-link.svg';
     <div class="container">
       <div class="max-w-3xl mx-auto">
         <h2 class="section-title mb-8">
+          À la maison ou chez le client, <span class="text-gradient">on pense à toi</span>
+        </h2>
+        <div class="content-block">
+          <p>
+            Que tu travailles de chez toi ou que tu te déplaces, <strong>zatsit</strong> t'accompagne au quotidien
+            avec des dispositifs concrets pour ta mobilité.
+          </p>
+          <p>
+            <strong class="text-[var(--color-text)]">Forfait télétravail</strong> : 2,50 € par jour télétravaillé,
+            soit entre <strong class="text-[var(--color-text)]">215 € et 325 € par an</strong> directement sur ta fiche de paie.
+          </p>
+          <p>
+            <strong class="text-[var(--color-text)]">Forfait mobilité durable</strong> : 0,35 € par kilomètre parcouru
+            à vélo, en covoiturage ou en mobilité douce.
+            Cumulable avec le <strong class="text-[var(--color-text)]">remboursement transport à 50 %</strong>,
+            le tout pouvant atteindre jusqu'à <strong class="text-[var(--color-text)]">900 € par an</strong>.
+          </p>
+          <p>
+            <strong class="text-[var(--color-text)]">Aide à l'achat mobilité douce</strong> : <strong>zatsit</strong> participe à hauteur de
+            <strong class="text-[var(--color-text)]">250 €</strong> pour l'achat d'un vélo, d'une trottinette ou de tout autre moyen de transport doux.
+          </p>
+            <div class="bike-gallery">
+                <button type="button" class="bike-btn" aria-label="Agrandir la photo du vélo zatsit - vue 1">
+                    <img
+                            src="/images/partners/zats-bike-1.jpeg"
+                            alt="Vélo zatsit REF Bikes - vue 1"
+                            class="bike-img"
+                            loading="lazy"
+                    />
+                </button>
+                <button type="button" class="bike-btn" aria-label="Agrandir la photo du vélo zatsit - vue 2">
+                    <img
+                            src="/images/partners/zats-bike-2.jpeg"
+                            alt="Vélo zatsit REF Bikes - vue 2"
+                            class="bike-img"
+                            loading="lazy"
+                    />
+                </button>
+                <button type="button" class="bike-btn" aria-label="Agrandir la photo du vélo zatsit - vue 3">
+                    <img
+                            src="/images/partners/zats-bike-3.jpeg"
+                            alt="Vélo zatsit REF Bikes - vue 3"
+                            class="bike-img"
+                            loading="lazy"
+                    />
+                </button>
+            </div>
+          <p>
+            Et pour pédaler avec style, <strong>zatsit</strong> met à disposition de formidables montures
+            conçues par
+            <a href="https://ref-bikes.com/mission/" target="_blank" rel="noopener noreferrer" class="link-primary">REF Bikes <ExternalLinkIcon class="icon-sm" /></a>,
+            une entreprise française qui fabrique des vélos modulaires
+            grâce à leur technologie brevetée Plug&Go®.
+            Un seul cadre, des dizaines d'usages : du vélo urbain au cargo, avec ou sans assistance électrique.
+            100 % fabriqués en France, avec un objectif zéro déchet.
+          </p>
+        </div>
+
+
+        <dialog id="bike-lightbox" class="lightbox" aria-label="Photo agrandie du vélo">
+          <img class="lightbox-img" src="" alt="" />
+          <button type="button" class="lightbox-close" aria-label="Fermer">&times;</button>
+        </dialog>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center lg:justify-center max-w-5xl mx-auto">
+        <div class="max-w-xl text-center lg:text-left">
+          <h2 class="section-title mb-8">
+            Une carte cadeau <span class="text-gradient">qui a du sens</span>
+          </h2>
+          <div class="content-block">
+            <p>
+              Chaque année, <strong>zatsit</strong> t'offre une
+              <a href="https://www.ethikdo.co/qui-sommes-nous/" target="_blank" rel="noopener noreferrer" class="link-primary">carte cadeau Ethikdo <ExternalLinkIcon class="icon-sm" /></a>,
+              la première carte cadeau multi-enseignes <strong class="text-[var(--color-text)]">éco-responsable et solidaire</strong>.
+            </p>
+            <p>
+              Ethikdo est une coopérative d'intérêt collectif reconnue
+              <strong class="text-[var(--color-text)]">Entreprise Solidaire d'Utilité Sociale</strong>.
+              Ta carte te donne accès à un réseau d'enseignes engagées pour l'environnement
+              et l'économie sociale et solidaire.
+            </p>
+            <p>
+              Offrir autrement, consommer mieux : c'est aussi ça, faire partie de <strong>zatsit</strong>.
+            </p>
+          </div>
+        </div>
+        <div class="ethikdo-card-wrapper">
+          <img
+            src="/images/partners/ethikado.png"
+            alt="Carte cadeau Ethikdo"
+            class="ethikdo-card"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="section-title mb-8">
           Afterworks & <span class="text-gradient">cooptation</span>
         </h2>
         <div class="content-block">
@@ -101,6 +208,32 @@ import ExternalLinkIcon from '../assets/icons/external-link.svg';
             Et si la personne que tu présentes rejoint le collectif et valide sa période d'essai,
             une <strong class="text-[var(--color-text)]">prime de cooptation</strong> est versée, pour toi comme pour ton·ta coopté·e.
           </p>
+        </div>
+        <div class="bike-gallery">
+          <button type="button" class="bike-btn" aria-label="Agrandir la photo d'afterwork - vue 1">
+            <img
+              src="/images/team/afterworks/afterwork-1.jpeg"
+              alt="Afterwork zatsit - ambiance conviviale"
+              class="bike-img"
+              loading="lazy"
+            />
+          </button>
+          <button type="button" class="bike-btn" aria-label="Agrandir la photo d'afterwork - vue 2">
+            <img
+              src="/images/team/afterworks/afterwork-2.jpeg"
+              alt="Afterwork zatsit - moment de partage"
+              class="bike-img"
+              loading="lazy"
+            />
+          </button>
+          <button type="button" class="bike-btn" aria-label="Agrandir la photo d'afterwork - vue 3">
+            <img
+              src="/images/team/afterworks/afterwork-3.jpeg"
+              alt="Afterwork zatsit - soirée équipe"
+              class="bike-img"
+              loading="lazy"
+            />
+          </button>
         </div>
       </div>
     </div>
@@ -138,3 +271,23 @@ import ExternalLinkIcon from '../assets/icons/external-link.svg';
     </div>
   </section>
 </Layout>
+
+<script>
+  const dialog = document.getElementById('bike-lightbox') as HTMLDialogElement;
+  const lightboxImg = dialog.querySelector('.lightbox-img') as HTMLImageElement;
+
+  document.querySelectorAll('.bike-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const img = btn.querySelector('img') as HTMLImageElement;
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      dialog.showModal();
+    });
+  });
+
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog || (e.target as Element).classList.contains('lightbox-close')) {
+      dialog.close();
+    }
+  });
+</script>
