@@ -1,6 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ExternalLinkIcon from '../assets/icons/external-link.svg';
+import HeartIcon from '../assets/icons/heart.svg';
+import TicketIcon from '../assets/icons/ticket.svg';
+import BikeIcon from '../assets/icons/bike.svg';
+import LaptopIcon from '../assets/icons/laptop.svg';
+import LeafIcon from '../assets/icons/leaf.svg';
+import HandshakeIcon from '../assets/icons/handshake.svg';
+import CalendarIcon from '../assets/icons/calendar.svg';
+import RefreshIcon from '../assets/icons/refresh.svg';
+import OpensourceIcon from '../assets/icons/opensource.svg';
 ---
 
 <Layout title="Rejoins-nous" description="Découvrez les avantages de rejoindre zatsit : mutuelle, titres-restaurant éco-responsables et bien plus.">
@@ -43,6 +52,49 @@ import ExternalLinkIcon from '../assets/icons/external-link.svg';
 
   <section class="section section--surface">
     <div class="container">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="section-title mb-8">
+          Du matériel <span class="text-gradient">qui te ressemble</span>
+        </h2>
+        <div class="content-block">
+          <p>
+            Chez <strong>zatsit</strong>, ton outil de travail est un choix, pas une contrainte.
+          </p>
+        </div>
+        <div class="gear-options">
+          <div class="gear-card">
+            <div class="gear-icon">
+              <OpensourceIcon class="icon-lg icon-primary" />
+            </div>
+            <h3 class="gear-title">Framework</h3>
+            <p class="gear-desc">
+              Notre choix par défaut :
+              <a href="https://frame.work/fr/fr/about" target="_blank" rel="noopener noreferrer" class="link-primary">Framework <ExternalLinkIcon class="icon-sm" /></a>,
+              le laptop <strong class="text-[var(--color-text)]">modulaire, réparable et évolutif</strong>.
+              Tu remplaces chaque composant toi-même, tu upgrades au lieu de jeter.
+              Open source, fabriqué pour durer — c'est l'anti-obsolescence par design.
+            </p>
+          </div>
+          <div class="gear-card">
+            <div class="gear-icon">
+              <RefreshIcon class="icon-lg icon-primary" />
+            </div>
+            <h3 class="gear-title">Mac reconditionné</h3>
+            <p class="gear-desc">
+              Besoin de macOS pour ton projet ? On passe par
+              <a href="https://www.backmarket.fr/" target="_blank" rel="noopener noreferrer" class="link-primary">Back Market <ExternalLinkIcon class="icon-sm" /></a>
+              pour un Mac <strong class="text-[var(--color-text)]">reconditionné</strong>.
+              Même performance, seconde vie — et une empreinte carbone réduite
+              par rapport au neuf.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
       <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center lg:items-start lg:justify-center max-w-5xl mx-auto">
         <div class="max-w-xl text-center lg:text-left">
           <h2 class="section-title mb-8">
@@ -80,7 +132,7 @@ import ExternalLinkIcon from '../assets/icons/external-link.svg';
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section--surface">
     <div class="container">
       <div class="max-w-3xl mx-auto">
         <h2 class="section-title mb-8">
@@ -151,7 +203,7 @@ import ExternalLinkIcon from '../assets/icons/external-link.svg';
     </div>
   </section>
 
-  <section class="section section--surface">
+  <section class="section">
     <div class="container">
       <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center lg:justify-center max-w-5xl mx-auto">
         <div class="max-w-xl text-center lg:text-left">
@@ -187,7 +239,7 @@ import ExternalLinkIcon from '../assets/icons/external-link.svg';
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section--surface">
     <div class="container">
       <div class="max-w-3xl mx-auto">
         <h2 class="section-title mb-8">
@@ -239,7 +291,7 @@ import ExternalLinkIcon from '../assets/icons/external-link.svg';
     </div>
   </section>
 
-  <section class="section section--surface">
+  <section class="section">
     <div class="container">
       <div class="max-w-3xl mx-auto">
         <h2 class="section-title mb-8">
@@ -270,6 +322,67 @@ import ExternalLinkIcon from '../assets/icons/external-link.svg';
       </div>
     </div>
   </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="section-title mb-12">
+          Les avantages <span class="text-gradient">en un coup d'œil</span>
+        </h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <HeartIcon class="icon-lg icon-primary" />
+            </div>
+            <div class="stat-value">100 %</div>
+            <div class="stat-label">Mutuelle prise en charge</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <TicketIcon class="icon-lg icon-primary" />
+            </div>
+            <div class="stat-value">10 €<span class="stat-unit">/jour</span></div>
+            <div class="stat-label">Titres-restaurant</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <LaptopIcon class="icon-lg icon-primary" />
+            </div>
+            <div class="stat-value">325 €<span class="stat-unit">/an</span></div>
+            <div class="stat-label">Forfait télétravail</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <BikeIcon class="icon-lg icon-primary" />
+            </div>
+            <div class="stat-value">900 €<span class="stat-unit">/an</span></div>
+            <div class="stat-label">Mobilité durable</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <LeafIcon class="icon-lg icon-primary" />
+            </div>
+            <div class="stat-value">250 €</div>
+            <div class="stat-label">Aide achat mobilité douce</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <HandshakeIcon class="icon-lg icon-primary" />
+            </div>
+            <div class="stat-value">1<span class="stat-unit">/mois</span></div>
+            <div class="stat-label">Afterwork</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <CalendarIcon class="icon-lg icon-primary" />
+            </div>
+            <div class="stat-value">1<span class="stat-unit">/mois</span></div>
+            <div class="stat-label">Zatsday</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>
 
 <script>
@@ -290,4 +403,20 @@ import ExternalLinkIcon from '../assets/icons/external-link.svg';
       dialog.close();
     }
   });
+
+  // Staggered reveal for stat cards
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const cards = entry.target.querySelectorAll('.stat-card');
+        cards.forEach((card, i) => {
+          setTimeout(() => card.classList.add('is-visible'), i * 100);
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  const grid = document.querySelector('.stats-grid');
+  if (grid) observer.observe(grid);
 </script>
