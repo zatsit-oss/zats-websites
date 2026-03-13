@@ -6,11 +6,12 @@ interface Props {
   title: string;
   headerTitle?: string;
   displayHomeLink?: boolean;
+  showByLine?: boolean;
 }
 
 import {ZATSIT_WEBSITE_URL, BLOG_URL, GITHUB_URL, LINKEDIN_URL} from "astro:env/client";
 
-const { title, headerTitle, displayHomeLink = true} = Astro.props;
+const { title, headerTitle, displayHomeLink = true, showByLine = true} = Astro.props;
 ---
 
 <!doctype html>
@@ -44,7 +45,7 @@ const { title, headerTitle, displayHomeLink = true} = Astro.props;
       });
     </script>
   </head>
-  <Header title={headerTitle ?? title} displayHomeLink={displayHomeLink} website_url={ZATSIT_WEBSITE_URL} />
+  <Header title={headerTitle ?? title} displayHomeLink={displayHomeLink} website_url={ZATSIT_WEBSITE_URL} showByLine={showByLine} />
 
   <body
     class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300"
