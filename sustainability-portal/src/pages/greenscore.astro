@@ -1,0 +1,211 @@
+---
+import Layout from '../layouts/Layout.astro';
+import {Image} from 'astro:assets';
+import auditImage from '../assets/environmental-audit-rafiki.png';
+import monitorImage from '../assets/charts-bro.png';
+import assesmentImage from '../assets/customer-survey-rafiki.png';
+
+interface Work {
+    title: string;
+    description: string;
+    image: ImageMetadata;
+}
+
+interface Project {
+    title: string;
+    description: string;
+    icon: string;
+}
+
+const works: Work[] = [
+    {
+        title: 'Create your first assessment',
+        description: 'Choose the evaluation that fits your needs: API Green Score to measure your APIs\' environmental footprint, or EROOM to assess the optimization potential of your digital services. Answer themed questions and receive a score from A to E, helping you identify areas for improvement.',
+        image: assesmentImage
+    },
+    {
+        title: 'Monitor progress',
+        description: 'After receiving your score, reach out to us. Our team will assist you in implementing corrective actions to enhance your project\'s environmental impact. Together, we can optimize your digital practices for a more sustainable future.',
+        image: monitorImage
+    }
+];
+
+const projects: Project[] = [
+    {
+        title: 'From spreadsheets to an intuitive webApp',
+        description: 'Both evaluation frameworks originally lived in spreadsheets : Excel for API Green Score, Google Sheets for EROOM. Simple but hard to share, track over time, or collaborate on. We turned them into a single, unified web application.',
+        icon: '💾',
+    },
+    {
+        title: 'Ecodesign',
+        description: 'The first version of our solution enables you to store data directly in the browser, ensuring a lightweight and efficient approach. This eliminates the need for complex, resource-intensive systems that can slow down performance. Our goal is to keep things simple, fast, and environmentally friendly in the demo.',
+        icon: '🌱',
+    },
+    {
+        title: 'How to store evaluations later without wasting energy?',
+        description: 'We will offer data storage implementation solutions to take advantage of existing assets in your information system and thus avoid over-consuming energy to measure its impact!',
+        icon: '⚡',
+    },
+]
+---
+
+<Layout title="Zats Green Score - Evaluate Your Digital Project's Environmental Impact" headerTitle="Zats Green Score" showByLine={false}>
+    <main id="main-content">
+        <!-- Hero -->
+        <section aria-labelledby="welcome-title"
+                 class="py-12 md:py-16 relative overflow-hidden">
+            <div class="container mx-auto px-4 max-w-4xl flex flex-col lg:flex-row lg:items-center gap-12">
+                <div class="flex flex-col w-full lg:w-1/2 text-center lg:text-left">
+                    <h1 id="welcome-title" class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+                        Zats <span class="text-primary-light dark:text-primary-dark">Green Score</span>
+                    </h1>
+                    <p class="text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-xl mb-8">
+                        Two tools to measure the environmental impact of your digital services: <strong class="text-gray-700 dark:text-gray-200">API Green Score</strong> for your APIs, <strong class="text-gray-700 dark:text-gray-200">EROOM</strong> for your digital services, combined in a single application.
+                    </p>
+                    <div class="flex flex-row flex-wrap gap-3 justify-center lg:justify-start">
+                        <a
+                            href="https://greenscore.zatsit.fr"
+                            class="inline-flex items-center justify-center gap-2 text-sm md:text-base font-semibold px-4 py-2 md:px-6 md:py-3 rounded-lg bg-primary-light dark:bg-primary-dark text-white dark:text-black transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+                            aria-label="Start evaluating your project's environmental impact"
+                        >
+                            Try it Online
+                        </a>
+                        <a
+                            href="https://github.com/zatsit-oss/zats-greenscore"
+                            class="inline-flex items-center justify-center gap-2 text-sm md:text-base font-semibold px-4 py-2 md:px-6 md:py-3 rounded-lg border-2 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white transition-all duration-200 hover:border-primary-light dark:hover:border-primary-dark hover:text-primary-light dark:hover:text-primary-dark hover:-translate-y-0.5"
+                            aria-label="Fork the project on GitHub"
+                        >
+                            Fork the project
+                        </a>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/2">
+                    <Image
+                        src={auditImage}
+                        alt="Interactive dashboard showing carbon impact metrics and environmental scores for web projects"
+                        loading="eager"
+                        class="rounded-xl w-full"
+                    />
+                </div>
+            </div>
+        </section>
+
+        <!-- How does it work -->
+        <section aria-labelledby="how-it-works" class="py-10 md:py-14 bg-gray-100/50 dark:bg-gray-800/30">
+            <div class="container mx-auto px-4">
+                <h2 id="how-it-works"
+                    class="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-900 dark:text-white">
+                    How does it work?
+                </h2>
+                <p class="text-lg text-gray-500 dark:text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+                    Get started in two simple steps.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    {
+                        works.map((card, index) => (
+                            <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:border-primary-light dark:hover:border-primary-dark hover:-translate-y-1">
+                                <Image src={card.image} alt="" aria-hidden="true" class="w-full h-48 object-cover"/>
+                                <div class="p-6">
+                                    <h3 id={`feature-${index + 1}`}
+                                        class="text-xl font-bold mb-2 text-gray-900 dark:text-white">
+                                        {card.title}
+                                    </h3>
+                                    <p class="text-gray-500 dark:text-gray-400">{card.description}</p>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+
+        <!-- Why this project -->
+        <section aria-labelledby="why-this-project" class="py-10 md:py-14">
+            <div class="container mx-auto px-4">
+                <h2 id="why-this-project"
+                    class="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-900 dark:text-white">
+                    Why this Project?
+                </h2>
+                <p class="text-lg text-gray-500 dark:text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+                    Making eco-assessment accessible, lightweight, and actionable.
+                </p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    {
+                        projects.map((feature, index) => (
+                            <div class="p-6 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:border-primary-light dark:hover:border-primary-dark hover:-translate-y-1">
+                                <h3 id={`benefit-${index + 1}`}
+                                    class="text-lg font-bold mb-2 text-gray-900 dark:text-white">
+                                    <span aria-hidden="true">{feature.icon}</span> {feature.title}
+                                </h3>
+                                <p class="text-gray-500 dark:text-gray-400">{feature.description}</p>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+
+        <!-- Credits & Licenses -->
+        <section aria-labelledby="credits-title" class="py-10 md:py-14 bg-gray-100/50 dark:bg-gray-800/30">
+            <div class="container mx-auto px-4">
+                <h2 id="credits-title"
+                    class="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-900 dark:text-white">
+                    Credits & Licenses
+                </h2>
+                <p class="text-lg text-gray-500 dark:text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+                    Built on the shoulders of open frameworks.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="p-6 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                        <h3 class="text-lg font-bold mb-3 text-gray-900 dark:text-white">EROOM — Boavizta</h3>
+                        <p class="text-gray-500 dark:text-gray-400 mb-4">
+                            The EROOM evaluation data is based on the
+                            <a href="https://boavizta.org/eroom/la-genese" class="text-primary-light dark:text-primary-dark font-medium hover:underline" target="_blank" rel="noopener noreferrer">EROOM Optimization Framework</a>
+                            by <a href="https://boavizta.org/" class="text-primary-light dark:text-primary-dark font-medium hover:underline" target="_blank" rel="noopener noreferrer">Boavizta</a>,
+                            licensed under
+                            <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="text-primary-light dark:text-primary-dark font-medium hover:underline" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.
+                        </p>
+                        <p class="text-sm text-gray-400 dark:text-gray-500">
+                            The original content (questions, answers, and scoring methodology) has been kept as-is, only the format was changed from Google Sheets to a web application.
+                        </p>
+                    </div>
+                    <div class="p-6 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                        <h3 class="text-lg font-bold mb-3 text-gray-900 dark:text-white">API Green Score</h3>
+                        <p class="text-gray-500 dark:text-gray-400">
+                            Inspired by the <a href="https://www.collectif-api-thinking.com/article?id=6" class="text-primary-light dark:text-primary-dark font-medium hover:underline" target="_blank" rel="noopener noreferrer">API Thinking Collective</a> evaluation grid. The original content has been kept as-is, only the format was changed from Excel to a web application.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to action -->
+        <section aria-label="Call to action" class="py-10 md:py-14 text-center">
+            <div class="container mx-auto px-4">
+                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+                    To start <span class="text-primary-light dark:text-primary-dark">reducing</span>, you have to <span
+                        class="text-primary-light dark:text-primary-dark">measure</span>
+                </h3>
+                <p class="text-lg text-gray-500 dark:text-gray-400 mb-10 max-w-2xl mx-auto">
+                    We are at your service to initiate a real eco-responsible transformation.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a
+                        href="https://greenscore.zatsit.fr"
+                        class="inline-flex items-center justify-center gap-2 font-semibold px-6 py-3 rounded-lg bg-primary-light dark:bg-primary-dark text-white dark:text-black transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+                        aria-label="Start evaluating your project's environmental impact"
+                    >
+                        Try it Online
+                    </a>
+                    <a
+                        href="https://github.com/zatsit-oss/zats-greenscore"
+                        class="inline-flex items-center justify-center gap-2 font-semibold px-6 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white transition-all duration-200 hover:border-primary-light dark:hover:border-primary-dark hover:text-primary-light dark:hover:text-primary-dark hover:-translate-y-0.5"
+                        aria-label="Fork the project on GitHub"
+                    >
+                        Fork the project
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+</Layout>
