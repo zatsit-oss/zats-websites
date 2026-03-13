@@ -19,8 +19,8 @@ interface Project {
 
 const works: Work[] = [
     {
-        title: 'Create your first assesment',
-        description: 'The Green Score questionnaire evaluates the environmental impact of digital projects by assessing API efficiency across key areas like data exchange, infrastructure, and lifecycle management.\n Users answer themed questions to receive a score from A to E, indicating their project\'s footprint. This helps identify areas for improvement and adopt eco-friendly practices.',
+        title: 'Create your first assessment',
+        description: 'Choose the evaluation that fits your needs: API Green Score to measure your APIs\' environmental footprint, or EROOM to assess the optimization potential of your digital services. Answer themed questions and receive a score from A to E, helping you identify areas for improvement.',
         image: assesmentImage
     },
     {
@@ -32,8 +32,8 @@ const works: Work[] = [
 
 const projects: Project[] = [
     {
-        title: 'From Excel to Intuituve webApp',
-        description: 'The original evaluation grid has the merit of being simple, but it is an Excel file, which must be exchanged, stored and which does not allow for real monitoring over time.',
+        title: 'From spreadsheets to an intuitive webApp',
+        description: 'Both evaluation frameworks originally lived in spreadsheets : Excel for API Green Score, Google Sheets for EROOM. Simple but hard to share, track over time, or collaborate on. We turned them into a single, unified web application.',
         icon: '💾',
     },
     {
@@ -42,24 +42,23 @@ const projects: Project[] = [
         icon: '🌱',
     },
     {
-        title: 'How to store evaluations later without wasting energy ?',
-        description: 'We will offer data storage implementation solutions to take advantage of existing assets in your information system and thus avoid over-consuming energy to measure its impact !',
+        title: 'How to store evaluations later without wasting energy?',
+        description: 'We will offer data storage implementation solutions to take advantage of existing assets in your information system and thus avoid over-consuming energy to measure its impact!',
         icon: '⚡',
     },
 ]
 ---
 
-<Layout title="API Green Score - Evaluate Your Project's Carbon Impact">
+<Layout title="GreenScore - Evaluate Your Digital Project's Environmental Impact" headerTitle="GreenScore">
     <main id="main-content" class="container mx-auto px-4 py-16">
         <section aria-labelledby="welcome-title"
                  class="text-center mb-16 flex flex-col lg:flex-row lg:items-center mx-auto">
             <div class="flex flex-col w-full px-7">
-                <h1 id="welcome-title" class="text-5xl font-bold mb-6 text-gray-900 dark:text-white">
-                    Our first </br> tool to measure </br> <span class="text-primary-light dark:text-primary-dark">the carbon footprint</span></br>
-                    of yours APIs !
+                <h1 id="welcome-title" class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+                    Zats <span class="text-primary-light dark:text-primary-dark">Green Score</span>
                 </h1>
-                <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mb-12">
-                    Inspired by the API thinking Collective, sublimated by zatsit team !
+                <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-12">
+                    Two tools to measure the environmental impact of your digital services: <strong>API Green Score</strong> for your APIs, <strong>EROOM</strong> for your digital services, combined in a single application.
                 </p>
             </div>
             <div class="bg-gradient-to-br from-primary-light/5 to-primary-light/10 dark:from-primary-dark/5 dark:to-primary-dark/10 p-8 rounded-2xl max-w-2xl mx-auto backdrop-blur-sm animate-wiggle hover:animate-none w-full">
@@ -115,6 +114,34 @@ const projects: Project[] = [
                             </div>
                     ))
                 }
+            </div>
+        </section>
+
+        <section aria-labelledby="credits-title" class="mb-20">
+            <h2 id="credits-title"
+                class="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+                Credits & Licenses
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="p-8 rounded-xl bg-white dark:bg-gray-800 shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-900 dark:text-white">EROOM — Boavizta</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        The EROOM evaluation data is based on the
+                        <a href="https://boavizta.org/eroom/la-genese" class="text-primary-light dark:text-primary-dark underline" target="_blank" rel="noopener noreferrer">EROOM Optimization Framework</a>
+                        by <a href="https://boavizta.org/" class="text-primary-light dark:text-primary-dark underline" target="_blank" rel="noopener noreferrer">Boavizta</a>,
+                        licensed under
+                        <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="text-primary-light dark:text-primary-dark underline" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.
+                    </p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                        The original content (questions, answers, and scoring methodology) has been kept as-is, only the format was changed from Google Sheets to a web application.
+                    </p>
+                </div>
+                <div class="p-8 rounded-xl bg-white dark:bg-gray-800 shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-900 dark:text-white">API Green Score</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Inspired by the <strong>API Thinking Collective</strong> evaluation grid. The original content has been kept as-is, only the format was changed from Excel to a web application.
+                    </p>
+                </div>
             </div>
         </section>
 
