@@ -1,16 +1,16 @@
 ---
-import { BLOG_URL, LINKEDIN_URL, GITHUB_URL } from 'astro:env/client';
+import { BLOG_URL, LINKEDIN_URL, GITHUB_URL, SUSTAINABILITY_URL } from 'astro:env/client';
 import Logo from './Logo.astro';
 import GithubIcon from '../assets/icons/github.svg';
 import LinkedinIcon from '../assets/icons/linkedin.svg';
 import BlogIcon from '../assets/icons/blog.svg';
 import BlueskyIcon from '../assets/icons/bluesky.svg';
+import SustainabilityIcon from '../assets/icons/sustainability.svg';
 import MailIcon from '../assets/icons/mail.svg';
 import LocationIcon from '../assets/icons/location.svg';
 import ExternalLinkIcon from '../assets/icons/external-link.svg';
 import { Image } from 'astro:assets';
 import ecovadisMedal from '../assets/ecovadis-medal.webp';
-import WttjIcon from '../assets/icons/wttj.svg';
 ---
 
 <footer class="footer">
@@ -59,6 +59,13 @@ import WttjIcon from '../assets/icons/wttj.svg';
             <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="link-icon">
               <BlogIcon class="icon-md" />
               Blog
+              <ExternalLinkIcon class="icon-sm" />
+            </a>
+          </li>
+          <li>
+            <a href={SUSTAINABILITY_URL} target="_blank" rel="noopener noreferrer" class="link-icon">
+              <SustainabilityIcon class="icon-md" />
+              Sustainability
               <ExternalLinkIcon class="icon-sm" />
             </a>
           </li>

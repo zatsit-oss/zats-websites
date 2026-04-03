@@ -21,26 +21,26 @@ const {blog_url, linkedin_url, github_url} = Astro.props;
             <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
         </div>
         <div class="flex gap-4">
-            <a href={blog_url} target="_blank" rel="noopener noreferrer"
-               aria-label="Notre blog"
-               class="relative flex items-center justify-center h-[34px] w-[34px] rounded-full
-          bg-primary-light text-white dark:bg-primary-dark dark:text-black transition-colors duration-300 overflow-hidden">
-                <BLOG_SVG  class="h-5 w-5" fill="currentColor" />
-            </a>
-            <a href={linkedin_url} target="_blank" rel="noopener noreferrer"
-               aria-label="Notre page LinkedIn"
-               class="flex items-center justify-center h-[34px] w-[34px] rounded-full
+        <a href={blog_url} target="_blank" rel="noopener noreferrer"
+        aria-label="Notre blog"
+        class="relative flex items-center justify-center h-[34px] w-[34px] rounded-full
+        bg-primary-light text-white dark:bg-primary-dark dark:text-black transition-colors duration-300 overflow-hidden">
+        <BLOG_SVG class="h-5 w-5" fill="currentColor" />
+        </a>
+        <a href={linkedin_url} target="_blank" rel="noopener noreferrer"
+           aria-label="Notre page LinkedIn"
+           class="flex items-center justify-center h-[34px] w-[34px] rounded-full
               bg-primary-light text-white dark:bg-primary-dark dark:text-black transition-colors duration-300">
-                <LINKEDIN_SVG  class="h-5 w-5" fill="currentColor" />
-            </a>
+            <LINKEDIN_SVG class="h-5 w-5" fill="currentColor"/>
+        </a>
 
-            <a href={github_url} target="_blank" rel="noopener noreferrer"
-               aria-label="Notre page Github"
-               class="flex items-center justify-center h-[34px] w-[34px] rounded-full
+        <a href={github_url} target="_blank" rel="noopener noreferrer"
+           aria-label="Notre page Github"
+           class="flex items-center justify-center h-[34px] w-[34px] rounded-full
               bg-primary-light text-white dark:bg-primary-dark dark:text-black transition-colors duration-300">
-                <GITHUB_SVG  class="h-5 w-5" fill="currentColor" />
-            </a>
-        </div>
+            <GITHUB_SVG class="h-5 w-5" fill="currentColor"/>
+        </a>
+    </div>
     </div>
 
     <!-- Texte copyright bas -->

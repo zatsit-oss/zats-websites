@@ -42,6 +42,12 @@ export default defineConfig({
         context: 'client',
         default: 'https://github.com/zatsit-oss',
       }),
+      SUSTAINABILITY_URL: envField.string({
+        required: true,
+        access: 'public',
+        context: 'client',
+        default: 'https://sustainability.zatsit.fr/',
+      }),
     },
   },
 });

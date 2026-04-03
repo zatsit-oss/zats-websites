@@ -33,12 +33,14 @@ const fullTitle = `${title} | Zatsit`;
     <meta property="og:site_name" content="Zatsit" />
     <meta property="og:locale" content="fr_FR" />
 
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <title>{fullTitle}</title>
 
     <ViewTransitions />
 
+    <!-- Theme persistence -->
     <script is:inline>
       function applyTheme() {
         const theme = localStorage.getItem('theme') ||
