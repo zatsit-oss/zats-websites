@@ -1,6 +1,10 @@
 ---
+import { BLOG_URL, LINKEDIN_URL, GITHUB_URL } from 'astro:env/client';
 import Logo from './Logo.astro';
 import ThemeToggle from './ThemeToggle.astro';
+import LinkedinIcon from '../assets/icons/linkedin.svg';
+import BlogIcon from '../assets/icons/blog.svg';
+import GithubIcon from '../assets/icons/github.svg';
 import MailIcon from '../assets/icons/mail.svg';
 import MenuIcon from '../assets/icons/menu.svg';
 import CloseIcon from '../assets/icons/close.svg';
@@ -28,9 +32,17 @@ const navLinks = [
     </div>
 
     <div class="header-actions">
-      <a href="mailto:contact@zatsit.fr" class="hidden md:flex link-icon text-sm">
+      <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="hidden md:flex link-icon" aria-label="LinkedIn">
+        <LinkedinIcon class="icon-md" />
+      </a>
+      <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="hidden md:flex link-icon" aria-label="Blog">
+        <BlogIcon class="icon-md" />
+      </a>
+      <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="hidden md:flex link-icon" aria-label="GitHub">
+        <GithubIcon class="icon-md" />
+      </a>
+      <a href="mailto:contact@zatsit.fr" class="hidden md:flex link-icon text-sm" aria-label="Email">
         <MailIcon class="icon-md" />
-        contact@zatsit.fr
       </a>
 
       <ThemeToggle />
