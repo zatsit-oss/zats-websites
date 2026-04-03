@@ -48,7 +48,7 @@
       "title": "Formations",
       "icon": "academic-cap",
       "description": "La connaissance ne vaut que si elle est partagée. Nous pouvons intervenir dans vos équipes dans le cadre de BBL ou de formations.",
-      "technologies": ["BBL", "Formations", "Open Source"],
+      "technologies": ["BBL", "Formations", "Open Source", "IA Agentique"],
       "tags": ["#bbl", "#formations", "#openSource"]
     }
   ]
