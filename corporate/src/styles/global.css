@@ -482,35 +482,24 @@ button:hover {
    Layout - Footer
    ========================================================================== */
 
-.footer {
+.footer-main {
   background-color: var(--color-surface);
   border-top: 1px solid var(--color-border);
 }
 
-.footer-grid {
-  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10;
+.footer-social-link {
+  @apply flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200;
+  background-color: var(--color-primary);
+  color: white;
 }
 
-.footer-section-title {
-  @apply font-semibold text-lg mb-4;
+[data-theme="dark"] .footer-social-link {
+  color: #1b1b1d;
 }
 
-.footer-list {
-  @apply space-y-3;
-}
-
-.footer-copyright {
-  @apply mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4;
-  border-top: 1px solid var(--color-border);
-}
-
-.footer-copyright-text {
-  @apply text-sm;
-  color: var(--color-text-muted);
-}
-
-.footer-legal-links {
-  @apply flex gap-6 text-sm;
+.footer-social-link:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-2px);
 }
 
 /* ==========================================================================

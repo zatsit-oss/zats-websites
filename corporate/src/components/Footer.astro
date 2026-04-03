@@ -8,104 +8,77 @@ import BlueskyIcon from '../assets/icons/bluesky.svg';
 import SustainabilityIcon from '../assets/icons/sustainability.svg';
 import MailIcon from '../assets/icons/mail.svg';
 import LocationIcon from '../assets/icons/location.svg';
-import ExternalLinkIcon from '../assets/icons/external-link.svg';
 import { Image } from 'astro:assets';
 import ecovadisMedal from '../assets/ecovadis-medal.webp';
 ---
 
-<footer class="footer">
-  <div class="container py-12 md:py-16">
-    <div class="footer-grid">
-      <!-- Mission -->
-      <div class="lg:col-span-2">
-        <Logo class="h-8 w-auto icon-primary mb-4" />
-        <p class="text-muted text-lg leading-relaxed max-w-md">
+<footer class="footer-main">
+  <div class="container py-10 md:py-12">
+    <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-10 md:gap-16 justify-center">
+
+      <!-- Col 1: Logo + Mission + Website Carbon -->
+      <div>
+        <Logo class="h-8 w-auto icon-primary mb-3" />
+        <p class="text-muted text-sm leading-relaxed">
           Engager notre <strong class="text-[var(--color-text)]">expertise numerique</strong> au service
           de l'<strong class="text-[var(--color-text)]">impact</strong> des entreprises, en creant un ecosysteme
           <strong class="text-[var(--color-text)]">durable</strong>, <strong class="text-[var(--color-text)]">partenarial</strong>
           et <strong class="text-[var(--color-text)]">positif</strong>.
         </p>
-        <div class="mt-6">
-          <Image src={ecovadisMedal} alt="EcoVadis Silver Medal - Top 15%" width={100} height={100} class="opacity-90" />
+        <div class="mt-4">
+          <div id="wcb" class="carbonbadge wcb"></div>
+          <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
         </div>
       </div>
 
-      <!-- Contact -->
+      <!-- Col 2: Contact + Social icons -->
       <div>
-        <h3 class="footer-section-title">Contact</h3>
-        <ul class="footer-list">
-          <li>
-            <a href="mailto:contact@zatsit.fr" class="link-icon">
-              <MailIcon class="icon-md" />
-              contact@zatsit.fr
-            </a>
-          </li>
-          <li class="address">
-            <LocationIcon class="icon-md address-icon" />
+        <h3 class="font-semibold mb-3">Nous contacter</h3>
+        <div class="text-sm text-muted space-y-2">
+          <a href="mailto:contact@zatsit.fr" class="link-icon">
+            <MailIcon class="icon-sm" />
+            contact@zatsit.fr
+          </a>
+          <div class="flex items-start gap-2">
+            <LocationIcon class="icon-sm mt-0.5 shrink-0" />
             <span>
               EURATECHNOPOLYS<br />
               2 Allee de la Haye du Temple<br />
               59160 Lille
             </span>
-          </li>
-        </ul>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-3 mt-4">
+          <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Blog">
+            <BlogIcon class="icon-md" />
+          </a>
+          <a href={SUSTAINABILITY_URL} target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Sustainability">
+            <SustainabilityIcon class="icon-md" />
+          </a>
+          <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="GitHub">
+            <GithubIcon class="icon-md" />
+          </a>
+          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="LinkedIn">
+            <LinkedinIcon class="icon-md" />
+          </a>
+          <a href="https://bsky.app/profile/zatsit.fr" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Bluesky">
+            <BlueskyIcon class="icon-md" />
+          </a>
+        </div>
       </div>
 
-      <!-- Social -->
-      <div>
-        <h3 class="footer-section-title">Nous suivre</h3>
-        <ul class="footer-list">
-          <li>
-            <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="link-icon">
-              <BlogIcon class="icon-md" />
-              Blog
-              <ExternalLinkIcon class="icon-sm" />
-            </a>
-          </li>
-          <li>
-            <a href={SUSTAINABILITY_URL} target="_blank" rel="noopener noreferrer" class="link-icon">
-              <SustainabilityIcon class="icon-md" />
-              Sustainability
-              <ExternalLinkIcon class="icon-sm" />
-            </a>
-          </li>
-          <li>
-            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="link-icon">
-              <GithubIcon class="icon-md" />
-              GitHub
-              <ExternalLinkIcon class="icon-sm" />
-            </a>
-          </li>
-          <li>
-            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="link-icon">
-              <LinkedinIcon class="icon-md" />
-              LinkedIn
-              <ExternalLinkIcon class="icon-sm" />
-            </a>
-          </li>
-          <li>
-            <a href="https://bsky.app/profile/zatsit.fr" target="_blank" rel="noopener noreferrer" class="link-icon">
-              <BlueskyIcon class="icon-md" />
-              Bluesky
-              <ExternalLinkIcon class="icon-sm" />
-            </a>
-          </li>
-        </ul>
+      <!-- Col 3: EcoVadis -->
+      <div class="flex items-center">
+        <Image src={ecovadisMedal} alt="EcoVadis Silver Medal - Top 15%" width={100} height={100} class="opacity-90" />
       </div>
     </div>
+  </div>
 
-    <!-- Website Carbon Badge -->
-    <div class="flex justify-center py-6">
-      <div id="wcb" class="carbonbadge wcb"></div>
-      <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
-    </div>
-
-    <!-- Copyright -->
-    <div class="footer-copyright">
-      <p class="footer-copyright-text">
-        zatsit - {new Date().getFullYear()} &bull; Site statique eco-concu
-      </p>
-      <div class="footer-legal-links">
+  <!-- Copyright bar -->
+  <div class="border-t" style="border-color: var(--color-border);">
+    <div class="container py-4 flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-muted">
+      <p>zatsit - {new Date().getFullYear()} &bull; Site statique eco-concu</p>
+      <div class="flex gap-6">
         <a href="/legal-notice" class="link">Mentions legales</a>
         <a href="/privacy-policy" class="link">Politique de confidentialite</a>
       </div>
