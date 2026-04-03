@@ -10,6 +10,7 @@ import HandshakeIcon from '../assets/icons/handshake.svg';
 import CalendarIcon from '../assets/icons/calendar.svg';
 import RefreshIcon from '../assets/icons/refresh.svg';
 import OpensourceIcon from '../assets/icons/opensource.svg';
+import FrameworkIcon from '../assets/icons/framework.svg';
 ---
 
 <Layout title="Rejoins-nous" description="Découvrez les avantages de rejoindre zatsit : mutuelle, titres-restaurant éco-responsables et bien plus.">
@@ -61,30 +62,30 @@ import OpensourceIcon from '../assets/icons/opensource.svg';
             Chez <strong>zatsit</strong>, ton outil de travail est un choix, pas une contrainte.
           </p>
         </div>
-        <div class="gear-options">
-          <div class="gear-card">
-            <div class="gear-icon">
-              <OpensourceIcon class="icon-lg icon-primary" />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+          <div class="card card--hover p-6 flex flex-col items-center text-center">
+            <div class="mb-4">
+              <FrameworkIcon class="h-8 icon-primary" />
             </div>
-            <h3 class="gear-title">Framework</h3>
-            <p class="gear-desc">
+            <h3 class="font-semibold text-lg mb-2">Framework</h3>
+            <p class="text-muted text-sm leading-relaxed">
               Notre choix par défaut :
               <a href="https://frame.work/fr/fr/about" target="_blank" rel="noopener noreferrer" class="link-primary">Framework <ExternalLinkIcon class="icon-sm" /></a>,
               le laptop <strong class="text-[var(--color-text)]">modulaire, réparable et évolutif</strong>.
               Tu remplaces chaque composant toi-même, tu upgrades au lieu de jeter.
-              Open source, fabriqué pour durer — c'est l'anti-obsolescence par design.
+              Open source, fabriqué pour durer : c'est l'anti-obsolescence par design.
             </p>
           </div>
-          <div class="gear-card">
-            <div class="gear-icon">
+          <div class="card card--hover p-6 flex flex-col items-center text-center">
+            <div class="mb-4">
               <RefreshIcon class="icon-lg icon-primary" />
             </div>
-            <h3 class="gear-title">Mac reconditionné</h3>
-            <p class="gear-desc">
+            <h3 class="font-semibold text-lg mb-2">Mac reconditionné</h3>
+            <p class="text-muted text-sm leading-relaxed">
               Besoin de macOS pour ton projet ? On passe par
               <a href="https://www.backmarket.fr/" target="_blank" rel="noopener noreferrer" class="link-primary">Back Market <ExternalLinkIcon class="icon-sm" /></a>
               pour un Mac <strong class="text-[var(--color-text)]">reconditionné</strong>.
-              Même performance, seconde vie — et une empreinte carbone réduite
+              Même performance, seconde vie, et une empreinte carbone réduite
               par rapport au neuf.
             </p>
           </div>
