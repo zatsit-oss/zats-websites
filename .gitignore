@@ -2,8 +2,7 @@
 .idea/
 node_modules/
 
-CLAUDE.md
-.claude/
+.claude/settings.local.json
 
 .astro
 node_modules

@@ -44,7 +44,7 @@ zatsit-website/
 │   └── styles/
 │       └── global.css          # All styles (variables, components)
 ├── astro.config.mjs            # Astro configuration
-├── CLAUDE.md                   # AI assistant guidelines
+├── AGENTS.md                   # AI agent guidelines (root)
 ├── package.json                # Dependencies and scripts
 └── tsconfig.json               # TypeScript configuration
 ```
