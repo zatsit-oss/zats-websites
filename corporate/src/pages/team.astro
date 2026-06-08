@@ -4,6 +4,9 @@ import Layout from '../layouts/Layout.astro';
 import LinkedinIcon from '../assets/icons/linkedin.svg';
 import GithubIcon from '../assets/icons/github.svg';
 import { Users, Heart, Briefcase, TrendingUp, Calendar, RotateCw, FileText, Rocket, ShieldCheck } from '@lucide/astro';
+import { isPageDisabled } from '../lib/pages';
+
+const careersDisabled = isPageDisabled('careers')
 
 const peopleData = await getEntry('people', 'people');
 if (!peopleData) throw new Error('People data not found');
@@ -183,9 +186,11 @@ function getInitials(name: string): string {
           Chaque dernier vendredi du mois, nous nous retrouvons lors du <strong class="text-gradient">Zatsday</strong> :
           une journée dédiée à la gouvernance, aux formations et aux retours d'expérience.
         </p>
-        <a href="/careers" class="btn-primary">
-          Rejoindre l'équipe
-        </a>
+        {!careersDisabled && (
+          <a href="/careers" class="btn-primary">
+            Rejoindre l'équipe
+          </a>
+        )}
       </div>
     </div>
   </section>

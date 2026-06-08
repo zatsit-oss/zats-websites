@@ -1,4 +1,8 @@
 ---
+import { isPageDisabled } from '../../lib/pages';
+
+const joinUsDisabled = isPageDisabled('join-us')
+const careersDisabled = isPageDisabled('careers')
 ---
 
 <section class="section--hero min-h-[90vh] flex items-center">
@@ -20,12 +24,16 @@
         Expertise, innovation et responsabilité au coeur de nos engagements.
       </p>
       <div class="hero-cta flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/join-us" class="btn-primary text-lg px-8 py-4">
-          Rejoins-nous
-        </a>
-        <a href="/careers" class="btn-secondary text-lg px-8 py-4">
-          Rejoignez-nous
-        </a>
+        {!joinUsDisabled && (
+          <a href="/join-us" class="btn-primary text-lg px-8 py-4">
+            Rejoins-nous
+          </a>
+        )}
+        {!careersDisabled && (
+          <a href="/careers" class="btn-secondary text-lg px-8 py-4">
+            Rejoignez-nous
+          </a>
+        )}
       </div>
     </div>
   </div>

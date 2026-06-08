@@ -98,6 +98,27 @@ Defined in `astro.config.mjs` with default values:
 - `BLOG_URL`: Blog URL
 - `LINKEDIN_URL`: LinkedIn page URL
 - `GITHUB_URL`: GitHub organization URL
+- `SUSTAINABILITY_URL`: Sustainability portal URL
+
+### Conditional Page Generation
+
+Use `DISABLED_PAGES` at build time to exclude specific pages from the generated output.
+
+```bash
+# Disable a single page
+DISABLED_PAGES=careers npm run build
+
+# Disable multiple pages (comma-separated slugs)
+DISABLED_PAGES="careers,find-us,join-us" npm run build
+```
+
+**Controllable pages:** `careers`, `find-us`, `join-us`, `team`, `tech`
+
+**Always generated (cannot be disabled):** `index` (home), `legal-notice`, `privacy-policy`
+
+When a page is disabled:
+- Its HTML file is removed from `dist/` after build → returns 404
+- All navigation links and CTAs pointing to it are hidden from the generated HTML
 
 ## Contributing
 

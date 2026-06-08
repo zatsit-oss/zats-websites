@@ -5,6 +5,7 @@ import ThemeToggle from './ThemeToggle.astro';
 import LinkedinIcon from '../assets/icons/linkedin.svg';
 import GithubIcon from '../assets/icons/github.svg';
 import { BookOpen, Mail, Menu, X } from '@lucide/astro';
+import { isPageDisabled } from '../lib/pages';
 
 const navLinks = [
   { href: '/', label: 'Accueil' },
@@ -14,6 +15,15 @@ const navLinks = [
   { href: '/careers', label: 'Nos offres d\'emploi' },
   { href: '/find-us', label: 'Nous trouver' },
 ];
+
+// Filter out disabled pages
+const filteredNavLinks = navLinks.filter(link => {
+  if (link.href === '/' || link.href === '/legal-notice' || link.href === '/privacy-policy') {
+    return true;
+  }
+  const slug = link.href.replace(/^\//, '');
+  return !isPageDisabled(slug);
+});
 ---
 
 <header class="header glass">
@@ -23,7 +33,7 @@ const navLinks = [
     </a>
 
     <div class="hidden lg:flex items-center gap-8">
-      {navLinks.map(link => (
+      {filteredNavLinks.map(link => (
         <a href={link.href} class="nav-link">{link.label}</a>
       ))}
     </div>
@@ -58,7 +68,7 @@ const navLinks = [
 
   <div id="mobile-menu" class="mobile-menu hidden">
     <div class="container mobile-menu-content">
-      {navLinks.map(link => (
+      {filteredNavLinks.map(link => (
         <a href={link.href} class="mobile-nav-link">{link.label}</a>
       ))}
       <a href="mailto:contact@zatsit.fr" class="link-icon py-2">
