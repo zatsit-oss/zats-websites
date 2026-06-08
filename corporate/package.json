@@ -11,13 +11,14 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.9",
     "@fontsource/poppins": "^5.2.7",
     "@tailwindcss/vite": "^4.1.17",
     "astro": "^5.16.2",
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.3"
   },
   "zatsit": {
     "technologyDisplay": "icon"
