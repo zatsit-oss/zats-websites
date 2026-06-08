@@ -1,16 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ExternalLinkIcon from '../assets/icons/external-link.svg';
-import HeartIcon from '../assets/icons/heart.svg';
-import TicketIcon from '../assets/icons/ticket.svg';
-import BikeIcon from '../assets/icons/bike.svg';
-import LaptopIcon from '../assets/icons/laptop.svg';
-import LeafIcon from '../assets/icons/leaf.svg';
-import HandshakeIcon from '../assets/icons/handshake.svg';
-import CalendarIcon from '../assets/icons/calendar.svg';
-import RefreshIcon from '../assets/icons/refresh.svg';
-import OpensourceIcon from '../assets/icons/opensource.svg';
-import FrameworkIcon from '../assets/icons/framework.svg';
+import { ExternalLink, Heart, Ticket, Bike, Laptop, Leaf, Handshake, Calendar, RotateCw, Package } from '@lucide/astro';
 ---
 
 <Layout title="Rejoins-nous" description="Découvrez les avantages de rejoindre zatsit : mutuelle, titres-restaurant éco-responsables et bien plus.">
@@ -65,12 +55,12 @@ import FrameworkIcon from '../assets/icons/framework.svg';
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           <div class="card card--hover p-6 flex flex-col items-center text-center">
             <div class="mb-4">
-              <FrameworkIcon class="h-8 icon-primary" />
+              <Package class="h-8 icon-primary" size={32} />
             </div>
             <h3 class="font-semibold text-lg mb-2">Framework</h3>
             <p class="text-muted text-sm leading-relaxed">
               Notre choix par défaut :
-              <a href="https://frame.work/fr/fr/about" target="_blank" rel="noopener noreferrer" class="link-primary">Framework <ExternalLinkIcon class="icon-sm" /></a>,
+              <a href="https://frame.work/fr/fr/about" target="_blank" rel="noopener noreferrer" class="link-primary">Framework <ExternalLink class="icon-sm" size={16} /></a>,
               le laptop <strong class="text-[var(--color-text)]">modulaire, réparable et évolutif</strong>.
               Tu remplaces chaque composant toi-même, tu upgrades au lieu de jeter.
               Open source, fabriqué pour durer : c'est l'anti-obsolescence par design.
@@ -78,12 +68,12 @@ import FrameworkIcon from '../assets/icons/framework.svg';
           </div>
           <div class="card card--hover p-6 flex flex-col items-center text-center">
             <div class="mb-4">
-              <RefreshIcon class="icon-lg icon-primary" />
+              <RotateCw class="icon-lg icon-primary" size={28} />
             </div>
             <h3 class="font-semibold text-lg mb-2">Mac reconditionné</h3>
             <p class="text-muted text-sm leading-relaxed">
               Besoin de macOS pour ton projet ? On passe par
-              <a href="https://www.backmarket.fr/" target="_blank" rel="noopener noreferrer" class="link-primary">Back Market <ExternalLinkIcon class="icon-sm" /></a>
+              <a href="https://www.backmarket.fr/" target="_blank" rel="noopener noreferrer" class="link-primary">Back Market <ExternalLink class="icon-sm" size={16} /></a>
               pour un Mac <strong class="text-[var(--color-text)]">reconditionné</strong>.
               Même performance, seconde vie, et une empreinte carbone réduite
               par rapport au neuf.
@@ -104,7 +94,7 @@ import FrameworkIcon from '../assets/icons/framework.svg';
           <div class="content-block">
             <p>
               Nous avons choisi
-              <a href="https://www.ekip.app/" target="_blank" rel="noopener noreferrer" class="link-primary">Ekip <ExternalLinkIcon class="icon-sm" /></a>,
+              <a href="https://www.ekip.app/" target="_blank" rel="noopener noreferrer" class="link-primary">Ekip <ExternalLink class="icon-sm" size={16} /></a>,
               une plateforme innovante de titres-restaurant éco-responsables et solidaires.
               Chaque repas est l'occasion de soutenir des commerces engagés pour la planète.
             </p>
@@ -187,7 +177,7 @@ import FrameworkIcon from '../assets/icons/framework.svg';
           <p>
             Et pour pédaler avec style, <strong>zatsit</strong> met à disposition de formidables montures
             conçues par
-            <a href="https://ref-bikes.com/mission/" target="_blank" rel="noopener noreferrer" class="link-primary">REF Bikes <ExternalLinkIcon class="icon-sm" /></a>,
+            <a href="https://ref-bikes.com/mission/" target="_blank" rel="noopener noreferrer" class="link-primary">REF Bikes <ExternalLink class="icon-sm" size={16} /></a>,
             une entreprise française qui fabrique des vélos modulaires
             grâce à leur technologie brevetée Plug&Go®.
             Un seul cadre, des dizaines d'usages : du vélo urbain au cargo, avec ou sans assistance électrique.
@@ -214,7 +204,7 @@ import FrameworkIcon from '../assets/icons/framework.svg';
           <div class="content-block">
             <p>
               Chaque année, <strong>zatsit</strong> t'offre une
-              <a href="https://www.ethikdo.co/qui-sommes-nous/" target="_blank" rel="noopener noreferrer" class="link-primary">carte cadeau Ethikdo <ExternalLinkIcon class="icon-sm" /></a>,
+              <a href="https://www.ethikdo.co/qui-sommes-nous/" target="_blank" rel="noopener noreferrer" class="link-primary">carte cadeau Ethikdo <ExternalLink class="icon-sm" size={16} /></a>,
               la première carte cadeau multi-enseignes <strong class="text-[var(--color-text)]">éco-responsable et solidaire</strong>.
             </p>
             <p>
@@ -333,49 +323,49 @@ import FrameworkIcon from '../assets/icons/framework.svg';
         <div class="stats-grid">
           <div class="stat-card">
             <div class="stat-icon">
-              <HeartIcon class="icon-lg icon-primary" />
+              <Heart class="icon-lg icon-primary" size={28} />
             </div>
             <div class="stat-value">100 %</div>
             <div class="stat-label">Mutuelle prise en charge</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon">
-              <TicketIcon class="icon-lg icon-primary" />
+              <Ticket class="icon-lg icon-primary" size={28} />
             </div>
             <div class="stat-value">10 €<span class="stat-unit">/jour</span></div>
             <div class="stat-label">Titres-restaurant</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon">
-              <LaptopIcon class="icon-lg icon-primary" />
+              <Laptop class="icon-lg icon-primary" size={28} />
             </div>
             <div class="stat-value">325 €<span class="stat-unit">/an</span></div>
             <div class="stat-label">Forfait télétravail</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon">
-              <BikeIcon class="icon-lg icon-primary" />
+              <Bike class="icon-lg icon-primary" size={28} />
             </div>
             <div class="stat-value">900 €<span class="stat-unit">/an</span></div>
             <div class="stat-label">Mobilité durable</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon">
-              <LeafIcon class="icon-lg icon-primary" />
+              <Leaf class="icon-lg icon-primary" size={28} />
             </div>
             <div class="stat-value">250 €</div>
             <div class="stat-label">Aide achat mobilité douce</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon">
-              <HandshakeIcon class="icon-lg icon-primary" />
+              <Handshake class="icon-lg icon-primary" size={28} />
             </div>
             <div class="stat-value">1<span class="stat-unit">/mois</span></div>
             <div class="stat-label">Afterwork</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon">
-              <CalendarIcon class="icon-lg icon-primary" />
+              <Calendar class="icon-lg icon-primary" size={28} />
             </div>
             <div class="stat-value">1<span class="stat-unit">/mois</span></div>
             <div class="stat-label">Zatsday</div>

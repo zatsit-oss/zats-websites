@@ -2,38 +2,31 @@
 import { getEntry } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import TechTag from '../components/TechTag.astro';
-import LeafIcon from '../assets/icons/leaf.svg';
-import GrowthIcon from '../assets/icons/growth.svg';
 import OpensourceIcon from '../assets/icons/opensource.svg';
-import CodeBracketIcon from '../assets/icons/code-bracket.svg';
-import GlobeIcon from '../assets/icons/globe.svg';
-import CloudIcon from '../assets/icons/cloud.svg';
-import RocketIcon from '../assets/icons/rocket.svg';
-import BadgeIcon from '../assets/icons/badge.svg';
-import CheckIcon from '../assets/icons/check.svg';
 import GithubIcon from '../assets/icons/github.svg';
+import { Leaf, TrendingUp, Code, Globe, Cloud, Rocket, Badge, Check } from '@lucide/astro';
 
 const techData = await getEntry('tech', 'tech');
 if (!techData) throw new Error('Tech data not found');
 const { intro, stats, roles, stacks, methodologies } = techData.data;
 
-const statIcons: Record<string, typeof LeafIcon> = {
-  leaf: LeafIcon,
-  growth: GrowthIcon,
+const statIcons: Record<string, typeof Leaf> = {
+  leaf: Leaf,
+  growth: TrendingUp,
   opensource: OpensourceIcon,
 };
 
-const stackIcons: Record<string, typeof CodeBracketIcon> = {
-  'code-bracket': CodeBracketIcon,
-  globe: GlobeIcon,
-  cloud: CloudIcon,
-  rocket: RocketIcon,
+const stackIcons: Record<string, typeof Code> = {
+  'code-bracket': Code,
+  globe: Globe,
+  cloud: Cloud,
+  rocket: Rocket,
 };
 
-const methodIcons: Record<string, typeof BadgeIcon> = {
-  badge: BadgeIcon,
-  check: CheckIcon,
-  'code-bracket': CodeBracketIcon,
+const methodIcons: Record<string, typeof Badge> = {
+  badge: Badge,
+  check: Check,
+  'code-bracket': Code,
   opensource: OpensourceIcon,
 };
 ---
@@ -68,7 +61,7 @@ const methodIcons: Record<string, typeof BadgeIcon> = {
           const IconComponent = statIcons[stat.icon];
           return (
             <div class="text-center">
-              {IconComponent && <IconComponent class="icon-lg icon-primary mx-auto mb-2" />}
+              {IconComponent && <IconComponent class="icon-lg icon-primary mx-auto mb-2" {...(stat.icon !== 'opensource' && { size: 28 })} />}
               <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-gradient">{stat.value}</div>
               <div class="text-sm text-muted mt-1">{stat.label}</div>
             </div>

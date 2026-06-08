@@ -1,34 +1,26 @@
 ---
 import { getEntry } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import UsersIcon from '../assets/icons/users.svg';
-import HeartIcon from '../assets/icons/heart.svg';
-import BriefcaseIcon from '../assets/icons/briefcase.svg';
-import GrowthIcon from '../assets/icons/growth.svg';
-import CalendarIcon from '../assets/icons/calendar.svg';
-import RefreshIcon from '../assets/icons/refresh.svg';
-import DocumentIcon from '../assets/icons/document.svg';
-import FreelanceIcon from '../assets/icons/freelance.svg';
-import ShieldCheckIcon from '../assets/icons/shield-check.svg';
-import LinkedInIcon from '../assets/icons/linkedin.svg';
-import GitHubIcon from '../assets/icons/github.svg';
+import LinkedinIcon from '../assets/icons/linkedin.svg';
+import GithubIcon from '../assets/icons/github.svg';
+import { Users, Heart, Briefcase, TrendingUp, Calendar, RotateCw, FileText, Rocket, ShieldCheck } from '@lucide/astro';
 
 const peopleData = await getEntry('people', 'people');
 if (!peopleData) throw new Error('People data not found');
 const { photos, stats, contractTypes, leadership, testimonials } = peopleData.data;
 
-const contractIcons: Record<string, typeof UsersIcon> = {
-  document: DocumentIcon,
-  freelance: FreelanceIcon,
-  'shield-check': ShieldCheckIcon,
+const contractIcons: Record<string, typeof Users> = {
+  document: FileText,
+  freelance: Rocket,
+  'shield-check': ShieldCheck,
 };
 
-const statIcons: Record<string, typeof UsersIcon> = {
-  users: UsersIcon,
-  briefcase: BriefcaseIcon,
-  growth: GrowthIcon,
-  calendar: CalendarIcon,
-  refresh: RefreshIcon,
+const statIcons: Record<string, typeof Users> = {
+  users: Users,
+  briefcase: Briefcase,
+  growth: TrendingUp,
+  calendar: Calendar,
+  refresh: RotateCw,
 };
 
 function getInitials(name: string): string {
@@ -124,7 +116,7 @@ function getInitials(name: string): string {
   <section class="section">
     <div class="container">
       <div class="flex items-center gap-3 justify-center mb-8">
-        <UsersIcon class="icon-lg icon-primary flex-shrink-0" />
+        <Users class="icon-lg icon-primary flex-shrink-0" size={28} />
         <h2 class="section-title mb-0 leading-tight">Équipe structure</h2>
       </div>
       <div class="flex flex-wrap justify-center gap-6 md:gap-8 max-w-4xl mx-auto">
@@ -141,11 +133,11 @@ function getInitials(name: string): string {
             <div class="leadership-role">{member.role}</div>
             <div class="leadership-links">
               <a href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn de ${member.name}`}>
-                <LinkedInIcon class="leadership-social-icon" />
+                <LinkedinIcon class="leadership-social-icon" />
               </a>
               {member.github && (
                 <a href={member.github} target="_blank" rel="noopener noreferrer" aria-label={`GitHub de ${member.name}`}>
-                  <GitHubIcon class="leadership-social-icon" />
+                  <GithubIcon class="leadership-social-icon" />
                 </a>
               )}
             </div>
@@ -158,7 +150,7 @@ function getInitials(name: string): string {
   <section class="section section--surface">
     <div class="container">
       <div class="flex items-center gap-3 justify-center mb-8">
-        <HeartIcon class="icon-lg icon-primary flex-shrink-0" />
+        <Heart class="icon-lg icon-primary flex-shrink-0" size={28} />
         <h2 class="section-title mb-0 leading-tight">Paroles de Zat's</h2>
       </div>
       <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">

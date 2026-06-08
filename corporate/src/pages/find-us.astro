@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import LocationIcon from '../assets/icons/location.svg';
-import MailIcon from '../assets/icons/mail.svg';
+import { MapPin, Mail } from '@lucide/astro';
 ---
 
 <Layout title="Nous trouver" description="Localisez les bureaux de zatsit a Lille, Euratechnopole.">
@@ -15,7 +14,7 @@ import MailIcon from '../assets/icons/mail.svg';
         <div class="mt-12 grid md:grid-cols-2 gap-8">
           <div class="card p-6">
             <div class="flex items-start gap-3 mb-4">
-              <LocationIcon class="icon-md icon-primary flex-shrink-0" />
+              <MapPin class="icon-md icon-primary flex-shrink-0" size={20} />
               <div>
                 <h2 class="item-title">Adresse</h2>
                 <p class="item-description">
@@ -29,7 +28,7 @@ import MailIcon from '../assets/icons/mail.svg';
 
           <div class="card p-6">
             <div class="flex items-start gap-3 mb-4">
-              <MailIcon class="icon-md icon-primary flex-shrink-0" />
+              <Mail class="icon-md icon-primary flex-shrink-0" size={20} />
               <div>
                 <h2 class="item-title">Contact</h2>
                 <a href="mailto:contact@zatsit.fr" class="link-primary">

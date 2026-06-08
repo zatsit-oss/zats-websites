@@ -1,6 +1,5 @@
 ---
-import SunIcon from '../assets/icons/sun.svg';
-import MoonIcon from '../assets/icons/moon.svg';
+import { Sun, Moon } from '@lucide/astro';
 ---
 
 <button
@@ -9,8 +8,8 @@ import MoonIcon from '../assets/icons/moon.svg';
   aria-label="Basculer le theme"
   title="Basculer le theme clair/sombre"
 >
-  <SunIcon class="icon-md hidden dark-icon" />
-  <MoonIcon class="icon-md light-icon" />
+  <Sun class="icon-md hidden dark-icon" size={20} />
+  <Moon class="icon-md light-icon" size={20} />
 </button>
 
 <script>

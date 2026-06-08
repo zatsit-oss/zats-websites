@@ -3,11 +3,8 @@ import { BLOG_URL, LINKEDIN_URL, GITHUB_URL } from 'astro:env/client';
 import Logo from './Logo.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import LinkedinIcon from '../assets/icons/linkedin.svg';
-import BlogIcon from '../assets/icons/blog.svg';
 import GithubIcon from '../assets/icons/github.svg';
-import MailIcon from '../assets/icons/mail.svg';
-import MenuIcon from '../assets/icons/menu.svg';
-import CloseIcon from '../assets/icons/close.svg';
+import { BookOpen, Mail, Menu, X } from '@lucide/astro';
 
 const navLinks = [
   { href: '/', label: 'Accueil' },
@@ -36,13 +33,13 @@ const navLinks = [
         <LinkedinIcon class="icon-md" />
       </a>
       <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="hidden md:flex link-icon" aria-label="Blog">
-        <BlogIcon class="icon-md" />
+        <BookOpen class="icon-md" size={20} />
       </a>
       <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="hidden md:flex link-icon" aria-label="GitHub">
         <GithubIcon class="icon-md" />
       </a>
       <a href="mailto:contact@zatsit.fr" class="hidden md:flex link-icon text-sm" aria-label="Email">
-        <MailIcon class="icon-md" />
+        <Mail class="icon-md" size={20} />
       </a>
 
       <ThemeToggle />
@@ -53,8 +50,8 @@ const navLinks = [
         aria-label="Ouvrir le menu"
         aria-expanded="false"
       >
-        <MenuIcon class="icon-md menu-open-icon" />
-        <CloseIcon class="icon-md menu-close-icon hidden" />
+        <Menu class="icon-md menu-open-icon" size={20} />
+        <X class="icon-md menu-close-icon hidden" size={20} />
       </button>
     </div>
   </nav>
@@ -65,7 +62,7 @@ const navLinks = [
         <a href={link.href} class="mobile-nav-link">{link.label}</a>
       ))}
       <a href="mailto:contact@zatsit.fr" class="link-icon py-2">
-        <MailIcon class="icon-md" />
+        <Mail class="icon-md" size={20} />
         contact@zatsit.fr
       </a>
     </div>

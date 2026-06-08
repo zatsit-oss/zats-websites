@@ -1,14 +1,11 @@
 ---
 import { GITHUB_URL } from 'astro:env/client';
-import ExternalLinkIcon from '../../assets/icons/external-link.svg';
-import OpenSourceIcon from '../../assets/icons/opensource.svg';
-import HeartIcon from '../../assets/icons/heart.svg';
-import UsersIcon from '../../assets/icons/users.svg';
+import { ExternalLink, Code, Heart, Users } from '@lucide/astro';
 
-const engagementIcons: Record<string, typeof OpenSourceIcon> = {
-  osi: OpenSourceIcon,
-  heart: HeartIcon,
-  users: UsersIcon,
+const engagementIcons: Record<string, typeof Code> = {
+  osi: Code,
+  heart: Heart,
+  users: Users,
 };
 
 // Triangle layout with fixed positions
@@ -39,7 +36,7 @@ const engagements = [
             Nous sommes fiers de notre gouvernance d'entreprise transparente et partagée, où la collaboration et la responsabilité sont au cœur de notre modèle.
           </p>
           <p>
-            Consultez notre <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="link-primary">Github <ExternalLinkIcon class="icon-sm" /></a> pour découvrir nos premières initiatives open source à vocation d'impact.
+            Consultez notre <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="link-primary">Github <ExternalLink class="icon-sm" size={16} /></a> pour découvrir nos premières initiatives open source à vocation d'impact.
           </p>
         </div>
       </div>

@@ -1,15 +1,11 @@
 ---
-import ArrowRightIcon from '../../assets/icons/arrow-right.svg';
-import ShieldCheckIcon from '../../assets/icons/shield-check.svg';
-import HandshakeIcon from '../../assets/icons/handshake.svg';
-import EyeIcon from '../../assets/icons/eye.svg';
-import StarIcon from '../../assets/icons/star.svg';
+import { ArrowRight, ShieldCheck, Handshake, Eye, Star } from '@lucide/astro';
 
-const valueIcons: Record<string, typeof ShieldCheckIcon> = {
-  shield: ShieldCheckIcon,
-  handshake: HandshakeIcon,
-  eye: EyeIcon,
-  star: StarIcon,
+const valueIcons: Record<string, typeof ShieldCheck> = {
+  shield: ShieldCheck,
+  handshake: Handshake,
+  eye: Eye,
+  star: Star,
 };
 
 // Square layout with fixed positions
@@ -50,7 +46,7 @@ const values = [
 
         <a href="/join-us" class="btn-primary">
           Rejoins-nous
-          <ArrowRightIcon class="icon-md" />
+          <ArrowRight class="icon-md" size={20} />
         </a>
       </div>
 

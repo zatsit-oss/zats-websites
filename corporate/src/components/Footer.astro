@@ -3,11 +3,9 @@ import { BLOG_URL, LINKEDIN_URL, GITHUB_URL, SUSTAINABILITY_URL } from 'astro:en
 import Logo from './Logo.astro';
 import GithubIcon from '../assets/icons/github.svg';
 import LinkedinIcon from '../assets/icons/linkedin.svg';
-import BlogIcon from '../assets/icons/blog.svg';
 import BlueskyIcon from '../assets/icons/bluesky.svg';
 import SustainabilityIcon from '../assets/icons/sustainability.svg';
-import MailIcon from '../assets/icons/mail.svg';
-import LocationIcon from '../assets/icons/location.svg';
+import { BookOpen, Mail, MapPin } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import ecovadisMedal from '../assets/ecovadis-medal.webp';
 ---
@@ -36,11 +34,11 @@ import ecovadisMedal from '../assets/ecovadis-medal.webp';
         <h3 class="font-semibold mb-3">Nous contacter</h3>
         <div class="text-sm text-muted space-y-2">
           <a href="mailto:contact@zatsit.fr" class="link-icon">
-            <MailIcon class="icon-sm" />
+            <Mail class="icon-sm" size={16} />
             contact@zatsit.fr
           </a>
           <div class="flex items-start gap-2">
-            <LocationIcon class="icon-sm mt-0.5 shrink-0" />
+            <MapPin class="icon-sm mt-0.5 shrink-0" size={16} />
             <span>
               EURATECHNOPOLYS<br />
               2 Allee de la Haye du Temple<br />
@@ -50,7 +48,7 @@ import ecovadisMedal from '../assets/ecovadis-medal.webp';
         </div>
         <div class="flex flex-wrap gap-3 mt-4">
           <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Blog">
-            <BlogIcon class="icon-md" />
+            <BookOpen class="icon-md" size={20} />
           </a>
           <a href={SUSTAINABILITY_URL} target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Sustainability">
             <SustainabilityIcon class="icon-md" />

@@ -1,23 +1,18 @@
 ---
 import { getEntry } from 'astro:content';
 import TechTag from '../TechTag.astro';
-import CodeBracketIcon from '../../assets/icons/code-bracket.svg';
-import DeviceMobileIcon from '../../assets/icons/device-mobile.svg';
-import RocketIcon from '../../assets/icons/rocket.svg';
-import CloudIcon from '../../assets/icons/cloud.svg';
-import BriefcaseIcon from '../../assets/icons/briefcase.svg';
-import AcademicCapIcon from '../../assets/icons/academic-cap.svg';
+import { Code, Smartphone, Rocket, Cloud, Briefcase, GraduationCap } from '@lucide/astro';
 
 const entry = await getEntry('services', 'services');
 const { sectionTitle, sectionTitleHighlight, sectionDescription, items } = entry.data;
 
 const iconMap: Record<string, any> = {
-  'code-bracket': CodeBracketIcon,
-  'device-mobile': DeviceMobileIcon,
-  'rocket': RocketIcon,
-  'cloud': CloudIcon,
-  'briefcase': BriefcaseIcon,
-  'academic-cap': AcademicCapIcon,
+  'code-bracket': Code,
+  'device-mobile': Smartphone,
+  'rocket': Rocket,
+  'cloud': Cloud,
+  'briefcase': Briefcase,
+  'academic-cap': GraduationCap,
 };
 ---
 

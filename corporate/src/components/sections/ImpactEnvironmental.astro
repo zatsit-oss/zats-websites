@@ -1,20 +1,14 @@
 ---
 import { BLOG_URL } from 'astro:env/client';
-import ExternalLinkIcon from '../../assets/icons/external-link.svg';
-import CodeIcon from '../../assets/icons/code.svg';
-import BikeIcon from '../../assets/icons/bike.svg';
-import LaptopIcon from '../../assets/icons/laptop.svg';
-import TicketIcon from '../../assets/icons/ticket.svg';
-import BadgeIcon from '../../assets/icons/badge.svg';
-import LeafIcon from '../../assets/icons/leaf.svg';
+import { ExternalLink, Code, Bike, Laptop, Ticket, Badge, Leaf } from '@lucide/astro';
 
-const partnerIcons: Record<string, typeof CodeIcon> = {
-  code: CodeIcon,
-  bike: BikeIcon,
-  laptop: LaptopIcon,
-  ticket: TicketIcon,
-  badge: BadgeIcon,
-  leaf: LeafIcon,
+const partnerIcons: Record<string, typeof Code> = {
+  code: Code,
+  bike: Bike,
+  laptop: Laptop,
+  ticket: Ticket,
+  badge: Badge,
+  leaf: Leaf,
 };
 
 // Hexagonal layout with fixed positions
@@ -46,10 +40,10 @@ const partners = [
             <b>zatsit</b> s'engage également pour l'environnement. Nous optimisons nos développements pour avoir un impact le plus faible possible sur notre planète.
           </p>
           <p>
-            Nos sites sont éco-conçus. Consultez notre <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="link-primary">blog <ExternalLinkIcon class="icon-sm" /></a> pour concevoir un peu plus green.
+            Nos sites sont éco-conçus. Consultez notre <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="link-primary">blog <ExternalLink class="icon-sm" size={16} /></a> pour concevoir un peu plus green.
           </p>
           <p>
-            Nous utilisons <a href="https://frame.work/sustainability" target="_blank" rel="noopener noreferrer" class="link-primary">Frame.work <ExternalLinkIcon class="icon-sm" /></a> au quotidien. <a href="https://www.ekip.app/pourquoi-ekip" target="_blank" rel="noopener noreferrer" class="link-primary">Ekip <ExternalLinkIcon class="icon-sm" /></a> nous fournit des tickets restaurants écoresponsables et durables. Nos process internes sont orientés pour obtenir la labellisation BCorp, et ce n'est que le début.
+            Nous utilisons <a href="https://frame.work/sustainability" target="_blank" rel="noopener noreferrer" class="link-primary">Frame.work <ExternalLink class="icon-sm" size={16} /></a> au quotidien. <a href="https://www.ekip.app/pourquoi-ekip" target="_blank" rel="noopener noreferrer" class="link-primary">Ekip <ExternalLink class="icon-sm" size={16} /></a> nous fournit des tickets restaurants écoresponsables et durables. Nos process internes sont orientés pour obtenir la labellisation BCorp, et ce n'est que le début.
           </p>
         </div>
       </div>
