@@ -33,6 +33,9 @@
   --color-accent-2: #3b82f6;
   --color-accent-3: #6366f1;
   --color-text-gradient: linear-gradient(to bottom, #0F15FD 0%, #020466 100%);
+  --logo-gradient-start: #0F15FD;
+  --logo-gradient-mid: #0a0ecc;
+  --logo-gradient-end: #020466;
   --glass-bg: rgba(255, 255, 255, 0.9);
   --glass-border: rgba(15, 21, 253, 0.1);
   --card-bg: #f8fafc;
@@ -51,6 +54,9 @@
     --color-secondary: #E1601F;
     --color-secondary-hover: #f1be51;
     --color-text-gradient: linear-gradient(45deg, #f1be51, #ffd580);
+    --logo-gradient-start: #f1be51;
+    --logo-gradient-mid: #f59e0b;
+    --logo-gradient-end: #ef4444;
     --glass-bg: rgba(27, 27, 29, 0.85);
     --glass-border: rgba(241, 190, 81, 0.2);
     --card-bg: rgba(255, 255, 255, 0.05);
@@ -69,6 +75,9 @@
   --color-secondary: #0f15fd;
   --color-secondary-hover: #0a0ecc;
   --color-text-gradient: linear-gradient(to bottom, #0F15FD 0%, #020466 100%);
+  --logo-gradient-start: #0F15FD;
+  --logo-gradient-mid: #0a0ecc;
+  --logo-gradient-end: #020466;
   --glass-bg: rgba(255, 255, 255, 0.9);
   --glass-border: rgba(15, 21, 253, 0.1);
   --card-bg: #f8fafc;
@@ -89,6 +98,9 @@
   --color-accent-2: #ef4444;
   --color-accent-3: #f97316;
   --color-text-gradient: linear-gradient(135deg, #f1be51, #f59e0b, #ef4444);
+  --logo-gradient-start: #f1be51;
+  --logo-gradient-mid: #f59e0b;
+  --logo-gradient-end: #ef4444;
   --glass-bg: rgba(27, 27, 29, 0.85);
   --glass-border: rgba(241, 190, 81, 0.2);
   --card-bg: rgba(255, 255, 255, 0.05);
@@ -160,6 +172,22 @@ button:hover {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 0 30px color-mix(in srgb, var(--color-primary) 50%, transparent));
+}
+
+.logo-gradient-glow path {
+  fill: url(#logo-gradient);
+}
+
+.logo-gradient-glow {
+  filter: drop-shadow(0 0 30px color-mix(in srgb, var(--color-primary) 50%, transparent));
+}
+
+.logo-full-gradient-glow path {
+  fill: url(#logo-full-gradient);
+}
+
+.logo-full-gradient-glow {
+  filter: drop-shadow(0 0 40px color-mix(in srgb, var(--color-primary) 40%, transparent));
 }
 
 @keyframes gradient-text-shift {
@@ -253,12 +281,12 @@ button:hover {
 }
 
 .link-icon {
-  @apply inline-flex items-center gap-2 transition-colors;
-  color: var(--color-text-muted);
+  @apply inline-flex items-center gap-2 transition-colors hover:underline;
+  color: var(--color-primary);
 }
 
 .link-icon:hover {
-  color: var(--color-text);
+  color: var(--color-primary);
 }
 
 .link-primary {
@@ -1429,4 +1457,13 @@ button:hover {
   .section {
     padding: 1rem 0;
   }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+#typewriter-cursor {
+  animation: blink 0.7s step-end infinite;
 }

@@ -2,7 +2,7 @@
 import { ArrowRight } from '@lucide/astro';
 import { isPageDisabled } from '../../lib/pages';
 
-const careersDisabled = isPageDisabled('careers')
+const joinusDisabled = isPageDisabled('join-us')
 
 const benefits = [
   {
@@ -51,8 +51,8 @@ const benefits = [
       </div>
 
       <div class="mt-10">
-        {!careersDisabled && (
-          <a href="/careers" class="btn-primary">
+        {!joinusDisabled && (
+          <a href="/join-us" class="btn-primary">
             Decouvre ton futur package
             <ArrowRight class="icon-md" size={20} />
           </a>

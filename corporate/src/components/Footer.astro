@@ -16,7 +16,10 @@ import ecovadisMedal from '../assets/ecovadis-medal.webp';
 
       <!-- Col 1: Logo + Mission + Website Carbon -->
       <div>
-        <Logo class="h-8 w-auto icon-primary mb-3" />
+        <div class="flex items-center gap-2 mb-3">
+          <Logo class="h-8 w-auto icon-primary" />
+          <span class="text-2xl font-semibold icon-primary leading-none ml-3">zatsit</span>
+        </div>
         <p class="text-muted text-sm leading-relaxed">
           Engager notre <strong class="text-[var(--color-text)]">expertise numerique</strong> au service
           de l'<strong class="text-[var(--color-text)]">impact</strong> des entreprises, en creant un ecosysteme
@@ -31,12 +34,8 @@ import ecovadisMedal from '../assets/ecovadis-medal.webp';
 
       <!-- Col 2: Contact + Social icons -->
       <div>
-        <h3 class="font-semibold mb-3">Nous contacter</h3>
+        <h3 class="font-semibold mb-3">Nous trouver</h3>
         <div class="text-sm text-muted space-y-2">
-          <a href="mailto:contact@zatsit.fr" class="link-icon">
-            <Mail class="icon-sm" size={16} />
-            contact@zatsit.fr
-          </a>
           <div class="flex items-start gap-2">
             <MapPin class="icon-sm mt-0.5 shrink-0" size={16} />
             <span>
@@ -46,7 +45,10 @@ import ecovadisMedal from '../assets/ecovadis-medal.webp';
             </span>
           </div>
         </div>
-        <div class="flex flex-wrap gap-3 mt-4">
+        <div class="flex flex-wrap gap-3 mt-4 justify-center md:justify-start">
+          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="LinkedIn">
+            <LinkedinIcon class="icon-md" />
+          </a>
           <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Blog">
             <BookOpen class="icon-md" size={20} />
           </a>
@@ -56,17 +58,15 @@ import ecovadisMedal from '../assets/ecovadis-medal.webp';
           <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="GitHub">
             <GithubIcon class="icon-md" />
           </a>
-          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="LinkedIn">
-            <LinkedinIcon class="icon-md" />
-          </a>
-          <a href="https://bsky.app/profile/zatsit.fr" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Bluesky">
-            <BlueskyIcon class="icon-md" />
-          </a>
+           <a href="mailto:contact@zatsit.fr" class="footer-social-link" aria-label="Nous contacter par email">
+        <Mail class="icon-md" size={20} />
+      </a>
+          
         </div>
       </div>
 
       <!-- Col 3: EcoVadis -->
-      <div class="flex items-center">
+      <div class="flex items-center justify-center md:justify-start">
         <Image src={ecovadisMedal} alt="EcoVadis Silver Medal - Top 15%" width={100} height={100} class="opacity-90" />
       </div>
     </div>
