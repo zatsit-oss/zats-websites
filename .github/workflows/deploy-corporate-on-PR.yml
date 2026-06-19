@@ -33,6 +33,7 @@ jobs:
           token: ${{ secrets.GH_PAT }}
           branch: ${{ github.head_ref || github.ref_name }}
           project-path: ${{ env.PROJECT_PATH }}
+          command-prefix: 'export DISABLED_PAGES=careers,team,tech,find-us'
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:

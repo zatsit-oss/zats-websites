@@ -12,6 +12,9 @@ inputs:
   project-path:
     description: 'The folder path to work with'
     required: true
+  command-prefix:
+    description: 'The command prefix to use for the build command'
+    default: ''
 
 runs:
   using: 'composite'
@@ -30,10 +33,12 @@ runs:
       shell: bash
       run: |
         cd ${{ inputs.project-path }}/
-        npm install
+        npm ci
 
     - name: Build project
       shell: bash
+      env:
+        COMMAND_PREFIX: ${{ inputs.command-prefix }}
       run: |
         cd ${{ inputs.project-path }}/
-        npm run build
+        eval "${COMMAND_PREFIX:+$COMMAND_PREFIX && }npm run build"
