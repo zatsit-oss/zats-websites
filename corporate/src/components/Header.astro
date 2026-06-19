@@ -1,10 +1,11 @@
 ---
-import { BLOG_URL, LINKEDIN_URL, GITHUB_URL } from 'astro:env/client';
+import { BLOG_URL, LINKEDIN_URL, GITHUB_URL, SUSTAINABILITY_URL } from 'astro:env/client';
 import Logo from './Logo.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import LinkedinIcon from '../assets/icons/linkedin.svg';
 import GithubIcon from '../assets/icons/github.svg';
-import { BookOpen, Mail, Menu, X } from '@lucide/astro';
+import SustainabilityIcon from '../assets/icons/sustainability.svg';
+import { BookOpen, ExternalLink, Mail, Menu } from '@lucide/astro';
 import { isPageDisabled } from '../lib/pages';
 
 const navLinks = [
@@ -12,11 +13,15 @@ const navLinks = [
   { href: '/team', label: 'L\'équipe' },
   { href: '/tech', label: 'Notre tech' },
   { href: '/join-us', label: 'Rejoins-nous' },
+  { href: '/work-with-us', label: 'Travaillons ensemble' },
   { href: '/careers', label: 'Nos offres d\'emploi' },
   { href: '/find-us', label: 'Nous trouver' },
+  { href: 'https://www.linkedin.com/company/zatsit/jobs', label: 'Nos offres d\'emplois', external: true },
 ];
 
 // Filter out disabled pages
+const currentPath = Astro.url.pathname;
+
 const filteredNavLinks = navLinks.filter(link => {
   if (link.href === '/' || link.href === '/legal-notice' || link.href === '/privacy-policy') {
     return true;
@@ -34,7 +39,14 @@ const filteredNavLinks = navLinks.filter(link => {
 
     <div class="hidden lg:flex items-center gap-8">
       {filteredNavLinks.map(link => (
-        <a href={link.href} class="nav-link">{link.label}</a>
+        <a
+          href={link.href}
+          class={currentPath === link.href ? 'link-primary' : 'nav-link'}
+          {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        >
+          {link.label}
+          {link.external && <ExternalLink class="inline-block ml-1 align-middle" size={14} />}
+        </a>
       ))}
     </div>
 
@@ -45,10 +57,13 @@ const filteredNavLinks = navLinks.filter(link => {
       <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="hidden md:flex link-icon" aria-label="Blog">
         <BookOpen class="icon-md" size={20} />
       </a>
+      <a href={SUSTAINABILITY_URL} target="_blank" rel="noopener noreferrer" class="hidden md:flex link-icon" aria-label="Portail Sustainability">
+        <SustainabilityIcon class="icon-md" />
+      </a>
       <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="hidden md:flex link-icon" aria-label="GitHub">
         <GithubIcon class="icon-md" />
       </a>
-      <a href="mailto:contact@zatsit.fr" class="hidden md:flex link-icon text-sm" aria-label="Email">
+      <a href="mailto:contact@zatsit.fr" class="hidden md:flex link-icon text-sm" aria-label="Nous contacter par email">
         <Mail class="icon-md" size={20} />
       </a>
 
@@ -61,7 +76,6 @@ const filteredNavLinks = navLinks.filter(link => {
         aria-expanded="false"
       >
         <Menu class="icon-md menu-open-icon" size={20} />
-        <X class="icon-md menu-close-icon hidden" size={20} />
       </button>
     </div>
   </nav>
@@ -69,7 +83,14 @@ const filteredNavLinks = navLinks.filter(link => {
   <div id="mobile-menu" class="mobile-menu hidden">
     <div class="container mobile-menu-content">
       {filteredNavLinks.map(link => (
-        <a href={link.href} class="mobile-nav-link">{link.label}</a>
+        <a
+          href={link.href}
+          class={currentPath === link.href ? 'link-primary text-lg py-2' : 'mobile-nav-link'}
+          {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        >
+          {link.label}
+          {link.external && <ExternalLink class="inline-block ml-1 align-middle" size={14} />}
+        </a>
       ))}
       <a href="mailto:contact@zatsit.fr" class="link-icon py-2">
         <Mail class="icon-md" size={20} />
