@@ -46,6 +46,11 @@ export default defineConfig({
         context: 'client',
         default: 'https://sustainability.zatsit.fr/',
       }),
+      CONTACT_FORM_URL: envField.string({
+        access: 'public',
+        context: 'server',
+        default: 'https://docs.google.com/forms/d/e/1FAIpQLSemLxDWYfx03obnU_HG3vvDGBfY8nmu6TjNKYgZJowO8JHjUg/viewform?embedded=true',
+      }),
       DISABLED_PAGES: envField.string({
         access: 'public',
         context: 'server',
