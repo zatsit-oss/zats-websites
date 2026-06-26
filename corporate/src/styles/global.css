@@ -962,7 +962,7 @@ button:hover {
 .ekip-cards {
   position: relative;
   width: 260px;
-  height: 180px;
+  height: 380px;
   flex-shrink: 0;
 }
 
@@ -1025,7 +1025,7 @@ button:hover {
 @media (max-width: 480px) {
   .ekip-cards {
     width: 220px;
-    height: 160px;
+    height: 320px;
   }
 
   .ekip-card {
