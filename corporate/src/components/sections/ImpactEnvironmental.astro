@@ -51,7 +51,7 @@ const partners = [
       <div id="partner-hexagon" class="partner-hexagon">
         {partners.map((partner, index) => (
           <div
-            class={`partner-card ${index === 0 ? 'active' : ''}`}
+            class="partner-card active"
             data-index={index}
             style={`left: ${partner.x}px; top: ${partner.y}px;`}
           >
@@ -69,24 +69,44 @@ const partners = [
     const container = document.getElementById('partner-hexagon');
     if (!container) return;
 
-    const cards = container.querySelectorAll('.partner-card');
+    const cards = Array.from(container.querySelectorAll('.partner-card'));
     if (cards.length === 0) return;
 
-    let currentIndex = 0;
-    let intervalId: number;
-
-    function highlightNext() {
-      cards.forEach(card => card.classList.remove('active'));
-      cards[currentIndex].classList.add('active');
-      currentIndex = (currentIndex + 1) % cards.length;
+    // Reduced motion: keep every card in its final high-contrast state, no animation.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      cards.forEach(card => card.classList.add('active'));
+      return;
     }
 
-    // Start animation
-    intervalId = setInterval(highlightNext, 2000);
+    // Start from the dimmed state. The section sits below the fold on load,
+    // so stripping the baseline 'active' class here is not visible.
+    cards.forEach(card => card.classList.remove('active'));
+
+    let revealed = false;
+    const revealSequentially = () => {
+      if (revealed) return;
+      revealed = true;
+      // Highlight each card once, in order, and leave it highlighted (no loop).
+      cards.forEach((card, index) => {
+        setTimeout(() => card.classList.add('active'), index * 400);
+      });
+    };
+
+    // Trigger the reveal only when the block enters the viewport.
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          revealSequentially();
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.4 });
+
+    observer.observe(container);
 
     // Cleanup on page navigation (ViewTransitions)
     document.addEventListener('astro:before-swap', () => {
-      clearInterval(intervalId);
+      observer.disconnect();
     }, { once: true });
   }
 

@@ -100,7 +100,7 @@ function getInitials(name: string): string {
           const IconComponent = contractIcons[contract.icon];
           return (
             <div
-              class={`partner-card ${index === 0 ? 'active' : ''}`}
+              class="partner-card active"
               data-index={index}
             >
               {IconComponent && <IconComponent class="partner-icon" />}

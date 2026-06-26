@@ -837,7 +837,6 @@ button:hover {
    ========================================================================== */
 
 .orbit-ring {
-  --orbit-duration: 6s;
   --orbit-radius: 130px;
   --orbit-card-size: 110px;
   position: relative;
@@ -845,47 +844,46 @@ button:hover {
   height: calc(var(--orbit-radius) * 2 + var(--orbit-card-size) + 20px);
 }
 
-/* Visible orbit path */
+/* Static orbit path (decorative circle) */
 .orbit-ring::before {
   content: '';
   position: absolute;
   inset: calc(var(--orbit-card-size) / 2 + 10px);
   border: 1px dashed var(--color-border);
   border-radius: 50%;
-  animation: orbit-ring-spin calc(var(--orbit-duration) * 4) linear infinite;
 }
 
+/* Cards sit at fixed vertices around the ring (top, 120deg, 240deg) */
 .orbit-card {
   position: absolute;
   width: var(--orbit-card-size);
   height: var(--orbit-card-size);
   top: calc(50% - var(--orbit-card-size) / 2);
   left: calc(50% - var(--orbit-card-size) / 2);
-  animation: orbit-revolve var(--orbit-duration) cubic-bezier(0.27, 0.08, 0.26, 0.7) infinite;
-  animation-delay: calc(var(--orbit-duration) / 3 * var(--orbit-index) * -1);
 }
 
-/* Counter-rotate content to keep it upright + highlight at 12h */
+.orbit-card:nth-child(1) { transform: translateY(calc(var(--orbit-radius) * -1)); }
+.orbit-card:nth-child(2) { transform: rotate(120deg) translateY(calc(var(--orbit-radius) * -1)); }
+.orbit-card:nth-child(3) { transform: rotate(240deg) translateY(calc(var(--orbit-radius) * -1)); }
+
 .orbit-card-content {
   @apply flex flex-col items-center justify-center rounded-full;
   width: 100%;
   height: 100%;
-  border: 1px dashed var(--color-border);
-  background: transparent;
   overflow: hidden;
   padding: 0.75rem;
-  animation:
-    orbit-counter-revolve var(--orbit-duration) cubic-bezier(0.27, 0.08, 0.26, 0.7) infinite,
-    orbit-highlight-card var(--orbit-duration) cubic-bezier(0.27, 0.08, 0.26, 0.7) infinite;
-  animation-delay: calc(var(--orbit-duration) / 3 * var(--orbit-index) * -1);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+/* Counter-rotate content of the rotated vertices to keep it upright */
+.orbit-card:nth-child(2) .orbit-card-content { transform: rotate(-120deg); }
+.orbit-card:nth-child(3) .orbit-card-content { transform: rotate(-240deg); }
 
 .orbit-card-content .partner-icon {
   width: 1.75rem;
   height: 1.75rem;
   flex-shrink: 0;
-  animation: orbit-highlight-icon var(--orbit-duration) cubic-bezier(0.27, 0.08, 0.26, 0.7) infinite;
-  animation-delay: calc(var(--orbit-duration) / 3 * var(--orbit-index) * -1);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .orbit-card-content .partner-name {
@@ -893,86 +891,60 @@ button:hover {
   margin-top: 0.3rem;
   font-size: 0.8rem;
   line-height: 1.3;
-  animation: orbit-highlight-name var(--orbit-duration) cubic-bezier(0.27, 0.08, 0.26, 0.7) infinite;
-  animation-delay: calc(var(--orbit-duration) / 3 * var(--orbit-index) * -1);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Orbit keyframes */
-@keyframes orbit-revolve {
-  0% { transform: rotate(0deg) translateY(calc(var(--orbit-radius) * -1)); }
-  100% { transform: rotate(1turn) translateY(calc(var(--orbit-radius) * -1)); }
+/* Highlighted state: cards are always full-contrast (no dimmed phase). */
+.orbit-card-content {
+  border: 1px solid var(--color-primary);
+  background: var(--color-bg);
+  box-shadow:
+    0 4px 20px -5px rgba(0, 0, 0, 0.15),
+    0 0 0 1px var(--color-primary),
+    0 0 20px -5px var(--color-primary);
 }
 
-@keyframes orbit-counter-revolve {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(-1turn); }
+.orbit-card-content .partner-icon {
+  color: var(--color-primary);
+  opacity: 1;
 }
 
-@keyframes orbit-ring-spin {
-  100% { transform: rotate(-1turn); }
+.orbit-card-content .partner-name {
+  color: var(--color-text);
+  opacity: 1;
 }
 
-/* Highlight at 12h (0%/100% = top position) */
-@keyframes orbit-highlight-card {
-  0%, 100% {
-    border-color: var(--color-primary);
-    background: var(--color-bg);
-    box-shadow:
-      0 4px 20px -5px rgba(0, 0, 0, 0.15),
-      0 0 0 1px var(--color-primary),
-      0 0 20px -5px var(--color-primary);
-  }
-  20%, 80% {
-    border-color: var(--color-border);
-    background: transparent;
-    box-shadow: none;
-  }
-}
-
-@keyframes orbit-highlight-icon {
-  0%, 100% {
-    color: var(--color-primary);
-    opacity: 1;
-  }
-  20%, 80% {
-    color: var(--color-text-muted);
-    opacity: 0.5;
-  }
-}
-
-@keyframes orbit-highlight-name {
-  0%, 100% {
-    color: var(--color-text);
-    opacity: 1;
-  }
-  20%, 80% {
-    color: var(--color-text-muted);
-    opacity: 0.5;
-  }
-}
-
-/* Dark mode highlight */
 [data-theme="dark"] .orbit-card-content {
-  animation:
-    orbit-counter-revolve var(--orbit-duration) cubic-bezier(0.27, 0.08, 0.26, 0.7) infinite,
-    orbit-highlight-card-dark var(--orbit-duration) cubic-bezier(0.27, 0.08, 0.26, 0.7) infinite;
-  animation-delay: calc(var(--orbit-duration) / 3 * var(--orbit-index) * -1);
+  background: var(--color-surface);
+  box-shadow:
+    0 4px 30px -5px rgba(0, 0, 0, 0.4),
+    0 0 0 1px var(--color-primary),
+    0 0 30px -5px var(--color-primary);
 }
 
-@keyframes orbit-highlight-card-dark {
-  0%, 100% {
-    border-color: var(--color-primary);
-    background: var(--color-surface);
-    box-shadow:
-      0 4px 30px -5px rgba(0, 0, 0, 0.4),
-      0 0 0 1px var(--color-primary),
-      0 0 30px -5px var(--color-primary);
-  }
-  20%, 80% {
-    border-color: var(--color-border);
-    background: transparent;
-    box-shadow: none;
-  }
+/*
+ * One-shot reveal rotation. Triggered by JS (.is-spinning) when the section
+ * enters the viewport: each card revolves a single full turn and lands back on
+ * its vertex (no infinite loop). The content counter-rotates to stay upright.
+ */
+.orbit-card { --base-angle: calc(var(--orbit-index) * 120deg); }
+
+.orbit-ring.is-spinning .orbit-card {
+  animation: orbit-spin-once 4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.orbit-ring.is-spinning .orbit-card-content {
+  animation: orbit-counter-spin-once 4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes orbit-spin-once {
+  from { transform: rotate(var(--base-angle)) translateY(calc(var(--orbit-radius) * -1)); }
+  to { transform: rotate(calc(var(--base-angle) + 360deg)) translateY(calc(var(--orbit-radius) * -1)); }
+}
+
+@keyframes orbit-counter-spin-once {
+  from { transform: rotate(calc(var(--base-angle) * -1)); }
+  to { transform: rotate(calc(var(--base-angle) * -1 - 360deg)); }
 }
 
 /* Responsive orbit */
@@ -980,36 +952,6 @@ button:hover {
   .orbit-ring {
     --orbit-radius: 100px;
     --orbit-card-size: 90px;
-  }
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .orbit-ring::before,
-  .orbit-card,
-  .orbit-card-content {
-    animation: none !important;
-  }
-
-  .orbit-card-content .partner-icon,
-  .orbit-card-content .partner-name {
-    animation: none !important;
-  }
-
-  .orbit-card:nth-child(1) { transform: translateY(calc(var(--orbit-radius) * -1)); }
-  .orbit-card:nth-child(2) { transform: rotate(120deg) translateY(calc(var(--orbit-radius) * -1)); }
-  .orbit-card:nth-child(3) { transform: rotate(240deg) translateY(calc(var(--orbit-radius) * -1)); }
-  .orbit-card:nth-child(2) .orbit-card-content { transform: rotate(-120deg); }
-  .orbit-card:nth-child(3) .orbit-card-content { transform: rotate(-240deg); }
-
-  .orbit-card-content .partner-icon {
-    color: var(--color-text-muted);
-    opacity: 0.5;
-  }
-
-  .orbit-card-content .partner-name {
-    color: var(--color-text-muted);
-    opacity: 0.5;
   }
 }
 

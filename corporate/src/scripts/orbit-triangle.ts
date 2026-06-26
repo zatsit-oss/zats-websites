@@ -1,6 +1,7 @@
 /**
- * Orbital rotation animation for a triangle of partner-cards.
- * Cards orbit around the centroid, and the one at the top gets highlighted.
+ * Triangle of partner-cards: each card sits at a fixed vertex and is highlighted
+ * one by one when the block enters the viewport. No looping/orbital motion —
+ * once a card is highlighted it stays highlighted (final high-contrast state).
  */
 export function initOrbitTriangle(containerId: string) {
   const container = document.getElementById(containerId);
@@ -9,52 +10,57 @@ export function initOrbitTriangle(containerId: string) {
   const cards = container.querySelectorAll<HTMLElement>('.partner-card');
   if (cards.length !== 3) return;
 
-  // Triangle geometry: cards orbit on a circle of radius 80px
+  // Triangle geometry: cards sit on a circle of radius 80px
   // around center (210, 130) inside a 420×220 container.
   // Cards are 100×100, so base position = center minus half card size.
   const cx = 160; // 210 - 50
   const cy = 80;  // 130 - 50
   const radius = 80;
-  let step = 0;
 
-  function positionCards(animate: boolean) {
-    const angleDeg = step * 120;
-
-    cards.forEach((card, i) => {
-      const angle = (angleDeg + i * 120 - 90) * Math.PI / 180;
-      const x = Math.cos(angle) * radius;
-      const y = Math.sin(angle) * radius;
-
-      card.style.left = `${cx}px`;
-      card.style.top = `${cy}px`;
-      card.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
-
-      if (animate) {
-        card.style.transition = 'transform 1s cubic-bezier(0.4, 0, 0.2, 1)';
-      }
-    });
-
-    // Highlight the card currently at the top position
-    const topIndex = (3 - (step % 3)) % 3;
-    cards.forEach((card, i) => {
-      card.classList.toggle('active', i === topIndex);
-    });
-  }
-
-  // Position immediately without animation
-  positionCards(false);
-
-  // Enable transitions after first paint
-  requestAnimationFrame(() => {
-    positionCards(true);
+  // Place each card at a fixed vertex: top, bottom-right, bottom-left.
+  cards.forEach((card, i) => {
+    const angle = (i * 120 - 90) * Math.PI / 180;
+    const x = Math.cos(angle) * radius;
+    const y = Math.sin(angle) * radius;
+    card.style.left = `${cx}px`;
+    card.style.top = `${cy}px`;
+    card.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
   });
 
-  const intervalId = setInterval(() => {
-    step++;
-    positionCards(true);
-  }, 2500);
+  // Reduced motion: keep every card in its final high-contrast state, no animation.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    cards.forEach(card => card.classList.add('active'));
+    return;
+  }
 
+  // Start from the dimmed state. The section sits below the fold on load,
+  // so stripping the baseline 'active' class here is not visible.
+  cards.forEach(card => card.classList.remove('active'));
+
+  let revealed = false;
+  const revealSequentially = () => {
+    if (revealed) return;
+    revealed = true;
+    // Highlight each card once, in order, and leave it highlighted (no loop).
+    cards.forEach((card, index) => {
+      setTimeout(() => card.classList.add('active'), index * 400);
+    });
+  };
+
+  // Trigger the reveal only when the block enters the viewport.
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        revealSequentially();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.4 });
+
+  observer.observe(container);
+
+  // Cleanup on page navigation (ViewTransitions)
   document.addEventListener('astro:before-swap', () => {
-    clearInterval(intervalId);
+    observer.disconnect();
   }, { once: true });
 }

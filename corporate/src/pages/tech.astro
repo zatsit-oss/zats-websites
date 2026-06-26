@@ -162,3 +162,44 @@ const methodIcons: Record<string, typeof Badge> = {
     </div>
   </section>
 </Layout>
+
+<script>
+  function initOrbitReveal() {
+    const ring = document.querySelector('.orbit-ring');
+    if (!ring) return;
+
+    const cards = Array.from(ring.querySelectorAll('.orbit-card'));
+    if (cards.length === 0) return;
+
+    // Reduced motion: cards are already in their final high-contrast state, no spin.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let revealed = false;
+    const reveal = () => {
+      if (revealed) return;
+      revealed = true;
+      // One single full revolution, then stop (cards stay highlighted throughout).
+      ring.classList.add('is-spinning');
+    };
+
+    // Trigger the reveal only when the block enters the viewport.
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          reveal();
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.4 });
+
+    observer.observe(ring);
+
+    // Cleanup on page navigation (ViewTransitions)
+    document.addEventListener('astro:before-swap', () => {
+      observer.disconnect();
+    }, { once: true });
+  }
+
+  initOrbitReveal();
+  document.addEventListener('astro:after-swap', initOrbitReveal);
+</script>
