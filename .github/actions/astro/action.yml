@@ -25,7 +25,11 @@ runs:
     - name: Install Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '22'
+        # Pinned: Node 22.23.0 (security release) regressed keep-alive socket reuse,
+        # causing false "Premature close" errors against googleapis.com that break the
+        # Firebase deploy (firebase-tools#10692, nodejs/node#63989). 22.22.3 is the last
+        # known-good version. Bump back to '22' once the upstream regression is fixed.
+        node-version: '22.22.3'
         cache: 'npm'
         cache-dependency-path: ${{ inputs.project-path }}/package-lock.json
 
