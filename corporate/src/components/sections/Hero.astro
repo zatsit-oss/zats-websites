@@ -45,29 +45,40 @@ const careersDisabled = isPageDisabled('careers')
 </section>
 
 <script>
-  const word = 'augmentée';
-  const el = document.getElementById('typewriter');
-  const cursor = document.getElementById('typewriter-cursor');
+  function runTypewriter() {
+    const word = 'augmentée';
+    const el = document.getElementById('typewriter');
+    const cursor = document.getElementById('typewriter-cursor');
+    const asterisk = document.getElementById('typewriter-asterisk');
+    const footnote = document.getElementById('hero-footnote');
 
-  const asterisk = document.getElementById('typewriter-asterisk');
-  const footnote = document.getElementById('hero-footnote');
+    if (!el) return;
 
-  const reveal = () => {
-    if (asterisk) asterisk.style.display = '';
-    if (footnote) footnote.style.opacity = '0.6';
-  };
+    // Reset state: the DOM is reinjected fresh on each ViewTransition navigation,
+    // and module scripts do not re-run, so we drive the animation from astro:page-load.
+    el.textContent = '';
+    if (asterisk) asterisk.style.display = 'none';
+    if (footnote) footnote.style.opacity = '0';
 
-  if (el && cursor && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    let i = 0;
-    const type = () => {
-      el.textContent = word.slice(0, ++i);
-      if (i < word.length) setTimeout(type, 220);
-      else reveal();
+    const reveal = () => {
+      if (asterisk) asterisk.style.display = '';
+      if (footnote) footnote.style.opacity = '0.6';
     };
-    setTimeout(type, 400);
-  } else if (el) {
-    el.textContent = word;
-    if (cursor) cursor.style.display = 'none';
-    reveal();
+
+    if (cursor && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let i = 0;
+      const type = () => {
+        el.textContent = word.slice(0, ++i);
+        if (i < word.length) setTimeout(type, 220);
+        else reveal();
+      };
+      setTimeout(type, 400);
+    } else {
+      el.textContent = word;
+      if (cursor) cursor.style.display = 'none';
+      reveal();
+    }
   }
+
+  document.addEventListener('astro:page-load', runTypewriter);
 </script>
