@@ -1,0 +1,84 @@
+---
+import { isPageDisabled } from '../../lib/pages';
+import LogoFull from '../../assets/icons/logo-full.svg';
+
+const joinUsDisabled = isPageDisabled('join-us')
+const careersDisabled = isPageDisabled('careers')
+---
+
+<section class="section--hero min-h-[90vh] flex items-center">
+  <div class="dot-grid"></div>
+  <div class="hero-gradient"></div>
+
+  <div class="hero-decoration">
+    <div class="hero-blob hero-blob--primary"></div>
+    <div class="hero-blob hero-blob--secondary"></div>
+    <div class="hero-blob hero-blob--tertiary"></div>
+  </div>
+
+  <div class="container">
+    <div class="max-w-5xl mx-auto text-center">
+
+      <LogoFull class="w-full max-w-[300px] md:max-w-[420px] h-auto mx-auto mb-10 logo-full-gradient-glow" />
+
+      <h1 class="hero-title text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+        La tech <span id="typewriter" class="text-gradient-glow" aria-label="augmentée"></span><span id="typewriter-asterisk" class="text-gradient-glow" aria-hidden="true" style="display:none">*</span><span id="typewriter-cursor" class="text-gradient-glow" aria-hidden="true">|</span> au service de l'<span class="text-gradient-glow">impact</span> des entreprises.
+      </h1>
+      <p id="hero-footnote" class="text-muted max-w-2xl mx-auto mb-8 tracking-wide" style="font-size:1.2rem;opacity:0;transition:opacity 0.6s ease"><span class="text-gradient-glow">*</span> Nous exploitons l'IA en support à notre ingénierie, de manière réfléchie et responsable.</p>
+      <!-- <p class="hero-subtitle text-xl md:text-2xl text-muted max-w-3xl mx-auto mb-12">
+        Expertise, innovation et responsabilité au coeur de nos engagements.
+      </p>
+      <div class="hero-cta flex flex-col sm:flex-row gap-4 justify-center">
+        {!joinUsDisabled && (
+          <a href="/join-us" class="btn-primary text-lg px-8 py-4">
+            Rejoins-nous
+          </a>
+        )}
+        {!careersDisabled && (
+          <a href="/careers" class="btn-secondary text-lg px-8 py-4">
+            Rejoignez-nous
+          </a>
+        )}
+      </div> -->
+    </div>
+  </div>
+</section>
+
+<script>
+  function runTypewriter() {
+    const word = 'augmentée';
+    const el = document.getElementById('typewriter');
+    const cursor = document.getElementById('typewriter-cursor');
+    const asterisk = document.getElementById('typewriter-asterisk');
+    const footnote = document.getElementById('hero-footnote');
+
+    if (!el) return;
+
+    // Reset state: the DOM is reinjected fresh on each ViewTransition navigation,
+    // and module scripts do not re-run, so we drive the animation from astro:page-load.
+    el.textContent = '';
+    if (asterisk) asterisk.style.display = 'none';
+    if (footnote) footnote.style.opacity = '0';
+
+    const reveal = () => {
+      if (asterisk) asterisk.style.display = '';
+      if (footnote) footnote.style.opacity = '0.6';
+    };
+
+    if (cursor && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let i = 0;
+      const type = () => {
+        el.textContent = word.slice(0, ++i);
+        if (i < word.length) setTimeout(type, 220);
+        else reveal();
+      };
+      setTimeout(type, 400);
+    } else {
+      el.textContent = word;
+      if (cursor) cursor.style.display = 'none';
+      reveal();
+    }
+  }
+
+  document.addEventListener('astro:page-load', runTypewriter);
+</script>

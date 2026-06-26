@@ -1,0 +1,57 @@
+---
+import { getEntry } from 'astro:content';
+import TechTag from '../TechTag.astro';
+import { Code, Smartphone, Rocket, Cloud, Briefcase, GraduationCap } from '@lucide/astro';
+
+const entry = await getEntry('services', 'services');
+const { sectionTitle, sectionTitleHighlight, sectionDescription, items } = entry.data;
+
+const iconMap: Record<string, any> = {
+  'code-bracket': Code,
+  'device-mobile': Smartphone,
+  'rocket': Rocket,
+  'cloud': Cloud,
+  'briefcase': Briefcase,
+  'academic-cap': GraduationCap,
+};
+---
+
+<section class="section section--surface">
+  <div class="container">
+    <div class="max-w-3xl mb-12">
+      <h2 class="section-title">
+        {sectionTitle} <span class="text-gradient-glow">{sectionTitleHighlight}</span>
+      </h2>
+      <p class="text-muted text-lg">
+        {sectionDescription}
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {items.map((service) => {
+        const IconComponent = iconMap[service.icon];
+        return (
+          <article class="service-card">
+            <div class="mb-4 icon-primary">
+              {IconComponent && <IconComponent class="icon-lg" />}
+            </div>
+            <h3 class="font-bold text-xl mb-3">{service.title}</h3>
+            <p class="text-muted mb-4">{service.description}</p>
+
+            <div class="flex flex-wrap gap-2 mb-4">
+              {service.technologies.map((tech) => (
+                <TechTag name={tech} />
+              ))}
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              {service.tags.slice(0, 4).map((tag) => (
+                <span class="tag--muted">{tag}</span>
+              ))}
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>

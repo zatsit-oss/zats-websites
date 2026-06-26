@@ -1,0 +1,108 @@
+---
+import { GITHUB_URL } from 'astro:env/client';
+import { ExternalLink, Code, Heart, Users } from '@lucide/astro';
+
+const engagementIcons: Record<string, typeof Code> = {
+  osi: Code,
+  heart: Heart,
+  users: Users,
+};
+
+// Triangle layout with fixed positions
+// Cards 100x100px, container 420x220px
+// Aligned with hexagon above (Open source at x:160 like Écoconception)
+//        [0]
+//     [2]   [1]
+const engagements = [
+  { name: 'Open source', icon: 'osi', x: 160, y: 0 },   // Top center (aligned with Écoconception)
+  { name: 'Associations', icon: 'heart', x: 270, y: 120 },      // Bottom right
+  { name: 'Gouvernance', icon: 'users', x: 50, y: 120 },        // Bottom left
+];
+---
+
+<section class="section section--surface">
+  <div class="container">
+    <div class="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center lg:items-start lg:justify-center">
+      <div class="max-w-xl text-center lg:text-left">
+        <h2 class="section-title mb-8">
+          Impact <span class="text-gradient-glow">sociétal</span>
+        </h2>
+
+        <div class="content-block">
+          <p>
+            <b>zatsit</b> s'investit dans le tissu associatif et caritatif en apportant son soutien financier et son expertise pour apporter du sens.
+          </p>
+          <p>
+            Nous sommes fiers de notre gouvernance d'entreprise transparente et partagée, où la collaboration et la responsabilité sont au cœur de notre modèle.
+          </p>
+          <p>
+            Consultez notre <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="link-primary">Github <ExternalLink class="icon-sm" size={16} /></a> pour découvrir nos premières initiatives open source à vocation d'impact.
+          </p>
+        </div>
+      </div>
+
+      <div id="engagement-triangle" class="engagement-triangle">
+        {engagements.map((engagement, index) => (
+          <div
+            class="partner-card active"
+            data-index={index}
+            style={`left: ${engagement.x}px; top: ${engagement.y}px;`}
+          >
+            {(() => { const Icon = engagementIcons[engagement.icon]; return Icon ? <Icon class="partner-icon" /> : null; })()}
+            <span class="partner-name">{engagement.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function initEngagementTriangle() {
+    const container = document.getElementById('engagement-triangle');
+    if (!container) return;
+
+    const cards = Array.from(container.querySelectorAll('.partner-card'));
+    if (cards.length === 0) return;
+
+    // Reduced motion: keep every card in its final high-contrast state, no animation.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      cards.forEach(card => card.classList.add('active'));
+      return;
+    }
+
+    // Start from the dimmed state. The section sits below the fold on load,
+    // so stripping the baseline 'active' class here is not visible.
+    cards.forEach(card => card.classList.remove('active'));
+
+    let revealed = false;
+    const revealSequentially = () => {
+      if (revealed) return;
+      revealed = true;
+      // Highlight each card once, in order, and leave it highlighted (no loop).
+      cards.forEach((card, index) => {
+        setTimeout(() => card.classList.add('active'), index * 400);
+      });
+    };
+
+    // Trigger the reveal only when the block enters the viewport.
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          revealSequentially();
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.4 });
+
+    observer.observe(container);
+
+    // Cleanup on page navigation (ViewTransitions)
+    document.addEventListener('astro:before-swap', () => {
+      observer.disconnect();
+    }, { once: true });
+  }
+
+  initEngagementTriangle();
+  document.addEventListener('astro:after-swap', initEngagementTriangle);
+</script>

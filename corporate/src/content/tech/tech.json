@@ -1,0 +1,61 @@
+{
+  "intro": {
+    "title": "Notre",
+    "titleHighlight": "expertise tech",
+    "description": "Notre collectif façonne des solutions techniques avec exigence et créativité. Guidés par la recherche de qualité et d'efficacité, nous privilégions des approches flexibles et collaboratives."
+  },
+  "stats": [
+    { "value": "0.04g", "label": "CO2 par page", "icon": "leaf" },
+    { "value": "9 ans", "label": "Expérience moyenne", "icon": "growth" },
+    { "value": "100%", "label": "Open source friendly", "icon": "opensource" }
+  ],
+  "roles": [
+    { "role": "Développeurs Fullstack", "icon": "code-bracket" },
+    { "role": "Architectes solutions", "icon": "globe" },
+    { "role": "Ops / DevOps", "icon": "cloud" }
+  ],
+  "stacks": [
+    {
+      "name": "Backend",
+      "icon": "code-bracket",
+      "technologies": ["Java", "Spring", "Spring Boot", "Node.js", ".NET", "Rust"]
+    },
+    {
+      "name": "Frontend",
+      "icon": "globe",
+      "technologies": ["TypeScript", "Vue.js", "React", "Angular", "Vite"]
+    },
+    {
+      "name": "Data",
+      "icon": "cloud",
+      "technologies": ["PostgreSQL", "MongoDB", "Redis", "Elasticsearch"]
+    },
+    {
+      "name": "DevOps",
+      "icon": "rocket",
+      "technologies": ["Kubernetes", "Terraform", "Ansible", "GitHub Actions", "Docker"]
+    }
+  ],
+  "methodologies": [
+    {
+      "title": "Contract-First",
+      "description": "Nous spécifions nos APIs REST et asynchrones directement en OpenAPI et AsyncAPI, puis générons le code depuis les spécifications. Un game-changer sur le delivery et la maintenance.",
+      "icon": "badge"
+    },
+    {
+      "title": "Tests sans compromis",
+      "description": "Le test garantit une qualité de code optimale et assure une maintenabilité accrue sur le long terme. Nous ne faisons pas de compromis sur la réalisation de tests chez nos clients.",
+      "icon": "check"
+    },
+    {
+      "title": "Architecture hexagonale",
+      "description": "Nous acculturons nos clients aux architectures modulaires et documentées : pratiques DDD, Rich Data Model, documentation C4 Model et ADRs.",
+      "icon": "code-bracket"
+    },
+    {
+      "title": "Open Source",
+      "description": "Fervents défenseurs de l'open source, nous encourageons les contributions et promouvons nos initiatives sur notre page GitHub.",
+      "icon": "opensource"
+    }
+  ]
+}

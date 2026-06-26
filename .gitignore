@@ -1,3 +1,10 @@
 .DS_Store
 .idea/
 node_modules/
+
+.claude/settings.local.json
+
+.astro
+node_modules
+corporate/node_modules
+corporate/.astro

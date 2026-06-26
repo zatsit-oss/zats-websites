@@ -1,0 +1,85 @@
+---
+import { BLOG_URL, LINKEDIN_URL, GITHUB_URL, SUSTAINABILITY_URL } from 'astro:env/client';
+import Logo from './Logo.astro';
+import GithubIcon from '../assets/icons/github.svg';
+import LinkedinIcon from '../assets/icons/linkedin.svg';
+import BlueskyIcon from '../assets/icons/bluesky.svg';
+import SustainabilityIcon from '../assets/icons/sustainability.svg';
+import { BookOpen, Mail, MapPin } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import ecovadisMedal from '../assets/ecovadis-medal.webp';
+---
+
+<footer class="footer-main">
+  <div class="container py-10 md:py-12">
+    <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-10 md:gap-16 justify-center">
+
+      <!-- Col 1: Logo + Mission + Website Carbon -->
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <Logo class="h-8 w-auto icon-primary" />
+          <span class="text-2xl font-semibold icon-primary leading-none ml-3">zatsit</span>
+        </div>
+        <p class="text-muted text-sm leading-relaxed">
+          Engager notre <strong class="text-[var(--color-text)]">expertise numerique</strong> au service
+          de l'<strong class="text-[var(--color-text)]">impact</strong> des entreprises, en creant un ecosysteme
+          <strong class="text-[var(--color-text)]">durable</strong>, <strong class="text-[var(--color-text)]">partenarial</strong>
+          et <strong class="text-[var(--color-text)]">positif</strong>.
+        </p>
+        <div class="mt-4">
+          <div id="wcb" class="carbonbadge wcb"></div>
+          <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
+        </div>
+      </div>
+
+      <!-- Col 2: Contact + Social icons -->
+      <div>
+        <h3 class="font-semibold mb-3">Nous trouver</h3>
+        <div class="text-sm text-muted space-y-2">
+          <div class="flex items-start gap-2">
+            <MapPin class="icon-sm mt-0.5 shrink-0" size={16} />
+            <span>
+              EURATECHNOPOLYS<br />
+              2 Allee de la Haye du Temple<br />
+              59160 Lille
+            </span>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-3 mt-4 justify-center md:justify-start">
+          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="LinkedIn">
+            <LinkedinIcon class="icon-md" />
+          </a>
+          <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Blog">
+            <BookOpen class="icon-md" size={20} />
+          </a>
+          <a href={SUSTAINABILITY_URL} target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Sustainability">
+            <SustainabilityIcon class="icon-md" />
+          </a>
+          <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="GitHub">
+            <GithubIcon class="icon-md" />
+          </a>
+           <a href="mailto:contact@zatsit.fr" class="footer-social-link" aria-label="Nous contacter par email">
+        <Mail class="icon-md" size={20} />
+      </a>
+          
+        </div>
+      </div>
+
+      <!-- Col 3: EcoVadis -->
+      <div class="flex items-center justify-center md:justify-start">
+        <Image src={ecovadisMedal} alt="EcoVadis Silver Medal - Top 15%" width={100} height={100} class="opacity-90" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Copyright bar -->
+  <div class="border-t" style="border-color: var(--color-border);">
+    <div class="container py-4 flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-muted">
+      <p>zatsit - {new Date().getFullYear()} &bull; Site statique eco-concu</p>
+      <div class="flex gap-6">
+        <a href="/legal-notice" class="link">Mentions legales</a>
+        <a href="/privacy-policy" class="link">Politique de confidentialite</a>
+      </div>
+    </div>
+  </div>
+</footer>

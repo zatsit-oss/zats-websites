@@ -1,0 +1,28 @@
+{
+  "name": "zatsit-website",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Site web institutionnel de Zatsit - La Tech au service de l'impact des entreprises",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@fontsource/poppins": "^5.2.7",
+    "@lucide/astro": "^1.17.0",
+    "@tailwindcss/vite": "^4.1.17",
+    "astro": "^5.16.2",
+    "tailwindcss": "^4.1.17"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.2",
+    "typescript": "^5.9.3"
+  },
+  "zatsit": {
+    "technologyDisplay": "icon"
+  }
+}

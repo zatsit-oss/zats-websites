@@ -1,0 +1,116 @@
+---
+import { ArrowRight, ShieldCheck, Handshake, Eye, Star } from '@lucide/astro';
+import { isPageDisabled } from '../../lib/pages';
+
+const joinUsDisabled = isPageDisabled('join-us')
+
+const valueIcons: Record<string, typeof ShieldCheck> = {
+  shield: ShieldCheck,
+  handshake: Handshake,
+  eye: Eye,
+  star: Star,
+};
+
+// Square layout with fixed positions
+// Cards 100x100px, container 420x280px (aligned with hexagon above)
+// [0]   [1]
+// [3]   [2]
+const values = [
+  { name: 'Confiance', icon: 'shield', x: 70, y: 0 },         // Top left
+  { name: 'Collaboration', icon: 'handshake', x: 250, y: 0 },  // Top right
+  { name: 'Transparence', icon: 'eye', x: 250, y: 140 },       // Bottom right
+  { name: 'Expertise', icon: 'star', x: 70, y: 140 },          // Bottom left
+];
+---
+
+<section class="section">
+  <div class="container">
+    <div class="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center lg:justify-center">
+      <div class="max-w-xl text-center lg:text-left">
+        <h2 class="section-title">
+          Nos clients sont pour nous des <span class="text-gradient-glow">partenaires</span>
+        </h2>
+
+        <h3 class="section-subtitle">
+          Pourquoi travailler avec <span class="text-gradient-glow">zatsit</span> ?
+        </h3>
+
+        <div class="content-block mb-8">
+          <p>
+            Forts de notre expérience et de notre compréhension pointue des enjeux technologiques, nous sommes convaincus que chaque défi est une occasion d'innover.
+          </p>
+          <p>
+            Nous sommes un partenaire stratégique pour ceux qui cherchent à naviguer avec succès dans l'univers complexe et dynamique de la technologie.
+          </p>
+          <p>
+            Nos consultants sont expérimentés et passionnés. Travaillons ensemble pour qu'ils aient de l'<strong class="text-[var(--color-text)]">impact</strong> dans vos projets.
+          </p>
+        </div>
+
+      </div>
+
+      <div id="values-square" class="values-square">
+        {values.map((value, index) => (
+          <div
+            class="partner-card active"
+            data-index={index}
+            style={`left: ${value.x}px; top: ${value.y}px;`}
+          >
+            {(() => { const Icon = valueIcons[value.icon]; return Icon ? <Icon class="partner-icon" /> : null; })()}
+            <span class="partner-name">{value.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function initValuesSquare() {
+    const container = document.getElementById('values-square');
+    if (!container) return;
+
+    const cards = Array.from(container.querySelectorAll('.partner-card'));
+    if (cards.length === 0) return;
+
+    // Reduced motion: keep every card in its final high-contrast state, no animation.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      cards.forEach(card => card.classList.add('active'));
+      return;
+    }
+
+    // Start from the dimmed state. The section sits below the fold on load,
+    // so stripping the baseline 'active' class here is not visible.
+    cards.forEach(card => card.classList.remove('active'));
+
+    let revealed = false;
+    const revealSequentially = () => {
+      if (revealed) return;
+      revealed = true;
+      // Highlight each card once, in order, and leave it highlighted (no loop).
+      cards.forEach((card, index) => {
+        setTimeout(() => card.classList.add('active'), index * 400);
+      });
+    };
+
+    // Trigger the reveal only when the block enters the viewport.
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          revealSequentially();
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.4 });
+
+    observer.observe(container);
+
+    // Cleanup on page navigation (ViewTransitions)
+    document.addEventListener('astro:before-swap', () => {
+      observer.disconnect();
+    }, { once: true });
+  }
+
+  initValuesSquare();
+  document.addEventListener('astro:after-swap', initValuesSquare);
+</script>

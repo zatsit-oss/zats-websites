@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LegalPageLayout from '../components/LegalPageLayout.astro';
+import { getEntry } from 'astro:content';
+
+const entry = await getEntry('legal', 'privacy-policy');
+const { title, titleHighlight, description } = entry.data;
+---
+
+<Layout title={`${title} ${titleHighlight}`} description={description}>
+  <LegalPageLayout entry={entry} />
+</Layout>

@@ -1,0 +1,7 @@
+{
+    "hosting": {
+        "target": "zatsit-corporate-dev",
+        "public": "dist",
+        "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    }
+}

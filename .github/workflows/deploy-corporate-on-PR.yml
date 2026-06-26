@@ -1,0 +1,52 @@
+---
+name: 🏢 Deploy Corporate on PR 🏢
+
+on:
+  pull_request:
+    paths:
+      - "corporate/**"
+      - "!**/**.md"
+
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: corporate-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+
+env:
+  PROJECT_PATH: 'corporate'
+
+jobs:
+  build_and_preview:
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Astro project
+        uses: ./.github/actions/astro
+        with:
+          token: ${{ secrets.GH_PAT }}
+          branch: ${{ github.head_ref || github.ref_name }}
+          project-path: ${{ env.PROJECT_PATH }}
+          command-prefix: 'export DISABLED_PAGES=careers,team,tech,find-us'
+
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ZATSIT_CORPORATE_STAGING }}
+          entryPoint: ${{ env.PROJECT_PATH }}
+          expires: 30d
+          # Pin firebase-tools: 15.22.3 (2026-06-25) regressed on preview channel
+          # releases (retries an already-successful release -> 400 FAILED_PRECONDITION).
+          firebaseToolsVersion: "15.22.0"
+
+      # needed to avoid the post action error
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
