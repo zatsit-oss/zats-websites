@@ -8,3 +8,4 @@ node_modules/
 node_modules
 corporate/node_modules
 corporate/.astro
+.superpowers/
