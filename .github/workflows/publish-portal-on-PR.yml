@@ -49,6 +49,9 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ZATSIT_GREENSCORE_STAGING }}
           entryPoint: ${{ env.PROJECT_PATH }}
           expires: 30d
+          # Pin firebase-tools: 15.22.3 (2026-06-25) regressed on preview channel
+          # releases (retries an already-successful release -> 400 FAILED_PRECONDITION).
+          firebaseToolsVersion: "15.22.0"
 
       # needed to avoid the post action error
       - name: Checkout repository
