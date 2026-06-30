@@ -4,7 +4,7 @@ Official website of **zatsit** — Tech at the service of companies' impact.
 
 ## Description
 
-Corporate website of Zatsit, showcasing our services, expertise, team, and commitments to responsible digital transformation.
+Corporate website of **zatsit**, showcasing our services, expertise, team, and commitments to responsible digital transformation.
 
 ## Tech Stack
 
@@ -129,4 +129,4 @@ When a page is disabled:
 
 ## License
 
-Copyright (c) 2025 Zatsit. All rights reserved.
+Copyright (c) 2025 **zatsit**. All rights reserved.

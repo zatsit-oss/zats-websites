@@ -2,7 +2,7 @@
   "name": "zatsit-website",
   "type": "module",
   "version": "0.0.1",
-  "description": "Site web institutionnel de Zatsit - La Tech au service de l'impact des entreprises",
+  "description": "Site web institutionnel de zatsit - La Tech au service de l'impact des entreprises",
   "private": true,
   "scripts": {
     "dev": "astro dev",

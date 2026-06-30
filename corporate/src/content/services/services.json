@@ -9,7 +9,7 @@
       "icon": "code-bracket",
       "description": "Nous sommes avant tout développeurs. Nous construisons des applications bien conçues, basées sur nos technologies de prédilection et en accord avec vos besoins.",
       "technologies": ["Java", ".NET", "Rust", "JavaScript", "TypeScript", "Spring"],
-      "tags": ["#softwareCraftmanship", "#cleanCode", "#tdd", "#ddd", "#tests"]
+      "tags": ["#softwareCraftsmanship", "#cleanCode", "#tdd", "#ddd", "#tests"]
     },
     {
       "id": "mobile",

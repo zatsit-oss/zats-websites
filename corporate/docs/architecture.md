@@ -2,7 +2,7 @@
 
 ## Overview
 
-Zatsit website is a static, eco-designed corporate website built with Astro and Tailwind CSS. It supports light and dark themes and follows a component-based architecture.
+**zatsit** website is a static, eco-designed corporate website built with Astro and Tailwind CSS. It supports light and dark themes and follows a component-based architecture.
 
 ## Tech Stack
 

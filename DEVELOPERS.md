@@ -1,6 +1,6 @@
 # Developer Guide
 
-Welcome! This guide will help you set up your development environment to work on **Zatsit Sustainability Websites**.
+Welcome! This guide will help you set up your development environment to work on **zatsit Sustainability Websites**.
 
 ## 📋 Table of Contents
 
