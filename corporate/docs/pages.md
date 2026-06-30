@@ -1,6 +1,6 @@
 # Pages & Components
 
-Documentation of all pages and components on the Zatsit website.
+Documentation of all pages and components on the **zatsit** website.
 
 ---
 

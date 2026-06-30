@@ -2,7 +2,7 @@
 
 ## Company Identity
 
-**Zatsit** is a French tech consulting company based in Lille (Euratechnopole).
+**zatsit** is a French tech consulting company based in Lille (Euratechnopole).
 
 ### Mission
 > Engager notre expertise numérique au service de l'impact des entreprises, en créant un écosystème durable, partenarial et positif.

@@ -1,6 +1,6 @@
 # Zatsit Websites
 
-This is a monorepo hosting all websites and landing pages for **Zatsit's web projects**.
+This is a monorepo hosting all websites and landing pages for **zatsit's web projects**.
 
 ## 🚀 Projects
 
