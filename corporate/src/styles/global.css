@@ -1444,6 +1444,17 @@ button:hover {
   opacity: 0.85;
 }
 
+/* Opportunistic ambition note at the bottom of an offer card */
+.offer-note {
+  @apply text-sm mt-5 pl-3.5;
+  color: var(--color-text-muted);
+  border-left: 3px solid var(--color-secondary);
+}
+
+.offer-note b {
+  color: var(--color-secondary);
+}
+
 /* Bullet list with square markers */
 .feature-list {
   @apply flex flex-col gap-2;

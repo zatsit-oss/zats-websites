@@ -2,19 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import OffersGrid from '../components/sections/OffersGrid.astro';
 import GreenScoreInstrument from '../components/sections/GreenScoreInstrument.astro';
-import { ArrowRight, Wallet, Recycle, Compass } from '@lucide/astro';
+import { ArrowRight } from '@lucide/astro';
 
 const stats = [
-  { value: '2023', label: "année où zatsit a fait de l'éco-conception une offre de conseil" },
   { value: '55 à 80 %', label: "du coût d'une IA, c'est son usage en continu, pas sa fabrication" },
   { value: '×2', label: "la conso électrique des datacenters d'ici 2030, l'IA en tête" },
   { value: 'A → E', label: 'la note simple et chiffrée posée par GreenScore' },
-];
-
-const maux = [
-  { icon: Wallet, title: 'Surcoût', text: "La facture d'usage qui dérive, en infrastructure comme en tokens." },
-  { icon: Recycle, title: 'Gaspillage', text: 'Énergie et ressources de calcul brûlées sans valeur ajoutée.' },
-  { icon: Compass, title: 'Perte de contrôle', text: 'Dépendance technique et stratégique non maîtrisée.' },
 ];
 ---
 
@@ -34,120 +27,27 @@ const maux = [
       <div class="max-w-3xl">
         <span class="pill hero-subtitle">Nos offres · sobriété mesurée</span>
         <h1 class="section-title--lg hero-title mt-5">
-          On a fait le pari de la sobriété.
-          <span class="text-gradient-glow">L'IA vient de le rendre rentable.</span>
+          Dimensionner le logiciel et l'IA
+          <span class="text-gradient-glow">au plus juste.</span>
         </h1>
         <p class="section-description hero-subtitle max-w-2xl">
-          Une seule discipline d'ingénierie, deux offres : dimensionner le
-          logiciel et l'IA au plus juste. La sobriété cesse d'être un sujet à
-          part, elle devient un levier financier.
+          Une seule discipline d'ingénierie, deux offres, un seul instrument de
+          mesure. Nous enlevons le superflu, nous mesurons ce qui reste, et la
+          sobriété devient un levier financier.
+        </p>
+        <p class="text-muted">
+          La conviction derrière ces offres ? Elle est dans
+          <a href="/manifeste" class="link-primary">notre manifeste</a>.
         </p>
       </div>
 
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-10">
         {stats.map((stat) => (
           <div class="offer-stat">
             <div class="offer-stat-value text-gradient">{stat.value}</div>
             <div class="text-sm text-muted mt-1.5">{stat.label}</div>
           </div>
         ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Origine -->
-  <section class="section section--surface">
-    <div class="container">
-      <div class="max-w-3xl">
-        <div class="eyebrow">D'où on part</div>
-        <h2 class="section-title">Une conviction, en avance sur son marché</h2>
-        <div class="content-block">
-          <p>
-            zatsit s'est créé en 2023 avec une idée forte : faire de
-            l'éco-conception une offre de conseil à part entière. Le pari était
-            bon, simplement en avance sur son marché.
-          </p>
-          <p>
-            On l'applique d'abord à nous-mêmes : un site éco-conçu à 0,04 g de
-            CO2 par page, 9 ans d'expérience moyenne dans l'équipe, le label
-            EcoVadis Silver (top 15 %) et le cap sur la certification BCorp. La
-            rigueur existe. L'IA vient de lui donner son argument économique.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Constat -->
-  <section class="section">
-    <div class="container">
-      <div class="max-w-3xl">
-        <div class="eyebrow">Le constat</div>
-        <h2 class="section-title">Le coût d'une IA, c'est surtout son usage</h2>
-        <div class="content-block">
-          <p>
-            L'IA est partout, en interne comme chez nos clients. Elle consomme
-            des ressources croissantes, surtout quand elle est mal utilisée. On
-            pourrait y voir la fin du pari de 2023. C'est l'inverse.
-          </p>
-          <p>
-            Le coût d'une IA, c'est surtout son usage permanent, pas sa
-            fabrication : une facture qui tourne en continu. Rendre un système
-            sobre revient donc à le rendre moins cher. L'argument financier
-            porte enfin la conviction écologique.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Opportunité -->
-  <section class="section section--surface">
-    <div class="container">
-      <div class="max-w-3xl mb-8">
-        <div class="eyebrow">L'opportunité</div>
-        <h2 class="section-title">La tension devient un actif</h2>
-      </div>
-
-      <div class="grid md:grid-cols-[1fr_auto_1fr] gap-5 items-stretch max-w-4xl">
-        <div class="card p-6">
-          <h4 class="offer-block-title !mt-0">Avant</h4>
-          <p class="text-sm text-muted">
-            L'éco-conception est un sujet à part, vaguement RSE. Faute d'argument
-            financier, elle perd l'arbitrage face à l'IA du moment.
-          </p>
-        </div>
-        <div class="transform-arrow">
-          <ArrowRight size={28} />
-        </div>
-        <div class="grad-soft p-6">
-          <h4 class="offer-block-title !mt-0">Maintenant</h4>
-          <p class="text-sm">
-            L'éco-conception devient la couche de mesure de l'offre IA que tout
-            le monde veut acheter. Un levier financier avant d'être un argument
-            éthique. Faire de l'IA et faire du sobre, c'est le même geste.
-          </p>
-        </div>
-      </div>
-
-      <div class="grad-soft p-7 md:p-8 mt-10 max-w-4xl">
-        <div class="eyebrow">Le principe dont tout découle</div>
-        <p class="text-2xl md:text-3xl font-semibold max-w-xl">
-          <span class="text-gradient">Dimensionner l'IA, et le logiciel, au plus juste.</span>
-        </p>
-        <p class="text-muted mt-3 max-w-2xl">
-          Le sur-dimensionnement est la racine commune de trois maux qui n'en
-          font qu'un. Couper le superflu les règle d'un coup.
-        </p>
-        <div class="grid sm:grid-cols-3 gap-4 mt-6">
-          {maux.map((mal) => (
-            <div class="card p-5">
-              <mal.icon class="icon-md icon-primary mb-2" />
-              <div class="font-semibold mb-1">{mal.title}</div>
-              <p class="text-sm text-muted">{mal.text}</p>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   </section>
@@ -163,7 +63,7 @@ const maux = [
         <h2 class="section-title">Parlons de votre trajectoire</h2>
         <p class="text-muted mb-6">
           Un système trop lourd, une facture IA qui grimpe, une pratique à
-          cadrer ? On commence par une mesure, on finit par des économies.
+          cadrer ? Nous commençons par une mesure, nous finissons par des économies.
         </p>
         <a href="/work-with-us" class="btn-primary">
           Travaillons ensemble

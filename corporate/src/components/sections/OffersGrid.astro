@@ -5,13 +5,14 @@ interface OfferContent {
   targets: string[];
   deliverables: string[];
   means: string[];
+  note?: { lead: string; text: string };
 }
 
 const offers: OfferContent[] = [
   {
     title: 'Conseil éco-conception mesuré',
     pitch:
-      "On mesure votre logiciel existant, on identifie les gisements d'économies, on corrige. Une note chiffrée, une trajectoire claire, des résultats livrés sur une architecture sobre.",
+      "Nous mesurons votre logiciel existant, nous identifions les gisements d'économies, nous corrigeons. Une note chiffrée, une trajectoire claire, des résultats livrés sur une architecture sobre.",
     targets: [
       'Éditeurs et SaaS',
       'E-commerce et retail',
@@ -34,7 +35,7 @@ const offers: OfferContent[] = [
     label: 'Offre B',
     title: 'Pratique IA souveraine et frugale',
     pitch:
-      "On ne touche pas seulement au logiciel, on transforme votre façon de construire avec l'IA. Conseil embarqué dans vos équipes pour dimensionner les modèles au plus juste.",
+      "Nous ne touchons pas seulement au logiciel, nous transformons votre façon de construire avec l'IA. Conseil embarqué dans vos équipes pour dimensionner les modèles au plus juste.",
     targets: [
       "Éditeurs intégrant l'IA produit",
       'Banque, assurance, mutuelles',
@@ -51,6 +52,10 @@ const offers: OfferContent[] = [
       'Notre propre pratique interne comme preuve',
       'GreenScore étendu à la consommation IA',
     ],
+    note: {
+      lead: 'Et pourquoi pas souveraine ?',
+      text: "Quand le contexte le permet, nous challengeons aussi des alternatives souveraines, modèles et hébergement compris. Une ambition que nous poussons là où elle tient, pas une promesse de façade.",
+    },
   },
 ];
 ---
@@ -89,6 +94,12 @@ const offers: OfferContent[] = [
           <ul class="feature-list">
             {offer.means.map((item) => <li>{item}</li>)}
           </ul>
+
+          {offer.note && (
+            <p class="offer-note">
+              <b>{offer.note.lead}</b> {offer.note.text}
+            </p>
+          )}
         </article>
       ))}
     </div>
