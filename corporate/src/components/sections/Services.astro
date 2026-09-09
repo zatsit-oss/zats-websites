@@ -3,6 +3,7 @@ import { getEntry } from 'astro:content';
 import { Code, TabletSmartphone, Rocket, Cloudy, Briefcase, GraduationCap } from '@lucide/astro';
 
 const entry = await getEntry('services', 'services');
+if (!entry) throw new Error('Services data not found');
 const {
   sectionTitle,
   sectionTitleHighlight,
