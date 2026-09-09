@@ -20,8 +20,13 @@ export const SITE_TITLE = 'zatsit';
  */
 export const HOME_TITLE = "zatsit, la tech au service de l'impact des entreprises";
 
+/**
+ * 158 characters, inside the 120 to 160 a result page shows without cutting.
+ * It was 164, which an audit flagged. The inclusive wording is kept and the
+ * four characters came off the connectors instead.
+ */
 export const SITE_DESCRIPTION =
-  "zatsit accompagne les entreprises sur leurs enjeux tech : architecture, cloud, data, IA et éco-conception. Un collectif de consultantes et consultants basé à Lille.";
+  "zatsit accompagne les entreprises sur leurs enjeux tech : architecture, cloud, data, IA, éco-conception. Un collectif de consultantes et consultants, à Lille.";
 
 export const SITE_LANG = 'fr';
 export const SITE_INLANGUAGE = 'fr-FR';
