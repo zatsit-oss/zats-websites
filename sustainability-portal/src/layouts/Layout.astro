@@ -8,6 +8,8 @@ import {
   SITE_LOCALE,
   SITE_LOGO,
   SITE_OG_IMAGE,
+  SITE_OG_IMAGE_HEIGHT,
+  SITE_OG_IMAGE_WIDTH,
   SITE_OG_IMAGE_ALT,
   SITE_TITLE,
 } from '../consts';
@@ -42,8 +44,8 @@ const {
       locale={SITE_LOCALE}
       image={SITE_OG_IMAGE}
       imageAlt={SITE_OG_IMAGE_ALT}
-      imageWidth={1200}
-      imageHeight={630}
+      imageWidth={SITE_OG_IMAGE_WIDTH}
+      imageHeight={SITE_OG_IMAGE_HEIGHT}
       logo={SITE_LOGO}
       sameAs={[LINKEDIN_URL, GITHUB_URL]}
       breadcrumbs={breadcrumbs}
