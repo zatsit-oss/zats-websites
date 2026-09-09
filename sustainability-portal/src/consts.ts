@@ -40,6 +40,9 @@ export const SITE_LOCALE = 'en_US';
  * absolute origin at the same time.
  */
 export const SITE_OG_IMAGE = 'https://zatsit.fr/og-image.png';
+/** The borrowed file's real size, measured. See the corporate consts. */
+export const SITE_OG_IMAGE_WIDTH = 775;
+export const SITE_OG_IMAGE_HEIGHT = 630;
 export const SITE_OG_IMAGE_ALT =
   'zatsit, tech in the service of business impact';
 

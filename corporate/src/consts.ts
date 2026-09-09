@@ -32,11 +32,25 @@ export const SITE_LANG = 'fr';
 export const SITE_INLANGUAGE = 'fr-FR';
 export const SITE_LOCALE = 'fr_FR';
 
-/** Default social card, 1200x630, and the alt text that describes it. */
+/**
+ * Social card.
+ *
+ * The declared size is the file's real size, measured, not the 1200x630 this
+ * used to claim: `og-image.png` is **775x630**. Announcing a width the file
+ * does not have makes a platform reserve the wrong box and is the kind of
+ * mismatch a share debugger reports.
+ *
+ * **The asset itself needs replacing, and that is a design task.** It is a logo
+ * export, not a card: the wordmark is cropped at the bottom edge, the
+ * background is fully transparent (so LinkedIn and Meta composite the blue mark
+ * onto whatever they use, near-black in dark mode), and 775px is under the
+ * 1200px minimum width `summary_large_image` wants at a 1.91:1 ratio. Target
+ * 1200x630, opaque.
+ */
 export const SITE_OG_IMAGE = '/og-image.png';
 export const SITE_OG_IMAGE_ALT =
   "zatsit, la tech augmentée au service de l'impact des entreprises";
-export const SITE_OG_IMAGE_WIDTH = 1200;
+export const SITE_OG_IMAGE_WIDTH = 775;
 export const SITE_OG_IMAGE_HEIGHT = 630;
 
 /** Organization logo, for the JSON-LD `Organization` node. */
