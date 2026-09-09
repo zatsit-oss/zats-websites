@@ -149,7 +149,13 @@ const schema = noindex
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="generator" content={Astro.generator} />
 
-{noindex && <meta name="robots" content="noindex, follow" />}
+{/* `max-image-preview:large` lets Google use a full-size image in Discover
+    and in AI surfaces; without it the preview is capped at a thumbnail. The
+    other two directives are the defaults, spelled out so the one that matters
+    is not sitting alone on a line that looks like an override. */}
+{noindex
+  ? <meta name="robots" content="noindex, follow" />
+  : <meta name="robots" content="index, follow, max-image-preview:large" />}
 <link rel="canonical" href={canonicalURL} />
 {sitemap && <link rel="sitemap" type="application/xml" href={sitemap} />}
 
