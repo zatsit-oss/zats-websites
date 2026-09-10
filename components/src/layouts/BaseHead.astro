@@ -18,8 +18,11 @@ import {
   pageGraph,
   webPageSchema,
   webSiteSchema,
+  ZATSIT_AWARDS,
+  ZATSIT_CERTIFICATIONS,
+  ZATSIT_EMAIL,
+  ZATSIT_POSTAL_ADDRESS,
   type BreadcrumbItem,
-  type PostalAddressInput,
 } from '../utils/schema';
 
 interface Props {
@@ -44,8 +47,6 @@ interface Props {
   logo: string;
   /** Authoritative profiles for the organisation. */
   sameAs: string[];
-  /** Emitted on the page that actually publishes the address. */
-  address?: PostalAddressInput;
   /**
    * Trail from the site root to this page, root-relative hrefs, **excluding**
    * the current page: it is appended automatically, without a URL, as
@@ -79,7 +80,6 @@ const {
   imageHeight,
   logo,
   sameAs,
-  address,
   breadcrumbs = [],
   type = 'website',
   sitemap,
@@ -117,7 +117,19 @@ const trail: BreadcrumbItem[] = isHome
 
 const breadcrumb = trail.length > 1 ? breadcrumbListSchema(trail, canonicalURL.href) : undefined;
 
-const organization = organizationSchema({ logo: logoURL.href, sameAs, address });
+// The organisation's published facts, all of them printed in the footer of
+// every page: the address, the contact address, the B Corp certification and
+// the EcoVadis medal. Declaring them adds nothing to the claim, it only makes
+// the claim machine-readable.
+const organization = organizationSchema({
+  logo: logoURL.href,
+  sameAs,
+  description: siteDescription,
+  address: ZATSIT_POSTAL_ADDRESS,
+  email: ZATSIT_EMAIL,
+  certifications: ZATSIT_CERTIFICATIONS,
+  awards: ZATSIT_AWARDS,
+});
 const website = webSiteSchema({
   name: siteName,
   description: siteDescription,

@@ -34,6 +34,28 @@ export const ORGANIZATION_ID = `${ZATSIT_ORIGIN}/#organization`;
 /** The brand, in the one spelling used everywhere: lowercase. */
 export const BRAND_NAME = 'zatsit';
 
+/**
+ * The certifications and ratings the footers display a badge for, so the two
+ * sites describe the same organisation rather than each declaring a subset.
+ *
+ * Named after the certifications themselves, not translated into a sentence:
+ * one node is shared by a French site and an English one, and two conflicting
+ * labels behind a single `@id` would be worse than one neutral label.
+ */
+export const ZATSIT_CERTIFICATIONS = [
+  { name: 'B Corp', issuedBy: 'B Lab', url: 'https://www.bcorporation.net/' },
+];
+export const ZATSIT_AWARDS = ['EcoVadis Silver (top 15%)'];
+export const ZATSIT_EMAIL = 'contact@zatsit.fr';
+
+/** The office address, as both footers print it. */
+export const ZATSIT_POSTAL_ADDRESS = {
+  streetAddress: '2 Allée de la Haye du Temple',
+  postalCode: '59160',
+  addressLocality: 'Lille',
+  addressCountry: 'FR',
+};
+
 export interface PostalAddressInput {
   streetAddress: string;
   postalCode: string;
@@ -41,12 +63,34 @@ export interface PostalAddressInput {
   addressCountry: string;
 }
 
+export interface CertificationInput {
+  name: string;
+  /** The body that issued it. */
+  issuedBy: string;
+  url?: string;
+}
+
+/**
+ * Everything here must be a fact the site already publishes to a reader.
+ *
+ * That is the line between describing ourselves and inventing signals. The
+ * address, the contact address, the B Corp certification and the EcoVadis medal
+ * are all printed in the footer of every page, so declaring them adds nothing
+ * to the claim; it only makes the claim machine-readable. A founding date or a
+ * headcount would not qualify, since no page states either.
+ */
 export interface OrganizationInput {
   /** Absolute URL of the logo, on whichever site is emitting the graph. */
   logo: string;
   sameAs: string[];
-  /** Emitted only where the page actually publishes it. */
+  description?: string;
   address?: PostalAddressInput;
+  /** As the footer's mailto link publishes it. */
+  email?: string;
+  /** Certifications the footer shows a badge for. */
+  certifications?: CertificationInput[];
+  /** Ratings and medals the footer shows a badge for. */
+  awards?: string[];
 }
 
 /** The publisher, referenced by every page rather than repeated inside it. */
@@ -58,7 +102,20 @@ export function organizationSchema(input: OrganizationInput) {
     url: ZATSIT_ORIGIN,
     logo: { '@type': 'ImageObject', url: input.logo },
     sameAs: input.sameAs,
+    ...(input.description ? { description: input.description } : {}),
     ...(input.address ? { address: { '@type': 'PostalAddress', ...input.address } } : {}),
+    ...(input.email ? { email: input.email } : {}),
+    ...(input.certifications && input.certifications.length > 0
+      ? {
+          hasCertification: input.certifications.map((c) => ({
+            '@type': 'Certification',
+            name: c.name,
+            issuedBy: { '@type': 'Organization', name: c.issuedBy },
+            ...(c.url ? { url: c.url } : {}),
+          })),
+        }
+      : {}),
+    ...(input.awards && input.awards.length > 0 ? { award: input.awards } : {}),
   };
 }
 
