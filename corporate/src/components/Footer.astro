@@ -30,7 +30,19 @@ import BcorpLight from '../assets/bcorp-light.svg';
         </p>
         <div class="mt-4">
           <div id="wcb" class="carbonbadge wcb"></div>
-          <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
+          {/* Imported so Vite bundles and self-hosts it, rather than pulled
+              from unpkg.com. Same 1.9 kB and same rendering, but no
+              third-party origin executing on the page: our own rules forbid
+              external scripts, a CDN we do not control was serving code into
+              every visit, and a strict Content-Security-Policy is impossible
+              while it is there. The blog already does it this way.
+
+              The badge still calls api.websitecarbon.com at runtime, which is
+              the point of a live measurement, and caches the result for a day.
+              That origin has to be allowed in `connect-src`. */}
+          <script>
+            import 'website-carbon-badges/b.min.js';
+          </script>
           <script>
             function syncCarbonBadgeTheme() {
               const badge = document.getElementById('wcb');
