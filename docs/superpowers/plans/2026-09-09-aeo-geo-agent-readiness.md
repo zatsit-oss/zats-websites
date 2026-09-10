@@ -58,6 +58,8 @@ Three more rounds of audit results, and the work they justified. Scores on `zats
 
 ### Security headers, and the CSP
 
+The runnable commands now live in [`corporate/docs/production-serving.md`](../../../corporate/docs/production-serving.md), with the gotchas. What follows is the reasoning.
+
 Not in this repository: they are custom response headers on the backend bucket `zatsit-corporate-prod-v1` in `sites-web-407116`. Six of the twenty SEO issues were this single item.
 
 ```
