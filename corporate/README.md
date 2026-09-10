@@ -137,6 +137,10 @@ When a page is disabled:
 - Its HTML file is removed from `dist/` after build → returns 404
 - All navigation links and CTAs pointing to it are hidden from the generated HTML
 
+## Production serving
+
+Deploying, invalidating the CDN, response compression and the security headers all happen in Google Cloud, outside this repository, and a merge to `main` does **not** reach production on its own. The commands, and the two settings that read as correct while serving nothing, are in [`docs/production-serving.md`](docs/production-serving.md).
+
 ## Redirects
 
 The WordPress site that `zatsit.fr` served until 2026-09-03 exposed a handful of French URLs. They are kept alive as permanent redirects so inbound links and search results do not break.
