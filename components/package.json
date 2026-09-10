@@ -20,6 +20,6 @@
     "./sitemap": "./src/utils/sitemap.ts"
   },
   "devDependencies": {
-    "astro": "^5.6.1"
+    "astro": "^7.3.1"
   }
 }
