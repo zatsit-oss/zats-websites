@@ -57,20 +57,10 @@ export const SITE_OG_IMAGE_HEIGHT = 630;
 export const SITE_LOGO = '/favicon.svg';
 
 /**
- * Postal address, as the footer prints it and as `/find-us/` describes it.
- *
- * Published on the schema of that page only. The organisation is the same on
- * every page, but the address is worth attaching where the page actually backs
- * it up with a map and directions.
+ * How the footer prints it. The machine-readable version lives in
+ * `@zatsit/components`, next to the other organisation facts, since both sites
+ * declare the same one.
  */
-export const ADDRESS = {
-  streetAddress: '2 Allée de la Haye du Temple',
-  postalCode: '59160',
-  addressLocality: 'Lille',
-  addressCountry: 'FR',
-} as const;
-
-/** How the footer prints it, kept next to the schema version so both move together. */
 export const ADDRESS_LINES = ['EURATECHNOPOLYS', '2 Allée de la Haye du Temple', '59160 Lille'];
 
 /**

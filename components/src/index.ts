@@ -6,7 +6,11 @@ export { default as BaseHead } from './layouts/BaseHead.astro'
 export {
   BRAND_NAME,
   ORGANIZATION_ID,
+  ZATSIT_AWARDS,
+  ZATSIT_CERTIFICATIONS,
+  ZATSIT_EMAIL,
   ZATSIT_ORIGIN,
+  ZATSIT_POSTAL_ADDRESS,
   breadcrumbListSchema,
   organizationSchema,
   pageGraph,
@@ -15,6 +19,7 @@ export {
 } from './utils/schema'
 export type {
   BreadcrumbItem,
+  CertificationInput,
   OrganizationInput,
   PostalAddressInput,
   WebPageInput,
