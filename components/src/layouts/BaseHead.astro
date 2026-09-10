@@ -137,18 +137,19 @@ const website = webSiteSchema({
   inLanguage,
 });
 
-// The home page *is* the site, so it needs no separate WebPage node. Every
-// other page describes itself and points back at the WebSite by id.
-const pageNode = isHome
-  ? undefined
-  : webPageSchema({
-      name: fullTitle,
-      description,
-      url: canonicalURL.href,
-      inLanguage,
-      siteUrl: siteURL.href,
-      breadcrumbId: breadcrumb?.['@id'],
-    });
+// Every page describes itself and points back at the WebSite by id, the home
+// page included. It used to be skipped there, on the reasoning that the home
+// page *is* the site; but a home page is also a WebPage, saying so is standard
+// rather than a signal invented for a scanner, and an audit counting schema
+// types was right that two was thin.
+const pageNode = webPageSchema({
+  name: fullTitle,
+  description,
+  url: canonicalURL.href,
+  inLanguage,
+  siteUrl: siteURL.href,
+  breadcrumbId: breadcrumb?.['@id'],
+});
 
 const schema = noindex
   ? undefined

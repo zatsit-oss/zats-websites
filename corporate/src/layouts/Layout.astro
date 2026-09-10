@@ -18,6 +18,18 @@ import {
 } from '../consts';
 import '../styles/global.css';
 
+/**
+ * The two weights the first screen actually uses: 400 for the footnote and the
+ * body, 700 for the hero heading. Imported as URLs so Vite hands back the
+ * hashed filenames it emits, which a hand-written <link> could not know.
+ *
+ * 600 is deliberately not preloaded. It appears further down the page, and the
+ * blog measured what over-preloading costs: six preloaded faces took a first
+ * visit from 31.0 kB to 56.5 kB of fonts. Two here, not three.
+ */
+import poppins400 from '@fontsource/poppins/files/poppins-latin-400-normal.woff2?url';
+import poppins700 from '@fontsource/poppins/files/poppins-latin-700-normal.woff2?url';
+
 interface Props {
   title: string;
   description?: string;
@@ -57,6 +69,19 @@ const {
     />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    {/* Without these the fonts are only discovered once the stylesheet has
+        parsed, which delays the first text paint. `crossorigin` is required
+        even same-origin, or the browser fetches the file a second time. */}
+    <link rel="preload" href={poppins400} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={poppins700} as="font" type="font/woff2" crossorigin />
+
+    {/* Colours the mobile browser chrome. Keyed on the OS preference rather
+        than on our `data-theme`, which a meta tag cannot read, so it can
+        disagree with a reader who overrode the theme by hand. No SEO effect
+        either way. */}
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1b1b1d" media="(prefers-color-scheme: dark)" />
 
     <ViewTransitions />
 
