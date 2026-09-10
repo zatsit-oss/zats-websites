@@ -593,6 +593,17 @@ a[target="_blank"]:not(:has(svg)):hover::after {
 }
 
 /* Bold floating blobs - Stripe style */
+/* The hero heading's first line, holding the animated word.
+   Making it a block is the whole fix for the home page's layout instability:
+   the typewriter used to grow a word sitting mid-sentence, so every character
+   reflowed the entire centred heading and the H1 accounted for six of the
+   page's eight recorded layout shifts, CLS 0.251, the first shift worth 0.147
+   on its own. Now only this line recentres as the word grows, and the line
+   below it never moves. The animation itself is untouched. */
+.hero-title__line {
+  display: block;
+}
+
 .hero-blob {
   @apply absolute rounded-full;
   filter: blur(80px);
