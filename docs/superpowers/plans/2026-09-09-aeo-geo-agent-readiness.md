@@ -43,12 +43,72 @@ Two places where the implementation departs from the plan above, both recorded i
 
 It matters because `publish-portal-on-merge.yml` deletes every object in the bucket before uploading `dist/`: **any merge on the portal replaces the real landscape page with the empty placeholder** until the other repository deploys again. A 200 response carrying zero bytes is worse than a 404, because it is indexable and says nothing. The URL stays in the sitemap, since the page is real in production, and the hazard is the publish order. Added to Lot 6.
 
+### Follow-up, 10 September 2026
+
+Three more rounds of audit results, and the work they justified. Scores on `zatsit.fr` via seoscore.tools: **64 (C) → 75 (B)**, SEO 73 → 84, AEO 56 → 66, GEO 55 → 64. Read those as indicative only: the tool's check count moved from 95 to 101 on SEO between runs, so it is not the same instrument.
+
+| PR | What it fixed |
+|---|---|
+| #32 | The hero H1 depended on JavaScript, reading `La tech *| au service de l'impact des entreprises` without it. Plus 2.9 kB of commented-out markup shipped to visitors, the broken `/careers/` link inside it, duplicate SVG ids, dead CSS, a 164-character description, `max-image-preview:large`, and the Bing verification file that sat where Astro does not copy it. `astro check` went from 5 errors and 15 warnings to 0/0 |
+| #33 | og:image announced 1200x630 for a 775x630 file. And CLS 0.251, of which the H1 was six of eight shifts: ending the first line on the animated word took it to **0.004** |
+| #34 | `Organization` enriched with the four facts the footer already prints: address, contact address, B Corp, EcoVadis Silver |
+| #35 | The carbon badge self-hosted instead of loaded from unpkg.com. `WebPage` on the home page. Poppins 400 and 700 preloaded. `theme-color` |
+
+**Two attempts on the CLS were dropped before the one that shipped**, and both are worth knowing: reserving the word's width left a visible gap where the untyped letters would go, and a block wrapper around the first line isolated the word's drop-shadow glow into a band behind it. A `<br>` splits the line without introducing a box that paints.
+
+### Security headers, and the CSP
+
+Not in this repository: they are custom response headers on the backend bucket `zatsit-corporate-prod-v1` in `sites-web-407116`. Six of the twenty SEO issues were this single item.
+
+```
+gcloud compute backend-buckets update zatsit-corporate-prod-v1 \
+  --project=sites-web-407116 \
+  --custom-response-header="Strict-Transport-Security: max-age=31536000" \
+  --custom-response-header="X-Content-Type-Options: nosniff" \
+  ...
+```
+
+**Repeat the flag, one header per occurrence.** It is not a comma-separated list, and gcloud's `^|^` alternate-delimiter syntax does not apply: passing it stores a single malformed header literally named `^|^Strict-Transport-Security`, and nothing is served. Each call also **replaces the whole set** rather than appending.
+
+`includeSubDomains` and `preload` are deliberately absent from HSTS: browsers cache both, they cover `blog`, `sustainability`, `preview` and `website-staging`, and neither is easy to withdraw.
+
+The CSP was derived from the built site rather than guessed, and tested in a headless browser against `/`, `/work-with-us/`, `/join-us/` and `/legal-notice/` before being posted:
+
+```
+default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';
+img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.websitecarbon.com;
+frame-src https://docs.google.com; frame-ancestors 'none'; base-uri 'self';
+form-action 'none'; object-src 'none'
+```
+
+Two directives are not optional, and testing is what proved it:
+
+- `frame-src https://docs.google.com` — the contact form on `/work-with-us/` is a Google Forms iframe, and breaks without it.
+- `img-src ... data:` — a first attempt with `img-src 'self'` blocked the external-link icon in `global.css:296`, a `mask-image: url('data:image/svg+xml…')`. A static grep for `url(data:` missed it, since the value is single-quoted. The browser caught it.
+
+**The CSP goes on only after the self-hosted badge is deployed**, or it blocks the unpkg script still live in production and the badge disappears from the footer.
+
+### The ceiling, and what we refuse
+
+The remaining issues are not markup. Of the 16 AEO issues, **11 carry the vendor's own upsell**: *"boosts your AEO score from ~28 to 90+ with AI-generated FAQ, summaries & speakable markup. Add your Claude API key."* Of the 23 GEO issues, 17 do. The tool is selling generated content to raise its own grade, which is the manipulation `REFERENCEMENT.md` refuses by name.
+
+Refused, and recorded so a later report cannot reopen it: `FAQPage`, `HowTo`, manufactured Q&A blocks, Key Takeaways / TL;DR, a conclusion or verdict section, "on the other hand" for apparent balance, "our research shows", 20% transition words, "add more you/your", video, `<details>` for Q&A, an invented `<ol>` for "list variety", a Web App Manifest, and the speculative `.well-known/ai.txt` / `/ai/faq.json`.
+
+False positives worth not re-litigating: `loading="lazy"` on the "hero image", which is the 84px EcoVadis medal in the footer, on a page whose only image it is; `hreflang` on a monolingual site; a `BreadcrumbList` on the home page, where a one-item trail describes nothing; `<figcaption>` on that same footer medal; `<time>` on a site with no dates; and "keyword stuffing: nous at 4.6%", which is the house writing convention.
+
+One report contradicts itself across its own sections: AEO passes "Statistics and data found in content — highly citable" while GEO fails "Only 0 data points", on the same page in the same run.
+
+**What actually caps the score is content.** 759 words on the home page, five pages live, no author. `/team/`, `/tech/`, `/find-us/` and `/careers/` all answer 404 through `DISABLED_PAGES`, so the scanners read a five-page site and they are right to. `/tech/` is the page an agent would consult to answer "does zatsit do Kubernetes". Reopening it is worth more than any tag.
+
 ### Still open
 
-- Lot 6 minus the compression, which is done: the security headers, and the two portal publish defects.
-- The portal's social card is a placeholder pointing at `https://zatsit.fr/og-image.png`. Strictly better than the bare links it had, but it should become a portal-specific 1200x630 image.
-- `npx astro check` on corporate reports **5 errors, all pre-existing** and all in files this branch does not touch: `getEntry` is possibly `undefined` in `sections/Services.astro`, `legal-notice.astro` and `privacy-policy.astro`. The portal reports 0.
-- `Person` entries for `/team/` and the `check:eco` / `check:axe` gates were scoped into Lots 3 and Verification but not implemented; they need the decisions and the script port respectively.
+- A portal-specific social card. Both sites currently point at `https://zatsit.fr/og-image.png`, which is a logo export: wordmark cropped at the bottom edge, fully transparent background, 775px wide against the 1200px `summary_large_image` wants.
+- `apple-touch-icon`, which needs an asset that does not exist.
+- IndexNow, waiting on the Bing Webmaster setup.
+- `Person` entries for `/team/`, which needs both the page reopened and a decision about publishing 36 names in structured data.
+- Porting the blog's `check:eco` and `check:axe` gates. **`check:axe` tests 390px and 1440px only**, and hangs with no output if another Chrome remote-debugging process is alive.
+- Lighthouse fails `target-size` on the header's social icon links, pre-existing.
+- Corporate does **not** auto-deploy to production: `publish-corporate-on-merge.yml` defaults `environment` to `staging`, so a merge publishes to the staging bucket and reports success. Production needs a manual `workflow_dispatch` with `env=production`. Whether that default is intended has not been settled.
 
 ---
 
