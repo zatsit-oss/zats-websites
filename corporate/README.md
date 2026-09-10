@@ -91,6 +91,21 @@ corporate/
 - Eco-design (minimal JavaScript, optimized CSS, self-hosted fonts)
 - Accessibility (ARIA labels, keyboard navigation, WCAG AA contrast)
 - Typed environment variables
+- Machine-readable head and discoverability files (see below)
+
+## Discoverability
+
+Three files are emitted at build so search engines and answer engines can find and describe the site:
+
+| Path | Source | Notes |
+|---|---|---|
+| `/robots.txt` | `public/robots.txt` | open to every crawler, declares the sitemap, **no per-agent rules** |
+| `/sitemap.xml` | `src/pages/sitemap.xml.ts` | the literal path scanners look for, not `sitemap-index.xml` |
+| `/llms.txt` | `src/pages/llms.txt.ts` | Markdown summary of the site, one line per page |
+
+The sitemap and `llms.txt` build their page list from `getIndexablePages()`, so a page hidden through `DISABLED_PAGES` is never advertised. `@astrojs/sitemap` is deliberately not used: it builds from Astro's routes, and the disabled pages are deleted afterwards in `astro:build:done`, so it would publish URLs that 404.
+
+Every page also carries a canonical URL, Open Graph and Twitter tags, and a JSON-LD graph. See `corporate/CLAUDE.md` for the head contract and `zats-blog/REFERENCEMENT.md` for the reasoning across all four sites, including what we refuse to add.
 
 ## Environment Variables
 
