@@ -17,11 +17,13 @@ import LogoFull from '../../assets/icons/logo-full.svg';
 
       <LogoFull class="w-full max-w-[300px] md:max-w-[420px] h-auto mx-auto mb-10 logo-full-gradient-glow" />
 
-      {/* The animated word ends its own line. Growing it letter by letter can
-          then only recentre that one line; everything after it holds still.
-          See `.hero-title__line` for the measurement. */}
+      {/* The break ends the first line on the animated word, so growing it
+          letter by letter can only recentre that line and everything after it
+          holds still. A `<br>` rather than a block wrapper on purpose: a block
+          box isolated the word's drop-shadow glow into a visible band behind
+          the line. */}
       <h1 class="hero-title text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
-        <span class="hero-title__line">La tech <span id="typewriter" class="text-gradient-glow">augmentée</span><span id="typewriter-asterisk" class="text-gradient-glow" aria-hidden="true"></span><span id="typewriter-cursor" class="text-gradient-glow" aria-hidden="true"></span></span>
+        La tech <span id="typewriter" class="text-gradient-glow">augmentée</span><span id="typewriter-asterisk" class="text-gradient-glow" aria-hidden="true"></span><span id="typewriter-cursor" class="text-gradient-glow" aria-hidden="true"></span><br />
         au service de l'<span class="text-gradient-glow">impact</span> des entreprises.
       </h1>
 
