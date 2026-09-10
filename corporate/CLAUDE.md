@@ -48,6 +48,23 @@ const { intro, stats, stacks } = techData.data;
 
 To add or modify site content (team members, services, tech stacks, legal text), edit the JSON files in `src/content/`.
 
+### Machine-readable head
+
+The `<head>` is **not** written in this project. `Layout.astro` delegates it to `BaseHead` from `@zatsit/components`, which the sustainability portal also consumes, so both sites carry one head contract instead of two that drift. Corporate uses only `BaseHead`, and it emits no Tailwind classes, so no `@source` line is needed here.
+
+`BaseHead` emits, all at build time and never from a client script:
+
+- the canonical URL, absolute, derived from `site` in `astro.config.mjs`
+- `<title>`, the meta description, the full Open Graph set and the Twitter card
+- the robots meta, `index, follow, max-image-preview:large`
+- a JSON-LD `@graph`: `Organization`, `WebSite`, `WebPage`, plus `BreadcrumbList` on any page below the root
+
+The `Organization` node is anchored at `https://zatsit.fr/#organization` and **every site in the estate references that same `@id`**, so an answer engine resolves one publisher rather than three homonyms. Its properties are only facts the footer already prints: the address, the contact address, the B Corp certification, the EcoVadis medal. That is the line to hold. No `FAQPage`, no `dateModified`, no founding date, no headcount, because no page states them and fabricating structured data is what search engines penalise.
+
+Site-level strings live in `src/consts.ts`: titles, descriptions, the social card and `PAGE_SUMMARIES`, the one-line-per-page text that `llms.txt` reads. Those summaries are deliberately **not** the meta descriptions: a description is written to be read under a search result, a summary says what question the page answers.
+
+`zats-blog/REFERENCEMENT.md` is the reference document for all of this, across the four sites, and its "what we refuse" section exists so a fresh audit report cannot reopen settled questions.
+
 ### Theming
 
 Theme (`light`/`dark`) is stored in `localStorage` under the key `theme` and applied as a `data-theme` attribute on `<html>`. An inline `<script is:inline>` in `Layout.astro` applies the theme before first paint to prevent FOUC, and re-applies it after every Astro ViewTransition (`astro:after-swap`).

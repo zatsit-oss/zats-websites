@@ -94,6 +94,22 @@ Tailwind v4 does not scan `node_modules`, and `@zatsit/components` is reached th
 
 Remove that line and the utilities used only in the header or the footer disappear from the CSS, with no error at build time.
 
+## Discoverability
+
+`site` is set in `astro.config.mjs`, which everything below depends on: without it the canonical URL, Open Graph and the sitemap would all be relative, and JSON-LD rejects relative URLs outright.
+
+| Path | Source |
+|---|---|
+| `/robots.txt` | `public/robots.txt` |
+| `/sitemap.xml` | `src/pages/sitemap.xml.ts` |
+| `/llms.txt` | `src/pages/llms.txt.ts` |
+
+Both routes read `INDEXABLE_PAGES` from `src/consts.ts`, so they cannot disagree. That list includes `/landscape/`, which **this project does not really build**: `src/pages/landscape/[...path].astro` is a `getStaticPaths` with no template and emits a 0-byte placeholder, while the real page is published into the same bucket from the separate `sustainability-landscape` repository. Since `publish-portal-on-merge.yml` empties the bucket before uploading, a merge here serves an empty 200 at that URL until the other repository deploys again. `consts.ts` carries the detail.
+
+The head, including the JSON-LD graph, comes from `BaseHead` in `@zatsit/components`, shared with the corporate site. The `Organization` node uses the same `@id` on both sites so an answer engine resolves one publisher.
+
+`astro-relative-links` rewrites root-relative markup hrefs by depth (`./sitemap.xml` at the root, `../sitemap.xml` on a subpage) and leaves the absolute URLs built from `site` alone, so it does not interfere.
+
 ## Accessibility
 
 The monorepo targets WCAG 2.1 AA. What that means in practice here: contrast is measured in **both** themes with the resolved token values, every interactive element keeps a visible `:focus-visible` outline, icon-only controls are at least 44 by 44 pixels, motion is gated behind `prefers-reduced-motion: reduce`, the page has one `<main id="main-content">` provided by the layout, and a skip link precedes the header.

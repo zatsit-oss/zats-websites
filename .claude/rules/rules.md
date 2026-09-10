@@ -105,6 +105,15 @@ src/components/
 - `src/pages/privacy-policy.astro` — Privacy policy
 - `src/pages/404.astro`: Not found, emitted as `dist/404.html`
 
+### Routes that are not pages
+
+- `src/pages/sitemap.xml.ts` — emits `/sitemap.xml`, the literal path scanners look for
+- `src/pages/llms.txt.ts` — emits `/llms.txt`, a Markdown summary of the site for answer engines
+
+Both build their list from `getIndexablePages()` in `src/lib/pages.ts`, **not** from Astro's routes. `build-hook.ts` deletes pages disabled through `DISABLED_PAGES` in `astro:build:done`, so anything built from the route list would advertise URLs that 404 by the end of the build. That is also why `@astrojs/sitemap` is not used.
+
+`public/robots.txt` is open to every crawler and declares the sitemap. **No per-agent rules**: a named list of AI crawlers has to be extended at every new arrival and lets every unnamed one through.
+
 Internal links carry a trailing slash (`/join-us/`), matching `trailingSlash: 'always'` and the 301 the production bucket issues for the bare form.
 
 ### Assets

@@ -1,55 +1,87 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
+import { BaseHead } from '@zatsit/components';
+import { GITHUB_URL, LINKEDIN_URL } from 'astro:env/client';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import {
+  SITE_DESCRIPTION,
+  SITE_INLANGUAGE,
+  SITE_LANG,
+  SITE_LOCALE,
+  SITE_LOGO,
+  SITE_OG_IMAGE,
+  SITE_OG_IMAGE_ALT,
+  SITE_OG_IMAGE_HEIGHT,
+  SITE_OG_IMAGE_WIDTH,
+  SITE_TITLE,
+} from '../consts';
 import '../styles/global.css';
+
+/**
+ * The two weights the first screen actually uses: 400 for the footnote and the
+ * body, 700 for the hero heading. Imported as URLs so Vite hands back the
+ * hashed filenames it emits, which a hand-written <link> could not know.
+ *
+ * 600 is deliberately not preloaded. It appears further down the page, and the
+ * blog measured what over-preloading costs: six preloaded faces took a first
+ * visit from 31.0 kB to 56.5 kB of fonts. Two here, not three.
+ */
+import poppins400 from '@fontsource/poppins/files/poppins-latin-400-normal.woff2?url';
+import poppins700 from '@fontsource/poppins/files/poppins-latin-700-normal.woff2?url';
 
 interface Props {
   title: string;
   description?: string;
+  /** Trail from the root to this page, excluding the page itself. */
+  breadcrumbs?: { name: string; href: string }[];
+  /** Set on pages that exist without being content, such as the 404 body. */
+  noindex?: boolean;
 }
 
-const { title, description = "zatsit - La Tech au service de l'impact des entreprises" } = Astro.props;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL('/og-image.png', Astro.site);
-const fullTitle = `${title} | Zatsit`;
+const {
+  title,
+  description = SITE_DESCRIPTION,
+  breadcrumbs = [],
+  noindex = false,
+} = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang={SITE_LANG}>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <meta name="generator" content={Astro.generator} />
+    <BaseHead
+      title={title}
+      description={description}
+      siteName={SITE_TITLE}
+      siteDescription={SITE_DESCRIPTION}
+      inLanguage={SITE_INLANGUAGE}
+      locale={SITE_LOCALE}
+      image={SITE_OG_IMAGE}
+      imageAlt={SITE_OG_IMAGE_ALT}
+      imageWidth={SITE_OG_IMAGE_WIDTH}
+      imageHeight={SITE_OG_IMAGE_HEIGHT}
+      logo={SITE_LOGO}
+      sameAs={[LINKEDIN_URL, GITHUB_URL]}
+      breadcrumbs={breadcrumbs}
+      sitemap="/sitemap.xml"
+      noindex={noindex}
+    />
 
-    <!-- Canonical URL -->
-    <link rel="canonical" href={canonicalURL} />
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={fullTitle} />
-    <meta property="og:description" content={description} />
-    <meta property="og:site_name" content="Zatsit" />
-    <meta property="og:locale" content="fr_FR" />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:image:secure_url" content={ogImage} />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="zatsit — La tech augmentée au service de l'impact des entreprises" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={fullTitle} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
-
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <title>{fullTitle}</title>
+    {/* Without these the fonts are only discovered once the stylesheet has
+        parsed, which delays the first text paint. `crossorigin` is required
+        even same-origin, or the browser fetches the file a second time. */}
+    <link rel="preload" href={poppins400} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={poppins700} as="font" type="font/woff2" crossorigin />
+
+    {/* Colours the mobile browser chrome. Keyed on the OS preference rather
+        than on our `data-theme`, which a meta tag cannot read, so it can
+        disagree with a reader who overrode the theme by hand. No SEO effect
+        either way. */}
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1b1b1d" media="(prefers-color-scheme: dark)" />
 
     <ViewTransitions />
 

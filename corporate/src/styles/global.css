@@ -174,14 +174,6 @@ button:hover {
   filter: drop-shadow(0 0 30px color-mix(in srgb, var(--color-primary) 50%, transparent));
 }
 
-.logo-gradient-glow path {
-  fill: url(#logo-gradient);
-}
-
-.logo-gradient-glow {
-  filter: drop-shadow(0 0 30px color-mix(in srgb, var(--color-primary) 50%, transparent));
-}
-
 .logo-full-gradient-glow path {
   fill: url(#logo-full-gradient);
 }

@@ -4,6 +4,7 @@ import LegalPageLayout from '../components/LegalPageLayout.astro';
 import { getEntry } from 'astro:content';
 
 const entry = await getEntry('legal', 'legal-notice');
+if (!entry) throw new Error('Legal notice data not found');
 const { title, titleHighlight, description } = entry.data;
 ---
 

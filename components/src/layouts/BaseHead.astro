@@ -1,0 +1,200 @@
+---
+/**
+ * The head contract shared by the zatsit sites: canonical, Open Graph, Twitter
+ * card and JSON-LD, all emitted at build.
+ *
+ * Modelled on `zats-blog/src/components/BaseHead.astro`. It exists here rather
+ * than once per site because the design charter already taught us what four
+ * copies of one thing cost: they drift, and the drift is silent.
+ *
+ * Scope is deliberately narrow. What stays in each site's own layout, because
+ * it genuinely differs: the `<html>` element and its `lang`, the favicon links,
+ * the pre-paint theme script, view transitions, and the stylesheet import that
+ * pulls in the fonts.
+ */
+import {
+  breadcrumbListSchema,
+  organizationSchema,
+  pageGraph,
+  webPageSchema,
+  webSiteSchema,
+  ZATSIT_AWARDS,
+  ZATSIT_CERTIFICATIONS,
+  ZATSIT_EMAIL,
+  ZATSIT_POSTAL_ADDRESS,
+  type BreadcrumbItem,
+} from '../utils/schema';
+
+interface Props {
+  /** Page subject. The brand is appended unless the title already names it. */
+  title: string;
+  description: string;
+  /** The brand, as the reader sees it. Lowercase `zatsit` on every site. */
+  siteName: string;
+  /** Site-level description, for the `WebSite` node. */
+  siteDescription: string;
+  /** BCP 47 tag for the schema, e.g. `fr-FR`. */
+  inLanguage: string;
+  /** Open Graph locale, e.g. `fr_FR`. */
+  locale: string;
+  /** Social card, absolute or root-relative. */
+  image: string;
+  imageAlt: string;
+  /** Emitted only when both are known, since a partial pair helps nobody. */
+  imageWidth?: number;
+  imageHeight?: number;
+  /** Organization logo, absolute or root-relative. */
+  logo: string;
+  /** Authoritative profiles for the organisation. */
+  sameAs: string[];
+  /**
+   * Trail from the site root to this page, root-relative hrefs, **excluding**
+   * the current page: it is appended automatically, without a URL, as
+   * schema.org advises for the last item.
+   */
+  breadcrumbs?: { name: string; href: string }[];
+  /** `article` on a blog post, `website` everywhere else. */
+  type?: 'website' | 'article';
+  /** Where the sitemap lives, root-relative. Omit to emit no sitemap link. */
+  sitemap?: string;
+  /**
+   * Keeps the page out of every index, and out of the structured data with it.
+   *
+   * For pages that exist without being content: a 404 body, above all. The
+   * bucket already answers those with a 404 status, so this is belt and braces
+   * for the case where one is reached at its own URL, which returns 200.
+   */
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  siteName,
+  siteDescription,
+  inLanguage,
+  locale,
+  image,
+  imageAlt,
+  imageWidth,
+  imageHeight,
+  logo,
+  sameAs,
+  breadcrumbs = [],
+  type = 'website',
+  sitemap,
+  noindex = false,
+} = Astro.props;
+
+if (!Astro.site) {
+  // Without `site` every URL below would be relative, which JSON-LD rejects and
+  // which makes a canonical tag worse than absent. Failing the build is the
+  // only honest outcome.
+  throw new Error('BaseHead requires `site` to be set in astro.config.mjs');
+}
+const site = Astro.site;
+
+const canonicalURL = new URL(Astro.url.pathname, site);
+const socialImageURL = new URL(image, site);
+const logoURL = new URL(logo, site);
+const siteURL = new URL('/', site);
+
+// A title that already names the site is left alone, which is how a home page
+// reads as itself instead of "<name> | <name>".
+const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
+
+const isHome = canonicalURL.pathname === siteURL.pathname;
+
+// The trail, with the current page appended and left without a URL. Skipped on
+// the home page: a one-item breadcrumb describes nothing.
+const trail: BreadcrumbItem[] = isHome
+  ? []
+  : [
+      { name: siteName, url: siteURL.href },
+      ...breadcrumbs.map(({ name, href }) => ({ name, url: new URL(href, site).href })),
+      { name: title },
+    ];
+
+const breadcrumb = trail.length > 1 ? breadcrumbListSchema(trail, canonicalURL.href) : undefined;
+
+// The organisation's published facts, all of them printed in the footer of
+// every page: the address, the contact address, the B Corp certification and
+// the EcoVadis medal. Declaring them adds nothing to the claim, it only makes
+// the claim machine-readable.
+const organization = organizationSchema({
+  logo: logoURL.href,
+  sameAs,
+  description: siteDescription,
+  address: ZATSIT_POSTAL_ADDRESS,
+  email: ZATSIT_EMAIL,
+  certifications: ZATSIT_CERTIFICATIONS,
+  awards: ZATSIT_AWARDS,
+});
+const website = webSiteSchema({
+  name: siteName,
+  description: siteDescription,
+  url: siteURL.href,
+  inLanguage,
+});
+
+// Every page describes itself and points back at the WebSite by id, the home
+// page included. It used to be skipped there, on the reasoning that the home
+// page *is* the site; but a home page is also a WebPage, saying so is standard
+// rather than a signal invented for a scanner, and an audit counting schema
+// types was right that two was thin.
+const pageNode = webPageSchema({
+  name: fullTitle,
+  description,
+  url: canonicalURL.href,
+  inLanguage,
+  siteUrl: siteURL.href,
+  breadcrumbId: breadcrumb?.['@id'],
+});
+
+const schema = noindex
+  ? undefined
+  : pageGraph(
+      [organization, website, pageNode, breadcrumb].filter((node): node is object => Boolean(node)),
+    );
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="generator" content={Astro.generator} />
+
+{/* `max-image-preview:large` lets Google use a full-size image in Discover
+    and in AI surfaces; without it the preview is capped at a thumbnail. The
+    other two directives are the defaults, spelled out so the one that matters
+    is not sitting alone on a line that looks like an override. */}
+{noindex
+  ? <meta name="robots" content="noindex, follow" />
+  : <meta name="robots" content="index, follow, max-image-preview:large" />}
+<link rel="canonical" href={canonicalURL} />
+{sitemap && <link rel="sitemap" type="application/xml" href={sitemap} />}
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+
+{schema && <script type="application/ld+json" is:inline set:html={schema} />}
+
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content={locale} />
+<meta property="og:image" content={socialImageURL} />
+<meta property="og:image:secure_url" content={socialImageURL} />
+<meta property="og:image:alt" content={imageAlt} />
+{imageWidth && imageHeight && (
+  <Fragment>
+    <meta property="og:image:width" content={String(imageWidth)} />
+    <meta property="og:image:height" content={String(imageHeight)} />
+  </Fragment>
+)}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={socialImageURL} />
+<meta name="twitter:image:alt" content={imageAlt} />
