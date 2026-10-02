@@ -1,7 +1,13 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
+
+// Each collection is a folder of JSON files under src/content/. The entry id
+// is the file name, so getEntry('legal', 'privacy-policy') keeps working.
+const jsonIn = (folder: string) => glob({ pattern: '*.json', base: `./src/content/${folder}` });
 
 const peopleCollection = defineCollection({
-  type: 'data',
+  loader: jsonIn('people'),
   schema: z.object({
     photos: z.array(z.object({
       src: z.string(),
@@ -32,7 +38,7 @@ const peopleCollection = defineCollection({
 });
 
 const legalCollection = defineCollection({
-  type: 'data',
+  loader: jsonIn('legal'),
   schema: z.object({
     title: z.string(),
     titleHighlight: z.string(),
@@ -60,7 +66,7 @@ const sdlcPhase = z.enum([
 ]);
 
 const servicesCollection = defineCollection({
-  type: 'data',
+  loader: jsonIn('services'),
   schema: z.object({
     sectionTitle: z.string(),
     sectionTitleHighlight: z.string(),
@@ -90,7 +96,7 @@ const servicesCollection = defineCollection({
 });
 
 const techCollection = defineCollection({
-  type: 'data',
+  loader: jsonIn('tech'),
   schema: z.object({
     intro: z.object({
       title: z.string(),

@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import { BaseHead } from '@zatsit/components';
 import { GITHUB_URL, LINKEDIN_URL } from 'astro:env/client';
 import Header from '../components/Header.astro';
@@ -83,7 +83,7 @@ const {
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#1b1b1d" media="(prefers-color-scheme: dark)" />
 
-    <ViewTransitions />
+    <ClientRouter />
 
     <!-- Theme persistence -->
     <script is:inline>

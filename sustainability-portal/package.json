@@ -12,7 +12,7 @@
     "@fontsource/poppins": "^5.2.7",
     "@tailwindcss/vite": "^4.1.17",
     "@zatsit/components": "file:../components",
-    "astro": "^5.6.1",
+    "astro": "^7.3.5",
     "astro-relative-links": "^0.4.2",
     "tailwindcss": "^4.1.17"
   },

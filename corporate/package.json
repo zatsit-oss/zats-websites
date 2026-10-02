@@ -16,7 +16,7 @@
     "@lucide/astro": "^1.45.0",
     "@tailwindcss/vite": "^4.3.3",
     "@zatsit/components": "file:../components",
-    "astro": "^5.16.2",
+    "astro": "^7.3.5",
     "tailwindcss": "^4.1.17",
     "website-carbon-badges": "^1.1.3"
   },
