@@ -31,7 +31,13 @@ import SustainabilityIcon from '../assets/icons/sustainability.svg';
 import { CodeXml, ExternalLink, Mail, Menu, X } from '@lucide/astro';
 import { isPageDisabled } from '../lib/pages';
 
-const navLinks = [
+interface NavLink {
+  href: string;
+  label: string;
+  external?: boolean;
+}
+
+const navLinks: NavLink[] = [
   { href: '/', label: 'Accueil' },
   { href: '/team/', label: 'L\'équipe' },
   { href: '/tech/', label: 'Notre tech' },
@@ -39,7 +45,6 @@ const navLinks = [
   { href: '/work-with-us/', label: 'Travaillons ensemble' },
   { href: '/careers/', label: 'Nos offres d\'emploi' },
   { href: '/find-us/', label: 'Nous trouver' },
-  { href: 'https://www.linkedin.com/company/zatsit/jobs', label: 'Nos offres d\'emplois', external: true },
 ];
 
 // Filter out disabled pages
