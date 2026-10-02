@@ -13,7 +13,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.10",
     "@fontsource/poppins": "^5.3.0",
-    "@lucide/astro": "^1.45.0",
+    "@lucide/astro": "^1.48.0",
     "@tailwindcss/vite": "^4.3.3",
     "@zatsit/components": "file:../components",
     "astro": "^7.3.5",
