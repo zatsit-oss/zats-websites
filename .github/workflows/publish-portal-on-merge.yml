@@ -44,7 +44,7 @@ jobs:
   build_and_publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: kanga333/variable-mapper@master
         with:
@@ -76,13 +76,13 @@ jobs:
           token: ${{ secrets.GH_PAT }}
           branch: ${{ env.landscape }}
 
-      - uses: 'google-github-actions/auth@v2'
+      - uses: 'google-github-actions/auth@v3'
         with:
           project_id: ${{ env.google_project_id }}
           credentials_json: ${{ secrets[env.service_account__secret_name] }}
 
       - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v2'
+        uses: 'google-github-actions/setup-gcloud@v3'
 
       - name: Clean Google Storage files
         run: |
@@ -93,7 +93,7 @@ jobs:
 
       - name: Upload to Cloud Storage
         id: 'upload-folder'
-        uses: 'google-github-actions/upload-cloud-storage@v2'
+        uses: 'google-github-actions/upload-cloud-storage@v3'
         with:
           path: 'sustainability-portal/dist/'
           destination: ${{ env.bucket_name }}
@@ -102,6 +102,6 @@ jobs:
 
       # needed to avoid the post action error
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 1
