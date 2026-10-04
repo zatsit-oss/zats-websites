@@ -28,22 +28,42 @@ import ThemeToggle from './ThemeToggle.astro';
 import LinkedinIcon from '../assets/icons/linkedin.svg';
 import GithubIcon from '../assets/icons/github.svg';
 import SustainabilityIcon from '../assets/icons/sustainability.svg';
-import { CodeXml, ExternalLink, Mail, Menu, X } from '@lucide/astro';
+import { ArrowUpRight, ChevronDown, CodeXml, Compass, ExternalLink, FilePenLine, Mail, Menu, Package, X } from '@lucide/astro';
 import { isPageDisabled } from '../lib/pages';
 
-const navLinks = [
+interface NavLink {
+  href: string;
+  label: string;
+  external?: boolean;
+}
+
+/** One card of the "Rejoins-nous" mega menu. */
+interface JoinUsItem {
+  href: string;
+  label: string;
+  description: string;
+  icon: typeof Package;
+}
+
+const joinUsItems: JoinUsItem[] = [
+  { href: '/join-us/', label: 'Ton package', description: 'Zatsday, mutuelle prise en charge à 100 %, matériel durable.', icon: Package },
+  { href: '/careers/', label: 'Carrière', description: 'Nos rôles types et les chemins pour évoluer avec nous.', icon: Compass },
+  { href: '/work-with-us/', label: 'Postuler', description: 'Le formulaire pour nous envoyer ta candidature.', icon: FilePenLine },
+].filter(item => !isPageDisabled(item.href.replace(/^\/|\/$/g, '')));
+
+/** Where the mega menu sits in the bar, replacing a plain link. */
+const JOIN_US_SLOT = '#join-us';
+
+const navLinks: NavLink[] = [
   { href: '/', label: 'Accueil' },
   { href: '/team/', label: 'L\'équipe' },
   { href: '/tech/', label: 'Notre tech' },
-  { href: '/join-us/', label: 'Rejoins-nous' },
-  { href: '/work-with-us/', label: 'Travaillons ensemble' },
-  { href: '/careers/', label: 'Nos offres d\'emploi' },
-  { href: '/find-us/', label: 'Nous trouver' },
-  { href: 'https://www.linkedin.com/company/zatsit/jobs', label: 'Nos offres d\'emplois', external: true },
+  { href: JOIN_US_SLOT, label: 'Rejoins-nous' },
 ];
 
 // Filter out disabled pages
 const filteredNavLinks = navLinks.filter(link => {
+  if (link.href === JOIN_US_SLOT) return joinUsItems.length > 0;
   if (link.href === '/' || link.href === '/legal-notice/' || link.href === '/privacy-policy/') {
     return true;
   }
@@ -58,6 +78,7 @@ const isCurrent = (href: string, external = false) => {
   const target = href.replace(/\/+$/, '') || '/';
   return target === '/' ? currentPath === '/' : currentPath.startsWith(target);
 };
+const isJoinUsCurrent = joinUsItems.some(item => isCurrent(item.href));
 ---
 
 <header class="header glass" role="banner">
@@ -68,7 +89,52 @@ const isCurrent = (href: string, external = false) => {
     </a>
 
     <ul class="header-links">
-      {filteredNavLinks.map(link => (
+      {filteredNavLinks.map(link => link.href === JOIN_US_SLOT ? (
+        <li class="mega-item">
+          {/* Disclosure pattern, not an ARIA menu: the panel holds plain links,
+              so Tab walks through them like anywhere else on the page. */}
+          <button
+            type="button"
+            id="mega-join-btn"
+            class={isJoinUsCurrent ? 'mega-trigger link-primary' : 'mega-trigger nav-link'}
+            aria-expanded="false"
+            aria-controls="mega-join"
+          >
+            {link.label}
+            <ChevronDown class="icon-sm mega-chevron" aria-hidden="true" />
+          </button>
+          {/* Right after its button, so Tab reaches the cards next. It is
+              positioned against the sticky header, not this item, so it
+              spans the whole bar. Desktop only: below `lg` the mobile panel
+              lists the same entries. */}
+          <div id="mega-join" class="mega-panel" hidden>
+            <div class="container mega-inner">
+              <div class="mega-intro">
+                <p class="mega-eyebrow">Rejoins-nous</p>
+                <p class="mega-title">Rejoins le <span class="text-gradient">collectif</span></p>
+                <p class="mega-tagline">Chez <strong>zatsit</strong>, nous prenons soin de ceux qui font l'entreprise.</p>
+              </div>
+              <ul class="mega-cards" aria-label="Rejoins-nous">
+                {joinUsItems.map((item, index) => (
+                  <li style={`--i: ${index}`}>
+                    <a href={item.href} class="mega-card" aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                    <span class="mega-card-top" aria-hidden="true">
+                      <span class="mega-card-icon"><item.icon class="icon-md" /></span>
+                      <span class="mega-card-index">{String(index + 1).padStart(2, '0')}</span>
+                    </span>
+                    <span class="mega-card-label">
+                      {item.label}
+                      <ArrowUpRight class="icon-sm mega-card-arrow" aria-hidden="true" />
+                    </span>
+                    <span class="mega-card-description">{item.description}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </li>
+      ) : (
         <li>
           <a
             href={link.href}
@@ -165,7 +231,24 @@ const isCurrent = (href: string, external = false) => {
       every width, so repeating them here would be a duplicate. */}
   <div id="mobile-menu" class="mobile-menu" hidden>
     <ul class="container mobile-menu-content">
-      {filteredNavLinks.map(link => (
+      {filteredNavLinks.map(link => link.href === JOIN_US_SLOT ? (
+        <li>
+          <p class="mobile-nav-group-title" id="mobile-join-title">{link.label}</p>
+          <ul class="mobile-mega-cards" aria-labelledby="mobile-join-title">
+            {joinUsItems.map(item => (
+              <li>
+                <a href={item.href} class="mobile-mega-card" aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                  <span class="mega-card-icon" aria-hidden="true"><item.icon class="icon-sm" /></span>
+                  <span>
+                    <span class="mega-card-label">{item.label}</span>
+                    <span class="mega-card-description">{item.description}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ) : (
         <li>
           <a
             href={link.href}
@@ -219,6 +302,44 @@ const isCurrent = (href: string, external = false) => {
     });
   }
 
+  function initMegaMenu() {
+    const btn = document.getElementById('mega-join-btn');
+    const panel = document.getElementById('mega-join');
+    if (!btn || !panel) return;
+
+    const isOpen = () => btn.getAttribute('aria-expanded') === 'true';
+    function setOpen(open: boolean) {
+      btn!.setAttribute('aria-expanded', String(open));
+      panel!.hidden = !open;
+    }
+
+    setOpen(false);
+    btn.addEventListener('click', () => setOpen(!isOpen()));
+
+    const item = btn.closest('.mega-item');
+    const isInside = (node: Node | null) => !!node && !!item?.contains(node);
+
+    document.addEventListener('click', (event) => {
+      if (isOpen() && !isInside(event.target as Node)) setOpen(false);
+    });
+
+    // Tabbing past the last card closes the panel instead of leaving it open
+    // over the page.
+    item?.addEventListener('focusout', (event) => {
+      if (!isInside((event as FocusEvent).relatedTarget as Node | null)) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape' || !isOpen()) return;
+      setOpen(false);
+      btn.focus();
+    });
+  }
+
   initMobileMenu();
-  document.addEventListener('astro:after-swap', initMobileMenu);
+  initMegaMenu();
+  document.addEventListener('astro:after-swap', () => {
+    initMobileMenu();
+    initMegaMenu();
+  });
 </script>

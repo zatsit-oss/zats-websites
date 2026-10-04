@@ -512,6 +512,179 @@ a[target="_blank"]:not(:has(svg)):hover::after {
   @apply hidden lg:flex items-center gap-4 xl:gap-8 list-none m-0 p-0 min-w-0;
 }
 
+/* "Rejoins-nous" mega menu, desktop only.
+
+   The panel is positioned against the sticky header (the nearest positioned
+   ancestor), so it spans the whole bar while staying in the DOM right after
+   its button for the tab order. It sets no `display` of its own, so the
+   `hidden` attribute keeps working. Solid background on purpose: a second
+   backdrop-filter nested in the header's would blur nothing. */
+.mega-trigger {
+  @apply inline-flex items-center gap-1 cursor-pointer bg-transparent border-0 p-0;
+  font: inherit;
+  min-height: 2.75rem;
+}
+
+.mega-chevron {
+  transition: transform 0.25s ease;
+}
+
+.mega-trigger[aria-expanded="true"] .mega-chevron {
+  transform: rotate(180deg);
+}
+
+.mega-panel {
+  @apply absolute left-0 right-0 top-full;
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 24px 48px -24px rgb(0 0 0 / 0.25);
+  animation: mega-panel-in 0.25s ease-out;
+}
+
+.mega-inner {
+  @apply grid gap-8 py-8;
+  grid-template-columns: minmax(14rem, 1fr) 3fr;
+}
+
+.mega-eyebrow {
+  @apply text-xs font-semibold uppercase tracking-widest mb-2;
+  color: var(--color-text-muted);
+}
+
+.mega-title {
+  @apply text-3xl font-bold leading-tight mb-3;
+  color: var(--color-text);
+}
+
+.mega-tagline {
+  @apply text-sm leading-relaxed;
+  color: var(--color-text-muted);
+}
+
+.mega-cards {
+  @apply grid grid-cols-3 gap-4 list-none m-0 p-0;
+}
+
+.mega-cards > li {
+  animation: mega-card-in 0.35s ease-out both;
+  animation-delay: calc(var(--i, 0) * 60ms + 60ms);
+}
+
+/* The whole card is the link. The border turns primary on hover and focus,
+   and the card lifts, so the state never rests on color alone. */
+.mega-card {
+  @apply relative flex flex-col gap-2 h-full p-5 rounded-2xl overflow-hidden;
+  background-color: var(--card-bg);
+  border: 1px solid var(--color-border);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mega-card::before {
+  content: '';
+  @apply absolute inset-0 pointer-events-none opacity-0;
+  background: radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--color-primary) 12%, transparent), transparent 60%);
+  transition: opacity 0.25s ease;
+}
+
+.mega-card:hover,
+.mega-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--color-primary);
+  box-shadow: 0 12px 24px -12px color-mix(in srgb, var(--color-primary) 40%, transparent);
+}
+
+.mega-card:hover::before,
+.mega-card:focus-visible::before {
+  opacity: 1;
+}
+
+.mega-card[aria-current="page"] {
+  border-color: var(--color-primary);
+}
+
+.mega-card-top {
+  @apply flex items-start justify-between mb-2;
+}
+
+.mega-card-icon {
+  @apply inline-flex items-center justify-center shrink-0 w-11 h-11 rounded-xl;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  transition: transform 0.25s ease;
+}
+
+.mega-card:hover .mega-card-icon,
+.mega-card:focus-visible .mega-card-icon {
+  transform: rotate(-8deg) scale(1.05);
+}
+
+/* Decorative numbering, hidden from assistive tech with the icon. */
+.mega-card-index {
+  @apply font-mono text-sm;
+  color: var(--color-text-muted);
+}
+
+.mega-card-label {
+  @apply flex items-center gap-1 text-lg font-semibold;
+  color: var(--color-text);
+}
+
+.mega-card-arrow {
+  color: var(--color-primary);
+  transition: transform 0.25s ease;
+}
+
+.mega-card:hover .mega-card-arrow,
+.mega-card:focus-visible .mega-card-arrow {
+  transform: translate(3px, -3px);
+}
+
+.mega-card-description {
+  @apply block text-sm leading-relaxed;
+  color: var(--color-text-muted);
+}
+
+@keyframes mega-panel-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mega-card-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mega-panel,
+  .mega-cards > li {
+    animation: none;
+  }
+
+  .mega-chevron,
+  .mega-card,
+  .mega-card::before,
+  .mega-card-icon,
+  .mega-card-arrow {
+    transition: none;
+  }
+
+  .mega-card:hover,
+  .mega-card:focus-visible,
+  .mega-card:hover .mega-card-icon,
+  .mega-card:focus-visible .mega-card-icon,
+  .mega-card:hover .mega-card-arrow,
+  .mega-card:focus-visible .mega-card-arrow {
+    transform: none;
+  }
+}
+
+/* Never shown below `lg`, even left open: the mobile panel takes over. */
+@media (max-width: 1023.98px) {
+  .mega-panel {
+    display: none;
+  }
+}
+
 .header-actions {
   @apply flex items-center gap-2 sm:gap-4;
 }
@@ -576,6 +749,33 @@ a[target="_blank"]:not(:has(svg)):hover::after {
 
 .mobile-nav-link:hover {
   color: var(--color-text);
+}
+
+.mobile-nav-group-title {
+  @apply py-2 text-lg font-semibold;
+  color: var(--color-text);
+}
+
+.mobile-mega-cards {
+  @apply flex flex-col gap-3 list-none m-0 p-0;
+}
+
+.mobile-mega-card {
+  @apply flex items-start gap-3 p-4 rounded-xl;
+  background-color: var(--card-bg);
+  border: 1px solid var(--color-border);
+}
+
+.mobile-mega-card[aria-current="page"] {
+  border-color: var(--color-primary);
+}
+
+.mobile-mega-card .mega-card-icon {
+  @apply w-9 h-9 rounded-lg;
+}
+
+.mobile-mega-card .mega-card-label {
+  @apply text-base;
 }
 
 /* ==========================================================================
