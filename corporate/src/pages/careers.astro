@@ -1,26 +1,476 @@
 ---
+import { getEntry } from 'astro:content';
+import { ArrowRight, ChevronDown, Sparkles } from '@lucide/astro';
 import Layout from '../layouts/Layout.astro';
+import { isPageDisabled } from '../lib/pages';
+
+const careersData = await getEntry('careers', 'careers');
+if (!careersData) throw new Error('Careers data not found');
+const { practices, roles, growth } = careersData.data;
+
+const applyDisabled = isPageDisabled('work-with-us');
+const joinUsDisabled = isPageDisabled('join-us');
+
+// Same pipeline, in the same order, as the services section on the home page
+const SDLC_PIPELINE = [
+  { key: 'cadrage', label: 'Cadrage', short: 'Cadr.' },
+  { key: 'conception', label: 'Conception', short: 'Conç.' },
+  { key: 'implementation', label: 'Implémentation', short: 'Impl.' },
+  { key: 'tests', label: 'Tests', short: 'Test' },
+  { key: 'deploiement', label: 'Déploiement', short: 'Dépl.' },
+  { key: 'mco', label: 'Run', short: 'Run' },
+] as const;
+
+const phaseLabels = (phases: readonly string[]) =>
+  SDLC_PIPELINE.filter((phase) => phases.includes(phase.key)).map((phase) => phase.label).join(', ');
 ---
 
-<Layout title="Nos offres d'emploi" description="Rejoignez zatsit et devenez consultant au sein d'un collectif passionné par la tech et l'impact.">
+<Layout
+  title="Carrière"
+  description="Forward Deployed Engineer, Product Engineer, Tech Lead, Platform Engineer : découvre les rôles chez zatsit et notre façon de travailler, augmentée par l'IA."
+>
   <section class="section--hero">
+    <div class="hero-decoration">
+      <div class="hero-blob hero-blob--primary"></div>
+      <div class="hero-blob hero-blob--secondary"></div>
+    </div>
+    <div class="dot-grid"></div>
+
+    <div class="container">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="careers-title hero-title">
+          L'IA écrit du code.<br /><span class="text-gradient-glow">Toi, tu construis des systèmes.</span>
+        </h1>
+        <p class="section-description hero-subtitle max-w-2xl mx-auto">
+          36 personnes, un seul standard : des systèmes bien conçus,
+          testés, déployés avec du code. L'IA augmente chaque étape, elle ne remplace pas ton jugement.
+        </p>
+        <div class="hero-cta flex flex-wrap justify-center gap-4">
+          <a href="#roles" class="btn-primary">
+            Découvrir les rôles
+            <ArrowRight class="icon-sm" aria-hidden="true" />
+          </a>
+          {!applyDisabled && (
+            <a href="/work-with-us/" class="btn-secondary">Postuler</a>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface" aria-labelledby="practices-title">
+    <div class="container">
+      <div class="max-w-3xl mb-12">
+        <h2 id="practices-title" class="section-title">
+          Augmentés, <span class="text-gradient">pas automatisés</span>
+        </h2>
+        <p class="section-description !mb-0">
+          Quel que soit ton rôle, tu travailles avec l'IA. Pas en pilote automatique : avec une méthode
+          que nous avons construite projet après projet.
+        </p>
+      </div>
+      <ul class="practices">
+        {practices.map((practice) => (
+          <li class="practice">
+            <Sparkles class="practice-icon icon-md" aria-hidden="true" />
+            <h3 class="item-title">{practice.title}</h3>
+            <p class="item-description">{practice.description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section id="roles" class="section scroll-mt-20" aria-labelledby="roles-title">
+    <div class="container">
+      <div class="max-w-3xl mb-12">
+        <h2 id="roles-title" class="section-title">
+          Quatre rôles, <span class="text-gradient">tout le cycle</span>
+        </h2>
+        <p class="section-description !mb-0">
+          Chaque rôle couvre une partie du cycle de vie du logiciel. À quatre, ils vont du cadrage
+          au run. Ouvre un rôle pour voir ton quotidien.
+        </p>
+      </div>
+
+      <div class="roles-matrix" data-roles-matrix>
+        <div class="roles-head" aria-hidden="true">
+          <span></span>
+          <ol class="roles-phases">
+            {SDLC_PIPELINE.map((phase) => <li>{phase.label}</li>)}
+          </ol>
+        </div>
+
+        {roles.map((role, roleIndex) => (
+          <details class="role" id={role.id}>
+            <summary class="role-summary">
+              <span class="role-name">
+                <span class="role-title" role="heading" aria-level="3">{role.title}</span>
+                <span class="role-pitch">{role.pitch}</span>
+              </span>
+              <span class="sr-only">Phases : {phaseLabels(role.sdlcPhases)}.</span>
+              <ol class="role-track" aria-hidden="true">
+                {SDLC_PIPELINE.map((phase, phaseIndex) => {
+                  const active = role.sdlcPhases.includes(phase.key);
+                  const next = SDLC_PIPELINE[phaseIndex + 1];
+                  // A thick rail joins two consecutive phases the role covers
+                  const linked = active && next !== undefined && role.sdlcPhases.includes(next.key);
+                  return (
+                    <li
+                      class:list={['role-stop', { 'role-stop--on': active, 'role-stop--linked': linked }]}
+                      style={`--delay: ${roleIndex * 220 + phaseIndex * 110}ms`}
+                    >
+                      <span class="role-dot"></span>
+                      <span class="role-stop-label">{phase.short}</span>
+                    </li>
+                  );
+                })}
+              </ol>
+              <ChevronDown class="role-chevron icon-md" aria-hidden="true" />
+            </summary>
+
+            <div class="role-body">
+              <div>
+                <h4 class="role-body-title">Ton quotidien</h4>
+                <ul class="role-daily">
+                  {role.daily.map((item) => <li>{item}</li>)}
+                </ul>
+              </div>
+              <div>
+                <h4 class="role-body-title">Augmenté par</h4>
+                <ul class="role-augmented">
+                  {role.augmentedBy.map((item) => <li class="tag">{item}</li>)}
+                </ul>
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface" aria-labelledby="growth-title">
+    <div class="container">
+      <div class="max-w-3xl mb-12">
+        <h2 id="growth-title" class="section-title">
+          Évoluer <span class="text-gradient">chez zatsit</span>
+        </h2>
+        <p class="section-description !mb-0">
+          Voici ce qui compte dans ton évolution chez zatsit.
+        </p>
+      </div>
+      <ul class="growth">
+        {growth.map((item) => (
+          <li class="card growth-item">
+            <h3 class="item-title">{item.title}</h3>
+            <p class="item-description">{item.description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="apply-title">
     <div class="container">
       <div class="max-w-3xl mx-auto text-center">
-        <h1 class="section-title--lg">
-          Nos offres d'<span class="text-gradient">emploi</span>
-        </h1>
+        <h2 id="apply-title" class="section-title">
+          Un de ces rôles <span class="text-gradient">te ressemble ?</span>
+        </h2>
         <p class="section-description">
-          Rejoins un collectif de passionnés où ton expertise sera valorisée et où tu pourras avoir un réel impact.
+          Écris-nous. Même si aucun poste n'est ouvert aujourd'hui, nous lisons toutes les candidatures.
         </p>
-        <a
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn-primary"
-        >
-          Voir nos offres sur ??
-        </a>
+        <div class="flex flex-wrap justify-center gap-4">
+          {!applyDisabled && (
+            <a href="/work-with-us/" class="btn-primary">
+              Postuler
+              <ArrowRight class="icon-sm" aria-hidden="true" />
+            </a>
+          )}
+          {!joinUsDisabled && (
+            <a href="/join-us/" class="btn-secondary">Découvrir ton package</a>
+          )}
+        </div>
       </div>
     </div>
   </section>
 </Layout>
+
+<script>
+  // One-shot reveal: the role tracks fill in, phase by phase, once the matrix
+  // reaches the middle of the viewport. Without JS, or with reduced motion,
+  // the tracks are rendered filled from the start.
+  function initRolesReveal() {
+    const matrix = document.querySelector<HTMLElement>('[data-roles-matrix]');
+    if (!matrix) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+
+    matrix.dataset.reveal = 'pending';
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        matrix.dataset.reveal = 'done';
+        obs.disconnect();
+      },
+      { root: null, rootMargin: '-50% 0px -50% 0px', threshold: 0 },
+    );
+    observer.observe(matrix);
+  }
+
+  document.addEventListener('astro:page-load', initRolesReveal);
+</script>
+
+<style>
+  .careers-title {
+    font-size: clamp(2.25rem, 1.4rem + 4vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-wrap: balance;
+  }
+
+  /* Practices */
+  .practices {
+    display: grid;
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+  }
+  @media (min-width: 768px) {
+    .practices { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 3rem; }
+  }
+  @media (min-width: 1024px) {
+    .practices { grid-template-columns: repeat(4, 1fr); }
+  }
+  .practice {
+    border-top: 2px solid var(--color-primary);
+    padding-top: 1.25rem;
+  }
+  .practice-icon {
+    color: var(--color-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  /* Roles matrix: one shared column grid so every track lines up */
+  .roles-matrix {
+    --matrix-cols: minmax(0, 1fr);
+    border-top: 1px solid var(--color-border);
+  }
+  @media (min-width: 1024px) {
+    .roles-matrix { --matrix-cols: minmax(0, 22rem) minmax(0, 1fr) 1.5rem; }
+  }
+
+  .roles-head {
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .roles-head {
+      display: grid;
+      grid-template-columns: var(--matrix-cols);
+      column-gap: 2rem;
+      padding: 1rem 0 0.75rem;
+    }
+  }
+  .roles-phases {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+
+  .role {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .role-summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 1.5rem;
+    gap: 1rem 2rem;
+    align-items: center;
+    padding: 1.5rem 0.5rem;
+    margin: 0 -0.5rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    list-style: none;
+  }
+  .role-summary::-webkit-details-marker { display: none; }
+  .role-summary:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  @media (min-width: 1024px) {
+    .role-summary { grid-template-columns: var(--matrix-cols); }
+  }
+
+  .role-name { display: block; }
+  .role-title {
+    display: block;
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.25rem;
+    transition: color 0.2s ease;
+  }
+  .role-summary:hover .role-title,
+  .role[open] .role-title {
+    color: var(--color-primary);
+  }
+  .role-pitch {
+    display: block;
+    color: var(--color-text-muted);
+  }
+
+  .role-chevron {
+    grid-column: 2;
+    grid-row: 1;
+    color: var(--color-text-muted);
+    transition: transform 0.25s ease;
+  }
+  .role[open] .role-chevron { transform: rotate(180deg); }
+
+  /* Metro lines: each role is a rail through the six phases, with a filled
+     stop on every phase it covers and a thick rail between covered neighbours */
+  .role-track {
+    --rail-y: 0.75rem;
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  @media (min-width: 1024px) {
+    .role-track { grid-column: 2; grid-row: 1; }
+    .role-chevron { grid-column: 3; }
+  }
+
+  .role-stop {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  /* Thin base rail to the next stop */
+  .role-stop::before,
+  .role-stop::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 100%;
+    top: var(--rail-y);
+    transform: translateY(-50%);
+  }
+  .role-stop::before {
+    height: 2px;
+    background: var(--color-border);
+  }
+  /* Thick rail drawn on top when both ends are covered */
+  .role-stop--linked::after {
+    height: 4px;
+    border-radius: 2px;
+    background: var(--color-primary);
+    transform-origin: left center;
+  }
+  .role-stop:last-child::before { display: none; }
+
+  .role-dot {
+    position: relative;
+    z-index: 1;
+    width: 0.875rem;
+    height: 0.875rem;
+    margin-top: calc(var(--rail-y) - 0.4375rem);
+    border-radius: 50%;
+    border: 2px solid var(--color-border);
+    background: var(--color-bg);
+  }
+  .role-stop--on .role-dot {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: calc(var(--rail-y) - 0.625rem);
+    border: 4px solid var(--color-primary);
+    background: var(--color-bg);
+    box-shadow: 0 0 12px -2px color-mix(in srgb, var(--color-primary) 60%, transparent);
+  }
+
+  .role-stop-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .role-stop--on .role-stop-label { color: var(--color-text); }
+  /* Column headers carry the labels on desktop */
+  @media (min-width: 1024px) {
+    .role-stop-label { display: none; }
+  }
+
+  /* Reveal: only engaged by the script, so no-JS keeps the final state.
+     Stops light up and rails draw left to right, role after role. */
+  .roles-matrix[data-reveal] .role-stop--on .role-dot {
+    transition: border-color 0.4s ease var(--delay), box-shadow 0.4s ease var(--delay);
+  }
+  .roles-matrix[data-reveal] .role-stop--linked::after {
+    transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--delay) + 0.15s);
+  }
+  .roles-matrix[data-reveal="pending"] .role-stop--on .role-dot {
+    border-color: var(--color-border);
+    box-shadow: none;
+  }
+  .roles-matrix[data-reveal="pending"] .role-stop--linked::after {
+    transform: translateY(-50%) scaleX(0);
+  }
+
+  .role-body {
+    display: grid;
+    gap: 1.5rem;
+    padding: 0 0 2rem;
+  }
+  @media (min-width: 768px) {
+    .role-body { grid-template-columns: 3fr 2fr; gap: 3rem; }
+  }
+  @media (min-width: 1024px) {
+    .role-body { padding-left: 0; max-width: 60rem; }
+  }
+  .role-body-title {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  .role-daily {
+    list-style: disc;
+    padding-left: 1.25rem;
+    color: var(--color-text-muted);
+  }
+  .role-daily li + li { margin-top: 0.375rem; }
+  .role-augmented {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  /* Growth */
+  .growth {
+    display: grid;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+  }
+  @media (min-width: 768px) {
+    .growth { grid-template-columns: repeat(2, 1fr); }
+  }
+  .growth-item { padding: 1.75rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .role-title,
+    .role-chevron,
+    .roles-matrix[data-reveal] .role-stop--on .role-dot,
+    .roles-matrix[data-reveal] .role-stop--linked::after { transition: none; }
+  }
+</style>

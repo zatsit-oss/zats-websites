@@ -1,0 +1,120 @@
+{
+  "practices": [
+    {
+      "title": "La spec d'abord",
+      "description": "Nous écrivons ce que nous voulons avant de le générer : contrats OpenAPI et AsyncAPI, critères d'acceptation, décisions tracées en ADR."
+    },
+    {
+      "title": "Un contexte maîtrisé",
+      "description": "Un agent ne voit que ce dont il a besoin. Un contexte cadré donne des réponses justes, et coûte moins cher."
+    },
+    {
+      "title": "Le bon modèle pour la bonne tâche",
+      "description": "Pas de modèle géant par réflexe. Nous choisissons selon la tâche, la confidentialité et l'empreinte."
+    },
+    {
+      "title": "Mesuré, toujours",
+      "description": "Tests, revues, métriques : ce qui sort d'un agent passe les mêmes exigences que ce que nous écrivons à la main."
+    }
+  ],
+  "roles": [
+    {
+      "id": "forward-deployed-engineer",
+      "title": "Forward Deployed Engineer",
+      "pitch": "Tu arrives chez le client, tu comprends son problème et tu livres vite une solution qui tourne.",
+      "daily": [
+        "Ateliers et diagnostic avec les équipes du client",
+        "Reprise de bases de code existantes, même anciennes",
+        "Premiers incréments livrés tôt, pour valider sur du réel"
+      ],
+      "sdlcPhases": [
+        "cadrage",
+        "conception",
+        "implementation"
+      ],
+      "augmentedBy": [
+        "Diagnostics IA",
+        "Reprise de code legacy",
+        "Context Engineering"
+      ]
+    },
+    {
+      "id": "product-engineer",
+      "title": "Product Engineer",
+      "pitch": "Tu construis le produit de bout en bout, du besoin utilisateur à la production, et tu restes responsable de ce qui tourne.",
+      "daily": [
+        "API spécifiées en OpenAPI et AsyncAPI, code généré depuis la spec",
+        "Tests sans compromis, TDD quand il le faut",
+        "Domaine modélisé avec le DDD, code propre et lisible"
+      ],
+      "sdlcPhases": [
+        "conception",
+        "implementation",
+        "tests",
+        "deploiement",
+        "mco"
+      ],
+      "augmentedBy": [
+        "Spec Driven Development",
+        "Harness Engineering"
+      ]
+    },
+    {
+      "id": "tech-lead",
+      "title": "Tech Lead",
+      "pitch": "Tu gardes un système et une équipe cohérents dans la durée.",
+      "daily": [
+        "Architecture hexagonale, documentée en C4 Model et en ADR",
+        "Revues de code et choix techniques tracés en ADR",
+        "Montée en compétence de l'équipe, BBL et formations"
+      ],
+      "sdlcPhases": [
+        "cadrage",
+        "conception",
+        "implementation",
+        "tests"
+      ],
+      "augmentedBy": [
+        "Orchestration d'agents",
+        "Audits agentiques"
+      ]
+    },
+    {
+      "id": "platform-engineer",
+      "title": "Platform Engineer",
+      "pitch": "Tu codes l'infrastructure, tu outilles les déploiements et tu tiens la production.",
+      "daily": [
+        "Infrastructure as code avec Terraform et Ansible",
+        "Pipelines CI/CD et conteneurs sur Kubernetes",
+        "Run et fiabilité en production"
+      ],
+      "sdlcPhases": [
+        "conception",
+        "deploiement",
+        "mco"
+      ],
+      "augmentedBy": [
+        "Context Engineering",
+        "Garde-fous de sécurité"
+      ]
+    }
+  ],
+  "growth": [
+    {
+      "title": "Tes contributions comptent",
+      "description": "Cooptation, articles, prises de parole : ce que tu apportes au collectif est pris en compte dans ton évolution salariale."
+    },
+    {
+      "title": "Tu portes tes initiatives",
+      "description": "Une idée de projet ou de culture d'entreprise ? Tu la soumets au collectif. Si elle convainc, tu la mènes."
+    },
+    {
+      "title": "Tu décides avec nous",
+      "description": "Gouvernance partagée : les orientations de zatsit se discutent et se votent, ton avis pèse."
+    },
+    {
+      "title": "Tu choisis ton statut",
+      "description": "Salarié, indépendant ou en portage, et tu peux passer de l'un à l'autre si ta situation change."
+    }
+  ]
+}

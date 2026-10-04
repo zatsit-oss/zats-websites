@@ -125,7 +125,31 @@ const techCollection = defineCollection({
   }),
 });
 
+const careersCollection = defineCollection({
+  loader: jsonIn('careers'),
+  schema: z.object({
+    practices: z.array(z.object({
+      title: z.string(),
+      description: z.string(),
+    })),
+    roles: z.array(z.object({
+      id: z.string(),
+      title: z.string(),
+      pitch: z.string(),
+      daily: z.array(z.string()),
+      // Phases of the shared SDLC pipeline this role mostly works on
+      sdlcPhases: z.array(sdlcPhase).min(1),
+      augmentedBy: z.array(z.string()),
+    })),
+    growth: z.array(z.object({
+      title: z.string(),
+      description: z.string(),
+    })),
+  }),
+});
+
 export const collections = {
+  careers: careersCollection,
   legal: legalCollection,
   services: servicesCollection,
   people: peopleCollection,
