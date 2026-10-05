@@ -180,10 +180,14 @@ const offersCollection = defineCollection({
       pitch: z.string(),
       // Stations of the pipeline this package covers
       stations: z.array(station).min(1),
+      // Who comes: the roles from the careers page that staff this package
+      roles: z.array(z.string()).min(1),
       form: z.string(),
       deliverable: z.string(),
       measured: z.string(),
       sovereign: z.string(),
+      // Optional: the deliverable shown as a repository tree, one entry per path
+      tree: z.array(z.object({ path: z.string(), note: z.string() })).optional(),
     })).min(1).max(4),
     refusalsTitle: z.string(),
     // What the page refuses to promise

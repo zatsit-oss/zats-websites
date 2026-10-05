@@ -154,6 +154,8 @@ Les textes ont été produits en trois temps :
 2. le CTO et le concurrent fictifs ont voté bloc par bloc et signalé les lignes qu'ils attaqueraient ;
 3. l'assemblage retient les votes convergents (hero, méthode, AI-readiness, pilote SDD, refus, CTA), tranche les trois désaccords avec l'avis du rédacteur, et corrige les drapeaux : promesses intenables retirées (« sans dette », « pas une réplique de trop », « votre équipe sait s'en servir sans nous »), « vos agents » remplacé par « vos outils IA », le coût de l'IA limité à « ce qui se trace », l'étiquette « Souverain, quand ça tient » devenue « Souverain, si possible » pour ne plus contredire le refus sur la souveraineté.
 
+**GreenScore retiré des promesses (décision du 5 octobre)** : le projet est en pause et n'a pas de cas d'usage démontrable. La page garde la mesure comme principe (coût d'exécution, consommation, dépendances, factures et appels d'API) sans nommer l'outil, et la preuve « open source » renvoie à l'organisation GitHub plutôt qu'au seul dépôt GreenScore. Les deux offres de l'accueil (`services.json`) et le portail sustainability le citent encore : à traiter séparément.
+
 Lignes à surveiller, relevées par le concurrent : la page se définit beaucoup par ce qu'elle n'est pas (« pas un questionnaire », « pas sur la plaquette »), « vibe-coding » vieillira, et « forfait court » sans ordre de grandeur reste le premier frein à l'achat. Le sixième refus (la stratégie IA, c'est aiko) est gardé sous sa forme la plus sobre : à confirmer par les associés.
 
 ### Mon avis

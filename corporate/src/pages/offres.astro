@@ -53,6 +53,16 @@ const stationLabels = (keys: readonly string[]) =>
     </div>
   </section>
 
+  {/* Runs while the page is parsed, before the pipeline below is painted, so
+      the first frame already shows the pending state: no flash of the drawn
+      rail before the animation. Without JS or with reduced motion, the
+      attribute is never set and everything renders final. */}
+  <script is:inline data-astro-rerun>
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      document.documentElement.setAttribute('data-reveal-js', '');
+    }
+  </script>
+
   {/* The method: five stations on one rail. The rail draws once, at mid viewport. */}
   <section id="methode" class="method scroll-mt-20" aria-labelledby="method-title">
     <div class="container">
@@ -93,6 +103,10 @@ const stationLabels = (keys: readonly string[]) =>
                 );
               })}
             </ol>
+            <p class="pack-roles-label">Qui vient chez vous</p>
+            <ul class="pack-roles" aria-label="Rôles mobilisés">
+              {pack.roles.map((role) => <li class="tag">{role}</li>)}
+            </ul>
           </div>
 
           <div class="pack-main">
@@ -117,6 +131,16 @@ const stationLabels = (keys: readonly string[]) =>
                 </div>
               </dl>
             </div>
+            {pack.tree && (
+              <ul class="repo-tree" aria-label="Contenu du dépôt livré">
+                {pack.tree.map((entry) => (
+                  <li>
+                    <code>{entry.path}</code>
+                    <span>{entry.note}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </section>
@@ -189,14 +213,12 @@ const stationLabels = (keys: readonly string[]) =>
 
 <script>
   // One-shot reveals: each [data-reveal] draws itself once it reaches the middle
-  // of the viewport. Without JS, or with reduced motion, everything renders in
-  // its final state.
+  // of the viewport. The pending state comes from the inline script above.
   function initReveals() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (!('IntersectionObserver' in window)) return;
+    if (!document.documentElement.hasAttribute('data-reveal-js')) return;
 
     document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((target) => {
-      target.dataset.reveal = 'pending';
+      if (target.dataset.reveal === 'done') return;
       const observer = new IntersectionObserver(
         (entries, obs) => {
           if (!entries.some((entry) => entry.isIntersecting)) return;
@@ -320,13 +342,13 @@ const stationLabels = (keys: readonly string[]) =>
   .pipeline[data-reveal] .pipeline-label {
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i) * 0.45s), opacity 0.4s ease calc(var(--i) * 0.45s);
   }
-  .pipeline[data-reveal="pending"] .pipeline-station::after {
+  html[data-reveal-js] .pipeline:not([data-reveal="done"]) .pipeline-station::after {
     transform: translateY(-50%) scaleX(0);
   }
-  .pipeline[data-reveal="pending"] .pipeline-dot {
+  html[data-reveal-js] .pipeline:not([data-reveal="done"]) .pipeline-dot {
     transform: scale(0);
   }
-  .pipeline[data-reveal="pending"] .pipeline-label {
+  html[data-reveal-js] .pipeline:not([data-reveal="done"]) .pipeline-label {
     opacity: 0;
     transform: translateY(0.5rem);
   }
@@ -402,6 +424,52 @@ const stationLabels = (keys: readonly string[]) =>
     margin-bottom: 1.75rem;
   }
 
+  .pack-roles-label {
+    margin-top: 2rem;
+    margin-bottom: 0.625rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+  .pack-roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  /* The SDD deliverable, shown as what it is: a repository */
+  .repo-tree {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    list-style: none;
+    border-radius: var(--radius-lg);
+    background: var(--color-text);
+    color: var(--color-bg);
+    display: grid;
+    gap: 0.5rem;
+  }
+  .repo-tree li {
+    display: grid;
+    grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: baseline;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+  .repo-tree code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.8125rem;
+    color: var(--color-bg);
+  }
+  .repo-tree span {
+    color: color-mix(in srgb, var(--color-bg) 72%, var(--color-text));
+  }
+  @media (max-width: 479px) {
+    .repo-tree li { grid-template-columns: 1fr; gap: 0.125rem; }
+  }
+
   /* Mini track: which stations of the pipeline this package covers */
   .track {
     --rail-y: 0.5rem;
@@ -468,8 +536,8 @@ const stationLabels = (keys: readonly string[]) =>
   .track[data-reveal] .track-stop--linked::after {
     transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--i) * 0.12s + 0.1s);
   }
-  .track[data-reveal="pending"] .track-stop--on .track-dot { border-color: var(--color-border); }
-  .track[data-reveal="pending"] .track-stop--linked::after { transform: translateY(-50%) scaleX(0); }
+  html[data-reveal-js] .track:not([data-reveal="done"]) .track-stop--on .track-dot { border-color: var(--color-border); }
+  html[data-reveal-js] .track:not([data-reveal="done"]) .track-stop--linked::after { transform: translateY(-50%) scaleX(0); }
 
   .pack-title {
     font-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.75rem);
