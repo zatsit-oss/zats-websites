@@ -1,0 +1,82 @@
+{
+  "packages": [
+    {
+      "id": "ai-readiness",
+      "situation": "Vos développeurs utilisent déjà des copilotes, sans règles.",
+      "title": "AI-readiness de votre SI et de vos équipes",
+      "pitch": "Pas un questionnaire de maturité : une lecture par le code. Nous regardons vos specs, vos tests, votre CI, vos données et ce que l'IA vous coûte déjà, puis nous vous rendons une feuille de route priorisée.",
+      "form": "Un forfait court, sur un périmètre fixé avec vous.",
+      "deliverable": "Un état des lieux de votre système et de vos pratiques, le coût actuel de votre usage de l'IA en euros, et une feuille de route priorisée.",
+      "measured": "Le coût d'exécution de ce que vous faites tourner, et le dimensionnement des modèles que vous utilisez déjà.",
+      "sovereign": "La carte des données qui ne doivent pas sortir, et les options d'hébergement qui existent vraiment pour elles."
+    },
+    {
+      "id": "projet-sdd",
+      "situation": "Vous lancez un produit et vous voulez le faire bien du premier coup.",
+      "title": "Un projet SDD outillé de bout en bout",
+      "pitch": "Spec-driven development : la spécification d'abord, le code généré et vérifié ensuite. Un périmètre, une durée, des seniors embarqués, et un dépôt que vous pouvez lire ligne à ligne.",
+      "form": "Un pilote borné : un périmètre et une durée fixés avec vous.",
+      "deliverable": "Le dépôt lui-même : specs, contrats OpenAPI et AsyncAPI, harness d'agents, CI, tests. La preuve, c'est le code.",
+      "measured": "GreenScore branché dès le premier commit, une architecture dimensionnée au besoin réel.",
+      "sovereign": "Le modèle et l'hébergement choisis tâche par tâche, en local quand c'est possible."
+    },
+    {
+      "id": "reprise",
+      "situation": "Votre SI vieillit et votre facture cloud grimpe.",
+      "title": "Reprise d'une base de code existante",
+      "pitch": "Votre système tourne, mais plus personne ne le maîtrise tout à fait. Nous le lisons avec nos outils, nous chiffrons ce qu'il faut corriger, et vous décidez de la suite, avec nous ou sans nous.",
+      "form": "Un diagnostic au forfait, puis des chantiers par lots séparés, chacun chiffré.",
+      "deliverable": "La liste de ce qu'il faut corriger, chiffrée en euros : le gain, l'effort et le risque de chaque poste.",
+      "measured": "Une note GreenScore avant, une note après. Les dépendances mortes et le calcul inutile en moins.",
+      "sovereign": "Le rapatriement des briques pour lesquelles ça a du sens, et seulement celles-là."
+    },
+    {
+      "id": "dev-augmente",
+      "situation": "Vous voulez la méthode, pas des bras en plus.",
+      "title": "Le dev augmenté dans votre équipe",
+      "pitch": "Notre méthode, transmise à vos équipes. Un pilote avec une équipe d'abord, la généralisation ensuite, si le pilote le mérite.",
+      "form": "Un pilote avec une de vos équipes, puis des formations et des BBL.",
+      "deliverable": "La méthode installée chez vous : charte d'usage, specs, contextes cadrés, revue, tableau de bord des coûts.",
+      "measured": "La consommation de vos agents suivie dans le temps, un modèle par tâche.",
+      "sovereign": "Une charte d'usage des données et des modèles qui dit ce qui sort, et ce qui ne sort pas."
+    }
+  ],
+  "refusals": [
+    {
+      "claim": "Une souveraineté garantie.",
+      "why": "Nous ne sommes ni hébergeur ni éditeur de modèle. Nous challengeons les alternatives quand le contexte le permet, et nous vous le disons quand ça ne tient pas."
+    },
+    {
+      "claim": "Des économies avant de les avoir mesurées.",
+      "why": "Le chiffre sort du diagnostic, pas de cette page."
+    },
+    {
+      "claim": "Une refonte au forfait sans diagnostic.",
+      "why": "Nous ne chiffrons pas ce que nous n'avons pas lu."
+    },
+    {
+      "claim": "La mesure de votre consommation IA par GreenScore.",
+      "why": "GreenScore note aujourd'hui le système d'information et les API. L'extension à l'IA est en cours, nous la livrerons quand elle tiendra."
+    },
+    {
+      "claim": "Que vous ayez besoin de nous ensuite.",
+      "why": "Nos diagnostics se réalisent avec zatsit ou sans. C'est écrit dans le livrable."
+    }
+  ],
+  "proofs": [
+    {
+      "text": "GreenScore est open source. Le code est lisible par tous.",
+      "href": "https://github.com/zatsit-oss/zats-greenscore",
+      "label": "Voir GreenScore sur GitHub"
+    },
+    {
+      "text": "Ce site émet 0,04 g de CO2 par page. Nous appliquons à nous-mêmes ce que nous vendons."
+    },
+    {
+      "text": "36 personnes, 9 ans d'expérience en moyenne. Des seniors, pas une armée de juniors."
+    },
+    {
+      "text": "Entreprise B Corp, médaille d'argent EcoVadis. Des certifications qui s'auditent, pas des logos."
+    }
+  ]
+}

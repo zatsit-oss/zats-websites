@@ -1944,17 +1944,9 @@ a[target="_blank"]:not(:has(svg)):hover::after {
   .services[data-view="ai"] .service-card::before { animation: none; opacity: 0.5; }
 }
 /* ==========================================================================
-   Offers Page (offres)
+   Soft gradient surface (manifesto callout)
    ========================================================================== */
 
-/* Eyebrow label above section titles */
-.eyebrow {
-  @apply text-xs font-semibold uppercase mb-3;
-  letter-spacing: 0.18em;
-  color: var(--color-primary);
-}
-
-/* Soft gradient surface, reused for principle box, instrument and CTA */
 .grad-soft {
   background: linear-gradient(
     135deg,
@@ -1964,99 +1956,3 @@ a[target="_blank"]:not(:has(svg)):hover::after {
   border: 1px solid color-mix(in srgb, var(--color-primary) 35%, transparent);
   border-radius: var(--radius-lg);
 }
-
-/* Pill tag (hero / section eyebrow chip) */
-.pill {
-  @apply inline-block text-xs font-semibold uppercase rounded-full px-3 py-1.5;
-  letter-spacing: 0.16em;
-  color: var(--color-primary);
-  border: 1px solid var(--color-border);
-}
-
-/* Offer card: static content, so no hover affordance */
-.offer-card {
-  @apply relative flex flex-col p-7;
-  background-color: var(--card-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-}
-
-/* Keeps the intro paragraphs at a readable measure */
-.offer-intro,
-.greenscore-text {
-  max-width: 65ch;
-}
-
-.offer-targets {
-  @apply text-sm;
-  color: var(--color-text-muted);
-}
-
-.offer-label {
-  @apply text-xs font-bold uppercase;
-  letter-spacing: 0.14em;
-  color: var(--color-primary);
-}
-
-.offer-block-title {
-  @apply text-xs font-semibold uppercase mb-3 mt-5;
-  letter-spacing: 0.12em;
-  opacity: 0.85;
-}
-
-/* Opportunistic ambition note at the bottom of an offer card */
-.offer-note {
-  @apply text-sm mt-6 p-4;
-  color: var(--color-text-muted);
-  background: color-mix(in srgb, var(--color-secondary) 6%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-secondary) 30%, transparent);
-  border-radius: var(--radius-md);
-}
-
-/* Primary, not secondary: the dark secondary (#E1601F) fails AA as small text */
-.offer-note b {
-  color: var(--color-primary);
-}
-
-/* Bullet list with square markers */
-.feature-list {
-  @apply flex flex-col gap-2;
-  list-style: none;
-}
-
-.feature-list li {
-  @apply relative text-sm;
-  padding-left: 1.125rem;
-}
-
-.feature-list li::before {
-  content: "";
-  @apply absolute;
-  left: 0;
-  top: 0.5rem;
-  width: 7px;
-  height: 7px;
-  border-radius: 2px;
-  background: var(--color-primary);
-}
-
-
-/* GreenScore A -> E square */
-.greenscore-badge {
-  @apply flex items-center justify-center flex-shrink-0 font-bold;
-  width: 96px;
-  height: 96px;
-  border-radius: 1.25rem;
-  font-size: 1.4rem;
-  letter-spacing: -0.03em;
-  color: var(--color-on-primary);
-  background: linear-gradient(
-    135deg,
-    var(--logo-gradient-start),
-    var(--logo-gradient-mid),
-    var(--logo-gradient-end)
-  );
-  box-shadow: 0 10px 30px -8px color-mix(in srgb, var(--color-primary) 40%, transparent);
-}
-
-

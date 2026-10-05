@@ -156,7 +156,36 @@ const careersCollection = defineCollection({
   }),
 });
 
+const offersCollection = defineCollection({
+  loader: jsonIn('offers'),
+  schema: z.object({
+    // "Par où entrer" strip: one situation per package, in the same order
+    packages: z.array(z.object({
+      id: z.string(),
+      situation: z.string(),
+      title: z.string(),
+      pitch: z.string(),
+      form: z.string(),
+      deliverable: z.string(),
+      measured: z.string(),
+      sovereign: z.string(),
+    })).min(1).max(4),
+    // What the page refuses to promise
+    refusals: z.array(z.object({
+      claim: z.string(),
+      why: z.string(),
+    })),
+    // Facts a visitor can check, each with an optional link
+    proofs: z.array(z.object({
+      text: z.string(),
+      href: z.string().optional(),
+      label: z.string().optional(),
+    })),
+  }),
+});
+
 export const collections = {
+  offers: offersCollection,
   careers: careersCollection,
   legal: legalCollection,
   services: servicesCollection,

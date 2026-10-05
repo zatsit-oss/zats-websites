@@ -94,7 +94,7 @@ export const PAGE_SUMMARIES: Record<string, { label: string; summary: string }> 
   },
   offres: {
     label: 'Nos offres',
-    summary: "les deux offres de zatsit, conseil en éco-conception mesuré et pratique de l'IA frugale, et GreenScore, l'instrument de mesure commun",
+    summary: "l'offre de product engineering augmenté de zatsit en quatre packages (AI-readiness, projet spec-driven, reprise de code existant, dev augmenté en équipe), ce qui est mesuré et ce que zatsit refuse de promettre",
   },
   manifeste: {
     label: 'Manifeste',

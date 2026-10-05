@@ -116,6 +116,34 @@ Trois façons d'entrer, de la plus légère à la plus engageante :
 
 Le green n'a plus de section à lui. Il est présent à chaque étape sous forme de **mesure** : la note GreenScore du diagnostic, le dimensionnement juste des choix d'architecture et de modèles. On ne parle d'économies que lorsqu'elles sont chiffrées.
 
+### Déclinaison en packages
+
+Hypothèse retenue après le challenge : une offre unique de product engineering augmenté, découpée en **packages** achetables. Le green et le souverain ne sont plus des offres ni des titres : ce sont des **orientations** présentes dans chaque package, sous une forme conditionnelle et toujours au même endroit (« Mesuré » et « Souverain, quand ça tient »). C'est la réponse au reproche « souveraine » promis dans le titre puis retiré dans la note.
+
+Trois garde-fous :
+
+- quatre packages au plus, pour ne pas retomber dans l'effet « dix cibles » ;
+- « maturité IA » est le mot le plus vendu du marché, chaque cabinet a son audit à questionnaire. Le nôtre lit le code, les specs, les tests, la CI et la facture. Le nom doit le dire : « AI-readiness », pas « maturité » ;
+- les orientations ne vont jamais dans les titres.
+
+| Package | Pour qui | Forme | Livrable | Mesuré | Souverain, quand ça tient |
+|---|---|---|---|---|---|
+| **AI-readiness de votre SI et de vos équipes** | Un CTO dont les développeurs utilisent déjà des copilotes sans cadre | Forfait court, périmètre fixé ensemble | Un état des lieux par le code (specs, tests, CI, données), le coût actuel de l'usage de l'IA en euros, une feuille de route priorisée | Coût d'exécution, dimensionnement des modèles utilisés | Carte des données qui ne doivent pas sortir, options d'hébergement réelles |
+| **Un projet SDD outillé de bout en bout** | Une équipe qui lance un produit ou une refonte ciblée | Pilote borné, seniors embarqués | Le dépôt lui-même : specs, contrats OpenAPI et AsyncAPI, harness, CI, GreenScore branché dès le premier commit. C'est la preuve que la méthode existe | GreenScore et architecture dimensionnée dès le départ | Modèle et hébergement choisis par tâche, en local quand c'est possible |
+| **Reprise d'une base de code existante** | Un SI vieillissant, de la dette, une facture cloud qui monte | Diagnostic au forfait, puis des chantiers par lots séparés et chiffrés | La liste chiffrée en euros de ce qu'il faut corriger (gain, effort, risque), réalisable avec ou sans zatsit | Note GreenScore avant et après, dépendances mortes et calcul inutile supprimés | Rapatriement des briques pour lesquelles ça a du sens |
+| **Le dev augmenté dans votre équipe** | Une équipe qui veut la méthode, pas des bras en plus | Pilote avec une équipe, puis formations et BBL | La méthode installée : charte d'usage, specs, contextes cadrés, revue, tableau de bord des coûts | Consommation des agents suivie, un modèle par tâche | Charte d'usage des données et des modèles |
+
+Ce que ça règle par rapport aux relecteurs :
+
+- le petit ticket d'entrée existe deux fois (AI-readiness et diagnostic de reprise), et les deux chiffrent en euros ;
+- le projet SDD est la preuve que l'offre B n'avait pas : un dépôt livré se montre, c'est plus fort qu'un cas client raconté ;
+- « juge et partie » est désamorcé : les diagnostics se réalisent avec ou sans zatsit, et c'est écrit ;
+- la page porte une section « Ce que nous ne vendons pas », qui dit noir sur blanc ce que les relecteurs reprochaient aux anciennes offres de promettre (souveraineté garantie, économies avant mesure, refonte au forfait sans diagnostic, mesure IA par GreenScore pas encore livrée).
+
+Reste à régler : un cas réel à montrer, et la méthode de notation GreenScore publiée.
+
+**Mise en œuvre** : la page `/offres/` a été réécrite sur cette base (branche `feat/header-us`, PR #44). Les textes de la page vivent dans `corporate/src/content/offers/offers.json`.
+
 ### Mon avis
 
 C'est la piste la plus simple et la plus cohérente avec ce que vous êtes et ce que vous vendez déjà. Elle reprend la conclusion des trois relecteurs, en allant un cran plus loin. À deux conditions :
@@ -127,7 +155,7 @@ C'est la piste la plus simple et la plus cohérente avec ce que vous êtes et ce
 
 | # | Décision | Options |
 |---|---|---|
-| 1 | Structure de l'offre | Piste 1 (une porte d'entrée, deux suites) ou piste 4 (une seule offre de product engineering augmenté) |
+| 1 | Structure de l'offre | Piste 4 retenue (une offre, quatre packages), à confirmer après relecture de la nouvelle page |
 | 2 | Le diagnostic chiffre-t-il en euros ? | Oui (la condition posée par les trois relecteurs) ou une note de A à E seulement |
 | 3 | Preuve | Quel cas réel montrer, même interne, avec des chiffres avant/après ? |
 | 4 | Offre IA | Pilote assumé, intégrée comme mode d'entrée, ou retirée en attendant un premier client |
