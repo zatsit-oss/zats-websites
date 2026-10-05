@@ -1,82 +1,113 @@
 {
+  "hero": {
+    "title": "L'IA écrit du code.",
+    "highlight": "Quelqu'un doit en répondre.",
+    "subtitle": "Des développeurs, des ops et des architectes seniors dans vos équipes. Nous écrivons la spec avant le code, nous choisissons le modèle selon la tâche, nous mesurons la facture. Quatre packages pour commencer, une seule méthode.",
+    "primaryCta": "Voir les quatre packages",
+    "secondaryCta": "Nous écrire"
+  },
+  "method": {
+    "title": "Ce que l'IA ne décide pas",
+    "caption": "L'IA génère du code, parfois des tests. Ce que l'on spécifie, ce que l'on vérifie, ce que l'on déploie et ce que l'on mesure restent des décisions d'ingénieurs. Ces cinq stations sont notre méthode. Chaque package en prend un tronçon."
+  },
   "packages": [
     {
       "id": "ai-readiness",
-      "situation": "Vos développeurs utilisent déjà des copilotes, sans règles.",
-      "title": "AI-readiness de votre SI et de vos équipes",
-      "pitch": "Pas un questionnaire de maturité : une lecture par le code. Nous regardons vos specs, vos tests, votre CI, vos données et ce que l'IA vous coûte déjà, puis nous vous rendons une feuille de route priorisée.",
-      "form": "Un forfait court, sur un périmètre fixé avec vous.",
-      "deliverable": "Un état des lieux de votre système et de vos pratiques, le coût actuel de votre usage de l'IA en euros, et une feuille de route priorisée.",
-      "measured": "Le coût d'exécution de ce que vous faites tourner, et le dimensionnement des modèles que vous utilisez déjà.",
+      "situation": "Mes développeurs utilisent déjà des copilotes. Personne n'a écrit de règle.",
+      "title": "AI-readiness, par le code",
+      "pitch": "Un audit de maturité IA, d'habitude, c'est un questionnaire. Le nôtre se fait dans votre dépôt. Nous lisons vos specs, vos tests, votre CI, vos données, et ce que l'IA vous coûte déjà. Vous repartez avec une feuille de route classée par priorité, pas avec un score de maturité.",
+      "stations": ["spec", "mesure"],
+      "form": "Un forfait court. Le périmètre est fixé avec vous avant de commencer.",
+      "deliverable": "Un état des lieux de votre système et de vos pratiques, ce que l'IA vous coûte déjà sur ce qui se trace (licences, appels d'API), en euros, et la feuille de route, priorisée.",
+      "measured": "Ce que coûtent vos outils IA aujourd'hui, et si les modèles en place sont taillés pour leurs tâches ou trop gros pour elles.",
       "sovereign": "La carte des données qui ne doivent pas sortir, et les options d'hébergement qui existent vraiment pour elles."
     },
     {
       "id": "projet-sdd",
-      "situation": "Vous lancez un produit et vous voulez le faire bien du premier coup.",
-      "title": "Un projet SDD outillé de bout en bout",
-      "pitch": "Spec-driven development : la spécification d'abord, le code généré et vérifié ensuite. Un périmètre, une durée, des seniors embarqués, et un dépôt que vous pouvez lire ligne à ligne.",
-      "form": "Un pilote borné : un périmètre et une durée fixés avec vous.",
-      "deliverable": "Le dépôt lui-même : specs, contrats OpenAPI et AsyncAPI, harness d'agents, CI, tests. La preuve, c'est le code.",
-      "measured": "GreenScore branché dès le premier commit, une architecture dimensionnée au besoin réel.",
-      "sovereign": "Le modèle et l'hébergement choisis tâche par tâche, en local quand c'est possible."
+      "situation": "Je veux voir la méthode tourner avant de l'adopter partout.",
+      "title": "Un pilote SDD, le dépôt comme preuve",
+      "pitch": "Vous ne nous croirez pas sur parole. Tant mieux. Nous livrons un dépôt : spécification d'abord, code généré ensuite et vérifié, contrats d'API, tests, CI. Un périmètre, une durée, des seniors embarqués. À la fin, vous ouvrez le code et vous jugez.",
+      "stations": ["spec", "code", "test", "deploiement", "mesure"],
+      "form": "Un pilote borné. Un périmètre, une durée, nos seniors dans votre équipe.",
+      "deliverable": "Le code source et tout ce qui l'entoure : specs, contrats OpenAPI et AsyncAPI, le harness qui encadre les agents de code, CI, tests. Lisible ligne à ligne, par vous.",
+      "measured": "GreenScore branché dès le début du pilote. Une architecture dimensionnée sur le besoin réel, pas sur le besoin imaginé.",
+      "sovereign": "Le modèle et l'hébergement décidés tâche par tâche, en local quand c'est possible. Nous notons le pourquoi de chaque choix."
     },
     {
       "id": "reprise",
-      "situation": "Votre SI vieillit et votre facture cloud grimpe.",
-      "title": "Reprise d'une base de code existante",
-      "pitch": "Votre système tourne, mais plus personne ne le maîtrise tout à fait. Nous le lisons avec nos outils, nous chiffrons ce qu'il faut corriger, et vous décidez de la suite, avec nous ou sans nous.",
-      "form": "Un diagnostic au forfait, puis des chantiers par lots séparés, chacun chiffré.",
-      "deliverable": "La liste de ce qu'il faut corriger, chiffrée en euros : le gain, l'effort et le risque de chaque poste.",
-      "measured": "Une note GreenScore avant, une note après. Les dépendances mortes et le calcul inutile en moins.",
-      "sovereign": "Le rapatriement des briques pour lesquelles ça a du sens, et seulement celles-là."
+      "situation": "Ma facture cloud monte. Mon code, lui, n'a pas changé.",
+      "title": "Reprise : le coût du code oublié",
+      "pitch": "Un SI qui vieillit paie du calcul qu'il n'utilise plus : dépendances mortes, requêtes inutiles, ressources brûlées pour rien. Nous ne chiffrons rien que nous n'ayons lu. Alors nous lisons votre code, nous trouvons ces postes, nous les chiffrons. Vous obtenez une liste en euros, réalisable avec nous ou sans nous.",
+      "stations": ["code", "test", "deploiement", "mesure"],
+      "form": "Un diagnostic au forfait d'abord. Ensuite des lots séparés, chacun avec son chiffrage. Vous en prenez un, plusieurs, ou aucun.",
+      "deliverable": "Les corrections à faire, classées : le gain chiffré en euros, l'effort et le risque qualifiés pour chacune. Un document que vous pouvez confier à qui vous voulez.",
+      "measured": "GreenScore avant les travaux, GreenScore après, quand votre système s'y prête. Les dépendances mortes et le calcul inutile, retirés et comptés.",
+      "sovereign": "Nous rapatrions les briques pour lesquelles ça tient, techniquement et financièrement. Pas de rapatriement par principe."
     },
     {
       "id": "dev-augmente",
-      "situation": "Vous voulez la méthode, pas des bras en plus.",
-      "title": "Le dev augmenté dans votre équipe",
-      "pitch": "Notre méthode, transmise à vos équipes. Un pilote avec une équipe d'abord, la généralisation ensuite, si le pilote le mérite.",
-      "form": "Un pilote avec une de vos équipes, puis des formations et des BBL.",
-      "deliverable": "La méthode installée chez vous : charte d'usage, specs, contextes cadrés, revue, tableau de bord des coûts.",
-      "measured": "La consommation de vos agents suivie dans le temps, un modèle par tâche.",
-      "sovereign": "Une charte d'usage des données et des modèles qui dit ce qui sort, et ce qui ne sort pas."
+      "situation": "Mes développeurs produisent plus vite. Je ne sais pas si c'est mieux.",
+      "title": "Du dev augmenté, pas du vibe-coding",
+      "pitch": "Le vibe-coding, c'est laisser l'IA écrire et espérer. Le dev augmenté, c'est spécifier, cadrer le contexte, choisir le modèle, relire, mesurer. Nous pratiquons le second chez nous. Nous l'installons chez vous : une équipe en pilote, puis les autres si les chiffres du pilote le justifient.",
+      "stations": ["spec", "code", "test", "mesure"],
+      "form": "Un pilote avec une équipe volontaire. Ensuite, formations et BBL (sessions courtes du midi) pour élargir.",
+      "deliverable": "Une charte d'usage, des specs, des contextes cadrés, une revue pensée pour le code généré, un tableau de bord des coûts IA bâti sur vos factures et vos appels d'API. Le tout pensé pour tourner sans nous.",
+      "measured": "Ce que consomment vos outils IA, semaine après semaine. Et pour chaque tâche, le modèle retenu et pourquoi.",
+      "sovereign": "La charte dit quelles données, quels modèles, ce qui sort, ce qui reste. Noir sur blanc, pas dans la tête de chacun."
     }
   ],
+  "refusalsTitle": "Ce que nous refusons de vendre",
   "refusals": [
     {
       "claim": "Une souveraineté garantie.",
-      "why": "Nous ne sommes ni hébergeur ni éditeur de modèle. Nous challengeons les alternatives quand le contexte le permet, et nous vous le disons quand ça ne tient pas."
+      "why": "Souverain engage votre conformité, pas notre plaquette. Nous ne sommes ni hébergeur ni éditeur de modèle : nous étudions les alternatives, nous ne les garantissons pas."
     },
     {
-      "claim": "Des économies avant de les avoir mesurées.",
-      "why": "Le chiffre sort du diagnostic, pas de cette page."
+      "claim": "Un pourcentage d'économies avant mesure.",
+      "why": "Un chiffre donné avant d'avoir lu est un chiffre deviné. Le nôtre sort du diagnostic, en euros, et il ne vaut que pour votre système."
     },
     {
-      "claim": "Une refonte au forfait sans diagnostic.",
-      "why": "Nous ne chiffrons pas ce que nous n'avons pas lu."
+      "claim": "Un forfait de refonte sans avoir lu le code.",
+      "why": "Lire d'abord, chiffrer ensuite. Dans l'autre ordre, quelqu'un paie l'écart à la fin, et c'est souvent vous."
     },
     {
-      "claim": "La mesure de votre consommation IA par GreenScore.",
-      "why": "GreenScore note aujourd'hui le système d'information et les API. L'extension à l'IA est en cours, nous la livrerons quand elle tiendra."
+      "claim": "GreenScore comme compteur de tokens.",
+      "why": "Pas encore. Il note le SI et les API. L'extension à la consommation IA est en chantier, et nous l'annoncerons quand elle marchera."
     },
     {
-      "claim": "Que vous ayez besoin de nous ensuite.",
-      "why": "Nos diagnostics se réalisent avec zatsit ou sans. C'est écrit dans le livrable."
+      "claim": "Un diagnostic qui n'a de valeur qu'avec nous.",
+      "why": "Le livrable dit noir sur blanc qu'il se réalise avec zatsit ou sans. Un diagnostic qui ne sert qu'à vendre la suite s'appelle de l'avant-vente."
+    },
+    {
+      "claim": "Un plan IA pour votre comité de direction.",
+      "why": "Ce n'est pas notre métier. Le nôtre, c'est le code, le déploiement, la mesure. La stratégie, dans notre groupe, c'est aiko."
     }
   ],
+  "proofsTitle": "Vérifiez, ne nous croyez pas",
+  "proofsIntro": "Aucun cas client raconté ici : des faits que vous pouvez contrôler sans nous demander la permission, et un dépôt à ouvrir.",
   "proofs": [
     {
-      "text": "GreenScore est open source. Le code est lisible par tous.",
+      "lead": "Open source",
+      "text": "GreenScore, notre outil de mesure, est open source. Un outil de mesure fermé serait une opinion ; celui-ci se lit.",
       "href": "https://github.com/zatsit-oss/zats-greenscore",
       "label": "Voir GreenScore sur GitHub"
     },
     {
-      "text": "Ce site émet 0,04 g de CO2 par page. Nous appliquons à nous-mêmes ce que nous vendons."
+      "lead": "0,04 g",
+      "text": "C'est ce que ce site émet en CO2 par page. Le dimensionnement juste que nous vendons commence par notre propre vitrine."
     },
     {
-      "text": "36 personnes, 9 ans d'expérience en moyenne. Des seniors, pas une armée de juniors."
+      "lead": "36 personnes",
+      "text": "9 ans d'expérience en moyenne. Des seniors sur le clavier, pas seulement sur la plaquette."
     },
     {
-      "text": "Entreprise B Corp, médaille d'argent EcoVadis. Des certifications qui s'auditent, pas des logos."
+      "lead": "B Corp",
+      "text": "Et médaille d'argent EcoVadis. Deux grilles d'achat RSE où nous cochons déjà la case, documents à l'appui."
     }
-  ]
+  ],
+  "cta": {
+    "title": "Décrivez votre situation, nous nommons le package",
+    "text": "Trois lignes suffisent : votre système, votre équipe, ce qui coince. Nous vous répondons par quel package entrer, ou qu'aucun ne convient. Les deux réponses tiennent en un mail.",
+    "button": "Écrivez-nous"
+  }
 }

@@ -144,6 +144,18 @@ Reste à régler : un cas réel à montrer, et la méthode de notation GreenScor
 
 **Mise en œuvre** : la page `/offres/` a été réécrite sur cette base (branche `feat/header-us`, PR #44). Les textes de la page vivent dans `corporate/src/content/offers/offers.json`.
 
+### Comment les textes ont été écrits
+
+Une première version, jugée « scolaire » et monotone, a été jetée. La seconde suit la direction « pipeline » : la méthode en cinq stations (Spec, Code, Test, Déploiement, Mesure) traverse la page, chaque package montre le tronçon qu'il couvre, les refus sont une bande inversée, les preuves quatre faits en gros caractères.
+
+Les textes ont été produits en trois temps :
+
+1. un rédacteur a écrit trois variantes par bloc, avec interdiction d'ajouter un chiffre, un client, une durée ou un prix hors de `offers.json` ;
+2. le CTO et le concurrent fictifs ont voté bloc par bloc et signalé les lignes qu'ils attaqueraient ;
+3. l'assemblage retient les votes convergents (hero, méthode, AI-readiness, pilote SDD, refus, CTA), tranche les trois désaccords avec l'avis du rédacteur, et corrige les drapeaux : promesses intenables retirées (« sans dette », « pas une réplique de trop », « votre équipe sait s'en servir sans nous »), « vos agents » remplacé par « vos outils IA », le coût de l'IA limité à « ce qui se trace », l'étiquette « Souverain, quand ça tient » devenue « Souverain, si possible » pour ne plus contredire le refus sur la souveraineté.
+
+Lignes à surveiller, relevées par le concurrent : la page se définit beaucoup par ce qu'elle n'est pas (« pas un questionnaire », « pas sur la plaquette »), « vibe-coding » vieillira, et « forfait court » sans ordre de grandeur reste le premier frein à l'achat. Le sixième refus (la stratégie IA, c'est aiko) est gardé sous sa forme la plus sobre : à confirmer par les associés.
+
 ### Mon avis
 
 C'est la piste la plus simple et la plus cohérente avec ce que vous êtes et ce que vous vendez déjà. Elle reprend la conclusion des trois relecteurs, en allant un cran plus loin. À deux conditions :

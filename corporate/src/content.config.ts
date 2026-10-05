@@ -156,31 +156,56 @@ const careersCollection = defineCollection({
   }),
 });
 
+// The five stations of the method pipeline that runs through the offers page
+const station = z.enum(['spec', 'code', 'test', 'deploiement', 'mesure']);
+
 const offersCollection = defineCollection({
   loader: jsonIn('offers'),
   schema: z.object({
-    // "Par où entrer" strip: one situation per package, in the same order
+    hero: z.object({
+      title: z.string(),
+      highlight: z.string(),
+      subtitle: z.string(),
+      primaryCta: z.string(),
+      secondaryCta: z.string(),
+    }),
+    method: z.object({
+      title: z.string(),
+      caption: z.string(),
+    }),
     packages: z.array(z.object({
       id: z.string(),
       situation: z.string(),
       title: z.string(),
       pitch: z.string(),
+      // Stations of the pipeline this package covers
+      stations: z.array(station).min(1),
       form: z.string(),
       deliverable: z.string(),
       measured: z.string(),
       sovereign: z.string(),
     })).min(1).max(4),
+    refusalsTitle: z.string(),
     // What the page refuses to promise
     refusals: z.array(z.object({
       claim: z.string(),
       why: z.string(),
     })),
     // Facts a visitor can check, each with an optional link
+    proofsTitle: z.string(),
+    proofsIntro: z.string(),
     proofs: z.array(z.object({
+      // Short figure or word set large above the text
+      lead: z.string(),
       text: z.string(),
       href: z.string().optional(),
       label: z.string().optional(),
     })),
+    cta: z.object({
+      title: z.string(),
+      text: z.string(),
+      button: z.string(),
+    }),
   }),
 });
 
