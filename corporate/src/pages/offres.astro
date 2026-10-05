@@ -4,11 +4,6 @@ import OffersGrid from '../components/sections/OffersGrid.astro';
 import GreenScoreInstrument from '../components/sections/GreenScoreInstrument.astro';
 import { ArrowRight } from '@lucide/astro';
 
-const stats = [
-  { value: '55 à 80 %', label: "du coût d'une IA, c'est son usage en continu, pas sa fabrication" },
-  { value: '×2', label: "la conso électrique des datacenters d'ici 2030, l'IA en tête" },
-  { value: 'A → E', label: 'la note simple et chiffrée posée par GreenScore' },
-];
 ---
 
 <Layout
@@ -35,20 +30,19 @@ const stats = [
           mesure. Nous enlevons le superflu, nous mesurons ce qui reste, et la
           sobriété devient un levier financier.
         </p>
-        <p class="text-muted">
+        <div class="flex flex-wrap gap-4">
+          <a href="/work-with-us/" class="btn-primary">
+            Travaillons ensemble
+            <ArrowRight size={18} aria-hidden="true" />
+          </a>
+          <a href="#offres" class="btn-secondary">Voir les deux offres</a>
+        </div>
+        <p class="text-muted mt-6">
           La conviction derrière ces offres ? Elle est dans
           <a href="/manifeste/" class="link-primary">notre manifeste</a>.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-10">
-        {stats.map((stat) => (
-          <div class="offer-stat">
-            <div class="offer-stat-value text-gradient">{stat.value}</div>
-            <div class="text-sm text-muted mt-1.5">{stat.label}</div>
-          </div>
-        ))}
-      </div>
     </div>
   </section>
 
@@ -67,7 +61,7 @@ const stats = [
         </p>
         <a href="/work-with-us/" class="btn-primary">
           Travaillons ensemble
-          <ArrowRight size={18} />
+          <ArrowRight size={18} aria-hidden="true" />
         </a>
       </div>
     </div>

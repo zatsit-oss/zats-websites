@@ -1973,31 +1973,23 @@ a[target="_blank"]:not(:has(svg)):hover::after {
   border: 1px solid var(--color-border);
 }
 
-/* Offer card with gradient top border */
+/* Offer card: static content, so no hover affordance */
 .offer-card {
-  @apply relative flex flex-col p-7 overflow-hidden;
+  @apply relative flex flex-col p-7;
   background-color: var(--card-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.offer-card::before {
-  content: "";
-  @apply absolute top-0 left-0 right-0;
-  height: 4px;
-  background: linear-gradient(
-    135deg,
-    var(--logo-gradient-start),
-    var(--logo-gradient-mid),
-    var(--logo-gradient-end)
-  );
+/* Keeps the intro paragraphs at a readable measure */
+.offer-intro,
+.greenscore-text {
+  max-width: 65ch;
 }
 
-.offer-card:hover {
-  border-color: var(--color-primary);
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px -18px rgba(0, 0, 0, 0.25);
+.offer-targets {
+  @apply text-sm;
+  color: var(--color-text-muted);
 }
 
 .offer-label {
@@ -2014,13 +2006,16 @@ a[target="_blank"]:not(:has(svg)):hover::after {
 
 /* Opportunistic ambition note at the bottom of an offer card */
 .offer-note {
-  @apply text-sm mt-5 pl-3.5;
+  @apply text-sm mt-6 p-4;
   color: var(--color-text-muted);
-  border-left: 3px solid var(--color-secondary);
+  background: color-mix(in srgb, var(--color-secondary) 6%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-secondary) 30%, transparent);
+  border-radius: var(--radius-md);
 }
 
+/* Primary, not secondary: the dark secondary (#E1601F) fails AA as small text */
 .offer-note b {
-  color: var(--color-secondary);
+  color: var(--color-primary);
 }
 
 /* Bullet list with square markers */
@@ -2045,18 +2040,6 @@ a[target="_blank"]:not(:has(svg)):hover::after {
   background: var(--color-primary);
 }
 
-/* From -> to transform cards */
-.transform-arrow {
-  @apply flex items-center justify-center;
-  color: var(--color-primary);
-  font-size: 1.8rem;
-}
-
-@media (max-width: 768px) {
-  .transform-arrow {
-    transform: rotate(90deg);
-  }
-}
 
 /* GreenScore A -> E square */
 .greenscore-badge {
@@ -2076,15 +2059,4 @@ a[target="_blank"]:not(:has(svg)):hover::after {
   box-shadow: 0 10px 30px -8px color-mix(in srgb, var(--color-primary) 40%, transparent);
 }
 
-/* Stat with gradient number */
-.offer-stat {
-  @apply p-5;
-  background-color: var(--card-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-}
-
-.offer-stat-value {
-  @apply text-2xl md:text-3xl font-bold;
-}
 

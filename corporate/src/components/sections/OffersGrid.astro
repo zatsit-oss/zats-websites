@@ -1,5 +1,6 @@
 ---
 interface OfferContent {
+  label: string;
   title: string;
   pitch: string;
   targets: string[];
@@ -10,6 +11,7 @@ interface OfferContent {
 
 const offers: OfferContent[] = [
   {
+    label: 'Offre A',
     title: 'Conseil éco-conception mesuré',
     pitch:
       "Nous mesurons votre logiciel existant, nous identifions les gisements d'économies, nous corrigeons. Une note chiffrée, une trajectoire claire, des résultats livrés sur une architecture sobre.",
@@ -32,6 +34,7 @@ const offers: OfferContent[] = [
     ],
   },
   {
+    label: 'Offre B',
     title: 'Pratique IA souveraine et frugale',
     pitch:
       "Nous ne touchons pas seulement au logiciel, nous transformons votre façon de construire avec l'IA. Conseil embarqué dans vos équipes pour dimensionner les modèles au plus juste.",
@@ -64,25 +67,22 @@ const offers: OfferContent[] = [
     <div class="max-w-3xl mb-10 md:mb-12">
       <div class="eyebrow">Nos offres</div>
       <h2 class="section-title">Deux offres, une seule discipline</h2>
-      <p class="text-muted text-lg">
+      <p class="offer-intro text-muted text-lg">
         L'offre A regarde le logiciel existant et le corrige. L'offre B regarde
         votre façon de construire et l'outille. Même geste : enlever le superflu,
         mesurer ce qui reste.
       </p>
     </div>
 
-    <div class="grid lg:grid-cols-2 gap-6 md:gap-8">
+    <div class="grid lg:grid-cols-2 items-start gap-6 md:gap-8">
       {offers.map((offer) => (
         <article class="offer-card">
+          <p class="offer-label">{offer.label}</p>
           <h3 class="text-2xl font-bold mt-1 mb-2">{offer.title}</h3>
           <p class="text-muted text-sm mb-2">{offer.pitch}</p>
 
           <h4 class="offer-block-title">Cibles</h4>
-          <div class="flex flex-wrap gap-2">
-            {offer.targets.map((target) => (
-              <span class="tag--muted badge !py-1 !px-3 !text-xs">{target}</span>
-            ))}
-          </div>
+          <p class="offer-targets">{offer.targets.join(', ')}</p>
 
           <h4 class="offer-block-title">Livrables</h4>
           <ul class="feature-list">
