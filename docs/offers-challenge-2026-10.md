@@ -1,0 +1,140 @@
+# Challenge de l'offre zatsit
+
+Octobre 2026. Document de travail interne, pour décider de la forme de l'offre avant de réécrire la page `/offres/`.
+
+## Pourquoi ce document
+
+Les associés ne sont pas à l'aise avec les deux offres actuelles de la page `/offres/` :
+
+- **Offre A, « Conseil éco-conception mesuré »** : diagnostic GreenScore, trajectoire de remédiation, refonte sur une architecture sobre.
+- **Offre B, « Pratique IA souveraine et frugale »** : conseil embarqué pour cadrer le développement assisté par IA et dimensionner les modèles.
+
+La page a d'abord été retravaillée sur la forme, après une critique de design Impeccable (17/28). Ce document porte sur le fond : est-ce que ces offres se vendent, et faut-il les restructurer ?
+
+## Méthode
+
+Trois relecteurs fictifs ont lu, chacun de leur côté, le texte complet de `/offres/`, le manifeste, les offres de l'accueil (`services.json`) et la page tech (`tech.json`). Ils avaient aussi le contexte de zatsit : 36 personnes, une activité surtout en régie, B Corp, EcoVadis argent, GreenScore, et une offre B qui n'a encore aucun client.
+
+| Relecteur | Profil |
+|---|---|
+| Le CTO | CTO d'une ETI lilloise de 400 personnes (retail et logistique), 15 développeurs, un SI Java/Angular vieillissant, une facture cloud qui grimpe, des développeurs qui utilisent déjà Copilot et Claude sans règles |
+| L'acheteur | Acheteur IT d'un grand compte régional (banque-assurance), avec des ESN référencées, des grilles tarifaires, des critères d'achat RSE et un DAF qui demande un retour sur investissement |
+| Le concurrent | Directeur commercial d'une ESN lilloise de 200 personnes qui vend déjà de l'audit green IT et de l'accompagnement IA générative |
+
+Ce sont des simulations, pas des entretiens. Leurs budgets et leurs durées sont des hypothèses d'acheteurs, pas des données du marché. Les citations ci-dessous reprennent leurs propos.
+
+## Verdict
+
+**Aucun des trois n'achèterait les deux offres en l'état.** Les trois arrivent, séparément, à la même recommandation : **une porte d'entrée unique et payante**, le diagnostic GreenScore au forfait, suivie de suites optionnelles.
+
+- **Le CTO** : l'offre A est « pas en l'état, mais la plus proche d'un achat ». L'offre B, c'est « non ».
+- **L'acheteur** : « A peut s'acheter après restructuration. B, en l'état, reste une intention. »
+- **Le concurrent** : « Leur vrai fossé, c'est le dev augmenté pratiqué par des seniors. L'éco-conception devrait rester l'argument qui l'accompagne, pas le produit. »
+
+## Ce qui tient
+
+1. **Le dev augmenté pratiqué par des seniors.** C'est l'avantage le plus difficile à copier. Le concurrent : « la page, je la copie en une semaine. La pratique réelle, pas tout de suite », et ses juniors en régie ne l'ont pas.
+2. **GreenScore.** Une mesure chiffrée, open source et vérifiable, face à des concurrents qui font souvent du déclaratif. C'est la seule brique de l'offre qui existe vraiment aujourd'hui. Limite relevée : l'outil ne note que le SI et les API, et un outil open source peut être repris par d'autres.
+3. **Le positionnement d'abord technique, sans posture éco.** Il est rare et crédible. Le concurrent juge d'ailleurs le manifeste plus convaincant que la page offres.
+4. **B Corp et EcoVadis argent.** Pour l'acheteur, c'est un vrai atout dans la grille d'achat RSE, et la page ne l'exploite pas. Pour le concurrent, ce n'est qu'un ticket d'entrée : il est certifié aussi.
+5. **L'expérience de l'équipe**, mais seulement si l'on peut nommer les seniors. Sinon, l'argument ne passe pas à l'échelle.
+
+## Ce qui ne tient pas
+
+| Problème | Ce qu'ils en disent | Relevé par |
+|---|---|---|
+| **Aucune preuve** | « La sobriété devient un levier financier » est lu comme un slogan : aucun cas client, aucun chiffre en euros. Le DAF veut un état de référence chiffré et des économies mesurées sur 6 à 12 mois | les trois |
+| **L'offre B n'a aucun client** | « Notre propre pratique interne comme preuve », « ce n'est pas une preuve, c'est un aveu » | les trois |
+| **« Souveraine »** | Promis dans le titre, retiré dans la note. En banque-assurance, le mot engage la conformité et le règlement DORA : une promesse retirée ensuite, « c'est un litige ». Il contredit aussi le manifeste (« ni marchand de souverain de façade ») | les trois |
+| **La mesure de la consommation IA** | « GreenScore étendu à la consommation IA » est présenté comme un moyen, alors que l'outil ne le fait pas encore : « montrez-moi l'outil qui fait ça aujourd'hui » | les trois |
+| **La remédiation par refonte** | Pas de bornes, et le problème de « juge et partie » : celui qui diagnostique vend la refonte. Le concurrent : « combien de personnes zatsit peut-il sortir de la régie pour livrer au forfait ? » | les trois |
+| **Rien n'est achetable** | Ni périmètre, ni durée, ni modèle de prix, ni critères de recette. L'acheteur ne peut pas en tirer un bon de commande | le CTO et l'acheteur |
+| **Une note qui ne parle pas d'argent** | « Mon COMEX veut des euros, pas une lettre. » Le lien entre une meilleure note de A à E et une baisse de la facture n'est pas démontré | le CTO et l'acheteur |
+| **Une méthode de notation maison** | Qui maintient GreenScore ? La notation est-elle publiée, validée par un tiers ? « Je ne veux pas piloter un indicateur que seul le fournisseur sait lire » | l'acheteur |
+| **Trop de cibles** | Dix cibles pour deux offres, dont la banque et la santé, sans références dans ces secteurs réglementés | le concurrent |
+| **Deux messages, deux acheteurs** | L'éco-conception parle à l'acheteur RSE, l'IA frugale au DSI : « le prospect ne sait plus quoi acheter » | le concurrent |
+| **Deux créneaux faibles** | L'éco-conception est une commodité où les prix baissent, l'« IA frugale » un mot à la mode : « les CTO veulent de la productivité, pas de la frugalité » | le concurrent |
+
+## Ce qui ferait signer
+
+- **Un diagnostic au forfait, avec un vrai prix et un vrai livrable**, qui a de la valeur même sans suite. Sinon il est perçu comme de l'avant-vente payée ou un produit d'appel. Hypothèses des relecteurs : 3 à 4 semaines, entre 15 et 25 k€ ; un rapport court, le top 10 des gisements chiffrés en euros (gain, effort, risque), une restitution à la direction.
+- **Un chiffrage en euros**, facture cloud et usage IA compris, en plus de la note de A à E.
+- **Un ou deux cas clients** avec des chiffres avant/après en euros (et en CO2). Pour l'IA, un pilote documenté, même interne, présenté honnêtement comme tel.
+- **Un catalogue achetable** : le diagnostic en tailles S, M ou L selon le nombre d'applications, des tarifs journaliers par profil, la remédiation sur devis par lots séparés.
+- **Des noms** : l'équipe qui intervient, avec ses profils.
+- **La méthode de notation GreenScore publiée.**
+- **Un mode de contractualisation** compatible avec les marchés existants des grands comptes, en sous-traitance d'un titulaire si besoin.
+
+La phrase du CTO qui résume le besoin : « En 4 semaines et pour 20 k€ au forfait, nous mesurons votre SI et l'usage IA de vos devs, et nous vous remettons la liste chiffrée en euros de ce que vous pouvez couper, que vous la réalisiez avec nous ou sans nous. »
+
+## Pistes de restructuration
+
+### Piste 1 : une porte d'entrée, deux suites (proposée par les trois relecteurs)
+
+1. **Diagnostic GreenScore** : un forfait court et payant, avec une note de A à E et des économies chiffrées.
+2. Ensuite, au choix du client, sans obligation de passer par zatsit :
+   - **Remise au juste dimensionnement** : des chantiers ciblés issus du diagnostic, menés par des seniors. C'est la régie existante, avec un objectif mesuré.
+   - **Dev augmenté en équipe** : la méthode transmise à l'équipe du client, sur un pilote d'abord, sans promesse de gouvernance.
+
+### Piste 2 : un angle unique et financier
+
+« Payer moins de calcul, logiciel comme IA. » L'éco-conception devient l'argument qui accompagne, plus le produit. Le titre actuel, « Dimensionner au plus juste », le dit déjà, mais les offres ne le portent pas.
+
+### Piste 3 : l'offre IA en pilote assumé
+
+La première mission IA à prix de pilote, présentée comme telle, puis publiée en cas client. C'est la seule réponse durable à l'attaque « aucune preuve ».
+
+## Piste 4 : une seule offre, le product engineering augmenté
+
+C'est l'hypothèse soulevée après le challenge : ne pousser **qu'une seule offre**, fondée sur le product engineering et le forward deployed engineering, dont le green n'est qu'**une composante**.
+
+### Ce qui va dans son sens
+
+- **Elle s'appuie sur votre vrai avantage.** Les trois relecteurs placent le dev augmenté pratiqué par des seniors au-dessus de tout le reste, et l'éco-conception au rang d'argument d'accompagnement. Cette piste en tire directement la conclusion.
+- **Elle colle à votre identité** : « des devs, des ops, des architectes », la technique d'abord, la sobriété comme conséquence. Le manifeste dit déjà exactement ça.
+- **Elle est cohérente avec la page carrière**, qui décrit les mêmes rôles (Forward Deployed Engineer, Product Engineer, Tech Lead, Platform Engineer). Le client achète ce que le candidat rejoint.
+- **Elle colle à votre modèle réel.** Des seniors embarqués chez le client, c'est votre activité de régie, présentée pour ce qu'elle est et rendue plus lisible. Le reproche « combien de personnes pouvez-vous sortir de la régie pour un forfait ? » tombe, parce que l'offre ne promet plus de refonte au forfait.
+- **Elle engage moins sur le green.** Plus de promesse d'économies d'énergie à démontrer en vitrine, plus de « souveraine », plus d'outil de mesure IA à livrer. La mesure GreenScore reste, mais comme une pratique d'ingénierie parmi d'autres.
+- **Un seul message, un seul acheteur** : le DSI ou le CTO. Fin du problème « deux messages, deux acheteurs ».
+
+### Les risques
+
+- **Devenir une ESN de plus.** « Du product engineering avec des seniors », toutes les ESN le disent. Sans preuve, le différenciateur se réduit à un mot. Il faut le rendre visible : la méthode (spec-driven, contexte maîtrisé, modèle choisi selon la tâche, mesure), des noms, des exemples de livrables.
+- **Perdre la porte d'entrée.** Les trois relecteurs voulaient un petit ticket au forfait, à risque faible. Une offre « équipe embarquée » est un engagement plus lourd à décider. Il faut garder une première marche courte et payante.
+- **Perdre l'argument RSE auprès des acheteurs.** Pour l'acheteur grand compte, B Corp, EcoVadis et la mesure chiffrée comptent dans la grille d'achat. Le green doit rester visible comme preuve de rigueur, simplement plus comme produit.
+- **« Forward Deployed Engineer » est un terme jeune**, popularisé par Palantir et les acteurs de l'IA. Il parle aux CTO au fait du sujet, beaucoup moins aux acheteurs. Il vaut mieux le présenter comme un rôle que comme le nom de l'offre.
+
+### Une forme possible
+
+**Une offre : « Product engineering augmenté »** (nom à trouver). Des équipes de seniors qui conçoivent, livrent et font tourner des produits logiciels, avec une méthode de dev augmenté mesurée.
+
+Trois façons d'entrer, de la plus légère à la plus engageante :
+
+1. **Diagnostic** : un forfait court sur le système existant. Architecture, dette, coûts d'exécution (le cloud et l'IA compris), avec GreenScore comme instrument de mesure. Livrable : une liste chiffrée de ce qu'il faut corriger, que le client réalise avec zatsit ou sans.
+2. **Équipe embarquée** : des Forward Deployed Engineers et des Product Engineers dans l'équipe du client, avec des objectifs mesurés.
+3. **Mise en place du dev augmenté** : la méthode transmise à l'équipe du client, sur un pilote.
+
+Le green n'a plus de section à lui. Il est présent à chaque étape sous forme de **mesure** : la note GreenScore du diagnostic, le dimensionnement juste des choix d'architecture et de modèles. On ne parle d'économies que lorsqu'elles sont chiffrées.
+
+### Mon avis
+
+C'est la piste la plus simple et la plus cohérente avec ce que vous êtes et ce que vous vendez déjà. Elle reprend la conclusion des trois relecteurs, en allant un cran plus loin. À deux conditions :
+
+1. **Garder le diagnostic comme première marche**, pour conserver le ticket d'entrée court que les trois relecteurs réclament.
+2. **Prouver la méthode** avec au moins un cas réel, même interne : avant/après, temps de livraison, coûts. Sans preuve, « product engineering augmenté » est aussi déclaratif que l'éco-conception aujourd'hui.
+
+## Décisions à prendre
+
+| # | Décision | Options |
+|---|---|---|
+| 1 | Structure de l'offre | Piste 1 (une porte d'entrée, deux suites) ou piste 4 (une seule offre de product engineering augmenté) |
+| 2 | Le diagnostic chiffre-t-il en euros ? | Oui (la condition posée par les trois relecteurs) ou une note de A à E seulement |
+| 3 | Preuve | Quel cas réel montrer, même interne, avec des chiffres avant/après ? |
+| 4 | Offre IA | Pilote assumé, intégrée comme mode d'entrée, ou retirée en attendant un premier client |
+| 5 | « Souveraine » | Retiré des titres (recommandé par les trois relecteurs) |
+| 6 | Prix | Afficher une fourchette pour le diagnostic, ou au moins des unités d'œuvre |
+| 7 | GreenScore | Publier la méthode de notation et le lien vers le repo |
+
+## Ensuite
+
+Une fois la structure choisie, réécrire `/offres/` (et son résumé dans `src/consts.ts`) à partir de ce document, puis faire relire la nouvelle version par les trois mêmes relecteurs pour mesurer l'écart.
