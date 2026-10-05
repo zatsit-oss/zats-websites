@@ -34,6 +34,14 @@ const peopleCollection = defineCollection({
       role: z.string(),
       quote: z.string(),
     })),
+    // Video interviews: `slug` names the files (<slug>.webm/.mp4 in the media
+    // bucket, <slug>.avif and <slug>.fr.vtt under public/videos/team/)
+    interviews: z.array(z.object({
+      slug: z.string(),
+      name: z.string(),
+      role: z.string(),
+      duration: z.string(),
+    })).default([]),
   }),
 });
 

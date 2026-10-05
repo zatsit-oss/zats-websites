@@ -61,6 +61,13 @@ export default defineConfig({
         context: 'client',
         default: 'https://drive.google.com/file/d/1GH_k0mGmr8o_5WQfaDKkcQH-5Q48SQVY/view?usp=sharing',
       }),
+      // Videos are too heavy for the repository: they live in a public media
+      // bucket declared in zatsit-terraform (stack zatsit-corporate, media.tf)
+      MEDIA_BASE_URL: envField.string({
+        access: 'public',
+        context: 'server',
+        default: 'https://storage.googleapis.com/zatsit-corporate-media-prod',
+      }),
       DISABLED_PAGES: envField.string({
         access: 'public',
         context: 'server',
