@@ -4,7 +4,7 @@
     "highlight": "Quelqu'un doit en répondre.",
     "subtitle": "C'est ce que nous appelons le product engineering augmenté. Des Product Engineers et des Forward Deployed Engineers seniors dans vos équipes : la spec avant le code, le modèle choisi selon la tâche, la facture mesurée. Quatre packages pour commencer, une seule méthode.",
     "primaryCta": "Voir les quatre packages",
-    "secondaryCta": "Nous écrire"
+    "secondaryCta": "Écrivez-nous"
   },
   "method": {
     "title": "Ce que l'IA ne décide pas",
@@ -32,7 +32,7 @@
     {
       "id": "projet-sdd",
       "situation": "Je veux voir la méthode tourner avant de l'adopter partout.",
-      "title": "Un pilote SDD, le dépôt comme preuve",
+      "title": "Un pilote spec-driven (SDD), le dépôt comme preuve",
       "pitch": "Vous ne nous croirez pas sur parole. Tant mieux. Nous livrons un dépôt : spécification d'abord, code généré ensuite et vérifié, contrats d'API, tests, CI. Un périmètre, une durée, des seniors embarqués. À la fin, vous ouvrez le code et vous jugez.",
       "stations": [
         "spec",
@@ -160,11 +160,15 @@
     },
     {
       "lead": "36 personnes",
-      "text": "9 ans d'expérience en moyenne. Des seniors sur le clavier, pas seulement sur la plaquette."
+      "text": "9 ans d'expérience en moyenne. Des seniors sur le clavier, pas seulement sur la plaquette.",
+      "href": "/team/",
+      "label": "Voir l'équipe"
     },
     {
       "lead": "B Corp",
-      "text": "Et médaille d'argent EcoVadis. Deux grilles d'achat RSE où nous cochons déjà la case, documents à l'appui."
+      "text": "Et médaille d'argent EcoVadis. Deux grilles d'achat RSE où nous cochons déjà la case, documents à l'appui.",
+      "href": "https://www.bcorporation.net/",
+      "label": "Voir la certification B Corp"
     }
   ],
   "cta": {

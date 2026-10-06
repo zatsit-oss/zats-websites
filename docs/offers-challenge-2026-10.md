@@ -165,16 +165,44 @@ C'est la piste la plus simple et la plus cohérente avec ce que vous êtes et ce
 1. **Garder le diagnostic comme première marche**, pour conserver le ticket d'entrée court que les trois relecteurs réclament.
 2. **Prouver la méthode** avec au moins un cas réel, même interne : avant/après, temps de livraison, coûts. Sans preuve, « product engineering augmenté » est aussi déclaratif que l'éco-conception aujourd'hui.
 
+## Deuxième lecture (6 octobre 2026)
+
+La page reconstruite a été relue par les trois mêmes acheteurs fictifs, avec leur premier verdict sous les yeux, et par une critique Impeccable (revue de design et détecteur, en deux agents isolés).
+
+### Impeccable : 20/28 (71 %, « Bon »), contre 17/28
+
+Quatre des cinq problèmes de l'ancienne page sont réglés : un appel à l'action en haut de page, plus de GreenScore affirmé sans preuve, plus d'intitulé qui se contredit, plus de cadrage éco-posture, plus de cartes identiques qui se soulèvent au survol. Verdict de spécificité : « un concurrent ne pourrait pas publier cette page telle quelle » ; le pipeline est l'architecture de l'information, pas une décoration ; le dépôt commenté du pilote SDD est « la meilleure preuve par la forme » ; la bande des refus change de registre et construit la confiance. Les deux restes de gabarit : le hero (moitié droite vide à 1 440 px) et la rangée de preuves.
+
+Points relevés et corrigés le jour même (forme seulement) : les libellés du pipeline se chevauchaient sur mobile (le rail devient vertical sous 640 px) ; « SDD » n'était jamais développé ; le bouton « Voir les quatre packages » atterrissait sur la bande méthode ; les preuves promettaient d'être vérifiables et une seule portait un lien (deux le sont maintenant : l'équipe, B Corp) ; les liens dans les paragraphes gris ne se distinguaient que par la couleur ; sur mobile, les rôles précédaient le titre du package ; le hero est resserré pour que la bande méthode entre dans le premier écran.
+
+Non traités, à décider : les numéros 01 à 04 suggèrent un ordre que le texte dément (« nous nommons le package ») ; la carte « Mesuré / Souverain, si possible » est la dernière chose identique sur les quatre packages ; le dégradé du titre en sombre finit sur un rouge hors charte (convention de tout le site) ; le badge Website Carbon appelle un tiers sur chaque page.
+
+### Les trois acheteurs
+
+Tous les trois changent d'avis.
+
+- **Le CTO** : « je lui écris pour le 01 et le 03, ce que je n'aurais pas fait il y a deux jours, mais le premier mail portera sur le prix. » Devis demandé pour l'AI-readiness et la Reprise (« Ma facture cloud monte. Mon code, lui, n'a pas changé : c'est mon COMEX qui parle »). Pas encore pour le pilote SDD (sur du legacy Java/Angular, le code généré depuis OpenAPI est « un pari ») ni pour le dev augmenté (il dépend du 01, et « si les chiffres du pilote le justifient » suppose un état de référence qu'il n'a pas). Objections levées : souveraineté, mesure IA assumée comme absente, juge et partie, euros, un seul acheteur. Nouvelles : les intitulés de rôles (« jargon de scale-up californienne, mes achats ne sauront pas quel TJM mettre en face »), « harness/ » incompris, « 0,04 g » hors sujet pour un vendeur de dimensionnement de SI.
+- **L'acheteur** : « l'ancienne page était une intention ; celle-ci est un catalogue où trois packages sur quatre sont consultables sur devis. » La Reprise est la plus achetable (sa structure de marché), l'AI-readiness presque (il manque une unité d'œuvre et une clause d'accès au code), le pilote SDD a le livrable le plus clair mais ni durée, ni taille d'équipe, ni définition de « fini », ni propriété intellectuelle, ni l'endroit où tournent les agents et avec quels modèles ; le dev augmenté n'est pas achetable (pas de livrable daté, recette par des chiffres que personne ne définit). La bande des refus est « rassurante, et rare » ; il reprendrait le refus sur la souveraineté au contrat. Le DAF, lui, sans prix du diagnostic, « ne sait pas ce qu'il risque pour savoir ce qu'il gagne ». Pour entrer au panel : fourchette et durée du diagnostic en S/M/L, TJM par rôle, grille de recette par package, clause type sur les données envoyées aux modèles, un dépôt pilote public ou un cas interne chiffré, fiche de capacité.
+- **Le concurrent** : « l'ancienne page, je la copiais en une semaine ; celle-ci, je copie la maquette mais pas les refus sans perdre ma marge. » Dur à contrer, dans l'ordre : le dépôt comme livrable (« je peux copier l'arbre, pas le remplir »), la bande des refus (« ces refus leur coûtent du chiffre, donc ils sont crédibles »), « réalisable avec nous ou sans nous », les cinq stations cohérentes avec le manifeste et les rôles recrutés. Encore attaquable : « Un forfait court » trois fois sans durée ni prix ; « Nous pratiquons le second chez nous » (la preuve interne, mieux habillée) ; « Souverain, si possible » répété quatre fois (« Souverain, si possible. Rapide, si possible. Facturé, sûrement. ») ; 34 marqueurs de négation et quatre titres sur huit à la négative (« ça finit par sonner comme un doute sur soi »). La ligne qu'il redoute reste « Un diagnostic qui ne sert qu'à vendre la suite s'appelle de l'avant-vente ».
+
+### Ce qui revient chez les trois
+
+1. **Ni durée ni prix.** Le premier frein à l'achat. Le CTO suggère un ordre de grandeur sur l'AI-readiness et le diagnostic de reprise. Décision des associés : la page n'en affiche volontairement aucun pour l'instant.
+2. **Aucun client nommé.** L'aveu est élégant, il reste un aveu. Un dépôt pilote public ou un cas interne chiffré suffirait.
+3. **Le jargon des rôles** (Forward Deployed Engineer, Product Engineer) et « harness/ ».
+4. **Le refus aiko** : apprécié par le CTO (« un prestataire qui dit ce qu'il ne fait pas »), gênant devant un board pour l'acheteur et le concurrent (un seul interlocuteur attendu, soupçon d'avant-vente de groupe, « dans notre groupe » à 36 personnes). Sans un mot de plus ou un lien, il ne sert qu'à ceux qui connaissent déjà aiko.
+5. **36 personnes surtout en régie** : combien de seniors libérables pour un pilote ? C'est la première question de référencement.
+
 ## Décisions à prendre
 
 | # | Décision | Options |
 |---|---|---|
-| 1 | Structure de l'offre | Piste 4 retenue (une offre, quatre packages), à confirmer après relecture de la nouvelle page |
+| 1 | Structure de l'offre | Piste 4 retenue (une offre, quatre packages) ; confirmée par la deuxième lecture, les trois acheteurs changent d'avis |
 | 2 | Le diagnostic chiffre-t-il en euros ? | Oui (la condition posée par les trois relecteurs) ou une note de A à E seulement |
 | 3 | Preuve | Quel cas réel montrer, même interne, avec des chiffres avant/après ? |
 | 4 | Offre IA | Pilote assumé, intégrée comme mode d'entrée, ou retirée en attendant un premier client |
 | 5 | « Souveraine » | Retiré des titres (recommandé par les trois relecteurs) |
-| 6 | Prix | Afficher une fourchette pour le diagnostic, ou au moins des unités d'œuvre |
+| 6 | Prix et durée | Afficher une fourchette ou une durée pour le diagnostic (premier frein à l'achat pour les trois relecteurs), ou assumer de n'en afficher aucune |
 | 7 | GreenScore | Publier la méthode de notation et le lien vers le repo |
 
 ## Ensuite

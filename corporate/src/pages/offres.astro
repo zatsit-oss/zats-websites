@@ -10,6 +10,10 @@ const { hero, method, packages, refusalsTitle, refusals, proofsTitle, proofsIntr
 
 const manifestoDisabled = isPageDisabled('manifeste');
 const careersDisabled = isPageDisabled('careers');
+const teamDisabled = isPageDisabled('team');
+
+// A proof may point to a page this build hides
+const proofHref = (href?: string) => (href === '/team/' && teamDisabled ? undefined : href);
 
 // The method pipeline, in order. Every package covers a subset of it.
 const STATIONS = [
@@ -28,7 +32,7 @@ const stationLabels = (keys: readonly string[]) =>
   title="Nos offres"
   description="L'IA écrit du code, quelqu'un doit en répondre. Quatre packages de product engineering augmenté : AI-readiness par le code, pilote spec-driven, reprise de code existant, dev augmenté en équipe."
 >
-  <section class="section--hero">
+  <section class="section--hero !pb-10 md:!pb-16">
     <div class="hero-decoration">
       <div class="hero-blob hero-blob--primary"></div>
       <div class="hero-blob hero-blob--secondary"></div>
@@ -43,7 +47,7 @@ const stationLabels = (keys: readonly string[]) =>
         </h1>
         <p class="section-description hero-subtitle max-w-2xl">{hero.subtitle}</p>
         <div class="hero-cta flex flex-wrap gap-4">
-          <a href="#methode" class="btn-primary">
+          <a href="#packages" class="btn-primary">
             {hero.primaryCta}
             <ArrowDown class="icon-sm" aria-hidden="true" />
           </a>
@@ -82,7 +86,7 @@ const stationLabels = (keys: readonly string[]) =>
   </section>
 
   {/* One package per section, hung on a vertical spine that continues the rail. */}
-  <div class="packs">
+  <div class="packs scroll-mt-20" id="packages">
     {packages.map((pack, index) => (
       <section class="pack scroll-mt-20" id={pack.id} aria-labelledby={`${pack.id}-title`}>
         <div class="container pack-grid">
@@ -172,13 +176,18 @@ const stationLabels = (keys: readonly string[]) =>
           <li class="proof">
             <p class="proof-lead">{proof.lead}</p>
             <p class="proof-text">{proof.text}</p>
-            {proof.href && (
+            {proofHref(proof.href) && (proof.href!.startsWith('/') ? (
+              <a href={proof.href} class="link-primary proof-link">
+                {proof.label}
+                <ArrowRight class="icon-sm" aria-hidden="true" />
+              </a>
+            ) : (
               <a href={proof.href} target="_blank" rel="noopener noreferrer" class="link-primary proof-link">
                 {proof.label}
                 <ExternalLink class="icon-sm" aria-hidden="true" />
                 <span class="sr-only">, dans un nouvel onglet</span>
               </a>
-            )}
+            ))}
           </li>
         ))}
       </ul>
@@ -331,8 +340,37 @@ const stationLabels = (keys: readonly string[]) =>
     letter-spacing: -0.02em;
     line-height: 1.1;
   }
+  /* Small screens: the rail turns vertical, stations stacked, labels full size */
   @media (max-width: 639px) {
-    .pipeline-label { font-size: 0.75rem; }
+    .pipeline {
+      grid-template-columns: 1fr;
+      row-gap: 0;
+    }
+    .pipeline-station {
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+    }
+    .pipeline-station::before,
+    .pipeline-station::after {
+      top: 0.625rem;
+      left: calc(0.625rem - 1px);
+      width: 2px;
+      height: 100%;
+      transform: none;
+    }
+    .pipeline-station::after { transform-origin: top center; }
+    .pipeline-station:last-child { padding-bottom: 0; }
+    .pipeline-station:last-child::before,
+    .pipeline-station:last-child::after { display: none; }
+    .pipeline-label { font-size: 1.125rem; }
+    html[data-reveal-js] .pipeline:not([data-reveal="done"]) .pipeline-station::after {
+      transform: scaleY(0);
+    }
+    html[data-reveal-js] .pipeline:not([data-reveal="done"]) .pipeline-label {
+      transform: translateX(0.5rem);
+    }
   }
   /* Reveal: the rail draws station by station, the dots pop in */
   .pipeline[data-reveal] .pipeline-station::after {
@@ -370,6 +408,15 @@ const stationLabels = (keys: readonly string[]) =>
   .pack-grid {
     display: grid;
     gap: 2.5rem;
+  }
+  /* Below the two-column layout, the side column dissolves so the roles can
+     follow the package sheet instead of preceding its title */
+  @media (max-width: 1023px) {
+    .pack-side { display: contents; }
+    .pack-roles-label,
+    .pack-roles { order: 1; }
+    .pack-roles-label { margin-top: 0; }
+    .pack-side .track { margin-bottom: 0.5rem; }
   }
   @media (min-width: 1024px) {
     .pack-grid {
@@ -691,6 +738,10 @@ const stationLabels = (keys: readonly string[]) =>
     margin-top: 3rem;
     max-width: 65ch;
     color: var(--color-text-muted);
+  }
+  .proofs-more a {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
   }
 
   @media (prefers-reduced-motion: reduce) {
