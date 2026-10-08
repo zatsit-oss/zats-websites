@@ -92,7 +92,7 @@ C'est l'hypothèse soulevée après le challenge : ne pousser **qu'une seule off
 
 - **Elle s'appuie sur votre vrai avantage.** Les trois relecteurs placent le dev augmenté pratiqué par des seniors au-dessus de tout le reste, et l'éco-conception au rang d'argument d'accompagnement. Cette piste en tire directement la conclusion.
 - **Elle colle à votre identité** : « des devs, des ops, des architectes », la technique d'abord, la sobriété comme conséquence. Le manifeste dit déjà exactement ça.
-- **Elle est cohérente avec la page carrière**, qui décrit les mêmes rôles (Forward Deployed Engineer, Product Engineer, Tech Lead, Platform Engineer). Le client achète ce que le candidat rejoint.
+- **Elle est cohérente avec la page carrière**, qui décrit les mêmes rôles (Forward Deployed Engineer, Product Engineer, Tech Lead Agentic, Augmented Engineer, Platform Engineer). Le client achète ce que le candidat rejoint.
 - **Elle colle à votre modèle réel.** Des seniors embarqués chez le client, c'est votre activité de régie, présentée pour ce qu'elle est et rendue plus lisible. Le reproche « combien de personnes pouvez-vous sortir de la régie pour un forfait ? » tombe, parce que l'offre ne promet plus de refonte au forfait.
 - **Elle engage moins sur le green.** Plus de promesse d'économies d'énergie à démontrer en vitrine, plus de « souveraine », plus d'outil de mesure IA à livrer. La mesure GreenScore reste, mais comme une pratique d'ingénierie parmi d'autres.
 - **Un seul message, un seul acheteur** : le DSI ou le CTO. Fin du problème « deux messages, deux acheteurs ».
@@ -192,6 +192,20 @@ Tous les trois changent d'avis.
 3. **Le jargon des rôles** (Forward Deployed Engineer, Product Engineer) et « harness/ ».
 4. **Le refus aiko** : apprécié par le CTO (« un prestataire qui dit ce qu'il ne fait pas »), gênant devant un board pour l'acheteur et le concurrent (un seul interlocuteur attendu, soupçon d'avant-vente de groupe, « dans notre groupe » à 36 personnes). Sans un mot de plus ou un lien, il ne sert qu'à ceux qui connaissent déjà aiko.
 5. **36 personnes surtout en régie** : combien de seniors libérables pour un pilote ? C'est la première question de référencement.
+
+### Rôles, état au 8 octobre 2026
+
+La page carrière compte cinq rôles, chacun sur son tronçon du cycle de vie (cadrage, conception, implémentation, tests, déploiement, run) :
+
+| Rôle | Tronçon couvert |
+|---|---|
+| Forward Deployed Engineer | cadrage, conception, implémentation |
+| Product Engineer | conception à run |
+| Tech Lead Agentic | cadrage, conception, implémentation, tests |
+| Augmented Engineer | conception, implémentation, tests |
+| Platform Engineer | conception, déploiement, run |
+
+Le cinquième rôle a d'abord été nommé « Développeur augmenté », puis renommé parce que « augmenté » est déjà le mot de toute la page ; « Tech Lead AI Driven » a été écarté (l'expression de toutes les ESN cette année, et « driven » dit que l'IA conduit, à l'inverse de « Ce que l'IA ne décide pas »). Les intitulés sont en anglais, dans la série des autres. Sur la page offres, le bloc « Qui vient chez vous » utilise les mêmes noms.
 
 ## Décisions à prendre
 
