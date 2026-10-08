@@ -1,0 +1,35 @@
+{
+  "trainings": [
+    {
+      "title": "Prompt Engineering 101",
+      "subtitle": "Initiation au Spec-Driven Development",
+      "description": "Une initiation pratique au coding agentique : le fil conducteur est une webapp que tu n'auras pas codée, produite par des agents que tu apprends à piloter.",
+      "highlights": [
+        "Manipuler un agent de codage : Copilot ou OpenCode",
+        "Passer du prompting zero-shot au few-shot",
+        "Personnaliser ses agents : prompts, instructions, agents dédiés",
+        "Découvrir le Spec-Driven Development et les sous-agents"
+      ],
+      "formats": [
+        "½ journée gratuite à EuraTechnologies",
+        "1 journée dans vos locaux",
+        "En présentiel"
+      ],
+      "thumbnail": "./thumbnails/prompt-engineering-101-light.jpg",
+      "thumbnailDark": "./thumbnails/prompt-engineering-101-dark.jpg"
+    },
+    {
+      "title": "Spec Kit 101",
+      "subtitle": "Spec-Driven Development",
+      "description": "Un codelab pour dérouler un cas d'usage métier de la spécification au code, avec le workflow Spec Kit.",
+      "upcoming": true,
+      "highlights": [
+        "Définir un cas d'usage métier",
+        "Découvrir le concept du Spec-Driven Development",
+        "Dérouler le workflow Spec Kit : constitution, spécification, plan technique, tâches, implémentation",
+        "Faire évoluer l'application à partir de la spec"
+      ],
+      "thumbnail": "./thumbnails/spec-kit-101.jpg"
+    }
+  ]
+}

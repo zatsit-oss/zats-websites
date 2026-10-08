@@ -81,7 +81,15 @@ export const PAGE_SUMMARIES: Record<string, { label: string; summary: string }> 
   },
   team: {
     label: 'Notre collectif',
-    summary: 'les consultantes et consultants de zatsit, avec leur rôle',
+    summary: 'le collectif zatsit : statuts, gouvernance partagée et interviews vidéo des consultants',
+  },
+  contributions: {
+    label: 'Ce que nous partageons',
+    summary: 'les conférences où les consultants de zatsit ont pris la parole et les projets open source que nous maintenons',
+  },
+  formations: {
+    label: 'Nos formations',
+    summary: 'les formations au coding agentique et au Spec-Driven Development que donnent les consultants de zatsit, gratuites ou dans les locaux du client',
   },
   tech: {
     label: 'Notre expertise tech',

@@ -218,7 +218,69 @@ const offersCollection = defineCollection({
   }),
 });
 
+// Talks given by the collective and the open source projects we maintain.
+// `date` is `YYYY-MM`, or `YYYY-MM-DD` when the day is known: it sorts as a
+// string, and a dated talk after the build day is shown as upcoming.
+// `thumbnail` is relative to the JSON file and goes through the image pipeline.
+const contributionsCollection = defineCollection({
+  loader: jsonIn('contributions'),
+  schema: ({ image }) => z.object({
+    talks: z.array(z.object({
+      title: z.string(),
+      event: z.string(),
+      date: z.string().regex(/^\d{4}-\d{2}(-\d{2})?$/),
+      city: z.string().optional(),
+      speakers: z.array(z.string()).min(1),
+      summary: z.string().optional(),
+      thumbnail: image().optional(),
+      video: z.string().url().optional(),
+      slides: z.string().url().optional(),
+      // Event page or post, for talks with no recording
+      page: z.string().url().optional(),
+      // Earlier editions of the same talk, folded into one card
+      alsoGivenAt: z.array(z.object({
+        event: z.string(),
+        date: z.string().regex(/^\d{4}-\d{2}(-\d{2})?$/),
+        video: z.string().url().optional(),
+      })).default([]),
+    })).default([]),
+    projects: z.array(z.object({
+      name: z.string(),
+      description: z.string(),
+      // Where the card leads: the live tool when there is one, else the repo
+      url: z.string().url(),
+      // Source code, when `url` is not already the repo
+      repo: z.string().url().optional(),
+      maintainers: z.array(z.string()).default([]),
+      thumbnail: image().optional(),
+      stack: z.array(z.string()).default([]),
+    })).default([]),
+  }),
+});
+
+// Trainings we give, on their own page. `thumbnailDark` is the variant shown in
+// the dark theme, when the visual exists in both palettes.
+const trainingsCollection = defineCollection({
+  loader: jsonIn('trainings'),
+  schema: ({ image }) => z.object({
+    trainings: z.array(z.object({
+      title: z.string(),
+      subtitle: z.string(),
+      description: z.string(),
+      // Announced but not scheduled yet: shown with a badge
+      upcoming: z.boolean().default(false),
+      highlights: z.array(z.string()).default([]),
+      // Short labels: duration, place, mode
+      formats: z.array(z.string()).default([]),
+      thumbnail: image().optional(),
+      thumbnailDark: image().optional(),
+    })).default([]),
+  }),
+});
+
 export const collections = {
+  trainings: trainingsCollection,
+  contributions: contributionsCollection,
   offers: offersCollection,
   careers: careersCollection,
   legal: legalCollection,

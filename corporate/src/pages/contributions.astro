@@ -1,0 +1,365 @@
+---
+import { getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import { ArrowDown, ArrowUpRight, CalendarClock, ExternalLink, Mic, Play, Presentation } from '@lucide/astro';
+import GithubIcon from '../assets/icons/github.svg';
+
+const contributionsData = await getEntry('contributions', 'contributions');
+if (!contributionsData) throw new Error('Contributions data not found');
+const { projects } = contributionsData.data;
+
+// Most recent first: `YYYY-MM` sorts correctly as a string
+const talks = [...contributionsData.data.talks].sort((a, b) => b.date.localeCompare(a.date));
+
+const monthFormatter = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+const dayFormatter = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const hasDay = (date: string) => date.length === 10;
+const formatDate = (date: string) =>
+  hasDay(date)
+    ? dayFormatter.format(new Date(`${date}T00:00:00Z`))
+    : monthFormatter.format(new Date(`${date}-01T00:00:00Z`));
+
+// Evaluated at build time: the next deploy after the talk drops the badge
+const today = new Date().toISOString().slice(0, 10);
+const isUpcoming = (date: string) => hasDay(date) && date >= today;
+---
+
+<Layout title="Ce que nous partageons" description="Les conférences où les consultants zatsit ont pris la parole et les projets open source que nous maintenons.">
+  <section class="section--hero !pb-10 md:!pb-16">
+    <div class="hero-decoration">
+      <div class="hero-blob hero-blob--primary"></div>
+      <div class="hero-blob hero-blob--secondary"></div>
+    </div>
+    <div class="dot-grid"></div>
+
+    <div class="container">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="section-title--lg hero-title break-words">
+          Nos <span class="text-gradient-glow inline-block">contributions</span>
+        </h1>
+        <p class="section-description hero-subtitle">
+          Ce que nous apprenons en mission, nous le rendons : sur scène et en open source.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="#talks" class="btn-primary">
+            Sur scène
+            <ArrowDown class="icon-sm" aria-hidden="true" />
+          </a>
+          <a href="#open-source" class="btn-secondary">
+            Open source
+            <ArrowDown class="icon-sm" aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="talks" class="section contributions-tight scroll-mt-20" aria-labelledby="talks-title">
+    <div class="container">
+      <div class="contributions-heading">
+        <Mic class="icon-lg icon-primary flex-shrink-0" aria-hidden="true" />
+        <h2 id="talks-title" class="section-title">Sur scène</h2>
+      </div>
+      {talks.length > 0 ? (
+        <ul class="contributions-grid">
+          {talks.map((talk) => (
+            <li class="card contribution contribution--media">
+              {talk.thumbnail ? (
+                <Image
+                  src={talk.thumbnail}
+                  alt=""
+                  widths={[400, 640]}
+                  sizes="(min-width: 1024px) 23rem, (min-width: 768px) 50vw, 100vw"
+                  format="avif"
+                  class="contribution-thumbnail"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="contribution-thumbnail contribution-thumbnail--placeholder" aria-hidden="true">
+                  <Mic class="icon-lg" />
+                </div>
+              )}
+              <div class="contribution-body">
+                <p class="contribution-eyebrow">
+                  {isUpcoming(talk.date) && (
+                    <span class="contribution-badge">
+                      <CalendarClock class="icon-sm" aria-hidden="true" />
+                      À venir
+                    </span>
+                  )}
+                  <span>{talk.event}, <time datetime={talk.date}>{formatDate(talk.date)}</time>{talk.city && `, ${talk.city}`}</span>
+                  {talk.alsoGivenAt.map((edition) => (
+                    <span class="contribution-edition">
+                      Aussi à {edition.event}, <time datetime={edition.date}>{formatDate(edition.date)}</time>
+                    </span>
+                  ))}
+                </p>
+                <h3 class="contribution-title">{talk.title}</h3>
+                <p class="contribution-meta">{talk.speakers.join(', ')}</p>
+                {talk.summary && <p class="contribution-summary">{talk.summary}</p>}
+                {(talk.video || talk.slides || talk.page || talk.alsoGivenAt.some((edition) => edition.video)) && (
+                  <p class="contribution-links">
+                    {/* With several editions, each video link names its event */}
+                    {talk.video && (
+                      <a href={talk.video} target="_blank" rel="noopener noreferrer" class="contribution-link">
+                        <Play class="icon-sm" aria-hidden="true" />
+                        Vidéo{talk.alsoGivenAt.length > 0 && ` ${talk.event}`}<span class="sr-only"> de « {talk.title} », dans un nouvel onglet</span>
+                      </a>
+                    )}
+                    {talk.alsoGivenAt.map((edition) => edition.video && (
+                      <a href={edition.video} target="_blank" rel="noopener noreferrer" class="contribution-link">
+                        <Play class="icon-sm" aria-hidden="true" />
+                        Vidéo {edition.event}<span class="sr-only"> de « {talk.title} », dans un nouvel onglet</span>
+                      </a>
+                    ))}
+                    {talk.slides && (
+                      <a href={talk.slides} target="_blank" rel="noopener noreferrer" class="contribution-link">
+                        <Presentation class="icon-sm" aria-hidden="true" />
+                        Slides<span class="sr-only"> de « {talk.title} », dans un nouvel onglet</span>
+                      </a>
+                    )}
+                    {talk.page && (
+                      <a href={talk.page} target="_blank" rel="noopener noreferrer" class="contribution-link">
+                        <ExternalLink class="icon-sm" aria-hidden="true" />
+                        En savoir plus<span class="sr-only"> sur « {talk.title} », dans un nouvel onglet</span>
+                      </a>
+                    )}
+                  </p>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="contributions-empty">Nos prochains talks arrivent bientôt ici.</p>
+      )}
+    </div>
+  </section>
+
+  <section id="open-source" class="section section--surface contributions-tight scroll-mt-20" aria-labelledby="projects-title">
+    <div class="container">
+      <div class="contributions-heading">
+        <GithubIcon class="icon-lg icon-primary flex-shrink-0" aria-hidden="true" />
+        <h2 id="projects-title" class="section-title">Open source</h2>
+      </div>
+      {projects.length > 0 ? (
+        <ul class="contributions-grid">
+          {projects.map((project) => (
+            <li class="card card--hover contribution contribution--media contribution--project">
+              {project.thumbnail ? (
+                <Image
+                  src={project.thumbnail}
+                  alt=""
+                  widths={[400, 640]}
+                  sizes="(min-width: 1024px) 23rem, (min-width: 768px) 50vw, 100vw"
+                  format="avif"
+                  class="contribution-thumbnail"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="contribution-thumbnail contribution-thumbnail--placeholder" aria-hidden="true">
+                  <GithubIcon class="icon-lg" />
+                </div>
+              )}
+              <div class="contribution-body">
+                <h3 class="contribution-title">
+                  {/* The whole card is clickable through the stretched link */}
+                  <a href={project.url} target="_blank" rel="noopener noreferrer" class="contribution-stretched">
+                    {project.name}
+                    <ArrowUpRight class="icon-sm contribution-arrow" aria-hidden="true" />
+                    <span class="sr-only">, dans un nouvel onglet</span>
+                  </a>
+                </h3>
+                {project.maintainers.length > 0 && (
+                  <p class="contribution-meta">Porté par {project.maintainers.join(', ')}</p>
+                )}
+                <p class="contribution-summary">{project.description}</p>
+                {project.repo && (
+                  <p class="contribution-links">
+                    {/* Raised above the stretched link so it stays clickable */}
+                    <a href={project.repo} target="_blank" rel="noopener noreferrer" class="contribution-link contribution-link--raised">
+                      <GithubIcon class="icon-sm" aria-hidden="true" />
+                      Code source<span class="sr-only"> de {project.name}, dans un nouvel onglet</span>
+                    </a>
+                  </p>
+                )}
+                {project.stack.length > 0 && (
+                  <ul class="contribution-stack" aria-label="Technologies">
+                    {project.stack.map((tech) => <li class="tag">{tech}</li>)}
+                  </ul>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="contributions-empty">Nos projets open source arrivent bientôt ici.</p>
+      )}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  @media (min-width: 1024px) {
+    .contributions-tight { padding-block: 3.5rem; }
+  }
+
+  /* Same pattern as the team page: .section-title carries a bottom margin
+     that a utility cannot override */
+  .contributions-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  .contributions-heading .section-title {
+    margin-bottom: 0;
+    line-height: 1.1;
+  }
+
+  .contributions-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 768px) {
+    .contributions-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1024px) {
+    .contributions-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  .contribution {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.25rem 1.5rem;
+  }
+  .contribution--project { position: relative; }
+
+  /* The thumbnail bleeds to the card edges, the text keeps the padding */
+  .contribution--media {
+    padding: 0;
+    overflow: hidden;
+  }
+  .contribution-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.25rem 1.5rem;
+  }
+  .contribution-thumbnail {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .contribution-thumbnail--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    background: color-mix(in srgb, var(--color-primary) 8%, var(--card-bg));
+  }
+
+  .contribution-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-right: 0.5rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 999px;
+    color: var(--color-on-primary);
+    background: var(--color-primary);
+  }
+
+  .contribution-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  .contribution-edition {
+    display: block;
+    margin-top: 0.125rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+  }
+  .contribution-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+  .contribution-meta,
+  .contribution-summary {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+  .contribution-summary { line-height: 1.6; }
+
+  .contribution-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+  .contribution-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 44px;
+    font-weight: 600;
+    color: var(--color-primary);
+    border-radius: var(--radius-md);
+  }
+  .contribution-link:hover { text-decoration: underline; }
+  .contribution-link--raised {
+    position: relative;
+    z-index: 1;
+  }
+
+  .contribution-stretched {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    border-radius: var(--radius-md);
+  }
+  .contribution-stretched::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+  }
+  .contribution-link:focus-visible,
+  .contribution-stretched:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .contribution-arrow { color: var(--color-primary); }
+
+  .contribution-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding: 0.5rem 0 0;
+    list-style: none;
+  }
+
+  .contributions-empty {
+    text-align: center;
+    color: var(--color-text-muted);
+  }
+</style>

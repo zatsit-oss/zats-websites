@@ -28,7 +28,7 @@ import ThemeToggle from './ThemeToggle.astro';
 import LinkedinIcon from '../assets/icons/linkedin.svg';
 import GithubIcon from '../assets/icons/github.svg';
 import SustainabilityIcon from '../assets/icons/sustainability.svg';
-import { ArrowUpRight, ChevronDown, CodeXml, Compass, ExternalLink, FilePenLine, Handshake, Layers, Mail, Menu, Package, ScrollText, X } from '@lucide/astro';
+import { ArrowUpRight, ChevronDown, CodeXml, Compass, ExternalLink, FilePenLine, GraduationCap, Handshake, Layers, Mail, Menu, Mic, Package, ScrollText, Users, X } from '@lucide/astro';
 import { isPageDisabled } from '../lib/pages';
 
 interface NavLink {
@@ -69,6 +69,20 @@ const megaMenus: Record<string, MegaMenu> = {
       { href: '/work-with-us/', label: 'Travaillons ensemble', description: 'Le formulaire pour nous parler de votre projet.', icon: Handshake },
     ],
   },
+  '#collective': {
+    id: 'collective',
+    intro: {
+      eyebrow: 'Le collectif',
+      title: 'Des passionnés qui',
+      highlight: 'partagent',
+      tagline: "Sur le terrain, sur scène et sur GitHub.",
+    },
+    items: [
+      { href: '/team/', label: 'Qui nous sommes', description: 'Nos statuts, notre gouvernance et les interviews de nos Zat\'s.', icon: Users },
+      { href: '/contributions/', label: 'Ce que nous partageons', description: 'Nos talks en conférence et nos projets open source.', icon: Mic },
+      { href: '/formations/', label: 'Nos formations', description: 'Coding agentique et Spec-Driven Development, en atelier pratique.', icon: GraduationCap },
+    ],
+  },
   '#join-us': {
     id: 'join',
     intro: {
@@ -94,7 +108,7 @@ for (const menu of Object.values(megaMenus)) {
 const navLinks: NavLink[] = [
   { href: '/', label: 'Accueil' },
   { href: '#offers', label: 'Offres' },
-  { href: '/team/', label: 'Le collectif' },
+  { href: '#collective', label: 'Le collectif' },
   { href: '#join-us', label: 'Rejoins-nous' },
 ];
 
