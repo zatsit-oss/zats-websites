@@ -3,6 +3,7 @@ import { getEntry } from 'astro:content';
 import { ArrowRight, ChevronDown, Sparkles } from '@lucide/astro';
 import Layout from '../layouts/Layout.astro';
 import { isPageDisabled } from '../lib/pages';
+import { withBoldBrand } from '../lib/brand';
 
 const careersData = await getEntry('careers', 'careers');
 if (!careersData) throw new Error('Careers data not found');
@@ -149,14 +150,14 @@ const phaseLabels = (phases: readonly string[]) =>
           Évoluer <span class="text-gradient">chez zatsit</span>
         </h2>
         <p class="section-description !mb-0">
-          Voici ce qui compte dans ton évolution chez zatsit.
+          Voici ce qui compte dans ton évolution chez <strong>zatsit</strong>.
         </p>
       </div>
       <ul class="growth">
         {growth.map((item) => (
           <li class="card growth-item">
             <h3 class="item-title">{item.title}</h3>
-            <p class="item-description">{item.description}</p>
+            <p class="item-description" set:html={withBoldBrand(item.description)} />
           </li>
         ))}
       </ul>

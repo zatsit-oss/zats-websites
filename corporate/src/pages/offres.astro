@@ -3,6 +3,7 @@ import { getEntry } from 'astro:content';
 import { ArrowDown, ArrowRight, ExternalLink, Gauge, ShieldCheck } from '@lucide/astro';
 import Layout from '../layouts/Layout.astro';
 import { isPageDisabled } from '../lib/pages';
+import { withBoldBrand } from '../lib/brand';
 
 const offersData = await getEntry('offers', 'offers');
 if (!offersData) throw new Error('Offers data not found');
@@ -115,7 +116,7 @@ const stationLabels = (keys: readonly string[]) =>
 
           <div class="pack-main">
             <h2 id={`${pack.id}-title`} class="pack-title">{pack.title}</h2>
-            <p class="pack-pitch">{pack.pitch}</p>
+            <p class="pack-pitch" set:html={withBoldBrand(pack.pitch)} />
 
             <div class="pack-sheet">
               <div class="pack-deal">
@@ -158,7 +159,7 @@ const stationLabels = (keys: readonly string[]) =>
         {refusals.map((refusal) => (
           <li>
             <p class="refusal-claim">{refusal.claim}</p>
-            <p class="refusal-why">{refusal.why}</p>
+            <p class="refusal-why" set:html={withBoldBrand(refusal.why)} />
           </li>
         ))}
       </ol>
@@ -175,7 +176,7 @@ const stationLabels = (keys: readonly string[]) =>
         {proofs.map((proof) => (
           <li class="proof">
             <p class="proof-lead">{proof.lead}</p>
-            <p class="proof-text">{proof.text}</p>
+            <p class="proof-text" set:html={withBoldBrand(proof.text)} />
             {proofHref(proof.href) && (proof.href!.startsWith('/') ? (
               <a href={proof.href} class="link-primary proof-link">
                 {proof.label}
