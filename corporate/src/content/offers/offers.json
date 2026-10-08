@@ -22,7 +22,7 @@
       ],
       "roles": [
         "Forward Deployed Engineer",
-        "Tech Lead"
+        "Tech Lead Agentic"
       ],
       "form": "Un forfait court. Le périmètre est fixé avec vous avant de commencer.",
       "deliverable": "Un état des lieux de votre système et de vos pratiques, ce que l'IA vous coûte déjà sur ce qui se trace (licences, appels d'API), en euros, et la feuille de route, priorisée.",
@@ -43,7 +43,7 @@
       ],
       "roles": [
         "Product Engineer",
-        "Tech Lead",
+        "Tech Lead Agentic",
         "Platform Engineer"
       ],
       "form": "Un pilote borné. Un périmètre, une durée, nos seniors dans votre équipe.",
@@ -109,7 +109,7 @@
         "mesure"
       ],
       "roles": [
-        "Tech Lead",
+        "Tech Lead Agentic",
         "Product Engineer"
       ],
       "form": "Un pilote avec une équipe volontaire. Ensuite, formations et BBL (sessions courtes du midi) pour élargir.",
