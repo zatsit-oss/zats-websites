@@ -80,6 +80,26 @@
       ]
     },
     {
+      "id": "developpeur-augmente",
+      "title": "Développeur augmenté",
+      "pitch": "Tu écris la spec, tu fais générer le code, tu le relis et tu le testes. L'IA accélère, tu réponds du résultat.",
+      "daily": [
+        "Specs et contrats d'API écrits avant le code, le code généré depuis",
+        "Contextes cadrés : l'agent voit ce dont il a besoin, rien de plus",
+        "Revue et tests sur tout ce qui sort d'un agent, sans exception"
+      ],
+      "sdlcPhases": [
+        "conception",
+        "implementation",
+        "tests"
+      ],
+      "augmentedBy": [
+        "Spec Driven Development",
+        "Context Engineering",
+        "Harness Engineering"
+      ]
+    },
+    {
       "id": "platform-engineer",
       "title": "Platform Engineer",
       "pitch": "Tu codes l'infrastructure, tu outilles les déploiements et tu tiens la production.",
