@@ -1,7 +1,7 @@
 ---
 import { getEntry } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import { Heart, FileText, Rocket, ShieldCheck, CodeXml, Leaf, HeartHandshake } from '@lucide/astro';
+import { Heart, CalendarHeart, FileText, Rocket, ShieldCheck, CodeXml, Leaf, HeartHandshake } from '@lucide/astro';
 import { isPageDisabled } from '../lib/pages';
 import { readFileSync } from 'node:fs';
 import { MEDIA_BASE_URL } from 'astro:env/server';
@@ -188,6 +188,16 @@ const contractIcons: Record<string, typeof Heart> = {
     </div>
   </section>
 
+  {/* Content to come: events organised by or with the collective */}
+  <section class="section team-tight" aria-labelledby="events-title">
+    <div class="container">
+      <div class="team-heading">
+        <CalendarHeart class="icon-lg icon-primary flex-shrink-0" size={28} aria-hidden="true" />
+        <h2 id="events-title" class="section-title">Nos événements</h2>
+      </div>
+      <p class="text-center text-muted">Nos prochains événements arrivent bientôt ici.</p>
+    </div>
+  </section>
 </Layout>
 
 <script>
