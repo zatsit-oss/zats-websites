@@ -94,13 +94,6 @@ const phaseLabels = (phases: readonly string[]) =>
       </div>
 
       <div class="roles-matrix" data-roles-matrix>
-        <div class="roles-head" aria-hidden="true">
-          <span></span>
-          <ol class="roles-phases">
-            {SDLC_PIPELINE.map((phase) => <li>{phase.label}</li>)}
-          </ol>
-        </div>
-
         {roles.map((role, roleIndex) => (
           <details class="role" id={role.id}>
             <summary class="role-summary">
@@ -121,7 +114,7 @@ const phaseLabels = (phases: readonly string[]) =>
                       style={`--delay: ${roleIndex * 220 + phaseIndex * 110}ms`}
                     >
                       <span class="role-dot"></span>
-                      <span class="role-stop-label">{phase.short}</span>
+                      <span class="role-stop-label"><span class="role-stop-short">{phase.short}</span><span class="role-stop-full">{phase.label}</span></span>
                     </li>
                   );
                 })}
@@ -259,29 +252,6 @@ const phaseLabels = (phases: readonly string[]) =>
   }
   @media (min-width: 1024px) {
     .roles-matrix { --matrix-cols: minmax(0, 22rem) minmax(0, 1fr) 2.5rem; }
-  }
-
-  .roles-head {
-    display: none;
-  }
-  @media (min-width: 1024px) {
-    .roles-head {
-      display: grid;
-      grid-template-columns: var(--matrix-cols);
-      column-gap: 2rem;
-      padding: 1rem 0 0.75rem;
-    }
-  }
-  .roles-phases {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--color-text-muted);
-    text-align: center;
   }
 
   .role {
@@ -424,9 +394,12 @@ const phaseLabels = (phases: readonly string[]) =>
     color: var(--color-text-muted);
   }
   .role-stop--on .role-stop-label { color: var(--color-text); }
-  /* Column headers carry the labels on desktop */
+  /* The legend repeats on every track: abbreviated when narrow, in full when wide */
+  .role-stop-full { display: none; }
   @media (min-width: 1024px) {
-    .role-stop-label { display: none; }
+    .role-stop-short { display: none; }
+    .role-stop-full { display: inline; }
+    .role-stop-label { font-size: 0.75rem; }
   }
 
   /* Reveal: only engaged by the script, so no-JS keeps the final state.
