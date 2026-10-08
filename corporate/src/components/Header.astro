@@ -90,8 +90,9 @@ for (const menu of Object.values(megaMenus)) {
   menu.items = menu.items.filter(item => !isPageDisabled(toSlug(item.href)));
 }
 
-// The logo links home, and /tech/ is no longer promoted: it stays reachable by URL
+// /tech/ is no longer promoted: it stays reachable by URL
 const navLinks: NavLink[] = [
+  { href: '/', label: 'Accueil' },
   { href: '#offers', label: 'Offres' },
   { href: '/team/', label: 'L\'équipe' },
   { href: '#join-us', label: 'Rejoins-nous' },
