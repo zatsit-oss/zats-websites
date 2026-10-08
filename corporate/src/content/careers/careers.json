@@ -2,7 +2,7 @@
   "practices": [
     {
       "title": "La spec d'abord",
-      "description": "Nous écrivons ce que nous voulons avant de le générer : contrats OpenAPI et AsyncAPI, critères d'acceptation, décisions tracées en ADR."
+      "description": "Nous écrivons ce que nous voulons avant de le générer : contrats standardisés (OpenAPI, AsyncAPI, CloudEvents, etc), critères d'acceptation, ou décisions tracées en ADR."
     },
     {
       "title": "Un contexte maîtrisé",
