@@ -1,9 +1,7 @@
 ---
 import { getEntry } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import LinkedinIcon from '../assets/icons/linkedin.svg';
-import GithubIcon from '../assets/icons/github.svg';
-import { Users, Heart, FileText, Rocket, ShieldCheck, CodeXml, Leaf, HeartHandshake } from '@lucide/astro';
+import { Heart, FileText, Rocket, ShieldCheck, CodeXml, Leaf, HeartHandshake } from '@lucide/astro';
 import { isPageDisabled } from '../lib/pages';
 import { readFileSync } from 'node:fs';
 import { MEDIA_BASE_URL } from 'astro:env/server';
@@ -12,7 +10,7 @@ const careersDisabled = isPageDisabled('careers')
 
 const peopleData = await getEntry('people', 'people');
 if (!peopleData) throw new Error('People data not found');
-const { photos, contractTypes, leadership, testimonials, interviews } = peopleData.data;
+const { photos, contractTypes, testimonials, interviews } = peopleData.data;
 
 /** Plain-text transcript built from the captions, so the interview is readable without playing it. */
 function readTranscript(slug: string): string {
@@ -28,19 +26,16 @@ const interviewItems = interviews.map((interview) => ({
   transcript: readTranscript(interview.slug),
 }));
 
-const contractIcons: Record<string, typeof Users> = {
+const contractIcons: Record<string, typeof Heart> = {
   document: FileText,
   freelance: Rocket,
   'shield-check': ShieldCheck,
 };
 
 
-function getInitials(name: string): string {
-  return name.split(' ').map(n => n[0]).join('').toUpperCase();
-}
 ---
 
-<Layout title="Notre équipe" description="Découvrez l'équipe zatsit : des dizaines de talents passionnés de tech, outillés pour le green IT et engagés pour un numérique responsable.">
+<Layout title="Notre équipe" description="Découvrez l'équipe zatsit : des dizaines de talents passionnés de tech, outillés pour le green IT et impliqués pour un numérique responsable.">
   <section class="section--hero !pb-10 md:!pb-16">
     <div class="hero-decoration">
       <div class="hero-blob hero-blob--primary"></div>
@@ -54,7 +49,7 @@ function getInitials(name: string): string {
           Notre <span class="text-gradient-glow inline-block">équipe</span>
         </h1>
         <p class="section-description hero-subtitle">
-          Des dizaines de talents qui partagent leur quotidien au sein d'une ESN engagée.
+          Des dizaines de talents qui partagent leur quotidien au sein d'une néo-ESN.
         </p>
       </div>
       <ul class="team-pillars">
@@ -124,40 +119,6 @@ function getInitials(name: string): string {
             </div>
           );
         })}
-      </div>
-    </div>
-  </section>
-
-  <section class="section team-tight">
-    <div class="container">
-      <div class="flex items-center gap-3 justify-center mb-8">
-        <Users class="icon-lg icon-primary flex-shrink-0" size={28} />
-        <h2 class="section-title mb-0 leading-tight">Équipe structure</h2>
-      </div>
-      <div class="flex flex-wrap justify-center gap-6 md:gap-8 max-w-4xl mx-auto">
-        {leadership.map((member) => (
-          <div class="leadership-card group">
-            <div class="leadership-avatar">
-              {member.photo ? (
-                <img src={member.photo} alt={member.name} class="w-full h-full object-cover" />
-              ) : (
-                <span class="text-lg font-bold text-gradient">{getInitials(member.name)}</span>
-              )}
-            </div>
-            <div class="leadership-name">{member.name}</div>
-            <div class="leadership-role">{member.role}</div>
-            <div class="leadership-links">
-              <a href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn de ${member.name}`}>
-                <LinkedinIcon class="leadership-social-icon" />
-              </a>
-              {member.github && (
-                <a href={member.github} target="_blank" rel="noopener noreferrer" aria-label={`GitHub de ${member.name}`}>
-                  <GithubIcon class="leadership-social-icon" />
-                </a>
-              )}
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   </section>
