@@ -155,7 +155,8 @@ const contractIcons: Record<string, typeof Heart> = {
                 />
               </video>
               <div class="interview-body">
-                <h3 class="font-semibold">{interview.name} <span class="text-sm text-muted font-normal">{interview.role}, {interview.duration}</span></h3>
+                <h3 class="font-semibold">{interview.name}</h3>
+                <p class="interview-meta">{interview.role}, {interview.duration}</p>
                 <details class="interview-transcript">
                   <summary>Lire la transcription</summary>
                   <p>{interview.transcript}</p>
@@ -296,6 +297,15 @@ const contractIcons: Record<string, typeof Heart> = {
   .interview-body {
     padding: 0.875rem 1.25rem 1rem;
   }
+  /* Role and duration always on their own line, so every card has the same height */
+  .interview-meta {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .interview-transcript {
     margin-top: 0.75rem;
     font-size: 0.875rem;
