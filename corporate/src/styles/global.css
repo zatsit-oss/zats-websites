@@ -1610,9 +1610,14 @@ a[target="_blank"]:not(:has(svg)):hover::after {
   @apply relative overflow-hidden rounded-xl;
 }
 
+/* The track is as wide as the carousel, so a percentage translate is relative
+   to the viewport, not to the slides. The loop shifts by exactly the six
+   unique slides (the list is doubled), which is 6 x the slide width at each
+   breakpoint: 100% slides on mobile, 50% from sm, a third from lg. */
 .carousel-track {
   @apply flex;
-  animation: carousel-scroll 15s linear infinite;
+  --carousel-shift: -600%;
+  animation: carousel-scroll 24s linear infinite;
 }
 
 .carousel-track:hover {
@@ -1628,11 +1633,17 @@ a[target="_blank"]:not(:has(svg)):hover::after {
   .carousel-slide {
     width: 50%;
   }
+  .carousel-track {
+    --carousel-shift: -300%;
+  }
 }
 
 @media (min-width: 1024px) {
   .carousel-slide {
-    width: 33.333%;
+    width: 33.3333%;
+  }
+  .carousel-track {
+    --carousel-shift: -200%;
   }
 }
 
@@ -1650,14 +1661,14 @@ a[target="_blank"]:not(:has(svg)):hover::after {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(var(--carousel-shift));
   }
 }
 
-/* Mobile: faster since slides are full-width */
+/* Mobile: one slide per screen, same speed per slide */
 @media (max-width: 639px) {
   .carousel-track {
-    animation-duration: 4s;
+    animation-duration: 18s;
   }
 }
 
