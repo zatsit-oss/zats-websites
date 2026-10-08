@@ -61,7 +61,7 @@
     },
     {
       "id": "tech-lead",
-      "title": "Tech Lead",
+      "title": "Tech Lead Agentic",
       "pitch": "Tu gardes un système et une équipe cohérents dans la durée.",
       "daily": [
         "Architecture hexagonale, documentée en C4 Model et en ADR",
@@ -81,12 +81,13 @@
     },
     {
       "id": "developpeur-augmente",
-      "title": "Développeur augmenté",
-      "pitch": "Tu écris la spec, tu fais générer le code, tu le relis et tu le testes. L'IA accélère, tu réponds du résultat.",
+      "title": "Augmented Engineer",
+      "pitch": "Tu écris la spec, tu fais générer le code, tu le relis et tu le testes. L'IA t'accélère, tu es garant du résultat.",
       "daily": [
-        "Specs et contrats d'API écrits avant le code, le code généré depuis",
+        "Specs et contrats d'API écrits avant le code, le code est généré par tes agents",
         "Contextes cadrés : l'agent voit ce dont il a besoin, rien de plus",
-        "Revue et tests sur tout ce qui sort d'un agent, sans exception"
+        "Revue et tests sur tout ce qui sort d'un agent, sans exception",
+        "Tu contribues à la stack agentique de ta squad"
       ],
       "sdlcPhases": [
         "conception",

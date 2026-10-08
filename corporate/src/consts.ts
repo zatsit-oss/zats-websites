@@ -80,7 +80,7 @@ export const PAGE_SUMMARIES: Record<string, { label: string; summary: string }> 
     summary: "ce que fait zatsit, pour qui, et les convictions qui guident nos missions",
   },
   team: {
-    label: 'Notre équipe',
+    label: 'Notre collectif',
     summary: 'les consultantes et consultants de zatsit, avec leur rôle',
   },
   tech: {
@@ -90,7 +90,7 @@ export const PAGE_SUMMARIES: Record<string, { label: string; summary: string }> 
   },
   careers: {
     label: 'Carrière',
-    summary: 'les rôles chez zatsit (Forward Deployed Engineer, Product Engineer, Tech Lead, Développeur augmenté, Platform Engineer) et notre façon de travailler augmentée par l’IA',
+    summary: 'les rôles chez zatsit (Forward Deployed Engineer, Product Engineer, Tech Lead Agentic, Augmented Engineer, Platform Engineer) et notre façon de travailler augmentée par l’IA',
   },
   offres: {
     label: 'Nos offres',
