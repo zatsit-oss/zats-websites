@@ -106,7 +106,7 @@
       "pitch": "Tu codes l'infrastructure, tu outilles les déploiements et tu tiens la production.",
       "daily": [
         "Infrastructure as code avec Terraform et Ansible",
-        "Pipelines CI/CD et conteneurs sur Kubernetes",
+        "Pipelines CI/CD et déploiements Cloud Native (conteneurs, FaaS, etc)",
         "Run et fiabilité en production"
       ],
       "sdlcPhases": [
