@@ -108,6 +108,10 @@ export const PAGE_SUMMARIES: Record<string, { label: string; summary: string }> 
     label: 'Travaillons ensemble',
     summary: 'le formulaire de contact pour nous parler d’un projet',
   },
+  apply: {
+    label: 'Postuler',
+    summary: 'le formulaire pour nous envoyer une candidature',
+  },
   'find-us': {
     label: 'Nous trouver',
     summary: "l'adresse des bureaux, à Euratechnopolys à Lille, et comment y accéder",

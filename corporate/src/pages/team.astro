@@ -287,6 +287,10 @@ const contractIcons: Record<string, typeof Heart> = {
   @media (min-width: 1024px) {
     .interview { flex-basis: calc((100% - 3rem) / 3); }
   }
+  .interview-video:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
   .interview-video {
     display: block;
     width: 100%;

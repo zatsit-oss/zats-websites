@@ -9,7 +9,7 @@ const careersData = await getEntry('careers', 'careers');
 if (!careersData) throw new Error('Careers data not found');
 const { practices, roles, growth } = careersData.data;
 
-const applyDisabled = isPageDisabled('work-with-us');
+const applyDisabled = isPageDisabled('apply');
 const joinUsDisabled = isPageDisabled('join-us');
 
 // Same pipeline, in the same order, as the services section on the home page
@@ -52,7 +52,7 @@ const phaseLabels = (phases: readonly string[]) =>
             <ArrowRight class="icon-sm" aria-hidden="true" />
           </a>
           {!applyDisabled && (
-            <a href="/work-with-us/" class="btn-secondary">Postuler</a>
+            <a href="/apply/" class="btn-secondary">Postuler</a>
           )}
         </div>
       </div>
@@ -175,7 +175,7 @@ const phaseLabels = (phases: readonly string[]) =>
         </p>
         <div class="flex flex-wrap justify-center gap-4">
           {!applyDisabled && (
-            <a href="/work-with-us/" class="btn-primary">
+            <a href="/apply/" class="btn-primary">
               Postuler
               <ArrowRight class="icon-sm" aria-hidden="true" />
             </a>

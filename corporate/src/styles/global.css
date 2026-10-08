@@ -802,16 +802,21 @@ a[target="_blank"]:not(:has(svg)):hover::after {
   color: var(--color-on-primary);
 }
 
-.bcorp-badge-light {
-  display: none;
-}
-
-[data-theme="dark"] .bcorp-badge-black {
-  display: none;
-}
-
-[data-theme="dark"] .bcorp-badge-light {
+/* One badge file per theme, set as a background so only the active one loads */
+.bcorp-badge {
   display: block;
+  width: 76px;
+  height: 116px;
+  background: var(--bcorp-black) center / contain no-repeat;
+}
+
+[data-theme="dark"] .bcorp-badge {
+  background-image: var(--bcorp-light);
+}
+
+/* The badge is the link's whole content: no external-link arrow over it */
+a.bcorp-badge[target="_blank"]::after {
+  content: none;
 }
 
 .footer-social-link:hover {
