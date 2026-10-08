@@ -68,11 +68,16 @@ corporate/
 │   │   └── Layout.astro
 │   ├── pages/
 │   │   ├── index.astro          # Home
-│   │   ├── join-us.astro        # Join us
+│   │   ├── offres.astro         # Offers
+│   │   ├── manifeste.astro      # Manifesto
 │   │   ├── work-with-us.astro   # Work with us (contact form)
 │   │   ├── team.astro           # Team
+│   │   ├── contributions.astro  # Contributions (talks and open source projects)
+│   │   ├── formations.astro     # Trainings
+│   │   ├── join-us.astro        # Join us
 │   │   ├── careers.astro        # Careers
-│   │   ├── tech.astro           # Technologies
+│   │   ├── apply.astro          # Apply (candidate form)
+│   │   ├── tech.astro           # Technologies, reachable by URL only
 │   │   ├── find-us.astro        # Find us
 │   │   ├── legal-notice.astro   # Legal notice
 │   │   ├── privacy-policy.astro # Privacy policy
@@ -129,7 +134,7 @@ DISABLED_PAGES=careers npm run build
 DISABLED_PAGES="careers,find-us,join-us" npm run build
 ```
 
-**Controllable pages:** `careers`, `find-us`, `join-us`, `team`, `tech`, `work-with-us`
+**Controllable pages:** `apply`, `careers`, `contributions`, `find-us`, `formations`, `join-us`, `manifeste`, `offres`, `team`, `tech`, `work-with-us` (the list lives in `CONTROLLABLE_PAGES`, `src/lib/pages.ts`)
 
 **Always generated (cannot be disabled):** `index` (home), `legal-notice`, `privacy-policy`
 
