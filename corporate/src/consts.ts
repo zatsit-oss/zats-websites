@@ -90,7 +90,7 @@ export const PAGE_SUMMARIES: Record<string, { label: string; summary: string }> 
   },
   careers: {
     label: 'Carrière',
-    summary: 'les rôles chez zatsit (Forward Deployed Engineer, Product Engineer, Tech Lead, Platform Engineer) et notre façon de travailler augmentée par l’IA',
+    summary: 'les rôles chez zatsit (Forward Deployed Engineer, Product Engineer, Tech Lead, Développeur augmenté, Platform Engineer) et notre façon de travailler augmentée par l’IA',
   },
   offres: {
     label: 'Nos offres',
