@@ -286,6 +286,13 @@ button:hover {
   color: var(--color-primary);
 }
 
+/* Inside running text, colour alone must not carry the link (WCAG 1.4.1) */
+p > .link-primary,
+li > .link-primary {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
 a[target="_blank"]:not(:has(svg))::after {
   content: '';
   width: 1em;
@@ -1487,6 +1494,13 @@ a[target="_blank"]:not(:has(svg)):hover::after {
   all: unset;
   cursor: zoom-in;
   display: block;
+}
+
+/* `all: unset` also drops the browser focus ring: give it back */
+.bike-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-md);
 }
 
 .lightbox {
