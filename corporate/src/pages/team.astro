@@ -125,9 +125,9 @@ const contractIcons: Record<string, typeof Heart> = {
 
   <section class="section section--surface team-tight">
     <div class="container">
-      <div class="flex items-center gap-3 justify-center mb-8">
-        <Heart class="icon-lg icon-primary flex-shrink-0" size={28} />
-        <h2 class="section-title mb-0 leading-tight">Paroles de Zat's</h2>
+      <div class="team-heading">
+        <Heart class="icon-lg icon-primary flex-shrink-0" size={28} aria-hidden="true" />
+        <h2 class="section-title">Paroles de Zat's</h2>
       </div>
       {interviewItems.length > 0 ? (
         <ul class="interviews">
@@ -201,6 +201,20 @@ const contractIcons: Record<string, typeof Heart> = {
   /* Desktop condenses: the page is a sequence of short sections */
   @media (min-width: 1024px) {
     .team-tight { padding-block: 3.5rem; }
+  }
+
+  /* Icon and title on one baseline: .section-title carries a bottom margin
+     that a utility cannot override, so it is reset here */
+  .team-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  .team-heading .section-title {
+    margin-bottom: 0;
+    line-height: 1.1;
   }
 
   .team-pillars {
