@@ -21,16 +21,21 @@
     {
       "id": "forward-deployed-engineer",
       "title": "Forward Deployed Engineer",
-      "pitch": "Tu arrives chez le client, tu comprends son problème et tu livres vite une solution qui répond à ses besoins.",
+      "pitch": "Tu t'embarques chez le client, côté métier comme côté technique, tu prends en main un problème prioritaire et tu le mènes jusqu'en production, puis jusqu'à ce qu'il soit vraiment utilisé.",
+      "profile": "Profil senior uniquement : tu codes en production et tu tiens la discussion avec une direction métier.",
       "daily": [
-        "Ateliers et diagnostic avec les équipes du client",
-        "Reprise de bases de code existantes, même anciennes",
-        "Premiers incréments livrés tôt, pour valider sur du réel"
+        "Diagnostic avec les directions métier et les opérationnels : le vrai besoin, pas la demande telle qu'elle arrive",
+        "Du prototype à la production : code, architecture et intégration à l'existant (API, données, sécurité)",
+        "Évaluation et observabilité, pour que la solution tienne en production",
+        "Suivi jusqu'à l'adoption, et retour d'expérience au collectif pour en faire des pratiques"
       ],
       "sdlcPhases": [
         "cadrage",
         "conception",
-        "implementation"
+        "implementation",
+        "tests",
+        "deploiement",
+        "mco"
       ],
       "augmentedBy": [
         "Diagnostics IA",
@@ -41,11 +46,13 @@
     {
       "id": "product-engineer",
       "title": "Product Engineer",
-      "pitch": "Tu construis le produit de bout en bout, du besoin utilisateur à la production, et tu restes responsable de ce qui tourne.",
+      "pitch": "Tu pilotes l'ensemble du cycle produit, de la spécification à la mise en production, avec l'IA comme levier de productivité. Tu couvres la majeure partie du périmètre technique : UX, UI, front, API, back, sécurité.",
+      "profile": "3 à 5 ans d'expérience minimum.",
       "daily": [
-        "API spécifiées en OpenAPI et AsyncAPI, code généré depuis la spec",
-        "Tests sans compromis, TDD quand il le faut",
-        "Domaine modélisé avec le DDD, code propre et lisible"
+        "Spécifications rigoureuses, contrats d'API écrits avant le code",
+        "Production de code orchestrée via les LLM, relue et testée",
+        "Pipelines CI/CD robustes, déploiement sous contrôle",
+        "Supervision proactive des applications en production"
       ],
       "sdlcPhases": [
         "conception",
@@ -64,9 +71,10 @@
       "title": "Tech Lead Agentic",
       "pitch": "Tu gardes un système et une équipe cohérents dans la durée.",
       "daily": [
-        "Architecture hexagonale, documentée en C4 Model et en ADR",
+        "Architecture adaptée au contexte (N-tiers, hexagonale, etc.), documentée as code (C4 Model, diagrammes Mermaid, etc.)",
         "Revues de code et choix techniques tracés en ADR",
-        "Montée en compétence de l'équipe, BBL et formations"
+        "Mise en place de la stack agentique de ta squad",
+        "Montée en compétence de l'équipe (BBL, formations)"
       ],
       "sdlcPhases": [
         "cadrage",
@@ -105,9 +113,9 @@
       "title": "Platform Engineer",
       "pitch": "Tu codes l'infrastructure, tu outilles les déploiements et tu tiens la production.",
       "daily": [
-        "Infrastructure as code avec Terraform et Ansible",
+        "Infrastructure as code (Terraform, Ansible, etc.)",
         "Pipelines CI/CD et déploiements Cloud Native (conteneurs, FaaS, etc)",
-        "Maintiens et résilience de la production"
+        "Maintien et résilience de la production"
       ],
       "sdlcPhases": [
         "conception",

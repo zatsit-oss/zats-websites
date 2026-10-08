@@ -147,6 +147,8 @@ const careersCollection = defineCollection({
       id: z.string(),
       title: z.string(),
       pitch: z.string(),
+      // Seniority expected, printed under the pitch when set
+      profile: z.string().optional(),
       daily: z.array(z.string()),
       // Phases of the shared SDLC pipeline this role mostly works on
       sdlcPhases: z.array(sdlcPhase).min(1),

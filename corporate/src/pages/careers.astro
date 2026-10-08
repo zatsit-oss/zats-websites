@@ -43,7 +43,7 @@ const phaseLabels = (phases: readonly string[]) =>
           L'IA écrit du code.<br /><span class="text-gradient-glow">Toi, tu construis des systèmes.</span>
         </h1>
         <p class="section-description hero-subtitle max-w-2xl mx-auto">
-          Des dizaines d'ingénieurs, un seul standard : des systèmes bien conçus,
+          Des dizaines de talents, un seul standard : des systèmes bien conçus,
           testés, déployés avec du code. L'IA augmente chaque étape, elle ne remplace pas ton jugement.
         </p>
         <div class="hero-cta flex flex-wrap justify-center gap-4">
@@ -101,6 +101,7 @@ const phaseLabels = (phases: readonly string[]) =>
               <span class="role-name">
                 <span class="role-title" role="heading" aria-level="3">{role.title}</span>
                 <span class="role-pitch">{role.pitch}</span>
+                {role.profile && <span class="role-profile">{role.profile}</span>}
               </span>
               <span class="sr-only">Phases : {phaseLabels(role.sdlcPhases)}.</span>
               <ol class="role-track" aria-hidden="true">
@@ -295,6 +296,13 @@ const phaseLabels = (phases: readonly string[]) =>
   .role-pitch {
     display: block;
     color: var(--color-text-muted);
+  }
+  .role-profile {
+    display: block;
+    margin-top: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-primary);
   }
 
   /* The disclosure cue: primary colour in a ring, so it reads as the control */
