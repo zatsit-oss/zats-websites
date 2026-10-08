@@ -3,7 +3,7 @@ import { getEntry } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import LinkedinIcon from '../assets/icons/linkedin.svg';
 import GithubIcon from '../assets/icons/github.svg';
-import { Users, Heart, Briefcase, TrendingUp, Calendar, RotateCw, FileText, Rocket, ShieldCheck } from '@lucide/astro';
+import { Users, Heart, FileText, Rocket, ShieldCheck, CodeXml, Leaf, HeartHandshake } from '@lucide/astro';
 import { isPageDisabled } from '../lib/pages';
 import { readFileSync } from 'node:fs';
 import { MEDIA_BASE_URL } from 'astro:env/server';
@@ -12,7 +12,7 @@ const careersDisabled = isPageDisabled('careers')
 
 const peopleData = await getEntry('people', 'people');
 if (!peopleData) throw new Error('People data not found');
-const { photos, stats, contractTypes, leadership, testimonials, interviews } = peopleData.data;
+const { photos, contractTypes, leadership, testimonials, interviews } = peopleData.data;
 
 /** Plain-text transcript built from the captions, so the interview is readable without playing it. */
 function readTranscript(slug: string): string {
@@ -34,20 +34,13 @@ const contractIcons: Record<string, typeof Users> = {
   'shield-check': ShieldCheck,
 };
 
-const statIcons: Record<string, typeof Users> = {
-  users: Users,
-  briefcase: Briefcase,
-  growth: TrendingUp,
-  calendar: Calendar,
-  refresh: RotateCw,
-};
 
 function getInitials(name: string): string {
   return name.split(' ').map(n => n[0]).join('').toUpperCase();
 }
 ---
 
-<Layout title="Notre équipe" description="Découvrez l'équipe zatsit : 36 talents passionnés qui partagent leur expertise numérique avec engagement et bienveillance.">
+<Layout title="Notre équipe" description="Découvrez l'équipe zatsit : des dizaines de talents passionnés de tech, outillés pour le green IT et engagés pour un numérique responsable.">
   <section class="section--hero !pb-10 md:!pb-16">
     <div class="hero-decoration">
       <div class="hero-blob hero-blob--primary"></div>
@@ -61,21 +54,22 @@ function getInitials(name: string): string {
           Notre <span class="text-gradient-glow inline-block">équipe</span>
         </h1>
         <p class="section-description hero-subtitle">
-          36 talents passionnés qui partagent leur quotidien au sein d'une ESN engagée.
-          Spécialisés dans la tech, formés au Green IT, et engagés collectivement pour un numérique responsable.
+          Des dizaines de talents qui partagent leur quotidien au sein d'une ESN engagée.
         </p>
       </div>
-      <ul class="team-stats">
-        {stats.map((stat) => {
-          const IconComponent = statIcons[stat.icon];
-          return (
-            <li>
-              {IconComponent && <IconComponent class="icon-md icon-primary" aria-hidden="true" />}
-              <span class="team-stat-value text-gradient">{stat.value}</span>
-              <span class="team-stat-label">{stat.label}</span>
-            </li>
-          );
-        })}
+      <ul class="team-pillars">
+        <li>
+          <CodeXml class="icon-lg icon-primary" aria-hidden="true" />
+          <span>Passionnés de <span class="text-gradient">tech</span></span>
+        </li>
+        <li>
+          <Leaf class="icon-lg icon-primary" aria-hidden="true" />
+          <span>Sensibilisés et outillés pour le <span class="text-gradient">green IT</span></span>
+        </li>
+        <li>
+          <HeartHandshake class="icon-lg icon-primary" aria-hidden="true" />
+          <span>Engagés pour un <span class="text-gradient">numérique responsable</span></span>
+        </li>
       </ul>
     </div>
   </section>
@@ -248,33 +242,27 @@ function getInitials(name: string): string {
     .team-tight { padding-block: 3.5rem; }
   }
 
-  .team-stats {
+  .team-pillars {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem 1rem;
-    max-width: 56rem;
-    margin: 2rem auto 0;
+    gap: 1.5rem;
+    max-width: 60rem;
+    margin: 2.5rem auto 0;
     padding: 0;
     list-style: none;
     text-align: center;
   }
-  @media (min-width: 640px) {
-    .team-stats { grid-template-columns: repeat(4, 1fr); }
+  @media (min-width: 768px) {
+    .team-pillars { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
   }
-  .team-stats li {
+  .team-pillars li {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.25rem;
-  }
-  .team-stat-value {
-    font-size: 1.75rem;
+    gap: 0.75rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    line-height: 1.1;
-  }
-  .team-stat-label {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
+    line-height: 1.3;
+    text-wrap: balance;
   }
 
   .team-collective {
