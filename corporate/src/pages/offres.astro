@@ -1,0 +1,755 @@
+---
+import { getEntry } from 'astro:content';
+import { ArrowDown, ArrowRight, ExternalLink, Gauge, ShieldCheck } from '@lucide/astro';
+import Layout from '../layouts/Layout.astro';
+import { isPageDisabled } from '../lib/pages';
+import { withBoldBrand } from '../lib/brand';
+
+const offersData = await getEntry('offers', 'offers');
+if (!offersData) throw new Error('Offers data not found');
+const { hero, method, packages, refusalsTitle, refusals, proofsTitle, proofsIntro, proofs, cta } = offersData.data;
+
+const manifestoDisabled = isPageDisabled('manifeste');
+const careersDisabled = isPageDisabled('careers');
+const teamDisabled = isPageDisabled('team');
+
+// A proof may point to a page this build hides
+const proofHref = (href?: string) => (href === '/team/' && teamDisabled ? undefined : href);
+
+// The method pipeline, in order. Every package covers a subset of it.
+const STATIONS = [
+  { key: 'spec', label: 'Spec' },
+  { key: 'code', label: 'Code' },
+  { key: 'test', label: 'Test' },
+  { key: 'deploiement', label: 'Déploiement' },
+  { key: 'mesure', label: 'Mesure' },
+] as const;
+
+const stationLabels = (keys: readonly string[]) =>
+  STATIONS.filter((station) => keys.includes(station.key)).map((station) => station.label).join(', ');
+---
+
+<Layout
+  title="Nos offres"
+  description="L'IA écrit du code, quelqu'un doit en répondre. Quatre packages de product engineering augmenté : AI-readiness par le code, pilote spec-driven, reprise de code existant, dev augmenté en équipe."
+>
+  <section class="section--hero !pb-10 md:!pb-16">
+    <div class="hero-decoration">
+      <div class="hero-blob hero-blob--primary"></div>
+      <div class="hero-blob hero-blob--secondary"></div>
+    </div>
+    <div class="dot-grid"></div>
+
+    <div class="container">
+      <div class="max-w-4xl">
+        <h1 class="offers-title hero-title">
+          {hero.title}
+          <span class="text-gradient-glow">{hero.highlight}</span>
+        </h1>
+        <p class="section-description hero-subtitle max-w-2xl">{hero.subtitle}</p>
+        <div class="hero-cta flex flex-wrap gap-4">
+          <a href="#packages" class="btn-primary">
+            {hero.primaryCta}
+            <ArrowDown class="icon-sm" aria-hidden="true" />
+          </a>
+          <a href="/work-with-us/" class="btn-secondary">{hero.secondaryCta}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Runs while the page is parsed, before the pipeline below is painted, so
+      the first frame already shows the pending state: no flash of the drawn
+      rail before the animation. Without JS or with reduced motion, the
+      attribute is never set and everything renders final. */}
+  <script is:inline data-astro-rerun>
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      document.documentElement.setAttribute('data-reveal-js', '');
+    }
+  </script>
+
+  {/* The method: five stations on one rail. The rail draws once, at mid viewport. */}
+  <section id="methode" class="method scroll-mt-20" aria-labelledby="method-title">
+    <div class="container">
+      <div class="method-head">
+        <h2 id="method-title" class="method-title">{method.title}</h2>
+        <p class="method-caption">{method.caption}</p>
+      </div>
+      <ol class="pipeline" data-reveal>
+        {STATIONS.map((station, index) => (
+          <li class="pipeline-station" style={`--i: ${index}`}>
+            <span class="pipeline-dot" aria-hidden="true"></span>
+            <span class="pipeline-label">{station.label}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  {/* One package per section, hung on a vertical spine that continues the rail. */}
+  <div class="packs scroll-mt-20" id="packages">
+    {packages.map((pack, index) => (
+      <section class="pack scroll-mt-20" id={pack.id} aria-labelledby={`${pack.id}-title`}>
+        <div class="container pack-grid">
+          <div class="pack-side">
+            <span class="pack-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <p class="pack-situation">{pack.situation}</p>
+            <span class="sr-only">Étapes couvertes : {stationLabels(pack.stations)}.</span>
+            <ol class="track" aria-hidden="true" data-reveal>
+              {STATIONS.map((station, stationIndex) => {
+                const on = pack.stations.includes(station.key);
+                const next = STATIONS[stationIndex + 1];
+                const linked = on && next !== undefined && pack.stations.includes(next.key);
+                return (
+                  <li class:list={['track-stop', { 'track-stop--on': on, 'track-stop--linked': linked }]} style={`--i: ${stationIndex}`}>
+                    <span class="track-dot"></span>
+                    <span class="track-label">{station.label}</span>
+                  </li>
+                );
+              })}
+            </ol>
+            <p class="pack-roles-label">Qui vient chez vous</p>
+            <ul class="pack-roles" aria-label="Rôles mobilisés">
+              {pack.roles.map((role) => <li class="tag">{role}</li>)}
+            </ul>
+          </div>
+
+          <div class="pack-main">
+            <h2 id={`${pack.id}-title`} class="pack-title">{pack.title}</h2>
+            <p class="pack-pitch" set:html={withBoldBrand(pack.pitch)} />
+
+            <div class="pack-sheet">
+              <div class="pack-deal">
+                <p class="pack-field-label">Forme</p>
+                <p class="pack-form">{pack.form}</p>
+                <p class="pack-field-label">Livrable</p>
+                <p class="pack-deliverable">{pack.deliverable}</p>
+              </div>
+              <dl class="pack-orient">
+                <div>
+                  <dt><Gauge class="icon-sm" aria-hidden="true" /> Mesuré</dt>
+                  <dd>{pack.measured}</dd>
+                </div>
+                <div>
+                  <dt><ShieldCheck class="icon-sm" aria-hidden="true" /> Souverain, si possible</dt>
+                  <dd>{pack.sovereign}</dd>
+                </div>
+              </dl>
+            </div>
+            {pack.tree && (
+              <ul class="repo-tree" aria-label="Contenu du dépôt livré">
+                {pack.tree.map((entry) => (
+                  <li>
+                    <code>{entry.path}</code>
+                    <span>{entry.note}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+      </section>
+    ))}
+  </div>
+
+  <section class="section refusals" aria-labelledby="refusals-title">
+    <div class="container refusals-grid">
+      <h2 id="refusals-title" class="refusals-title">{refusalsTitle}</h2>
+      <ol class="refusals-list">
+        {refusals.map((refusal) => (
+          <li>
+            <p class="refusal-claim">{refusal.claim}</p>
+            <p class="refusal-why" set:html={withBoldBrand(refusal.why)} />
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--surface" aria-labelledby="proofs-title">
+    <div class="container">
+      <div class="max-w-3xl mb-10">
+        <h2 id="proofs-title" class="section-title">{proofsTitle}</h2>
+        <p class="section-description !mb-0">{proofsIntro}</p>
+      </div>
+      <ul class="proofs">
+        {proofs.map((proof) => (
+          <li class="proof">
+            <p class="proof-lead">{proof.lead}</p>
+            <p class="proof-text" set:html={withBoldBrand(proof.text)} />
+            {proofHref(proof.href) && (proof.href!.startsWith('/') ? (
+              <a href={proof.href} class="link-primary proof-link">
+                {proof.label}
+                <ArrowRight class="icon-sm" aria-hidden="true" />
+              </a>
+            ) : (
+              <a href={proof.href} target="_blank" rel="noopener noreferrer" class="link-primary proof-link">
+                {proof.label}
+                <ExternalLink class="icon-sm" aria-hidden="true" />
+                <span class="sr-only">, dans un nouvel onglet</span>
+              </a>
+            ))}
+          </li>
+        ))}
+      </ul>
+      {(!manifestoDisabled || !careersDisabled) && (
+        <p class="proofs-more">
+          Notre façon de travailler n'est pas réservée à nos clients.
+          {!manifestoDisabled && (
+            <> Elle est écrite dans <a href="/manifeste/" class="link-primary">notre manifeste</a></>
+          )}
+          {!manifestoDisabled && !careersDisabled && <> et</>}
+          {!careersDisabled && (
+            <> elle se lit dans <a href="/careers/" class="link-primary">les rôles que nous recrutons</a></>
+          )}.
+        </p>
+      )}
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 id="contact-title" class="section-title">{cta.title}</h2>
+        <p class="section-description">{cta.text}</p>
+        <a href="/work-with-us/" class="btn-primary">
+          {cta.button}
+          <ArrowRight class="icon-sm" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // One-shot reveals: each [data-reveal] draws itself once it reaches the middle
+  // of the viewport. The pending state comes from the inline script above.
+  function initReveals() {
+    if (!document.documentElement.hasAttribute('data-reveal-js')) return;
+
+    document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((target) => {
+      if (target.dataset.reveal === 'done') return;
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          target.dataset.reveal = 'done';
+          obs.disconnect();
+        },
+        { root: null, rootMargin: '-50% 0px -50% 0px', threshold: 0 },
+      );
+      observer.observe(target);
+    });
+  }
+
+  document.addEventListener('astro:page-load', initReveals);
+</script>
+
+<style>
+  .offers-title {
+    font-size: clamp(2.25rem, 1.4rem + 4vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-wrap: balance;
+  }
+
+  /* ---- Method band: primary surface, on-primary text ---- */
+  .method {
+    padding: 4rem 0 5rem;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    overflow-x: clip;
+  }
+  @media (min-width: 768px) {
+    .method { padding: 5rem 0 6rem; }
+  }
+  .method-head {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  @media (min-width: 1024px) {
+    .method-head {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      column-gap: 5rem;
+      align-items: end;
+    }
+  }
+  .method-title {
+    font-size: clamp(2rem, 1.3rem + 2.5vw, 3.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    text-wrap: balance;
+  }
+  .method-caption {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    max-width: 48ch;
+    color: color-mix(in srgb, var(--color-on-primary) 82%, var(--color-primary));
+  }
+
+  .pipeline {
+    --rail-y: 0.625rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .pipeline-station {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  /* The rail: a faint base line, and a full-strength line drawn over it */
+  .pipeline-station::before,
+  .pipeline-station::after {
+    content: "";
+    position: absolute;
+    top: var(--rail-y);
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transform: translateY(-50%);
+  }
+  .pipeline-station::before {
+    background: color-mix(in srgb, var(--color-on-primary) 25%, transparent);
+  }
+  .pipeline-station::after {
+    background: var(--color-on-primary);
+    transform-origin: left center;
+  }
+  .pipeline-station:last-child::before,
+  .pipeline-station:last-child::after {
+    width: 50%;
+  }
+  .pipeline-dot {
+    position: relative;
+    z-index: 1;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: var(--color-on-primary);
+    box-shadow: 0 0 0 6px var(--color-primary);
+  }
+  .pipeline-label {
+    font-size: clamp(1rem, 0.6rem + 1.4vw, 1.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  /* Small screens: the rail turns vertical, stations stacked, labels full size */
+  @media (max-width: 639px) {
+    .pipeline {
+      grid-template-columns: 1fr;
+      row-gap: 0;
+    }
+    .pipeline-station {
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+    }
+    .pipeline-station::before,
+    .pipeline-station::after {
+      top: 0.625rem;
+      left: calc(0.625rem - 1px);
+      width: 2px;
+      height: 100%;
+      transform: none;
+    }
+    .pipeline-station::after { transform-origin: top center; }
+    .pipeline-station:last-child { padding-bottom: 0; }
+    .pipeline-station:last-child::before,
+    .pipeline-station:last-child::after { display: none; }
+    .pipeline-label { font-size: 1.125rem; }
+    html[data-reveal-js] .pipeline:not([data-reveal="done"]) .pipeline-station::after {
+      transform: scaleY(0);
+    }
+    html[data-reveal-js] .pipeline:not([data-reveal="done"]) .pipeline-label {
+      transform: translateX(0.5rem);
+    }
+  }
+  /* Reveal: the rail draws station by station, the dots pop in */
+  .pipeline[data-reveal] .pipeline-station::after {
+    transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--i) * 0.45s + 0.3s);
+  }
+  .pipeline[data-reveal] .pipeline-dot,
+  .pipeline[data-reveal] .pipeline-label {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i) * 0.45s), opacity 0.4s ease calc(var(--i) * 0.45s);
+  }
+  html[data-reveal-js] .pipeline:not([data-reveal="done"]) .pipeline-station::after {
+    transform: translateY(-50%) scaleX(0);
+  }
+  html[data-reveal-js] .pipeline:not([data-reveal="done"]) .pipeline-dot {
+    transform: scale(0);
+  }
+  html[data-reveal-js] .pipeline:not([data-reveal="done"]) .pipeline-label {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+
+  /* ---- Packages hung on a vertical spine ---- */
+  .packs {
+    position: relative;
+  }
+  .pack {
+    padding: 4rem 0;
+    position: relative;
+  }
+  .pack:nth-child(even) {
+    background: var(--color-surface);
+  }
+  @media (min-width: 1024px) {
+    .pack { padding: 5.5rem 0; }
+  }
+  .pack-grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+  /* Below the two-column layout, the side column dissolves so the roles can
+     follow the package sheet instead of preceding its title */
+  @media (max-width: 1023px) {
+    .pack-side { display: contents; }
+    .pack-roles-label,
+    .pack-roles { order: 1; }
+    .pack-roles-label { margin-top: 0; }
+    .pack-side .track { margin-bottom: 0.5rem; }
+  }
+  @media (min-width: 1024px) {
+    .pack-grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      column-gap: 5rem;
+    }
+    .pack-side {
+      position: sticky;
+      top: 7rem;
+      align-self: start;
+    }
+    /* The spine runs through the side column, from one package to the next */
+    .pack-side::before {
+      content: "";
+      position: absolute;
+      left: 0.5rem;
+      top: -5.5rem;
+      bottom: -5.5rem;
+      width: 2px;
+      background: color-mix(in srgb, var(--color-primary) 30%, transparent);
+    }
+    .pack:first-child .pack-side::before { top: 0.75rem; }
+    .pack:last-child .pack-side::before { bottom: auto; height: calc(100% + 5.5rem); }
+    .pack-side { padding-left: 2.5rem; position: relative; }
+    .pack-side::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.75rem;
+      width: 1.125rem;
+      height: 1.125rem;
+      border-radius: 50%;
+      background: var(--color-primary);
+      box-shadow: 0 0 0 5px var(--color-bg);
+    }
+    .pack:nth-child(even) .pack-side::after { box-shadow: 0 0 0 5px var(--color-surface); }
+  }
+  .pack-index {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 0.75rem;
+  }
+  .pack-situation {
+    font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    margin-bottom: 1.75rem;
+  }
+
+  .pack-roles-label {
+    margin-top: 2rem;
+    margin-bottom: 0.625rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+  .pack-roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  /* The SDD deliverable, shown as what it is: a repository */
+  .repo-tree {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    list-style: none;
+    border-radius: var(--radius-lg);
+    background: var(--color-text);
+    color: var(--color-bg);
+    display: grid;
+    gap: 0.5rem;
+  }
+  .repo-tree li {
+    display: grid;
+    grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: baseline;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+  .repo-tree code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.8125rem;
+    color: var(--color-bg);
+  }
+  .repo-tree span {
+    color: color-mix(in srgb, var(--color-bg) 72%, var(--color-text));
+  }
+  @media (max-width: 479px) {
+    .repo-tree li { grid-template-columns: 1fr; gap: 0.125rem; }
+  }
+
+  /* Mini track: which stations of the pipeline this package covers */
+  .track {
+    --rail-y: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: 26rem;
+  }
+  .track-stop {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  .track-stop::before,
+  .track-stop::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 100%;
+    top: var(--rail-y);
+    transform: translateY(-50%);
+  }
+  .track-stop::before {
+    height: 2px;
+    background: var(--color-border);
+  }
+  .track-stop--linked::after {
+    height: 3px;
+    border-radius: 2px;
+    background: var(--color-primary);
+    transform-origin: left center;
+  }
+  .track-stop:last-child::before { display: none; }
+  .track-dot {
+    position: relative;
+    z-index: 1;
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-top: calc(var(--rail-y) - 0.375rem);
+    border-radius: 50%;
+    border: 2px solid var(--color-border);
+    background: var(--color-bg);
+  }
+  .pack:nth-child(even) .track-dot { background: var(--color-surface); }
+  .track-stop--on .track-dot {
+    width: 1rem;
+    height: 1rem;
+    margin-top: calc(var(--rail-y) - 0.5rem);
+    border: 3px solid var(--color-primary);
+  }
+  .track-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  .track-stop--on .track-label { color: var(--color-text); }
+  .track[data-reveal] .track-stop--on .track-dot {
+    transition: border-color 0.4s ease calc(var(--i) * 0.12s);
+  }
+  .track[data-reveal] .track-stop--linked::after {
+    transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--i) * 0.12s + 0.1s);
+  }
+  html[data-reveal-js] .track:not([data-reveal="done"]) .track-stop--on .track-dot { border-color: var(--color-border); }
+  html[data-reveal-js] .track:not([data-reveal="done"]) .track-stop--linked::after { transform: translateY(-50%) scaleX(0); }
+
+  .pack-title {
+    font-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    text-wrap: balance;
+  }
+  .pack-pitch {
+    font-size: 1.25rem;
+    line-height: 1.55;
+    max-width: 56ch;
+    margin-bottom: 2.5rem;
+  }
+  .pack-sheet {
+    display: grid;
+    gap: 2.5rem;
+  }
+  @media (min-width: 768px) {
+    .pack-sheet {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      column-gap: 3rem;
+    }
+  }
+  .pack-field-label {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    margin-bottom: 0.375rem;
+  }
+  .pack-form {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+  .pack-deliverable {
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .pack-orient {
+    display: grid;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    align-self: start;
+  }
+  .pack-orient dt {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.375rem;
+  }
+  .pack-orient dd {
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    font-size: 0.9375rem;
+  }
+
+  /* ---- Refusals: the page inverts its colors to say what it does not sell ---- */
+  .refusals {
+    background: var(--color-text);
+    color: var(--color-bg);
+  }
+  .refusals-grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+  @media (min-width: 1024px) {
+    .refusals-grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      column-gap: 5rem;
+    }
+    .refusals-title {
+      position: sticky;
+      top: 7rem;
+    }
+  }
+  .refusals-title {
+    font-size: clamp(2rem, 1.3rem + 2.5vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    align-self: start;
+    text-wrap: balance;
+  }
+  .refusals-list {
+    list-style: none;
+    padding: 0;
+  }
+  .refusals-list li {
+    padding: 1.75rem 0;
+    border-top: 1px solid color-mix(in srgb, var(--color-bg) 25%, transparent);
+  }
+  .refusals-list li:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+  .refusal-claim {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+    text-wrap: balance;
+  }
+  .refusal-why {
+    color: color-mix(in srgb, var(--color-bg) 72%, var(--color-text));
+    line-height: 1.6;
+    max-width: 60ch;
+  }
+
+  /* ---- Proofs: four facts set large ---- */
+  .proofs {
+    display: grid;
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+  }
+  @media (min-width: 640px) {
+    .proofs { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .proofs { grid-template-columns: repeat(4, 1fr); gap: 3rem; }
+  }
+  .proof {
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--color-primary);
+  }
+  .proof-lead {
+    font-size: clamp(1.75rem, 1.2rem + 1.5vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+  }
+  .proof-text {
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+  .proof-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-top: 0.75rem;
+    min-height: 44px;
+  }
+  .proofs-more {
+    margin-top: 3rem;
+    max-width: 65ch;
+    color: var(--color-text-muted);
+  }
+  .proofs-more a {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pipeline[data-reveal] .pipeline-station::after,
+    .pipeline[data-reveal] .pipeline-dot,
+    .pipeline[data-reveal] .pipeline-label,
+    .track[data-reveal] .track-stop--on .track-dot,
+    .track[data-reveal] .track-stop--linked::after { transition: none; }
+  }
+</style>

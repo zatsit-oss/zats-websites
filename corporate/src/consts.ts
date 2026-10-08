@@ -80,7 +80,7 @@ export const PAGE_SUMMARIES: Record<string, { label: string; summary: string }> 
     summary: "ce que fait zatsit, pour qui, et les convictions qui guident nos missions",
   },
   team: {
-    label: 'Notre équipe',
+    label: 'Notre collectif',
     summary: 'les consultantes et consultants de zatsit, avec leur rôle',
   },
   tech: {
@@ -89,8 +89,16 @@ export const PAGE_SUMMARIES: Record<string, { label: string; summary: string }> 
       "les technologies et les méthodes que nous pratiquons : Java, Node.js, Vue.js, Kubernetes, DDD, contract-first, architecture hexagonale",
   },
   careers: {
-    label: "Nos offres d'emploi",
-    summary: 'les postes ouverts chez zatsit',
+    label: 'Carrière',
+    summary: 'les rôles chez zatsit (Forward Deployed Engineer, Product Engineer, Tech Lead Agentic, Augmented Engineer, Platform Engineer) et notre façon de travailler augmentée par l’IA',
+  },
+  offres: {
+    label: 'Nos offres',
+    summary: "l'offre de product engineering augmenté de zatsit en quatre packages (AI-readiness, projet spec-driven, reprise de code existant, dev augmenté en équipe), ce qui est mesuré et ce que zatsit refuse de promettre",
+  },
+  manifeste: {
+    label: 'Manifeste',
+    summary: 'la conviction derrière nos offres : une ingénierie sobre parce que bien architecturée',
   },
   'join-us': {
     label: 'Ton futur package',
@@ -99,6 +107,10 @@ export const PAGE_SUMMARIES: Record<string, { label: string; summary: string }> 
   'work-with-us': {
     label: 'Travaillons ensemble',
     summary: 'le formulaire de contact pour nous parler d’un projet',
+  },
+  apply: {
+    label: 'Postuler',
+    summary: 'le formulaire pour nous envoyer une candidature',
   },
   'find-us': {
     label: 'Nous trouver',

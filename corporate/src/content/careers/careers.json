@@ -1,0 +1,149 @@
+{
+  "practices": [
+    {
+      "title": "La spec d'abord",
+      "description": "Nous écrivons ce que nous voulons avant de le générer : contrats standardisés (OpenAPI, AsyncAPI, CloudEvents, etc), critères d'acceptation, ou décisions tracées en ADR."
+    },
+    {
+      "title": "Un contexte maîtrisé",
+      "description": "Un agent ne voit que ce dont il a besoin. Un contexte cadré donne des réponses justes, et coûte moins cher."
+    },
+    {
+      "title": "Le bon modèle pour la bonne tâche, au bon effort",
+      "description": "Pas de modèle frontière par réflexe. Nous choisissons selon la tâche, la confidentialité et l'empreinte."
+    },
+    {
+      "title": "Mesuré, toujours",
+      "description": "Tests, revues, métriques : ce qui sort d'un agent passe les mêmes exigences que ce que nous écrivons à la main."
+    }
+  ],
+  "roles": [
+    {
+      "id": "forward-deployed-engineer",
+      "title": "Forward Deployed Engineer",
+      "pitch": "Tu t'embarques chez le client, côté métier comme côté technique, tu prends en main un problème prioritaire et tu le mènes jusqu'en production, puis jusqu'à ce qu'il soit vraiment utilisé.",
+      "profile": "Profil senior uniquement : tu codes en production et tu tiens la discussion avec une direction métier.",
+      "daily": [
+        "Diagnostic avec les directions métier et les opérationnels : le vrai besoin, pas la demande telle qu'elle arrive",
+        "Du prototype à la production : code, architecture et intégration à l'existant (API, données, sécurité)",
+        "Évaluation et observabilité, pour que la solution tienne en production",
+        "Suivi jusqu'à l'adoption, et retour d'expérience au collectif pour en faire des pratiques"
+      ],
+      "sdlcPhases": [
+        "cadrage",
+        "conception",
+        "implementation",
+        "tests",
+        "deploiement",
+        "mco"
+      ],
+      "augmentedBy": [
+        "Diagnostics IA",
+        "Reprise de code legacy",
+        "Context Engineering"
+      ]
+    },
+    {
+      "id": "product-engineer",
+      "title": "Product Engineer",
+      "pitch": "Tu pilotes l'ensemble du cycle produit, de la spécification à la mise en production, avec l'IA comme levier de productivité. Tu couvres la majeure partie du périmètre technique : UX, UI, front, API, back, sécurité.",
+      "profile": "3 à 5 ans d'expérience minimum.",
+      "daily": [
+        "Spécifications rigoureuses, contrats d'API écrits avant le code",
+        "Production de code orchestrée via les LLM, relue et testée",
+        "Pipelines CI/CD robustes, déploiement sous contrôle",
+        "Supervision proactive des applications en production"
+      ],
+      "sdlcPhases": [
+        "conception",
+        "implementation",
+        "tests",
+        "deploiement",
+        "mco"
+      ],
+      "augmentedBy": [
+        "Spec Driven Development",
+        "Harness Engineering"
+      ]
+    },
+    {
+      "id": "tech-lead",
+      "title": "Tech Lead Agentic",
+      "pitch": "Tu gardes un système et une équipe cohérents dans la durée.",
+      "daily": [
+        "Architecture adaptée au contexte (N-tiers, hexagonale, etc.), documentée as code (C4 Model, diagrammes Mermaid, etc.)",
+        "Revues de code et choix techniques tracés en ADR",
+        "Mise en place de la stack agentique de ta squad",
+        "Montée en compétence de l'équipe (BBL, formations)"
+      ],
+      "sdlcPhases": [
+        "cadrage",
+        "conception",
+        "implementation",
+        "tests"
+      ],
+      "augmentedBy": [
+        "Orchestration d'agents",
+        "Audits agentiques"
+      ]
+    },
+    {
+      "id": "developpeur-augmente",
+      "title": "Augmented Engineer",
+      "pitch": "Tu écris la spec, tu fais générer le code, tu le relis et tu le testes. L'IA t'accélère, tu es garant du résultat.",
+      "daily": [
+        "Specs et contrats d'API écrits avant le code, le code est généré par tes agents",
+        "Contextes cadrés : l'agent voit ce dont il a besoin, rien de plus",
+        "Revue et tests sur tout ce qui sort d'un agent, sans exception",
+        "Tu contribues à la stack agentique de ta squad"
+      ],
+      "sdlcPhases": [
+        "conception",
+        "implementation",
+        "tests"
+      ],
+      "augmentedBy": [
+        "Spec Driven Development",
+        "Context Engineering",
+        "Harness Engineering"
+      ]
+    },
+    {
+      "id": "platform-engineer",
+      "title": "Platform Engineer",
+      "pitch": "Tu codes l'infrastructure, tu outilles les déploiements et tu tiens la production.",
+      "daily": [
+        "Infrastructure as code (Terraform, Ansible, etc.)",
+        "Pipelines CI/CD et déploiements Cloud Native (conteneurs, FaaS, etc)",
+        "Maintien et résilience de la production"
+      ],
+      "sdlcPhases": [
+        "conception",
+        "deploiement",
+        "mco"
+      ],
+      "augmentedBy": [
+        "Context Engineering",
+        "Garde-fous de sécurité"
+      ]
+    }
+  ],
+  "growth": [
+    {
+      "title": "Tes contributions comptent",
+      "description": "Cooptation, articles, prises de parole : ce que tu apportes au collectif est pris en compte dans ton évolution de carrière."
+    },
+    {
+      "title": "Tu portes tes initiatives",
+      "description": "Une idée de projet ou de culture d'entreprise ? Tu la soumets au collectif. Si elle convainc, tu la mènes jusqu'au bout."
+    },
+    {
+      "title": "Tu décides avec nous",
+      "description": "Gouvernance partagée : les orientations de zatsit se discutent et se votent, ton avis est une voix."
+    },
+    {
+      "title": "Tu choisis ton statut",
+      "description": "Salarié, indépendant ou en portage, et tu peux passer de l'un à l'autre si ta situation change."
+    }
+  ]
+}

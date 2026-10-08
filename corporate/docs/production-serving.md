@@ -58,6 +58,8 @@ gcloud compute backend-buckets update zatsit-corporate-prod-v1 \
 
 Brotli, factor 4.8: `/` went to 17 824 bytes, the main stylesheet from 57 714 to 10 330.
 
+**This is a property of the hosting, not of the site.** Wherever the site is served from in the future (another bucket, a CDN, nginx, a PaaS), response compression for HTML, CSS, JS, SVG and JSON has to be switched on and verified with the `curl` below; a static site cannot compress itself. Checked again on 2026-10-08: `content-encoding: br` on `zatsit.fr/`.
+
 **Do not try to fix this in the publish workflow.** `gcloud storage rsync` only offers `--gzip-in-flight`, which is *transport* encoding: the object lands decompressed and the served response is unchanged. `--gzip-local`, which stores it compressed with the right metadata, exists on `gcloud storage cp` but **not on `rsync`**.
 
 ## Security headers and the CSP

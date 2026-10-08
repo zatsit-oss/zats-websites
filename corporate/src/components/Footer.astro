@@ -7,8 +7,10 @@ import SustainabilityIcon from '../assets/icons/sustainability.svg';
 import { CodeXml, Mail, MapPin } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import ecovadisMedal from '../assets/ecovadis-medal.webp';
-import BcorpBlack from '../assets/bcorp-black.svg';
-import BcorpLight from '../assets/bcorp-light.svg';
+// As URLs, not inline components: the two badges weighed 30 KB in every page's
+// HTML, and only the one for the current theme is fetched as a background
+import bcorpBlackUrl from '../assets/bcorp-black.svg?url';
+import bcorpLightUrl from '../assets/bcorp-light.svg?url';
 ---
 
 <footer class="footer-main">
@@ -38,9 +40,32 @@ import BcorpLight from '../assets/bcorp-light.svg';
 
               The badge still calls api.websitecarbon.com at runtime, which is
               the point of a live measurement, and caches the result for a day.
-              That origin has to be allowed in `connect-src`. */}
+              That origin has to be allowed in `connect-src`.
+
+              Loaded only once the footer comes into view (docs/adr/0001):
+              a visitor who never scrolls down triggers no third-party call. */}
           <script>
-            import 'website-carbon-badges/b.min.js';
+            function loadCarbonBadge() {
+              const badge = document.getElementById('wcb');
+              if (!badge || badge.dataset.loaded) return;
+              const start = () => {
+                badge.dataset.loaded = '1';
+                import('website-carbon-badges/b.min.js');
+              };
+              if (!('IntersectionObserver' in window)) {
+                start();
+                return;
+              }
+              const observer = new IntersectionObserver((entries, obs) => {
+                if (!entries.some((entry) => entry.isIntersecting)) return;
+                obs.disconnect();
+                start();
+              }, { rootMargin: '200px 0px' });
+              observer.observe(badge);
+            }
+
+            loadCarbonBadge();
+            document.addEventListener('astro:page-load', loadCarbonBadge);
           </script>
           <script>
             function syncCarbonBadgeTheme() {
@@ -114,10 +139,14 @@ import BcorpLight from '../assets/bcorp-light.svg';
       <!-- Col 3: EcoVadis + B Corp -->
       <div class="flex items-center gap-4">
         <Image src={ecovadisMedal} alt="EcoVadis Silver Medal - Top 15%" width={84} height={84} class="opacity-90" />
-        <a href="https://www.bcorporation.net/" target="_blank" rel="noopener noreferrer" aria-label="Certification B Corp">
-          <BcorpBlack class="bcorp-badge-black" width={76} height={116} />
-          <BcorpLight class="bcorp-badge-light" width={76} height={116} />
-        </a>
+        <a
+          href="https://www.bcorporation.net/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Certification B Corp, dans un nouvel onglet"
+          class="bcorp-badge"
+          style={`--bcorp-black: url(${bcorpBlackUrl}); --bcorp-light: url(${bcorpLightUrl})`}
+        ></a>
       </div>
     </div>
   </div>

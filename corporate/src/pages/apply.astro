@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { APPLY_FORM_URL } from 'astro:env/server';
+import EmbeddedForm from '../components/EmbeddedForm.astro';
+import { isPageDisabled } from '../lib/pages';
+
+const careersDisabled = isPageDisabled('careers');
+const joinUsDisabled = isPageDisabled('join-us');
+---
+
+<Layout
+  title="Postuler"
+  description="Envie de rejoindre le collectif zatsit ? Envoie-nous ta candidature, nous te répondons rapidement."
+>
+  <section class="section--hero !pb-10 md:!pb-16">
+    <div class="hero-decoration">
+      <div class="hero-blob hero-blob--primary"></div>
+      <div class="hero-blob hero-blob--secondary"></div>
+    </div>
+    <div class="dot-grid"></div>
+
+    <div class="container">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="section-title--lg hero-title">
+          Rejoins le <span class="text-gradient-glow">collectif</span>
+        </h1>
+        <p class="section-description hero-subtitle">
+          Dis-nous qui tu es et ce que tu aimes construire. Nous lisons chaque candidature
+          et nous te répondons, dans un sens ou dans l'autre.
+        </p>
+        {(!careersDisabled || !joinUsDisabled) && (
+          <p class="text-muted">
+            Avant d'écrire, tu peux regarder
+            {!careersDisabled && <a href="/careers/" class="link-primary">les rôles que nous recrutons</a>}
+            {!careersDisabled && !joinUsDisabled && ' et '}
+            {!joinUsDisabled && <a href="/join-us/" class="link-primary">ton futur package</a>}.
+          </p>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="section !pt-8 md:!pt-12">
+    <div class="container">
+      <div class="max-w-3xl mx-auto">
+        <EmbeddedForm url={APPLY_FORM_URL} title="Formulaire de candidature" action="Afficher le formulaire de candidature" />
+      </div>
+    </div>
+  </section>
+</Layout>
+

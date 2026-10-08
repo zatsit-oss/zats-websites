@@ -34,6 +34,17 @@ const peopleCollection = defineCollection({
       role: z.string(),
       quote: z.string(),
     })),
+    // Video interviews: `slug` names the files (<slug>.webm/.mp4 in the media
+    // bucket, <slug>.avif and <slug>.fr.vtt under public/videos/team/)
+    interviews: z.array(z.object({
+      slug: z.string(),
+      name: z.string(),
+      role: z.string(),
+      duration: z.string(),
+      // Object name in the media bucket when it differs from the slug: renditions
+      // are published immutable, so a replaced video gets a new name
+      media: z.string().optional(),
+    })).default([]),
   }),
 });
 
@@ -125,7 +136,91 @@ const techCollection = defineCollection({
   }),
 });
 
+const careersCollection = defineCollection({
+  loader: jsonIn('careers'),
+  schema: z.object({
+    practices: z.array(z.object({
+      title: z.string(),
+      description: z.string(),
+    })),
+    roles: z.array(z.object({
+      id: z.string(),
+      title: z.string(),
+      pitch: z.string(),
+      // Seniority expected, printed under the pitch when set
+      profile: z.string().optional(),
+      daily: z.array(z.string()),
+      // Phases of the shared SDLC pipeline this role mostly works on
+      sdlcPhases: z.array(sdlcPhase).min(1),
+      augmentedBy: z.array(z.string()),
+    })),
+    growth: z.array(z.object({
+      title: z.string(),
+      description: z.string(),
+    })),
+  }),
+});
+
+// The five stations of the method pipeline that runs through the offers page
+const station = z.enum(['spec', 'code', 'test', 'deploiement', 'mesure']);
+
+const offersCollection = defineCollection({
+  loader: jsonIn('offers'),
+  schema: z.object({
+    hero: z.object({
+      title: z.string(),
+      highlight: z.string(),
+      subtitle: z.string(),
+      primaryCta: z.string(),
+      secondaryCta: z.string(),
+    }),
+    method: z.object({
+      title: z.string(),
+      caption: z.string(),
+    }),
+    packages: z.array(z.object({
+      id: z.string(),
+      situation: z.string(),
+      title: z.string(),
+      pitch: z.string(),
+      // Stations of the pipeline this package covers
+      stations: z.array(station).min(1),
+      // Who comes: the roles from the careers page that staff this package
+      roles: z.array(z.string()).min(1),
+      form: z.string(),
+      deliverable: z.string(),
+      measured: z.string(),
+      sovereign: z.string(),
+      // Optional: the deliverable shown as a repository tree, one entry per path
+      tree: z.array(z.object({ path: z.string(), note: z.string() })).optional(),
+    })).min(1).max(4),
+    refusalsTitle: z.string(),
+    // What the page refuses to promise
+    refusals: z.array(z.object({
+      claim: z.string(),
+      why: z.string(),
+    })),
+    // Facts a visitor can check, each with an optional link
+    proofsTitle: z.string(),
+    proofsIntro: z.string(),
+    proofs: z.array(z.object({
+      // Short figure or word set large above the text
+      lead: z.string(),
+      text: z.string(),
+      href: z.string().optional(),
+      label: z.string().optional(),
+    })),
+    cta: z.object({
+      title: z.string(),
+      text: z.string(),
+      button: z.string(),
+    }),
+  }),
+});
+
 export const collections = {
+  offers: offersCollection,
+  careers: careersCollection,
   legal: legalCollection,
   services: servicesCollection,
   people: peopleCollection,

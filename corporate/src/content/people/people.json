@@ -1,6 +1,6 @@
 {
   "photos": [
-    { "src": "/images/team/groupe.webp", "alt": "L'équipe zatsit au complet" },
+    { "src": "/images/team/groupe.webp", "alt": "Le collectif zatsit au complet" },
     { "src": "/images/team/reunion.webp", "alt": "Réunion de travail en équipe" },
     { "src": "/images/team/collaboration.webp", "alt": "Espace de collaboration" },
     { "src": "/images/team/discussion.webp", "alt": "Discussion informelle entre collègues" },
@@ -74,5 +74,12 @@
       "role": "Développeur",
       "quote": "Je suis développeur fullstack (Java/TypeScript) avec une appétence pour Rust mais aussi une expertise sur la réduction de la consommation et l'amélioration des performances techniques des applications."
     }
+  ],
+  "interviews": [
+    { "slug": "flavien", "name": "Flavien Bailleul", "role": "Co-fondateur", "duration": "3 min 20" },
+    { "slug": "ludovic", "media": "ludovic-v2", "name": "Ludovic Dussart", "role": "CTO associé", "duration": "2 min 27" },
+    { "slug": "celia", "name": "Célia Doolaeghe", "role": "Développeuse Full Stack", "duration": "1 min 39" },
+    { "slug": "guillaume", "name": "Guillaume Gayot", "role": "Développeur", "duration": "3 min 13" },
+    { "slug": "lucas", "name": "Lucas Perreau", "role": "Développeur", "duration": "2 min 58" }
   ]
 }
