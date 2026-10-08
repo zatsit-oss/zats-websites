@@ -107,7 +107,7 @@
       "daily": [
         "Infrastructure as code avec Terraform et Ansible",
         "Pipelines CI/CD et déploiements Cloud Native (conteneurs, FaaS, etc)",
-        "Run et fiabilité en production"
+        "Maintiens et résilience de la production"
       ],
       "sdlcPhases": [
         "conception",
