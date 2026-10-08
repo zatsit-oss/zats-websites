@@ -144,8 +144,8 @@ const contractIcons: Record<string, typeof Heart> = {
                 height="720"
                 aria-label={`Interview de ${interview.name}, ${interview.role}`}
               >
-                <source src={`${MEDIA_BASE_URL}/videos/team/${interview.slug}.webm`} type="video/webm" />
-                <source src={`${MEDIA_BASE_URL}/videos/team/${interview.slug}.mp4`} type="video/mp4" />
+                <source src={`${MEDIA_BASE_URL}/videos/team/${interview.media ?? interview.slug}.webm`} type="video/webm" />
+                <source src={`${MEDIA_BASE_URL}/videos/team/${interview.media ?? interview.slug}.mp4`} type="video/mp4" />
                 <track
                   kind="captions"
                   src={`/videos/team/${interview.slug}.fr.vtt`}

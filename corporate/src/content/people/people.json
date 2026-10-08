@@ -77,7 +77,7 @@
   ],
   "interviews": [
     { "slug": "flavien", "name": "Flavien Bailleul", "role": "Co-fondateur", "duration": "3 min 20" },
-    { "slug": "ludovic", "name": "Ludovic Dussart", "role": "CTO associé", "duration": "2 min 35" },
+    { "slug": "ludovic", "media": "ludovic-v2", "name": "Ludovic Dussart", "role": "CTO associé", "duration": "2 min 27" },
     { "slug": "celia", "name": "Célia Doolaeghe", "role": "Développeuse Full Stack", "duration": "1 min 39" },
     { "slug": "guillaume", "name": "Guillaume Gayot", "role": "Développeur", "duration": "3 min 13" },
     { "slug": "lucas", "name": "Lucas Perreau", "role": "Développeur", "duration": "2 min 58" }

@@ -41,6 +41,9 @@ const peopleCollection = defineCollection({
       name: z.string(),
       role: z.string(),
       duration: z.string(),
+      // Object name in the media bucket when it differs from the slug: renditions
+      // are published immutable, so a replaced video gets a new name
+      media: z.string().optional(),
     })).default([]),
   }),
 });

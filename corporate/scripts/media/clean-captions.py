@@ -33,6 +33,9 @@ FIXES = [
     (r"\bvient (semer|et contribue)", r"viens \1"),
     (r"tu es sorti une mission", "tu es sorti de mission"),
     (r"Doctor House", "Dr House"),
+    (r"sein de son essai", "sein de son SI"),
+    # Whisper dropped the article across a cue boundary ("accueillir dans" | "collectif.")
+    (r"^collectif\. Est-ce", "le collectif. Est-ce"),
 ]
 
 TIME = re.compile(r"^(?:(\d+):)?(\d+):(\d+\.\d+) --> (?:(\d+):)?(\d+):(\d+\.\d+)")
