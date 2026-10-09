@@ -1,6 +1,6 @@
 ---
 import { getEntry } from 'astro:content';
-import { ArrowDown, ArrowRight, ExternalLink, Gauge, ShieldCheck } from '@lucide/astro';
+import { ArrowDown, ArrowRight, ChevronLeft, ChevronRight, ExternalLink, Gauge, ShieldCheck } from '@lucide/astro';
 import Layout from '../layouts/Layout.astro';
 import { isPageDisabled } from '../lib/pages';
 import { withBoldBrand, withBoldTerms } from '../lib/brand';
@@ -91,16 +91,25 @@ const stationLabels = (keys: readonly string[]) =>
     {/* Sticks under the header while the packages scroll by. Plain anchors,
         so it works without JS; the script only marks the current package. */}
     <nav class="packs-toc" aria-label="Les quatre packages">
-      <ol class="container">
-        {packages.map((pack, index) => (
-          <li>
-            <a href={`#${pack.id}`} data-toc-link>
-              <span class="packs-toc-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-              {pack.navLabel}
-            </a>
-          </li>
-        ))}
-      </ol>
+      <div class="container packs-toc-bar">
+        {/* Revealed by the script: without JS the anchors alone do the job */}
+        <button type="button" class="packs-toc-step" aria-label="Package précédent" data-toc-prev hidden>
+          <ChevronLeft class="icon-md" aria-hidden="true" />
+        </button>
+        <ol>
+          {packages.map((pack, index) => (
+            <li>
+              <a href={`#${pack.id}`} data-toc-link>
+                <span class="packs-toc-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                {pack.navLabel}
+              </a>
+            </li>
+          ))}
+        </ol>
+        <button type="button" class="packs-toc-step" aria-label="Package suivant" data-toc-next hidden>
+          <ChevronRight class="icon-md" aria-hidden="true" />
+        </button>
+      </div>
     </nav>
     {packages.map((pack, index) => (
       <section class="pack" id={pack.id} aria-labelledby={`${pack.id}-title`}>
@@ -257,19 +266,56 @@ const stationLabels = (keys: readonly string[]) =>
 
   document.addEventListener('astro:page-load', initReveals);
 
-  // Marks the package crossing the middle of the viewport in the table of contents
+  // Marks the package crossing the middle of the viewport in the table of
+  // contents, keeps that pill in view in the bar on narrow screens, and drives
+  // the previous/next buttons from it.
   function initPacksToc() {
     const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')];
     if (!links.length) return;
-    const setCurrent = (id: string | null) => {
-      for (const link of links) {
-        if (id && link.hash === `#${id}`) link.setAttribute('aria-current', 'location');
+    const prev = document.querySelector<HTMLButtonElement>('[data-toc-prev]');
+    const next = document.querySelector<HTMLButtonElement>('[data-toc-next]');
+    const list = links[0].closest('ol');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let current = -1;
+
+    const setCurrent = (index: number) => {
+      current = index;
+      links.forEach((link, i) => {
+        if (i === index) link.setAttribute('aria-current', 'location');
         else link.removeAttribute('aria-current');
+      });
+      if (prev) prev.disabled = index <= 0;
+      if (next) next.disabled = index >= links.length - 1;
+      // Horizontal only: scrollIntoView would also move the page
+      // Measured from the list itself, not offsetLeft, whose origin is the sticky bar
+      const link = links[index];
+      if (list && link) {
+        const linkBox = link.getBoundingClientRect();
+        const listBox = list.getBoundingClientRect();
+        const left = list.scrollLeft + linkBox.left - listBox.left - (list.clientWidth - linkBox.width) / 2;
+        list.scrollTo({ left, behavior: reduceMotion ? 'auto' : 'smooth' });
       }
     };
+
+    const goTo = (index: number) => {
+      const target = links[index];
+      if (!target) return;
+      document.getElementById(target.hash.slice(1))?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+      history.replaceState(null, '', target.hash);
+    };
+
+    for (const button of [prev, next]) if (button) button.hidden = false;
+    prev?.addEventListener('click', () => goTo(Math.max(current, 0) - 1));
+    next?.addEventListener('click', () => goTo(current + 1));
+    setCurrent(0);
+
     const observer = new IntersectionObserver(
       (entries) => {
-        for (const entry of entries) if (entry.isIntersecting) setCurrent(entry.target.id);
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const index = links.findIndex((link) => link.hash === `#${entry.target.id}`);
+          if (index !== -1) setCurrent(index);
+        }
       },
       { root: null, rootMargin: '-50% 0px -50% 0px', threshold: 0 },
     );
@@ -449,19 +495,28 @@ const stationLabels = (keys: readonly string[]) =>
     /* Right under the header bar: min-h-16, then md:min-h-20 */
     top: 4rem;
     z-index: 40;
-    border-bottom: 1px solid var(--color-border);
-    background: var(--glass-bg, var(--color-bg));
-    backdrop-filter: blur(12px);
+    border-block: 1px solid var(--color-border);
+    background: var(--color-bg);
+    box-shadow: 0 6px 16px -12px rgb(0 0 0 / 0.35);
   }
   @media (min-width: 768px) {
     .packs-toc { top: 5rem; }
   }
+  .packs-toc-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-block: 0.5rem;
+  }
   .packs-toc ol {
     display: flex;
-    gap: 0.25rem 1.5rem;
+    flex: 1;
+    gap: 0.25rem;
     overflow-x: auto;
     scrollbar-width: none;
-    margin: 0 auto;
+    margin: 0;
+    /* Room for the focus ring and the pill's rounded ends inside the clip */
+    padding: 4px;
     list-style: none;
   }
   .packs-toc a {
@@ -469,25 +524,49 @@ const stationLabels = (keys: readonly string[]) =>
     align-items: center;
     gap: 0.5rem;
     min-height: 44px;
+    padding: 0 1rem;
+    border-radius: 999px;
     white-space: nowrap;
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     font-weight: 600;
     color: var(--color-text-muted);
-    border-bottom: 3px solid transparent;
   }
-  .packs-toc a:hover { color: var(--color-text); }
-  .packs-toc a:focus-visible {
+  .packs-toc a:hover { color: var(--color-text); background: var(--color-surface); }
+  .packs-toc a:focus-visible,
+  .packs-toc-step:focus-visible {
     outline: 2px solid var(--color-primary);
-    outline-offset: -2px;
+    outline-offset: 2px;
   }
-  /* Current package: colour, weight of the underline and aria-current, never colour alone */
+  /* Current package: a filled pill plus aria-current, never colour alone */
   .packs-toc a[aria-current] {
-    color: var(--color-primary);
-    border-bottom-color: var(--color-primary);
+    color: var(--color-on-primary);
+    background: var(--color-primary);
   }
   .packs-toc-index {
     font-variant-numeric: tabular-nums;
     font-weight: 400;
+  }
+  .packs-toc-step {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 2px solid var(--color-text-muted);
+    border-radius: 999px;
+    color: var(--color-text);
+    background: transparent;
+    cursor: pointer;
+  }
+  .packs-toc-step[hidden] { display: none; }
+  .packs-toc-step:hover:not(:disabled) {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  .packs-toc-step:disabled {
+    opacity: 0.35;
+    cursor: default;
   }
   /* nth-of-type: the table of contents is the first child of .packs */
   .pack:nth-of-type(even) {
