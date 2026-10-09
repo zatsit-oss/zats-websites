@@ -100,11 +100,11 @@ const isUpcoming = (date: string) => hasDay(date) && date >= today;
                 {talk.summary && <p class="contribution-summary">{talk.summary}</p>}
                 {(talk.video || talk.slides || talk.page || talk.alsoGivenAt.some((edition) => edition.video)) && (
                   <p class="contribution-links">
-                    {/* With several editions, each video link names its event */}
+                    {/* With several recordings, each video link names its event */}
                     {talk.video && (
                       <a href={talk.video} target="_blank" rel="noopener noreferrer" class="contribution-link">
                         <Play class="icon-sm" aria-hidden="true" />
-                        Vidéo{talk.alsoGivenAt.length > 0 && ` ${talk.event}`}<span class="sr-only"> de « {talk.title} », dans un nouvel onglet</span>
+                        Vidéo{talk.alsoGivenAt.some((edition) => edition.video) && ` ${talk.event}`}<span class="sr-only"> de « {talk.title} », dans un nouvel onglet</span>
                       </a>
                     )}
                     {talk.alsoGivenAt.map((edition) => edition.video && (
