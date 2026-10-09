@@ -1987,3 +1987,37 @@ a.bcorp-badge[target="_blank"]::after {
   border: 1px solid color-mix(in srgb, var(--color-primary) 35%, transparent);
   border-radius: var(--radius-lg);
 }
+
+/* Prev/next controls of the horizontal scroll-snap rows, driven by src/scripts/scroll-strips.ts */
+.strip-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  max-width: 72rem;
+  margin: 0 auto 0.75rem;
+}
+.strip-controls[hidden] { display: none; }
+.strip-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--color-text-muted);
+  border-radius: 999px;
+  color: var(--color-text);
+  background: transparent;
+  cursor: pointer;
+}
+.strip-btn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.strip-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+.strip-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}

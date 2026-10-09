@@ -240,39 +240,10 @@ const isUpcoming = (date: string) => hasDay(date) && date >= today;
 </Layout>
 
 <script>
-  // Prev/next buttons for the scroll-snap rows. The rows work without them
-  // (swipe, trackpad, arrow keys once focused); the buttons make the overflow
-  // visible and give pointer users without a trackpad a way through.
-  function initStrips() {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    document.querySelectorAll<HTMLElement>('[data-strip]').forEach((strip) => {
-      const controls = strip.previousElementSibling as HTMLElement | null;
-      if (!controls?.hasAttribute('data-strip-controls')) return;
-      const prev = controls.querySelector<HTMLButtonElement>('[data-strip-prev]');
-      const next = controls.querySelector<HTMLButtonElement>('[data-strip-next]');
-      if (!prev || !next) return;
+  import { initScrollStrips } from '../scripts/scroll-strips';
 
-      const update = () => {
-        const max = strip.scrollWidth - strip.clientWidth;
-        controls.hidden = max <= 1;
-        prev.disabled = strip.scrollLeft <= 1;
-        next.disabled = strip.scrollLeft >= max - 1;
-      };
-      // One card at a time: the snap points do the alignment
-      const step = () => strip.querySelector('li')?.getBoundingClientRect().width ?? strip.clientWidth;
-      const scroll = (direction: number) =>
-        strip.scrollBy({ left: direction * step(), behavior: reduceMotion ? 'auto' : 'smooth' });
-
-      prev.addEventListener('click', () => scroll(-1));
-      next.addEventListener('click', () => scroll(1));
-      strip.addEventListener('scroll', update, { passive: true });
-      new ResizeObserver(update).observe(strip);
-      update();
-    });
-  }
-
-  initStrips();
-  document.addEventListener('astro:after-swap', initStrips);
+  initScrollStrips();
+  document.addEventListener('astro:after-swap', initScrollStrips);
 </script>
 
 <style>
@@ -311,39 +282,6 @@ const isUpcoming = (date: string) => hasDay(date) && date >= today;
   .contributions-strip {
     scrollbar-width: thin;
     scrollbar-color: var(--color-text-muted) transparent;
-  }
-
-  .strip-controls {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
-    max-width: 72rem;
-    margin: 0 auto 0.75rem;
-  }
-  .strip-controls[hidden] { display: none; }
-  .strip-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border: 2px solid var(--color-text-muted);
-    border-radius: 999px;
-    color: var(--color-text);
-    background: transparent;
-    cursor: pointer;
-  }
-  .strip-btn:hover:not(:disabled) {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-  }
-  .strip-btn:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-  }
-  .strip-btn:disabled {
-    opacity: 0.35;
-    cursor: default;
   }
 
   .contributions-strip:focus-visible {
