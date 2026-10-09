@@ -65,9 +65,8 @@ const isUpcoming = (date: string) => hasDay(date) && date >= today;
       </div>
       {!contactDisabled && (
         <div class="contributions-invite">
-          <p>
-            Un de ces sujets parlerait à votre équipe ou à votre événement ?
-            Nous venons le présenter chez vous.
+          <p class="section-description">
+            Un de ces sujets parlerait à votre équipe ou à votre événement ? Nous venons le présenter chez vous.
           </p>
           <a href="/work-with-us/" class="btn-primary">
             Nous inviter
@@ -275,23 +274,13 @@ const isUpcoming = (date: string) => hasDay(date) && date >= today;
     .contributions-grid > li { flex-basis: calc((100% - 3rem) / 3); }
   }
 
+  /* Same pattern as the section intros elsewhere: centred line, then the button */
   .contributions-invite {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem 2rem;
-    max-width: 72rem;
-    margin: 0 auto 2rem;
-    padding: 1.25rem 1.5rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background: color-mix(in srgb, var(--color-primary) 6%, var(--card-bg));
+    max-width: 48rem;
+    margin: -1rem auto 2.5rem;
+    text-align: center;
   }
-  .contributions-invite p {
-    flex: 1 1 20rem;
-    font-weight: 600;
-  }
+  .contributions-invite .section-description { margin-bottom: 1.25rem; }
 
   .contribution {
     display: flex;
