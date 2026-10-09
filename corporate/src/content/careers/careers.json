@@ -46,8 +46,8 @@
     {
       "id": "product-engineer",
       "title": "Product Engineer",
-      "pitch": "Tu pilotes l'ensemble du cycle produit, de la spécification à la mise en production, avec l'IA comme levier de productivité. Tu couvres la majeure partie du périmètre technique : UX, UI, front, API, back, sécurité.",
-      "profile": "3 à 5 ans d'expérience minimum.",
+      "pitch": "Tu pilotes l'ensemble du cycle produit, de la spécification à la mise en production, avec l'IA comme levier de productivité. Tu couvres la majeure partie du périmètre technique avec tes agents : UX, UI, front, API, back, sécurité.",
+      "profile": "Autonome et 5 ans d'expérience minimum.",
       "daily": [
         "Spécifications rigoureuses, contrats d'API écrits avant le code",
         "Production de code orchestrée via les LLM, relue et testée",
@@ -58,8 +58,7 @@
         "conception",
         "implementation",
         "tests",
-        "deploiement",
-        "mco"
+        "deploiement"
       ],
       "augmentedBy": [
         "Spec Driven Development",
@@ -70,6 +69,7 @@
       "id": "tech-lead",
       "title": "Tech Lead Agentic",
       "pitch": "Tu gardes un système et une équipe cohérents dans la durée.",
+      "profile": "Capacité d'encadrement et 5 ans d'expérience minimum.",
       "daily": [
         "Architecture adaptée au contexte (N-tiers, hexagonale, etc.), documentée as code (C4 Model, diagrammes Mermaid, etc.)",
         "Revues de code et choix techniques tracés en ADR",
@@ -111,7 +111,8 @@
     {
       "id": "platform-engineer",
       "title": "Platform Engineer",
-      "pitch": "Tu codes l'infrastructure, tu outilles les déploiements et tu tiens la production.",
+      "pitch": "Tu codes l'infrastructure, tu outilles les déploiements et tu tiens la production. Tu as déjà tenu une production et tu préfères l'automatiser plutôt que la subir.",
+      "profile": "Automatisation addict et 5 ans d'expérience minimum.",
       "daily": [
         "Infrastructure as code (Terraform, Ansible, etc.)",
         "Pipelines CI/CD et déploiements Cloud Native (conteneurs, FaaS, etc)",
