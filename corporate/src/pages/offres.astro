@@ -69,7 +69,7 @@ const stationLabels = (keys: readonly string[]) =>
   </script>
 
   {/* The method: five stations on one rail. The rail draws once, at mid viewport. */}
-  <section id="methode" class="method scroll-mt-20" aria-labelledby="method-title">
+  <section id="methode" class="method" aria-labelledby="method-title">
     <div class="container">
       <div class="method-head">
         <div>
@@ -90,7 +90,7 @@ const stationLabels = (keys: readonly string[]) =>
   </section>
 
   {/* One package per section, hung on a vertical spine that continues the rail. */}
-  <div class="packs scroll-mt-20" id="packages">
+  <div class="packs" id="packages">
     {/* Sticks under the header while the packages scroll by. Plain anchors,
         so it works without JS; the script only marks the current package. */}
     <nav class="packs-toc" aria-label="Les quatre Enablers AI">
@@ -178,7 +178,7 @@ const stationLabels = (keys: readonly string[]) =>
     ))}
   </div>
 
-  <section id="socle" class="section foundation scroll-mt-20" aria-labelledby="foundation-title">
+  <section id="socle" class="section foundation" aria-labelledby="foundation-title">
     <div class="container">
       <div class="max-w-3xl mb-10">
         <h2 id="foundation-title" class="section-title">{foundation.title}</h2>
@@ -517,24 +517,19 @@ const stationLabels = (keys: readonly string[]) =>
   .pack {
     padding: 4rem 0;
     position: relative;
-    /* Header plus the sticky table of contents */
-    scroll-margin-top: 7.5rem;
-  }
-  @media (min-width: 768px) {
-    .pack { scroll-margin-top: 8.5rem; }
+    /* The sticky table of contents, on top of the html scroll-padding that
+       already clears the header */
+    scroll-margin-top: 4.5rem;
   }
 
   .packs-toc {
     position: sticky;
-    /* Right under the header bar: min-h-16, then md:min-h-20 */
-    top: 4rem;
+    /* Right under the header bar */
+    top: var(--header-h);
     z-index: 40;
     border-block: 1px solid var(--color-border);
     background: var(--color-bg);
     box-shadow: 0 6px 16px -12px rgb(0 0 0 / 0.35);
-  }
-  @media (min-width: 768px) {
-    .packs-toc { top: 5rem; }
   }
   .packs-toc-bar {
     display: flex;
@@ -867,7 +862,6 @@ const stationLabels = (keys: readonly string[]) =>
     display: flex;
     flex-direction: column;
     padding: 1.5rem;
-    scroll-margin-top: 6rem;
   }
   @media (min-width: 768px) {
     .foundation-offer { padding: 2rem; }
