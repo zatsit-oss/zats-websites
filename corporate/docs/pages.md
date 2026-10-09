@@ -177,6 +177,8 @@ Each card includes:
 
 **Content**:
 - Two anchor buttons, "Sur scène" and "Open source"
+- Both sections show their cards on one row that slides horizontally (scroll-snap, no script, keyboard-scrollable once focused)
+- Above the talks, an invite to have a talk given at the visitor's company, linking to `/work-with-us/` (hidden when that page is disabled)
 - **Sur scène**: talks, most recent first. A talk given several times is one card, its other editions listed in `alsoGivenAt`. A talk dated `YYYY-MM-DD` after the build day carries an "À venir" badge.
 - **Open source**: projects, the card linking to the live tool when there is one, with a separate "Code source" link
 

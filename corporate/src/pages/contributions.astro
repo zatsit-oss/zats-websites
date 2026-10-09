@@ -2,12 +2,14 @@
 import { getEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import { ArrowDown, ArrowUpRight, CalendarClock, ExternalLink, Mic, Play, Presentation } from '@lucide/astro';
+import { ArrowDown, ArrowRight, ArrowUpRight, CalendarClock, ExternalLink, Mic, Play, Presentation } from '@lucide/astro';
 import GithubIcon from '../assets/icons/github.svg';
+import { isPageDisabled } from '../lib/pages';
 
 const contributionsData = await getEntry('contributions', 'contributions');
 if (!contributionsData) throw new Error('Contributions data not found');
 const { projects } = contributionsData.data;
+const contactDisabled = isPageDisabled('work-with-us');
 
 // Most recent first: `YYYY-MM` sorts correctly as a string
 const talks = [...contributionsData.data.talks].sort((a, b) => b.date.localeCompare(a.date));
@@ -61,7 +63,20 @@ const isUpcoming = (date: string) => hasDay(date) && date >= today;
         <Mic class="icon-lg icon-primary flex-shrink-0" aria-hidden="true" />
         <h2 id="talks-title" class="section-title">Sur scène</h2>
       </div>
+      {!contactDisabled && (
+        <div class="contributions-invite">
+          <p>
+            Un de ces sujets parlerait à votre équipe ou à votre événement ?
+            Nous venons le présenter chez vous.
+          </p>
+          <a href="/work-with-us/" class="btn-primary">
+            Nous inviter
+            <ArrowRight class="icon-sm" aria-hidden="true" />
+          </a>
+        </div>
+      )}
       {talks.length > 0 ? (
+        <div class="contributions-strip" role="region" aria-label="Nos talks, défilement horizontal" tabindex="0">
         <ul class="contributions-grid">
           {talks.map((talk) => (
             <li class="card contribution contribution--media">
@@ -131,6 +146,7 @@ const isUpcoming = (date: string) => hasDay(date) && date >= today;
             </li>
           ))}
         </ul>
+        </div>
       ) : (
         <p class="contributions-empty">Nos prochains talks arrivent bientôt ici.</p>
       )}
@@ -144,6 +160,7 @@ const isUpcoming = (date: string) => hasDay(date) && date >= today;
         <h2 id="projects-title" class="section-title">Open source</h2>
       </div>
       {projects.length > 0 ? (
+        <div class="contributions-strip" role="region" aria-label="Nos projets open source, défilement horizontal" tabindex="0">
         <ul class="contributions-grid">
           {projects.map((project) => (
             <li class="card card--hover contribution contribution--media contribution--project">
@@ -193,6 +210,7 @@ const isUpcoming = (date: string) => hasDay(date) && date >= today;
             </li>
           ))}
         </ul>
+        </div>
       ) : (
         <p class="contributions-empty">Nos projets open source arrivent bientôt ici.</p>
       )}
@@ -219,20 +237,60 @@ const isUpcoming = (date: string) => hasDay(date) && date >= today;
     line-height: 1.1;
   }
 
-  .contributions-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1.5rem;
+  /* One row that slides horizontally: scroll-snap, no script. Focusable so
+     the arrow keys scroll it, and the cards keep their own links. */
+  .contributions-strip {
     max-width: 72rem;
     margin: 0 auto;
-    padding: 0;
+    /* Containing block for the absolutely positioned .sr-only spans of the
+       cards, otherwise they escape the clip and widen the page */
+    position: relative;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    border-radius: var(--radius-lg);
+  }
+  .contributions-strip:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .contributions-strip { scroll-behavior: smooth; }
+  }
+  .contributions-grid {
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0 0 1rem;
     list-style: none;
   }
+  .contributions-grid > li {
+    flex: 0 0 85%;
+    scroll-snap-align: start;
+  }
   @media (min-width: 768px) {
-    .contributions-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .contributions-grid > li { flex-basis: calc((100% - 1.5rem) / 2); }
   }
   @media (min-width: 1024px) {
-    .contributions-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .contributions-grid > li { flex-basis: calc((100% - 3rem) / 3); }
+  }
+
+  .contributions-invite {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    max-width: 72rem;
+    margin: 0 auto 2rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: color-mix(in srgb, var(--color-primary) 6%, var(--card-bg));
+  }
+  .contributions-invite p {
+    flex: 1 1 20rem;
+    font-weight: 600;
   }
 
   .contribution {
