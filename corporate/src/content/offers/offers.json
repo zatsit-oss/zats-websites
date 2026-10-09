@@ -188,6 +188,20 @@
       "label": "Voir nos dépôts sur GitHub"
     },
     {
+      "lead": "En public",
+      "text": "Huit conférences données par nos consultants, et des formations au coding agentique et au Spec-Driven Development. Ce que nous appliquons chez vous, nous l'enseignons.",
+      "links": [
+        {
+          "href": "/contributions/",
+          "label": "Voir nos contributions"
+        },
+        {
+          "href": "/formations/",
+          "label": "Voir nos formations"
+        }
+      ]
+    },
+    {
       "lead": "0,04 g",
       "text": "C'est ce que ce site émet en CO2 par page. Le dimensionnement juste que nous vendons commence par notre propre vitrine."
     },
@@ -196,12 +210,6 @@
       "text": "Des dizaines de talents, 9 ans d'expérience en moyenne. Des seniors sur le clavier, pas seulement sur la plaquette.",
       "href": "/team/",
       "label": "Voir le collectif"
-    },
-    {
-      "lead": "B Corp",
-      "text": "Et médaille d'argent EcoVadis. Deux grilles d'achat RSE où nous cochons déjà la case, documents à l'appui.",
-      "href": "https://www.bcorporation.net/",
-      "label": "Voir la certification B Corp"
     }
   ],
   "cta": {

@@ -11,10 +11,13 @@ const { hero, method, packages, foundation, refusalsTitle, refusals, proofsTitle
 
 const manifestoDisabled = isPageDisabled('manifeste');
 const careersDisabled = isPageDisabled('careers');
-const teamDisabled = isPageDisabled('team');
 
-// A proof may point to a page this build hides
-const proofHref = (href?: string) => (href === '/team/' && teamDisabled ? undefined : href);
+// A proof may point to a page this build hides: '/team/' is the 'team' page
+const isHiddenPage = (href: string) => href.startsWith('/') && isPageDisabled(href.replaceAll('/', ''));
+const proofLinks = (proof: { href?: string; label?: string; links?: { href: string; label: string }[] }) =>
+  (proof.links ?? (proof.href && proof.label ? [{ href: proof.href, label: proof.label }] : [])).filter(
+    (link) => !isHiddenPage(link.href),
+  );
 
 // The method pipeline, in order. Every package covers a subset of it.
 const STATIONS = [
@@ -238,14 +241,14 @@ const stationLabels =(keys: readonly string[]) =>
           <li class="proof">
             <p class="proof-lead">{proof.lead}</p>
             <p class="proof-text" set:html={withBoldBrand(proof.text)} />
-            {proofHref(proof.href) && (proof.href!.startsWith('/') ? (
-              <a href={proof.href} class="link-primary proof-link">
-                {proof.label}
+            {proofLinks(proof).map((link) => link.href.startsWith('/') ? (
+              <a href={link.href} class="link-primary proof-link">
+                {link.label}
                 <ArrowRight class="icon-sm" aria-hidden="true" />
               </a>
             ) : (
-              <a href={proof.href} target="_blank" rel="noopener noreferrer" class="link-primary proof-link">
-                {proof.label}
+              <a href={link.href} target="_blank" rel="noopener noreferrer" class="link-primary proof-link">
+                {link.label}
                 <ExternalLink class="icon-sm" aria-hidden="true" />
                 <span class="sr-only">, dans un nouvel onglet</span>
               </a>
@@ -977,13 +980,16 @@ const stationLabels =(keys: readonly string[]) =>
     color: var(--color-text-muted);
     line-height: 1.6;
   }
+  /* One link per line when a proof carries several */
   .proof-link {
-    display: inline-flex;
+    display: flex;
+    width: fit-content;
     align-items: center;
     gap: 0.375rem;
     margin-top: 0.75rem;
     min-height: 44px;
   }
+  .proof-link + .proof-link { margin-top: 0; }
   .proofs-more {
     margin-top: 3rem;
     max-width: 65ch;
