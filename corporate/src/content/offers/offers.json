@@ -131,8 +131,8 @@
       {
         "id": "conseil",
         "situation": "J'ai une décision technique lourde à prendre, et personne pour la challenger.",
-        "title": "Conseil, par les associés",
-        "pitch": "Une trajectoire d'architecture, un choix de plateforme, une équipe à réorganiser autour des agents : ce sont les associés de zatsit qui viennent, en direct. Nous apportons ce que l'IA ne sait pas (encore) faire : arbitrer, en connaissant le terrain.",
+        "title": "Conseil et Architecture",
+        "pitch": "Une trajectoire d'architecture, un choix de plateforme, une équipe à réorganiser autour des agents : ce sont les profils les plus expérimentés de zatsit qui viennent, en direct. Nous apportons ce que l'IA ne sait pas (encore) faire : arbitrer, en connaissant le terrain.",
         "form": "Au temps passé, quelques jours ou quelques demi-journées, sur une question posée.",
         "roles": [
           "Forward Deployed Engineer"
