@@ -102,7 +102,7 @@ export const PAGE_SUMMARIES: Record<string, { label: string; summary: string }> 
   },
   offres: {
     label: 'Nos offres',
-    summary: "l'offre de product engineering augmenté de zatsit en quatre packages (AI-readiness, projet spec-driven, reprise de code existant, dev augmenté en équipe), ce qui est mesuré et ce que zatsit refuse de promettre",
+    summary: "les offres de zatsit : quatre Enablers AI (audit maturité IA, pilote spec-driven, désendettement du code existant, dev augmenté en équipe) posés sur deux métiers historiques (le conseil par les associés, l'ingénieur·e augmenté·e en renfort), ce qui est mesuré et ce que zatsit refuse de promettre",
   },
   manifeste: {
     label: 'Manifeste',

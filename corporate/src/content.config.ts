@@ -175,6 +175,8 @@ const offersCollection = defineCollection({
       secondaryCta: z.string(),
     }),
     method: z.object({
+      // Name of the package family the method introduces
+      eyebrow: z.string(),
       title: z.string(),
       caption: z.string(),
     }),
@@ -196,6 +198,19 @@ const offersCollection = defineCollection({
       // Optional: the deliverable shown as a repository tree, one entry per path
       tree: z.array(z.object({ path: z.string(), note: z.string() })).optional(),
     })).min(1).max(4),
+    // The historical offers the packages rest on, shown after them
+    foundation: z.object({
+      title: z.string(),
+      intro: z.string(),
+      offers: z.array(z.object({
+        id: z.string(),
+        situation: z.string(),
+        title: z.string(),
+        pitch: z.string(),
+        form: z.string(),
+        roles: z.array(z.string()).min(1),
+      })).min(1),
+    }),
     refusalsTitle: z.string(),
     // What the page refuses to promise
     refusals: z.array(z.object({
