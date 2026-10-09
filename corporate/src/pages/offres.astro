@@ -25,7 +25,14 @@ const STATIONS = [
   { key: 'mesure', label: 'Mesure' },
 ] as const;
 
-const stationLabels = (keys: readonly string[]) =>
+// Terms set in bold in the foundation section, per offer id
+const FOUNDATION_INTRO_TERMS = ['deux métiers historiques', 'leur vitesse'];
+const FOUNDATION_TERMS: Record<string, string[]> = {
+  conseil: ['les associés', 'en direct', 'arbitrer, en connaissant le terrain'],
+  'ingenieur-augmente': ['rejoignent vos équipes', 'la pratique agentique', 'sans la dette du vibe-coding'],
+};
+
+const stationLabels =(keys: readonly string[]) =>
   STATIONS.filter((station) => keys.includes(station.key)).map((station) => station.label).join(', ');
 ---
 
@@ -186,14 +193,14 @@ const stationLabels = (keys: readonly string[]) =>
     <div class="container">
       <div class="max-w-3xl mb-10">
         <h2 id="foundation-title" class="section-title">{foundation.title}</h2>
-        <p class="section-description !mb-0">{foundation.intro}</p>
+        <p class="section-description !mb-0" set:html={withBoldTerms(foundation.intro, FOUNDATION_INTRO_TERMS)} />
       </div>
       <ul class="foundation-list">
         {foundation.offers.map((offer) => (
           <li class="card foundation-offer" id={offer.id}>
             <p class="foundation-situation">{offer.situation}</p>
             <h3 class="foundation-title">{offer.title}</h3>
-            <p class="foundation-pitch" set:html={withBoldBrand(offer.pitch)} />
+            <p class="foundation-pitch" set:html={withBoldTerms(offer.pitch, FOUNDATION_TERMS[offer.id] ?? [])} />
             <p class="pack-field-label">Forme</p>
             <p class="foundation-form">{offer.form}</p>
             <p class="pack-roles-label">Qui vient chez vous</p>
@@ -875,7 +882,7 @@ const stationLabels = (keys: readonly string[]) =>
     font-size: 1.125rem;
     font-weight: 600;
     line-height: 1.35;
-    color: var(--color-text-muted);
+    color: var(--color-primary);
   }
   .foundation-title {
     margin-bottom: 1rem;
