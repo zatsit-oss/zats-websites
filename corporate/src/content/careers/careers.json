@@ -22,7 +22,7 @@
       "id": "forward-deployed-engineer",
       "title": "Forward Deployed Engineer",
       "pitch": "Tu t'embarques chez le client, côté métier comme côté technique, tu prends en main un problème prioritaire et tu le mènes jusqu'en production, puis jusqu'à ce qu'il soit vraiment utilisé.",
-      "profile": "Profil senior uniquement : tu codes en production et tu tiens la discussion avec une direction métier.",
+      "profile": "Adapté à des profils seniors, tu codes jusqu'en production et tu alimentes les discussions avec les directions métier.",
       "daily": [
         "Diagnostic avec les directions métier et les opérationnels : le vrai besoin, pas la demande telle qu'elle arrive",
         "Du prototype à la production : code, architecture et intégration à l'existant (API, données, sécurité)",
