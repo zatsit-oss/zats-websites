@@ -4,6 +4,7 @@
     "highlight": "Quelqu'un doit en répondre.",
     "subtitle": "C'est ce que nous appelons le product engineering augmenté. Des Product Engineers et des Forward Deployed Engineers seniors dans vos équipes : la spec avant le code, le modèle choisi selon la tâche, la facture mesurée. Quatre Enablers AI pour commencer, une seule méthode.",
     "primaryCta": "Voir les Enablers AI",
+    "foundationCta": "Voir les offres socle",
     "secondaryCta": "Écrivez-nous"
   },
   "method": {
@@ -130,11 +131,11 @@
       {
         "id": "conseil",
         "situation": "J'ai une décision technique lourde à prendre, et personne pour la challenger.",
-        "title": "Conseil, par les associés",
-        "pitch": "Une trajectoire d'architecture, un choix de plateforme, une équipe à réorganiser autour des agents : ce sont les associés de zatsit qui viennent, en direct. Nous apportons ce que l'IA ne sait pas (encore) faire : arbitrer, en connaissant le terrain.",
+        "title": "Conseil et Architecture",
+        "pitch": "Une trajectoire d'architecture, un choix de plateforme, une équipe à réorganiser autour des agents : ce sont les profils les plus expérimentés de zatsit qui viennent, en direct. Nous apportons ce que l'IA ne sait pas (encore) faire : arbitrer, en connaissant le terrain.",
         "form": "Au temps passé, quelques jours ou quelques demi-journées, sur une question posée.",
         "roles": [
-          "Associés"
+          "Forward Deployed Engineer"
         ]
       },
       {
@@ -187,6 +188,20 @@
       "label": "Voir nos dépôts sur GitHub"
     },
     {
+      "lead": "En public",
+      "text": "Huit conférences données par nos consultants, et des formations au coding agentique et au Spec-Driven Development. Ce que nous appliquons chez vous, nous l'enseignons.",
+      "links": [
+        {
+          "href": "/contributions/",
+          "label": "Voir nos contributions"
+        },
+        {
+          "href": "/formations/",
+          "label": "Voir nos formations"
+        }
+      ]
+    },
+    {
       "lead": "0,04 g",
       "text": "C'est ce que ce site émet en CO2 par page. Le dimensionnement juste que nous vendons commence par notre propre vitrine."
     },
@@ -195,12 +210,6 @@
       "text": "Des dizaines de talents, 9 ans d'expérience en moyenne. Des seniors sur le clavier, pas seulement sur la plaquette.",
       "href": "/team/",
       "label": "Voir le collectif"
-    },
-    {
-      "lead": "B Corp",
-      "text": "Et médaille d'argent EcoVadis. Deux grilles d'achat RSE où nous cochons déjà la case, documents à l'appui.",
-      "href": "https://www.bcorporation.net/",
-      "label": "Voir la certification B Corp"
     }
   ],
   "cta": {

@@ -172,6 +172,8 @@ const offersCollection = defineCollection({
       highlight: z.string(),
       subtitle: z.string(),
       primaryCta: z.string(),
+      // Jumps to the two historical offers
+      foundationCta: z.string(),
       secondaryCta: z.string(),
     }),
     method: z.object({
@@ -226,6 +228,8 @@ const offersCollection = defineCollection({
       text: z.string(),
       href: z.string().optional(),
       label: z.string().optional(),
+      // Several links under one proof, instead of href and label
+      links: z.array(z.object({ href: z.string(), label: z.string() })).optional(),
     })),
     cta: z.object({
       title: z.string(),
