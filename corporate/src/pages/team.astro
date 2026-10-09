@@ -201,7 +201,7 @@ const contractIcons: Record<string, typeof Heart> = {
         </div>
         <ul class="team-events">
           {events.map((event, eventIndex) => (
-            <li class:list={['team-event', { 'team-event--half': event.half }]}>
+            <li id={event.id} class:list={['team-event', { 'team-event--half': event.half }]}>
               <div class="team-event-text">
                 <p class="team-event-eyebrow">{event.eyebrow}</p>
                 <h3 class="team-event-title">{event.title}</h3>

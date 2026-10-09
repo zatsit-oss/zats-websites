@@ -301,6 +301,8 @@ const eventsCollection = defineCollection({
   loader: jsonIn('events'),
   schema: ({ image }) => z.object({
     events: z.array(z.object({
+      // Anchor on the team page, for links from other pages
+      id: z.string().optional(),
       title: z.string(),
       // Place and date, shown above the title
       eyebrow: z.string(),

@@ -1,6 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { ExternalLink, RotateCw, Package, ArrowRight } from '@lucide/astro';
+import { isPageDisabled } from '../lib/pages';
+
+const teamDisabled = isPageDisabled('team');
 ---
 
 <Layout title="Ton futur package" description="Découvrez les avantages de rejoindre zatsit : mutuelle, titres-restaurant éco-responsables et bien plus.">
@@ -52,15 +55,23 @@ import { ExternalLink, RotateCw, Package, ArrowRight } from '@lucide/astro';
           </ul>
         </div>
         <div class="bike-gallery bike-gallery--single">
-          <button type="button" class="bike-btn" aria-label="Agrandir la photo du Zatsday en binôme">
+          <button type="button" class="bike-btn" aria-label="Agrandir la photo du Zatsday">
             <img
               src="/images/team/binome.webp"
-              alt="Deux zatsiens travaillant en binôme lors d'un Zatsday"
+              alt="Le collectif réuni autour d'une grande table à l'agence, ordinateurs ouverts, lors d'un Zatsday"
               class="bike-img"
               loading="lazy"
             />
           </button>
         </div>
+        {!teamDisabled && (
+          <p class="mt-6">
+            <a href="/team/#zatsdays" class="link-primary inline-flex items-center gap-2">
+              Les Zatsdays en images
+              <ArrowRight class="icon-sm" aria-hidden="true" />
+            </a>
+          </p>
+        )}
       </div>
     </div>
   </section>
@@ -319,6 +330,14 @@ import { ExternalLink, RotateCw, Package, ArrowRight } from '@lucide/astro';
             />
           </button>
         </div>
+        {!teamDisabled && (
+          <p class="mt-6">
+            <a href="/team/#afterwork" class="link-primary inline-flex items-center gap-2">
+              Nos afterworks en images
+              <ArrowRight class="icon-sm" aria-hidden="true" />
+            </a>
+          </p>
+        )}
       </div>
     </div>
   </section>
