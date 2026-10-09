@@ -316,6 +316,8 @@ a[target="_blank"]:not(:has(svg)):hover::after {
 .nav-link {
   @apply font-medium transition-colors;
   color: var(--color-text-muted);
+  /* A 24px target at least (WCAG 2.5.8), the line box alone is 23px */
+  padding-block: 0.25rem;
 }
 
 .nav-link:hover {
@@ -486,6 +488,24 @@ a[target="_blank"]:not(:has(svg)):hover::after {
    watcher: the four sites render the same bar, so these metrics are the
    agreement between them. Change them in all four, or in none.
    ========================================================================== */
+
+/* Height of the sticky header bar, so anchors and other sticky layers can sit
+   under it. Below 360px the ecosystem icons wrap onto a second line (see
+   .header-ecosystem), which makes the bar 89px tall. */
+:root {
+  --header-h: 4rem;
+}
+@media (max-width: 359px) {
+  :root { --header-h: 5.5625rem; }
+}
+@media (min-width: 768px) {
+  :root { --header-h: 5rem; }
+}
+
+/* Every in-page anchor lands below the header, with a little air */
+html {
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+}
 
 .header {
   @apply sticky top-0 z-50;
@@ -744,6 +764,17 @@ a[target="_blank"]:not(:has(svg)):hover::after {
   @apply lg:hidden;
   border-top: 1px solid var(--color-border);
   background-color: var(--color-bg);
+  /* The panel hangs from the sticky header, so it scrolls on its own: taller
+     than the screen, its last links would otherwise be out of reach.
+     --mobile-menu-top is set by the header script when the panel opens. */
+  max-height: calc(100dvh - var(--mobile-menu-top, var(--header-h)));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* The page behind the open mobile menu does not scroll */
+html.mobile-menu-open {
+  overflow: hidden;
 }
 
 .mobile-menu-content {

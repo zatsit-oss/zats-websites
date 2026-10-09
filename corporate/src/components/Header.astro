@@ -348,11 +348,19 @@ const isMenuCurrent = (menu: MegaMenu) => menu.items.some(item => isCurrent(item
       (menu as HTMLElement).hidden = !open;
       openIcon?.classList.toggle('hidden', open);
       closeIcon?.classList.toggle('hidden', !open);
+      document.documentElement.classList.toggle('mobile-menu-open', open);
+      if (open) menu!.style.setProperty('--mobile-menu-top', `${menu!.getBoundingClientRect().top}px`);
     }
 
     setOpen(false);
     btn.addEventListener('click', () => {
       setOpen(btn.getAttribute('aria-expanded') !== 'true');
+    });
+
+    // The panel is hidden from `lg`: close it there, or the page stays locked
+    const desktop = window.matchMedia('(min-width: 1024px)');
+    desktop.addEventListener('change', () => {
+      if (desktop.matches) setOpen(false);
     });
 
     // Escape closes the panel and hands focus back, so a keyboard user is never
