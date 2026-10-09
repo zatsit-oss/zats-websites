@@ -39,7 +39,7 @@ There are no automated tests. Validate changes by running the build and previewi
 
 ### Content Collections
 
-All page data lives in `src/content/` as JSON files, validated by Zod schemas in `src/content.config.ts`. Collections: `people`, `services`, `tech`, `legal`, `offers`, `careers`, `contributions` (talks and open source projects), `trainings`. Thumbnails sit next to their JSON (`src/content/<collection>/thumbnails/`) and go through `image()`, so Astro emits them as AVIF. Pages load data via `getEntry('collection', 'slug')`:
+All page data lives in `src/content/` as JSON files, validated by Zod schemas in `src/content.config.ts`. Collections: `people`, `services`, `tech`, `legal`, `offers`, `careers`, `contributions` (talks and open source projects), `trainings`, `events` (team page). Thumbnails sit next to their JSON (`src/content/<collection>/thumbnails/`) and go through `image()`, so Astro emits them as AVIF. Pages load data via `getEntry('collection', 'slug')`:
 
 ```ts
 const techData = await getEntry('tech', 'tech');

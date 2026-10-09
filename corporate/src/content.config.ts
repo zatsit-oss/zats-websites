@@ -278,7 +278,27 @@ const trainingsCollection = defineCollection({
   }),
 });
 
+// Collective events shown at the bottom of the team page, each with a photo
+// strip. Photos sit in `photos/` beside the JSON and ship as AVIF.
+const eventsCollection = defineCollection({
+  loader: jsonIn('events'),
+  schema: ({ image }) => z.object({
+    events: z.array(z.object({
+      title: z.string(),
+      // Place and date, shown above the title
+      eyebrow: z.string(),
+      description: z.string(),
+      quote: z.string().optional(),
+      photos: z.array(z.object({
+        src: image(),
+        alt: z.string(),
+      })).default([]),
+    })).default([]),
+  }),
+});
+
 export const collections = {
+  events: eventsCollection,
   trainings: trainingsCollection,
   contributions: contributionsCollection,
   offers: offersCollection,

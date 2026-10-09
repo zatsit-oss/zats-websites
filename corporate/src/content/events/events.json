@@ -1,0 +1,36 @@
+{
+  "events": [
+    {
+      "title": "Le séminaire des 3 ans",
+      "eyebrow": "Baie de Somme, septembre 2026",
+      "description": "Pour fêter nos trois ans, nous avons laissé les écrans de côté le temps de deux jours en baie de Somme : marche dans les prés salés, balade au Parc du Marquenterre, défis en équipe, et une météo bien picarde qui n'a découragé personne. Du temps ensemble, loin des missions, pour souder le collectif.",
+      "quote": "Parce qu'une entreprise se construit avec des projets, mais surtout avec des personnes.",
+      "photos": [
+        {
+          "src": "./photos/seminaire-3-ans-ouverture.jpg",
+          "alt": "La slide d'ouverture projetée au mur : Séminaire des 3 ans, baie de Somme"
+        },
+        {
+          "src": "./photos/seminaire-3-ans-pres-sales.jpg",
+          "alt": "Le groupe marche dans les prés salés sous un ciel gris"
+        },
+        {
+          "src": "./photos/seminaire-3-ans-baie.jpg",
+          "alt": "Le collectif en bottes, réuni en cercle sur le sable de la baie"
+        },
+        {
+          "src": "./photos/seminaire-3-ans-marquenterre.jpg",
+          "alt": "Des équipes en bandeaux de couleur penchées sur une carte, devant le Parc du Marquenterre"
+        },
+        {
+          "src": "./photos/seminaire-3-ans-parapluies.jpg",
+          "alt": "Vue d'en haut : une quinzaine de parapluies noirs siglés zatsit"
+        },
+        {
+          "src": "./photos/seminaire-3-ans-port.jpg",
+          "alt": "Le port de plaisance au bord de la Somme, sous un ciel dégagé"
+        }
+      ]
+    }
+  ]
+}

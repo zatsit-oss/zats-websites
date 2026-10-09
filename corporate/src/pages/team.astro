@@ -1,5 +1,6 @@
 ---
 import { getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import { Heart, CalendarHeart, FileText, Rocket, ShieldCheck, CodeXml, Leaf, HeartHandshake } from '@lucide/astro';
 import { isPageDisabled } from '../lib/pages';
@@ -11,6 +12,9 @@ const careersDisabled = isPageDisabled('careers')
 const peopleData = await getEntry('people', 'people');
 if (!peopleData) throw new Error('People data not found');
 const { photos, contractTypes, testimonials, interviews } = peopleData.data;
+
+const eventsData = await getEntry('events', 'events');
+const events = eventsData?.data.events ?? [];
 
 /** Plain-text transcript built from the captions, so the interview is readable without playing it. */
 function readTranscript(slug: string): string {
@@ -188,16 +192,54 @@ const contractIcons: Record<string, typeof Heart> = {
     </div>
   </section>
 
-  {/* Content to come: events organised by or with the collective */}
-  <section class="section team-tight" aria-labelledby="events-title">
-    <div class="container">
-      <div class="team-heading">
-        <CalendarHeart class="icon-lg icon-primary flex-shrink-0" size={28} aria-hidden="true" />
-        <h2 id="events-title" class="section-title">Nos événements</h2>
+  {events.length > 0 && (
+    <section class="section team-tight" aria-labelledby="events-title">
+      <div class="container">
+        <div class="team-heading">
+          <CalendarHeart class="icon-lg icon-primary flex-shrink-0" size={28} aria-hidden="true" />
+          <h2 id="events-title" class="section-title">Nos événements</h2>
+        </div>
+        <ul class="team-events">
+          {events.map((event, eventIndex) => (
+            <li class="team-event">
+              <div class="team-event-text">
+                <p class="team-event-eyebrow">{event.eyebrow}</p>
+                <h3 class="team-event-title">{event.title}</h3>
+                <p class="text-muted">{event.description}</p>
+                {event.quote && <blockquote class="team-event-quote">« {event.quote} »</blockquote>}
+              </div>
+              {event.photos.length > 0 && (
+                /* Scroll-snap strip: no script, swipe on touch, arrow keys once focused */
+                <div
+                  class="team-event-strip"
+                  role="region"
+                  aria-label={`Photos : ${event.title}`}
+                  tabindex="0"
+                >
+                  <ul>
+                    {event.photos.map((photo) => (
+                      <li>
+                        <Image
+                          src={photo.src}
+                          alt={photo.alt}
+                          widths={[480, 720]}
+                          sizes="(min-width: 768px) 26rem, 80vw"
+                          format="avif"
+                          quality={40}
+                          loading="lazy"
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {eventIndex < events.length - 1 && <hr class="team-event-separator" />}
+            </li>
+          ))}
+        </ul>
       </div>
-      <p class="text-center text-muted">Nos prochains événements arrivent bientôt ici.</p>
-    </div>
-  </section>
+    </section>
+  )}
 </Layout>
 
 <script>
@@ -337,6 +379,83 @@ const contractIcons: Record<string, typeof Heart> = {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
+  .team-events {
+    display: grid;
+    gap: 3rem;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+  }
+  .team-event {
+    display: grid;
+    gap: 1.5rem;
+  }
+  .team-event-text {
+    max-width: 48rem;
+  }
+  .team-event-text > * + * { margin-top: 0.75rem; }
+  .team-event-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  .team-event-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .team-event-quote {
+    padding-left: 1rem;
+    border-left: 3px solid var(--color-primary);
+    font-style: italic;
+  }
+
+  /* Variable-width slides at a fixed height, so the portrait photo is not cropped */
+  .team-event-strip {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    border-radius: var(--radius-lg);
+  }
+  .team-event-strip:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+  .team-event-strip ul {
+    display: flex;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0 0 0.75rem;
+    list-style: none;
+  }
+  .team-event-strip li {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+  .team-event-strip img {
+    display: block;
+    width: auto;
+    max-width: 85vw;
+    height: 16rem;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+  }
+  @media (min-width: 768px) {
+    .team-event-strip img { height: 20rem; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .team-event-strip { scroll-behavior: smooth; }
+  }
+
+  .team-event-separator {
+    margin-top: 1.5rem;
+    border: 0;
+    border-top: 1px solid var(--color-border);
+  }
+
   .interview-transcript p {
     color: var(--color-text-muted);
     line-height: 1.6;

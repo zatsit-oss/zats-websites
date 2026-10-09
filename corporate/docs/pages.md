@@ -165,7 +165,7 @@ Each card includes:
 
 **URL**: `/team/`, labelled "Qui nous sommes" in the header
 
-**Content**: pillars, photo carousel, contract types and shared governance, video interviews ("Paroles de Zat's"), then "Nos événements" (content to come).
+**Content**: pillars, photo carousel, contract types and shared governance, video interviews ("Paroles de Zat's"), then "Nos événements": one entry per event (`src/content/events/events.json`) with a scroll-snap photo strip, no script, keyboard-scrollable once focused.
 
 ---
 
