@@ -180,6 +180,8 @@ const offersCollection = defineCollection({
     }),
     packages: z.array(z.object({
       id: z.string(),
+      // Short name for the sticky table of contents
+      navLabel: z.string(),
       situation: z.string(),
       title: z.string(),
       pitch: z.string(),

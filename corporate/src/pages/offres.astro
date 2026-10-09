@@ -88,8 +88,22 @@ const stationLabels = (keys: readonly string[]) =>
 
   {/* One package per section, hung on a vertical spine that continues the rail. */}
   <div class="packs scroll-mt-20" id="packages">
+    {/* Sticks under the header while the packages scroll by. Plain anchors,
+        so it works without JS; the script only marks the current package. */}
+    <nav class="packs-toc" aria-label="Les quatre packages">
+      <ol class="container">
+        {packages.map((pack, index) => (
+          <li>
+            <a href={`#${pack.id}`} data-toc-link>
+              <span class="packs-toc-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              {pack.navLabel}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
     {packages.map((pack, index) => (
-      <section class="pack scroll-mt-20" id={pack.id} aria-labelledby={`${pack.id}-title`}>
+      <section class="pack" id={pack.id} aria-labelledby={`${pack.id}-title`}>
         <div class="container pack-grid">
           <div class="pack-side">
             <span class="pack-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
@@ -242,6 +256,30 @@ const stationLabels = (keys: readonly string[]) =>
   }
 
   document.addEventListener('astro:page-load', initReveals);
+
+  // Marks the package crossing the middle of the viewport in the table of contents
+  function initPacksToc() {
+    const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')];
+    if (!links.length) return;
+    const setCurrent = (id: string | null) => {
+      for (const link of links) {
+        if (id && link.hash === `#${id}`) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      }
+    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) if (entry.isIntersecting) setCurrent(entry.target.id);
+      },
+      { root: null, rootMargin: '-50% 0px -50% 0px', threshold: 0 },
+    );
+    for (const link of links) {
+      const section = document.getElementById(link.hash.slice(1));
+      if (section) observer.observe(section);
+    }
+  }
+
+  document.addEventListener('astro:page-load', initPacksToc);
 </script>
 
 <style>
@@ -399,8 +437,60 @@ const stationLabels = (keys: readonly string[]) =>
   .pack {
     padding: 4rem 0;
     position: relative;
+    /* Header plus the sticky table of contents */
+    scroll-margin-top: 7.5rem;
   }
-  .pack:nth-child(even) {
+  @media (min-width: 768px) {
+    .pack { scroll-margin-top: 8.5rem; }
+  }
+
+  .packs-toc {
+    position: sticky;
+    /* Right under the header bar: min-h-16, then md:min-h-20 */
+    top: 4rem;
+    z-index: 40;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--glass-bg, var(--color-bg));
+    backdrop-filter: blur(12px);
+  }
+  @media (min-width: 768px) {
+    .packs-toc { top: 5rem; }
+  }
+  .packs-toc ol {
+    display: flex;
+    gap: 0.25rem 1.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin: 0 auto;
+    list-style: none;
+  }
+  .packs-toc a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    white-space: nowrap;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    border-bottom: 3px solid transparent;
+  }
+  .packs-toc a:hover { color: var(--color-text); }
+  .packs-toc a:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+  }
+  /* Current package: colour, weight of the underline and aria-current, never colour alone */
+  .packs-toc a[aria-current] {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+  }
+  .packs-toc-index {
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+  }
+  /* nth-of-type: the table of contents is the first child of .packs */
+  .pack:nth-of-type(even) {
     background: var(--color-surface);
   }
   @media (min-width: 1024px) {
