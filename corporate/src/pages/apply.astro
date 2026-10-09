@@ -26,12 +26,12 @@ const joinUsDisabled = isPageDisabled('join-us');
         </h1>
         <p class="section-description hero-subtitle">
           Dis-nous qui tu es et ce que tu aimes construire. Nous lisons chaque candidature
-          et nous te répondons, dans un sens ou dans l'autre.
+          et nous répondons à chacune.
         </p>
         {(!careersDisabled || !joinUsDisabled) && (
           <p class="text-muted">
-            Avant d'écrire, tu peux regarder
-            {!careersDisabled && <a href="/careers/" class="link-primary">les rôles que nous recrutons</a>}
+            Avant d'écrire, tu peux te projeter dans
+            {!careersDisabled && <a href="/careers/" class="link-primary">les rôles pour lesquels nous recrutons</a>}
             {!careersDisabled && !joinUsDisabled && ' et '}
             {!joinUsDisabled && <a href="/join-us/" class="link-primary">ton futur package</a>}.
           </p>
