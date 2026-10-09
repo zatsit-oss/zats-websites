@@ -3,7 +3,7 @@ import { getEntry } from 'astro:content';
 import { ArrowDown, ArrowRight, ExternalLink, Gauge, ShieldCheck } from '@lucide/astro';
 import Layout from '../layouts/Layout.astro';
 import { isPageDisabled } from '../lib/pages';
-import { withBoldBrand } from '../lib/brand';
+import { withBoldBrand, withBoldTerms } from '../lib/brand';
 
 const offersData = await getEntry('offers', 'offers');
 if (!offersData) throw new Error('Offers data not found');
@@ -46,7 +46,7 @@ const stationLabels = (keys: readonly string[]) =>
           {hero.title}
           <span class="text-gradient-glow">{hero.highlight}</span>
         </h1>
-        <p class="section-description hero-subtitle max-w-2xl">{hero.subtitle}</p>
+        <p class="section-description hero-subtitle max-w-2xl" set:html={withBoldTerms(hero.subtitle, ['Product Engineers', 'Forward Deployed Engineers'])} />
         <div class="hero-cta flex flex-wrap gap-4">
           <a href="#packages" class="btn-primary">
             {hero.primaryCta}
