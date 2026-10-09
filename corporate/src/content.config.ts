@@ -172,6 +172,8 @@ const offersCollection = defineCollection({
       highlight: z.string(),
       subtitle: z.string(),
       primaryCta: z.string(),
+      // Jumps to the two historical offers
+      foundationCta: z.string(),
       secondaryCta: z.string(),
     }),
     method: z.object({
