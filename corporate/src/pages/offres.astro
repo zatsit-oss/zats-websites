@@ -501,27 +501,19 @@ const stationLabels =(keys: readonly string[]) =>
     html[data-reveal-js] .pipeline:not([data-reveal="done"]) .pipeline-station::after {
       transform: scaleY(0);
     }
-    html[data-reveal-js] .pipeline:not([data-reveal="done"]) .pipeline-label {
-      transform: translateX(0.5rem);
-    }
   }
   /* Reveal: the rail draws station by station, the dots pop in */
   .pipeline[data-reveal] .pipeline-station::after {
     transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--i) * 0.45s + 0.3s);
   }
-  .pipeline[data-reveal] .pipeline-dot,
-  .pipeline[data-reveal] .pipeline-label {
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i) * 0.45s), opacity 0.4s ease calc(var(--i) * 0.45s);
+  .pipeline[data-reveal] .pipeline-dot {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i) * 0.45s);
   }
   html[data-reveal-js] .pipeline:not([data-reveal="done"]) .pipeline-station::after {
     transform: translateY(-50%) scaleX(0);
   }
   html[data-reveal-js] .pipeline:not([data-reveal="done"]) .pipeline-dot {
     transform: scale(0);
-  }
-  html[data-reveal-js] .pipeline:not([data-reveal="done"]) .pipeline-label {
-    opacity: 0;
-    transform: translateY(0.5rem);
   }
 
   /* ---- Packages hung on a vertical spine ---- */
@@ -636,24 +628,27 @@ const stationLabels =(keys: readonly string[]) =>
       grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
       column-gap: 5rem;
     }
-    .pack-side {
-      position: sticky;
-      top: 7rem;
-      align-self: start;
-    }
-    /* The spine runs through the side column, from one package to the next */
-    .pack-side::before {
+    /* The spine hangs on the grid, not the side column, so it spans the whole
+       package whichever column is taller and joins the next one through the
+       section padding. 1.5rem: the container's 1rem gutter plus half a dot. */
+    .pack-grid { position: relative; }
+    .pack-grid::before {
       content: "";
       position: absolute;
-      left: 0.5rem;
+      left: 1.5rem;
       top: -5.5rem;
       bottom: -5.5rem;
       width: 2px;
       background: color-mix(in srgb, var(--color-primary) 30%, transparent);
     }
-    .pack:first-child .pack-side::before { top: 0.75rem; }
-    .pack:last-child .pack-side::before { bottom: auto; height: calc(100% + 5.5rem); }
-    .pack-side { padding-left: 2.5rem; position: relative; }
+    /* of-type: the table of contents is the first child of .packs */
+    .pack:first-of-type .pack-grid::before { top: 0.75rem; }
+    .pack:last-of-type .pack-grid::before { bottom: 0; }
+    .pack-side {
+      position: relative;
+      align-self: start;
+      padding-left: 2.5rem;
+    }
     .pack-side::after {
       content: "";
       position: absolute;
@@ -665,7 +660,9 @@ const stationLabels =(keys: readonly string[]) =>
       background: var(--color-primary);
       box-shadow: 0 0 0 5px var(--color-bg);
     }
-    .pack:nth-child(even) .pack-side::after { box-shadow: 0 0 0 5px var(--color-surface); }
+    /* The dark surface is translucent: stacked over the page background, the
+       halo comes out opaque and actually masks the spine */
+    .pack:nth-of-type(even) .pack-side::after { box-shadow: 0 0 0 5px var(--color-surface), 0 0 0 5px var(--color-bg); }
   }
   .pack-index {
     display: block;
@@ -774,10 +771,14 @@ const stationLabels =(keys: readonly string[]) =>
     height: 0.75rem;
     margin-top: calc(var(--rail-y) - 0.375rem);
     border-radius: 50%;
-    border: 2px solid var(--color-border);
+    /* Muted rather than the border token: an uncovered step must still read
+       as a dot (3:1 against the page in both themes) */
+    border: 2px solid color-mix(in srgb, var(--color-text-muted) 70%, var(--color-bg));
     background: var(--color-bg);
   }
-  .pack:nth-child(even) .track-dot { background: var(--color-surface); }
+  .pack:nth-of-type(even) .track-dot {
+    background: linear-gradient(var(--color-surface), var(--color-surface)), var(--color-bg);
+  }
   .track-stop--on .track-dot {
     width: 1rem;
     height: 1rem;
@@ -785,7 +786,7 @@ const stationLabels =(keys: readonly string[]) =>
     border: 3px solid var(--color-primary);
   }
   .track-label {
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     font-weight: 600;
     color: var(--color-text-muted);
   }
@@ -1003,7 +1004,6 @@ const stationLabels =(keys: readonly string[]) =>
   @media (prefers-reduced-motion: reduce) {
     .pipeline[data-reveal] .pipeline-station::after,
     .pipeline[data-reveal] .pipeline-dot,
-    .pipeline[data-reveal] .pipeline-label,
     .track[data-reveal] .track-stop--on .track-dot,
     .track[data-reveal] .track-stop--linked::after { transition: none; }
   }
