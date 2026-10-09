@@ -175,11 +175,15 @@ const offersCollection = defineCollection({
       secondaryCta: z.string(),
     }),
     method: z.object({
+      // Name of the package family the method introduces
+      eyebrow: z.string(),
       title: z.string(),
       caption: z.string(),
     }),
     packages: z.array(z.object({
       id: z.string(),
+      // Short name for the sticky table of contents
+      navLabel: z.string(),
       situation: z.string(),
       title: z.string(),
       pitch: z.string(),
@@ -194,6 +198,19 @@ const offersCollection = defineCollection({
       // Optional: the deliverable shown as a repository tree, one entry per path
       tree: z.array(z.object({ path: z.string(), note: z.string() })).optional(),
     })).min(1).max(4),
+    // The historical offers the packages rest on, shown after them
+    foundation: z.object({
+      title: z.string(),
+      intro: z.string(),
+      offers: z.array(z.object({
+        id: z.string(),
+        situation: z.string(),
+        title: z.string(),
+        pitch: z.string(),
+        form: z.string(),
+        roles: z.array(z.string()).min(1),
+      })).min(1),
+    }),
     refusalsTitle: z.string(),
     // What the page refuses to promise
     refusals: z.array(z.object({
@@ -218,7 +235,93 @@ const offersCollection = defineCollection({
   }),
 });
 
+// Talks given by the collective and the open source projects we maintain.
+// `date` is `YYYY-MM`, or `YYYY-MM-DD` when the day is known: it sorts as a
+// string, and a dated talk after the build day is shown as upcoming.
+// `thumbnail` is relative to the JSON file and goes through the image pipeline.
+const contributionsCollection = defineCollection({
+  loader: jsonIn('contributions'),
+  schema: ({ image }) => z.object({
+    talks: z.array(z.object({
+      title: z.string(),
+      event: z.string(),
+      date: z.string().regex(/^\d{4}-\d{2}(-\d{2})?$/),
+      city: z.string().optional(),
+      speakers: z.array(z.string()).min(1),
+      summary: z.string().optional(),
+      thumbnail: image().optional(),
+      video: z.string().url().optional(),
+      slides: z.string().url().optional(),
+      // Event page or post, for talks with no recording
+      page: z.string().url().optional(),
+      // Earlier editions of the same talk, folded into one card
+      alsoGivenAt: z.array(z.object({
+        event: z.string(),
+        date: z.string().regex(/^\d{4}-\d{2}(-\d{2})?$/),
+        video: z.string().url().optional(),
+      })).default([]),
+    })).default([]),
+    projects: z.array(z.object({
+      name: z.string(),
+      description: z.string(),
+      // Where the card leads: the live tool when there is one, else the repo
+      url: z.string().url(),
+      // Source code, when `url` is not already the repo
+      repo: z.string().url().optional(),
+      maintainers: z.array(z.string()).default([]),
+      thumbnail: image().optional(),
+      stack: z.array(z.string()).default([]),
+    })).default([]),
+  }),
+});
+
+// Trainings we give, on their own page. `thumbnailDark` is the variant shown in
+// the dark theme, when the visual exists in both palettes.
+const trainingsCollection = defineCollection({
+  loader: jsonIn('trainings'),
+  schema: ({ image }) => z.object({
+    trainings: z.array(z.object({
+      title: z.string(),
+      subtitle: z.string(),
+      description: z.string(),
+      // Announced but not scheduled yet: shown with a badge
+      upcoming: z.boolean().default(false),
+      highlights: z.array(z.string()).default([]),
+      // Short labels: duration, place, mode
+      formats: z.array(z.string()).default([]),
+      thumbnail: image().optional(),
+      thumbnailDark: image().optional(),
+    })).default([]),
+  }),
+});
+
+// Collective events shown at the bottom of the team page, each with a photo
+// strip. Photos sit in `photos/` beside the JSON and ship as AVIF.
+const eventsCollection = defineCollection({
+  loader: jsonIn('events'),
+  schema: ({ image }) => z.object({
+    events: z.array(z.object({
+      // Anchor on the team page, for links from other pages
+      id: z.string().optional(),
+      title: z.string(),
+      // Place and date, shown above the title
+      eyebrow: z.string(),
+      description: z.string(),
+      quote: z.string().optional(),
+      // Half width on wide screens: two consecutive half events share a row
+      half: z.boolean().default(false),
+      photos: z.array(z.object({
+        src: image(),
+        alt: z.string(),
+      })).default([]),
+    })).default([]),
+  }),
+});
+
 export const collections = {
+  events: eventsCollection,
+  trainings: trainingsCollection,
+  contributions: contributionsCollection,
   offers: offersCollection,
   careers: careersCollection,
   legal: legalCollection,

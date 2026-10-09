@@ -1,0 +1,248 @@
+---
+import { getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import { ArrowRight, CalendarClock, Check, GraduationCap } from '@lucide/astro';
+import { isPageDisabled } from '../lib/pages';
+
+const trainingsData = await getEntry('trainings', 'trainings');
+if (!trainingsData) throw new Error('Trainings data not found');
+const { trainings } = trainingsData.data;
+
+const contactDisabled = isPageDisabled('work-with-us');
+---
+
+<Layout title="Nos formations" description="Les formations zatsit au coding agentique et au Spec-Driven Development : des ateliers pratiques, en session gratuite ou dans vos locaux.">
+  <section class="section--hero !pb-10 md:!pb-16">
+    <div class="hero-decoration">
+      <div class="hero-blob hero-blob--primary"></div>
+      <div class="hero-blob hero-blob--secondary"></div>
+    </div>
+    <div class="dot-grid"></div>
+
+    <div class="container">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="section-title--lg hero-title break-words">
+          Nos <span class="text-gradient-glow inline-block">formations</span>
+        </h1>
+        <p class="section-description hero-subtitle">
+          Des ateliers où vous pilotez les agents vous-mêmes : la pratique avant les slides.
+        </p>
+        {!contactDisabled && (
+          <a href="/work-with-us/" class="btn-primary">
+            Demander une formation
+            <ArrowRight class="icon-sm" aria-hidden="true" />
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="section trainings-tight" aria-label="Catalogue des formations">
+    <div class="container">
+      <ul class="trainings">
+        {trainings.map((training) => (
+          <li class="card training">
+            <div class="training-media">
+              {training.thumbnail ? (
+                <>
+                  {/* Lazy and hidden by the theme, so only one of the pair is fetched */}
+                  <Image
+                    src={training.thumbnail}
+                    alt=""
+                    widths={[480, 800]}
+                    sizes="(min-width: 1024px) 34rem, 100vw"
+                    format="avif"
+                    class:list={['training-thumbnail', training.thumbnailDark && 'theme-light-only']}
+                    loading="lazy"
+                  />
+                  {training.thumbnailDark && (
+                    <Image
+                      src={training.thumbnailDark}
+                      alt=""
+                      widths={[480, 800]}
+                      sizes="(min-width: 1024px) 34rem, 100vw"
+                      format="avif"
+                      class="training-thumbnail theme-dark-only"
+                      loading="lazy"
+                    />
+                  )}
+                </>
+              ) : (
+                <div class="training-thumbnail training-thumbnail--placeholder" aria-hidden="true">
+                  <GraduationCap class="icon-lg" />
+                </div>
+              )}
+            </div>
+            <div class="training-body">
+              <p class="training-eyebrow">
+                {training.upcoming && (
+                  <span class="training-badge">
+                    <CalendarClock class="icon-sm" aria-hidden="true" />
+                    À venir
+                  </span>
+                )}
+                <span>{training.subtitle}</span>
+              </p>
+              <h2 class="training-title">{training.title}</h2>
+              <p class="training-description">{training.description}</p>
+              {training.highlights.length > 0 && (
+                <>
+                  <h3 class="training-subtitle">Au programme</h3>
+                  <ul class="training-highlights">
+                    {training.highlights.map((highlight) => (
+                      <li>
+                        <Check class="icon-sm icon-primary flex-shrink-0" aria-hidden="true" />
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+              {training.formats.length > 0 && (
+                <ul class="training-formats" aria-label="Format">
+                  {training.formats.map((format) => <li class="tag">{format}</li>)}
+                </ul>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {!contactDisabled && (
+    <section class="section section--surface trainings-tight">
+      <div class="container max-w-3xl text-center">
+        <h2 class="section-title">Une session pour votre équipe ?</h2>
+        <p class="section-description">
+          Nous adaptons le programme à votre contexte et venons le dérouler dans vos locaux.
+        </p>
+        <a href="/work-with-us/" class="btn-primary">
+          Organiser une session
+          <ArrowRight class="icon-sm" aria-hidden="true" />
+        </a>
+      </div>
+    </section>
+  )}
+</Layout>
+
+<style>
+  @media (min-width: 1024px) {
+    .trainings-tight { padding-block: 3.5rem; }
+  }
+
+  .trainings {
+    display: grid;
+    gap: 2rem;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Stacked on mobile, image beside the programme from `lg` */
+  .training {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    overflow: hidden;
+  }
+  @media (min-width: 1024px) {
+    .training { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+    .training-media { border-right: 1px solid var(--color-border); }
+  }
+  .training-thumbnail {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+  @media (min-width: 1024px) {
+    .training-media { align-self: stretch; }
+    .training-thumbnail { height: 100%; object-position: left top; }
+  }
+  .training-thumbnail--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    background: color-mix(in srgb, var(--color-primary) 8%, var(--card-bg));
+  }
+
+  /* Mirrors the theme resolution in global.css: explicit choice first, then the OS */
+  .theme-dark-only { display: none; }
+  :global([data-theme="dark"]) .theme-light-only { display: none; }
+  :global([data-theme="dark"]) .theme-dark-only { display: block; }
+  @media (prefers-color-scheme: dark) {
+    :global(html:not([data-theme="light"])) .theme-light-only { display: none; }
+    :global(html:not([data-theme="light"])) .theme-dark-only { display: block; }
+  }
+
+  .training-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.5rem;
+  }
+  @media (min-width: 1024px) {
+    .training-body { padding: 2rem 2.5rem; }
+  }
+
+  .training-eyebrow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  .training-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 999px;
+    color: var(--color-on-primary);
+    background: var(--color-primary);
+  }
+  .training-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .training-description {
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  .training-subtitle {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+  .training-highlights {
+    display: grid;
+    gap: 0.5rem;
+    padding: 0;
+    list-style: none;
+  }
+  .training-highlights li {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  .training-highlights :global(svg) { margin-top: 0.25rem; }
+
+  .training-formats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0;
+    list-style: none;
+  }
+</style>

@@ -1,7 +1,8 @@
 ---
 import { getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import { Heart, FileText, Rocket, ShieldCheck, CodeXml, Leaf, HeartHandshake } from '@lucide/astro';
+import { Heart, CalendarHeart, ChevronLeft, ChevronRight, FileText, Rocket, ShieldCheck, CodeXml, Leaf, HeartHandshake } from '@lucide/astro';
 import { isPageDisabled } from '../lib/pages';
 import { readFileSync } from 'node:fs';
 import { MEDIA_BASE_URL } from 'astro:env/server';
@@ -11,6 +12,9 @@ const careersDisabled = isPageDisabled('careers')
 const peopleData = await getEntry('people', 'people');
 if (!peopleData) throw new Error('People data not found');
 const { photos, contractTypes, testimonials, interviews } = peopleData.data;
+
+const eventsData = await getEntry('events', 'events');
+const events = eventsData?.data.events ?? [];
 
 /** Plain-text transcript built from the captions, so the interview is readable without playing it. */
 function readTranscript(slug: string): string {
@@ -188,12 +192,76 @@ const contractIcons: Record<string, typeof Heart> = {
     </div>
   </section>
 
+  {events.length > 0 && (
+    <section class="section team-tight" aria-labelledby="events-title">
+      <div class="container">
+        <div class="team-heading">
+          <CalendarHeart class="icon-lg icon-primary flex-shrink-0" size={28} aria-hidden="true" />
+          <h2 id="events-title" class="section-title">Nos événements</h2>
+        </div>
+        <ul class="team-events">
+          {events.map((event, eventIndex) => (
+            <li id={event.id} class:list={['team-event', { 'team-event--half': event.half }]}>
+              <div class="team-event-text">
+                <p class="team-event-eyebrow">{event.eyebrow}</p>
+                <h3 class="team-event-title">{event.title}</h3>
+                <p class="text-muted">{event.description}</p>
+                {event.quote && <blockquote class="team-event-quote">« {event.quote} »</blockquote>}
+              </div>
+              {event.photos.length > 0 && (
+                <div class="team-event-photos">
+                  {/* Revealed by the script only when the row overflows */}
+                  <div class="strip-controls" data-strip-controls hidden>
+                    <button type="button" class="strip-btn" aria-controls={`event-${eventIndex}-strip`} aria-label="Photos précédentes" data-strip-prev>
+                      <ChevronLeft class="icon-md" aria-hidden="true" />
+                    </button>
+                    <button type="button" class="strip-btn" aria-controls={`event-${eventIndex}-strip`} aria-label="Photos suivantes" data-strip-next>
+                      <ChevronRight class="icon-md" aria-hidden="true" />
+                    </button>
+                  </div>
+                  {/* Scroll-snap strip: swipe on touch, arrow keys once focused */}
+                  <div
+                    id={`event-${eventIndex}-strip`}
+                    class="team-event-strip"
+                    role="region"
+                    aria-label={`Photos : ${event.title}, défilement horizontal`}
+                    tabindex="0"
+                    data-strip
+                  >
+                    <ul>
+                      {event.photos.map((photo) => (
+                        <li>
+                          <Image
+                            src={photo.src}
+                            alt={photo.alt}
+                            widths={[480, 720, 960]}
+                            sizes="(min-width: 768px) 26rem, 80vw"
+                            format="avif"
+                            quality={70}
+                            loading="lazy"
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
 </Layout>
 
 <script>
   import { initOrbitTriangle } from '../scripts/orbit-triangle';
+  import { initScrollStrips } from '../scripts/scroll-strips';
 
-  const init = () => initOrbitTriangle('profile-triangle');
+  const init = () => {
+    initOrbitTriangle('profile-triangle');
+    initScrollStrips();
+  };
   init();
   document.addEventListener('astro:after-swap', init);
 </script>
@@ -327,6 +395,104 @@ const contractIcons: Record<string, typeof Heart> = {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
+  .team-events {
+    display: grid;
+    gap: 3rem;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+  }
+  .team-event {
+    display: grid;
+    gap: 1.5rem;
+  }
+  .team-event-text {
+    max-width: 48rem;
+  }
+  .team-event-text > * + * { margin-top: 0.75rem; }
+  .team-event-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  .team-event-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .team-event-quote {
+    padding-left: 1rem;
+    border-left: 3px solid var(--color-primary);
+    font-style: italic;
+  }
+
+  /* Grid child: without this the strip widens the page instead of scrolling */
+  .team-event-photos { min-width: 0; }
+
+  /* Variable-width slides at a fixed height, so the portrait photo is not cropped */
+  .team-event-strip {
+    position: relative;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    border-radius: var(--radius-lg);
+    /* A visible scrollbar, thin, as a second cue that the row moves */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-text-muted) transparent;
+  }
+  .team-event-strip:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+  .team-event-strip ul {
+    display: flex;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0 0 0.75rem;
+    list-style: none;
+  }
+  .team-event-strip li {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+  .team-event-strip img {
+    display: block;
+    width: auto;
+    max-width: 85vw;
+    height: 16rem;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+  }
+  @media (min-width: 768px) {
+    .team-event-strip img { height: 20rem; }
+  }
+  /* A lone photo has nothing to scroll to: it fits its column instead,
+     cropped to the slide height, rather than leaving a stub to scroll */
+  .team-event-strip li:only-child { flex: 1 1 auto; max-width: 100%; }
+  .team-event-strip li:only-child img { width: 100%; max-width: 30rem; }
+  @media (prefers-reduced-motion: no-preference) {
+    .team-event-strip { scroll-behavior: smooth; }
+  }
+
+  /* A rule between events. Two half events share a row on wide screens,
+     so no rule runs between them there. */
+  .team-event + .team-event {
+    padding-top: 3rem;
+    border-top: 1px solid var(--color-border);
+  }
+  @media (min-width: 768px) {
+    .team-events { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 3rem; }
+    .team-event { grid-column: 1 / -1; }
+    .team-event--half { grid-column: auto; }
+    .team-event--half + .team-event--half {
+      padding-top: 0;
+      border-top: 0;
+    }
+  }
+
   .interview-transcript p {
     color: var(--color-text-muted);
     line-height: 1.6;

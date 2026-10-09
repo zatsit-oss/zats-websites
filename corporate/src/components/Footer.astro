@@ -155,10 +155,10 @@ import bcorpLightUrl from '../assets/bcorp-light.svg?url';
   <div class="border-t" style="border-color: var(--color-border);">
     <div class="container py-4 flex flex-col md:flex-row md:justify-between items-start md:items-center gap-2 text-xs text-muted">
       <p>zatsit - {new Date().getFullYear()} &bull; Site statique éco-conçu</p>
-      <div class="flex gap-6">
-        <a href={ETI_RAPPORT_URL} target="_blank" rel="noopener noreferrer" class="link">Rapport ETI</a>
-        <a href="/legal-notice/" class="link">Mentions légales</a>
-        <a href="/privacy-policy/" class="link">Politique de confidentialité</a>
+      <div class="flex flex-wrap gap-x-6">
+        <a href={ETI_RAPPORT_URL} target="_blank" rel="noopener noreferrer" class="link inline-flex items-center min-h-6">Rapport ETI<span class="sr-only">, dans un nouvel onglet</span></a>
+        <a href="/legal-notice/" class="link inline-flex items-center min-h-6">Mentions légales</a>
+        <a href="/privacy-policy/" class="link inline-flex items-center min-h-6">Politique de confidentialité</a>
       </div>
     </div>
   </div>

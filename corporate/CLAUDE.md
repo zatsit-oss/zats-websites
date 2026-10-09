@@ -35,18 +35,18 @@ There are no automated tests. Validate changes by running the build and previewi
 
 ## Architecture
 
-**Astro v5 + Tailwind v4** static site published to a Google Cloud Storage bucket served through a load balancer. Firebase Hosting only serves pull request previews.
+**Astro v7 + Tailwind v4** static site published to a Google Cloud Storage bucket served through a load balancer. Firebase Hosting only serves pull request previews.
 
 ### Content Collections
 
-All page data lives in `src/content/` as JSON files, validated by Zod schemas in `src/content/config.ts`. Collections: `people`, `services`, `tech`, `legal`. Pages load data via `getEntry('collection', 'slug')`:
+All page data lives in `src/content/` as JSON files, validated by Zod schemas in `src/content.config.ts`. Collections: `people`, `services`, `tech`, `legal`, `offers`, `careers`, `contributions` (talks and open source projects), `trainings`, `events` (team page). Thumbnails sit next to their JSON (`src/content/<collection>/thumbnails/`) and go through `image()`, so Astro emits them as AVIF. Pages load data via `getEntry('collection', 'slug')`:
 
 ```ts
 const techData = await getEntry('tech', 'tech');
 const { intro, stats, stacks } = techData.data;
 ```
 
-To add or modify site content (team members, services, tech stacks, legal text), edit the JSON files in `src/content/`.
+To add or modify site content (team members, services, tech stacks, legal text, talks, trainings), edit the JSON files in `src/content/`.
 
 ### Machine-readable head
 

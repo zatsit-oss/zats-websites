@@ -2,20 +2,22 @@
   "hero": {
     "title": "L'IA écrit du code.",
     "highlight": "Quelqu'un doit en répondre.",
-    "subtitle": "C'est ce que nous appelons le product engineering augmenté. Des Product Engineers et des Forward Deployed Engineers seniors dans vos équipes : la spec avant le code, le modèle choisi selon la tâche, la facture mesurée. Quatre packages pour commencer, une seule méthode.",
-    "primaryCta": "Voir les quatre packages",
+    "subtitle": "C'est ce que nous appelons le product engineering augmenté. Des Product Engineers et des Forward Deployed Engineers seniors dans vos équipes : la spec avant le code, le modèle choisi selon la tâche, la facture mesurée. Quatre Enablers AI pour commencer, une seule méthode.",
+    "primaryCta": "Voir les Enablers AI",
     "secondaryCta": "Écrivez-nous"
   },
   "method": {
+    "eyebrow": "Enablers AI",
     "title": "Ce que l'IA ne décide pas",
-    "caption": "L'IA génère du code, parfois des tests. Ce que l'on spécifie, ce que l'on vérifie, ce que l'on déploie et ce que l'on mesure restent des décisions d'ingénieurs. Ces cinq stations sont notre méthode. Chaque package en prend un tronçon."
+    "caption": "L'IA génère du code, parfois des tests. Ce que l'on spécifie, ce que l'on vérifie, ce que l'on déploie et ce que l'on mesure restent des décisions d'ingénieurs. Ces cinq phases sont notre méthode. Chaque package en prend un tronçon."
   },
   "packages": [
     {
-      "id": "ai-readiness",
+      "id": "audit-maturite-ia",
+      "navLabel": "Audit maturité IA",
       "situation": "Mes développeurs utilisent déjà des copilotes. Personne n'a écrit de règle.",
-      "title": "AI-readiness, par le code",
-      "pitch": "Un audit de maturité IA, d'habitude, c'est un questionnaire. Le nôtre se fait dans votre dépôt. Nous lisons vos specs, vos tests, votre CI, vos données, et ce que l'IA vous coûte déjà. Vous repartez avec une feuille de route classée par priorité, pas avec un score de maturité.",
+      "title": "Audit de maturité IA",
+      "pitch": "Un audit de maturité IA, d'habitude, c'est un questionnaire. Le nôtre se fait dans votre équipe. Nous lisons vos specs, vos tests, votre CI, vos données, et ce que l'IA vous coûte déjà. Vous repartez avec une feuille de route classée par priorité, pas avec un score de maturité.",
       "stations": [
         "spec",
         "mesure"
@@ -25,12 +27,13 @@
         "Tech Lead Agentic"
       ],
       "form": "Un forfait court. Le périmètre est fixé avec vous avant de commencer.",
-      "deliverable": "Un état des lieux de votre système et de vos pratiques, ce que l'IA vous coûte déjà sur ce qui se trace (licences, appels d'API), en euros, et la feuille de route, priorisée.",
+      "deliverable": "Une note par pan de votre cycle de développement (infra, outillage, licences, processus, équipes), ce que l'IA vous coûte déjà sur ce qui se trace (licences, appels d'API), en euros, et la feuille de route pour progresser, priorisée.",
       "measured": "Ce que coûtent vos outils IA aujourd'hui, et si les modèles en place sont taillés pour leurs tâches ou trop gros pour elles.",
       "sovereign": "La carte des données qui ne doivent pas sortir, et les options d'hébergement qui existent vraiment pour elles."
     },
     {
       "id": "projet-sdd",
+      "navLabel": "Pilote spec-driven",
       "situation": "Je veux voir la méthode tourner avant de l'adopter partout.",
       "title": "Un pilote spec-driven (SDD), le dépôt comme preuve",
       "pitch": "Vous ne nous croirez pas sur parole. Tant mieux. Nous livrons un dépôt : spécification d'abord, code généré ensuite et vérifié, contrats d'API, tests, CI. Un périmètre, une durée, des seniors embarqués. À la fin, vous ouvrez le code et vous jugez.",
@@ -78,9 +81,10 @@
       ]
     },
     {
-      "id": "reprise",
+      "id": "desendettement",
+      "navLabel": "Désendettement",
       "situation": "Ma facture cloud monte. Mon code, lui, n'a pas changé.",
-      "title": "Reprise : le coût du code oublié",
+      "title": "Désendettement : le coût du code oublié",
       "pitch": "Un SI qui vieillit paie du calcul qu'il n'utilise plus : dépendances mortes, requêtes inutiles, ressources brûlées pour rien. Nous ne chiffrons rien que nous n'ayons lu. Alors nous lisons votre code, nous trouvons ces postes, nous les chiffrons. Vous obtenez une liste en euros, réalisable avec nous ou sans nous.",
       "stations": [
         "code",
@@ -99,6 +103,7 @@
     },
     {
       "id": "dev-augmente",
+      "navLabel": "Dev augmenté",
       "situation": "Mes développeurs produisent plus vite. Je ne sais pas si c'est mieux.",
       "title": "Du dev augmenté, pas du vibe-coding",
       "pitch": "Le vibe-coding, c'est laisser l'IA écrire et espérer. Le dev augmenté, c'est spécifier, cadrer le contexte, choisir le modèle, relire, mesurer. Nous pratiquons le second chez nous. Nous l'installons chez vous : une équipe en pilote, puis les autres si les chiffres du pilote le justifient.",
@@ -112,12 +117,39 @@
         "Tech Lead Agentic",
         "Product Engineer"
       ],
-      "form": "Un pilote avec une équipe volontaire. Ensuite, formations et BBL (sessions courtes du midi) pour élargir.",
-      "deliverable": "Une charte d'usage, des specs, des contextes cadrés, une revue pensée pour le code généré, un tableau de bord des coûts IA bâti sur vos factures et vos appels d'API. Le tout pensé pour tourner sans nous.",
+      "form": "Un pilote avec une équipe volontaire, trois demi-journées de formation comprises. Ensuite, nos formations (prompt engineering, SDD, squad agentique) pour élargir : vous ne financez que la journée du formateur.",
+      "deliverable": "Des skills et des agents propres à votre contexte, des workflows agentiques calés sur votre cycle de développement, une revue pensée pour le code généré, un tableau de bord des coûts IA bâti sur vos factures et vos appels d'API. Le tout pensé pour tourner sans nous.",
       "measured": "Ce que consomment vos outils IA, semaine après semaine. Et pour chaque tâche, le modèle retenu et pourquoi.",
       "sovereign": "La charte dit quelles données, quels modèles, ce qui sort, ce qui reste. Noir sur blanc, pas dans la tête de chacun."
     }
   ],
+  "foundation": {
+    "title": "Et notre socle : conseiller, construire",
+    "intro": "Les Enablers AI reposent sur nos deux métiers historiques. L'IA ne change pas leur nature, elle change leur vitesse.",
+    "offers": [
+      {
+        "id": "conseil",
+        "situation": "J'ai une décision technique lourde à prendre, et personne pour la challenger.",
+        "title": "Conseil, par les associés",
+        "pitch": "Une trajectoire d'architecture, un choix de plateforme, une équipe à réorganiser autour des agents : ce sont les associés de zatsit qui viennent, en direct. Nous apportons ce que l'IA ne sait pas (encore) faire : arbitrer, en connaissant le terrain.",
+        "form": "Au temps passé, quelques jours ou quelques demi-journées, sur une question posée.",
+        "roles": [
+          "Associés"
+        ]
+      },
+      {
+        "id": "ingenieur-augmente",
+        "situation": "Il me manque des bras pour construire, et je veux qu'ils arrivent avec la méthode.",
+        "title": "Ingénieur·e augmenté·e",
+        "pitch": "Notre métier historique : des consultantes et consultants qualifiés rejoignent vos équipes pour construire. La différence tient à ce qu'ils apportent avec eux, la pratique agentique que nous appliquons chez nous. La vélocité de l'IA, sans la dette du vibe-coding.",
+        "form": "Un renfort dans votre équipe, au temps passé, sur la durée de votre projet.",
+        "roles": [
+          "Augmented Engineer",
+          "Product Engineer"
+        ]
+      }
+    ]
+  },
   "refusalsTitle": "Ce que nous refusons de vendre",
   "refusals": [
     {
@@ -172,8 +204,8 @@
     }
   ],
   "cta": {
-    "title": "Décrivez votre situation, nous nommons le package",
-    "text": "Trois lignes suffisent : votre système, votre équipe, ce qui coince. Nous vous répondons par quel package entrer, ou qu'aucun ne convient. Les deux réponses tiennent en un mail.",
+    "title": "Décrivez votre situation, nous nommons l'offre",
+    "text": "Trois lignes suffisent : votre système, votre équipe, ce qui coince. Nous vous répondons par quelle offre entrer, ou qu'aucun ne convient. Les deux réponses tiennent en un mail.",
     "button": "Écrivez-nous"
   }
 }

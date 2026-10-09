@@ -35,15 +35,20 @@ zatsit-website/
 │   ├── layouts/
 │   │   └── Layout.astro        # Main page layout
 │   ├── pages/                  # File-based routing
-│   │   ├── index.astro         # Homepage
-│   │   ├── join-us.astro       # Join the team
-│   │   ├── work-with-us.astro  # Contact form
-│   │   ├── team.astro          # Team page
-│   │   ├── tech.astro          # Technologies page
-│   │   ├── careers.astro       # Job offers page
-│   │   ├── find-us.astro       # Location page
-│   │   ├── legal-notice.astro  # Legal mentions
-│   │   ├── privacy-policy.astro # Privacy policy
+│   │   ├── index.astro         # Home
+│   │   ├── offres.astro        # Offers
+│   │   ├── manifeste.astro     # Manifesto
+│   │   ├── work-with-us.astro  # Work with us (contact form)
+│   │   ├── team.astro          # Team
+│   │   ├── contributions.astro # Contributions (talks and open source projects)
+│   │   ├── formations.astro    # Trainings
+│   │   ├── join-us.astro       # Join us
+│   │   ├── careers.astro       # Careers
+│   │   ├── apply.astro         # Apply (candidate form)
+│   │   ├── tech.astro          # Technologies, reachable by URL only
+│   │   ├── find-us.astro       # Find us
+│   │   ├── legal-notice.astro  # Legal notice
+│   │   ├── privacy-policy.astro# Privacy policy
 │   │   └── 404.astro           # Not found, emitted as dist/404.html
 │   └── styles/
 │       └── global.css          # All styles (variables, components)

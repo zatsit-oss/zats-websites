@@ -1,0 +1,145 @@
+{
+  "talks": [
+    {
+      "title": "On a toujours fait comme ça",
+      "event": "Cloud Nord 2026",
+      "date": "2026-10-30",
+      "city": "Lille",
+      "speakers": [
+        "Emmanuel Peru"
+      ],
+      "summary": "Les biais cognitifs qui sabotent nos projets tech, nommés, sourcés par la recherche et illustrés par le terrain.",
+      "thumbnail": "./thumbnails/cloudnord-2026-on-a-toujours-fait-comme-ca.jpg",
+      "page": "https://cloudnord.fr/sessions/cmpr392ry01x601qjl615fj3x/"
+    },
+    {
+      "title": "Le développeur Product Engineer",
+      "event": "La Cité de l'IA",
+      "date": "2026-09-25",
+      "city": "Lille",
+      "speakers": [
+        "Ludovic Dussart"
+      ],
+      "summary": "Les agents IA produisent le code, pas l'intention : la spécification devient la source de vérité.",
+      "thumbnail": "./thumbnails/cite-ia-product-engineer.jpg",
+      "page": "https://www.linkedin.com/posts/ia-developers-genai-ugcPost-7509271262939156481-2jvL/"
+    },
+    {
+      "title": "EcoScore A ou E : où se situe vraiment votre API ?",
+      "event": "DevLille 2026",
+      "date": "2026-06",
+      "city": "Lille",
+      "speakers": [
+        "Emmanuel Peru"
+      ],
+      "summary": "API Green Score et EROOM, deux référentiels open source pour évaluer l'éco-conception d'une API, et l'outil éco-conçu qui les rend accessibles.",
+      "thumbnail": "./thumbnails/XDaJhPRvz6U.jpg",
+      "video": "https://www.youtube.com/watch?v=XDaJhPRvz6U"
+    },
+    {
+      "title": "Contract-First : reprends le contrôle de tes API avec des outils qui changent la vie",
+      "event": "DevLille 2026",
+      "date": "2026-06",
+      "city": "Lille",
+      "speakers": [
+        "Emmanuel Peru"
+      ],
+      "summary": "Un workflow Contract-First outillé par des agents IA : mocker avec Microcks, linter avec Vacuum, tester la rétrocompatibilité en CI.",
+      "thumbnail": "./thumbnails/1H7Tr77pVdA.jpg",
+      "video": "https://www.youtube.com/watch?v=1H7Tr77pVdA"
+    },
+    {
+      "title": "Le CDC pour ne pas DCD",
+      "event": "DevLille 2026",
+      "date": "2026-06",
+      "city": "Lille",
+      "speakers": [
+        "Quentin Burg",
+        "Ludovic Dussart"
+      ],
+      "summary": "Comment le Change Data Capture a sorti un produit legacy de la PLS, démos Debezium et Kafka à l'appui.",
+      "thumbnail": "./thumbnails/So5kdY1A_HI.jpg",
+      "video": "https://www.youtube.com/watch?v=So5kdY1A_HI",
+      "alsoGivenAt": [
+        {
+          "event": "Cloud Nord 2025",
+          "date": "2025-10-23"
+        }
+      ]
+    },
+    {
+      "title": "Crossplane : l'infrastructure multi-cloud pilotée par les API Kubernetes",
+      "event": "Meetup Programmez #52",
+      "date": "2025-06-17",
+      "speakers": [
+        "Germain Lefebvre"
+      ],
+      "summary": "Unifier la gestion des ressources AWS, Azure et Google Cloud en infra-as-code, avec la puissance et l'extensibilité de Kubernetes.",
+      "thumbnail": "./thumbnails/meetup-crossplane.jpg",
+      "page": "https://www.meetup.com/meetup-programmez/events/305605864/"
+    },
+    {
+      "title": "Mesure ton empreinte avec Cloud Carbon Footprint",
+      "event": "Cloud Nord 2024",
+      "date": "2024-10-10",
+      "city": "Lille",
+      "speakers": [
+        "Emmanuel Peru"
+      ],
+      "summary": "Piloter le cloud par l'empreinte plutôt que par le seul budget, avec le projet open source Cloud Carbon Footprint.",
+      "thumbnail": "./thumbnails/57EhvNh-IaE.jpg",
+      "video": "https://www.youtube.com/watch?v=57EhvNh-IaE"
+    },
+    {
+      "title": "Introduction à Impact Framework",
+      "event": "Cloud Nord 2024",
+      "date": "2024-10-10",
+      "city": "Lille",
+      "speakers": [
+        "Ludovic Dussart"
+      ],
+      "summary": "Le projet open source de la Green Software Foundation qui agrège les mesures d'une infrastructure complète pour en calculer l'impact carbone et énergétique.",
+      "thumbnail": "./thumbnails/bhsqdrMZgN0.jpg",
+      "video": "https://www.youtube.com/watch?v=bhsqdrMZgN0"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Zats Green Score",
+      "description": "Évaluer l'éco-conception de vos projets numériques avec deux référentiels open source : API Green Score et EROOM de Boavizta.",
+      "url": "https://greenscore.zatsit.fr/",
+      "repo": "https://github.com/zatsit-oss/zats-greenscore",
+      "thumbnail": "./thumbnails/zats-greenscore.png",
+      "stack": [
+        "Astro",
+        "TypeScript"
+      ]
+    },
+    {
+      "name": "arazzo-maestro",
+      "description": "Linter, visualiser et tester des workflows OpenAPI Arazzo. Un seul binaire Go, éco-conçu et accessible par défaut.",
+      "url": "https://github.com/emmanuelperu/arazzo-maestro",
+      "maintainers": [
+        "Emmanuel Peru"
+      ],
+      "thumbnail": "./thumbnails/arazzo-maestro.jpg",
+      "stack": [
+        "Go",
+        "OpenAPI",
+        "Arazzo"
+      ]
+    },
+    {
+      "name": "CV Wonder",
+      "description": "Générer des CV en masse à partir d'un thème, en quelques secondes et sans friction.",
+      "url": "https://github.com/germainlefebvre4/cvwonder",
+      "maintainers": [
+        "Germain Lefebvre"
+      ],
+      "thumbnail": "./thumbnails/cvwonder.jpg",
+      "stack": [
+        "Go"
+      ]
+    }
+  ]
+}

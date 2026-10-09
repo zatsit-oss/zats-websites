@@ -94,15 +94,20 @@ src/components/
 ## File Structure (corporate)
 
 ### Pages
-- `src/pages/index.astro` — Home
-- `src/pages/join-us.astro` — Join us
+- `src/pages/index.astro`: Home
+- `src/pages/offres.astro`: Offers
+- `src/pages/manifeste.astro`: Manifesto
 - `src/pages/work-with-us.astro`: Work with us (contact form)
-- `src/pages/team.astro` — Team
-- `src/pages/careers.astro` — Careers
-- `src/pages/tech.astro` — Technologies
-- `src/pages/find-us.astro` — Find us
-- `src/pages/legal-notice.astro` — Legal notice
-- `src/pages/privacy-policy.astro` — Privacy policy
+- `src/pages/team.astro`: Team
+- `src/pages/contributions.astro`: Contributions (talks and open source projects)
+- `src/pages/formations.astro`: Trainings
+- `src/pages/join-us.astro`: Join us
+- `src/pages/careers.astro`: Careers
+- `src/pages/apply.astro`: Apply (candidate form)
+- `src/pages/tech.astro`: Technologies, reachable by URL only
+- `src/pages/find-us.astro`: Find us
+- `src/pages/legal-notice.astro`: Legal notice
+- `src/pages/privacy-policy.astro`: Privacy policy
 - `src/pages/404.astro`: Not found, emitted as `dist/404.html`
 
 ### Routes that are not pages

@@ -1,11 +1,11 @@
 {
   "photos": [
-    { "src": "/images/team/groupe.webp", "alt": "Le collectif zatsit au complet" },
-    { "src": "/images/team/reunion.webp", "alt": "Réunion de travail en équipe" },
-    { "src": "/images/team/collaboration.webp", "alt": "Espace de collaboration" },
-    { "src": "/images/team/discussion.webp", "alt": "Discussion informelle entre collègues" },
-    { "src": "/images/team/binome.webp", "alt": "Travail en binôme" },
-    { "src": "/images/team/detente.webp", "alt": "Espace détente avec vélo" }
+    { "src": "/images/team/groupe.avif", "alt": "Le collectif zatsit au complet" },
+    { "src": "/images/team/reunion.avif", "alt": "Réunion de travail en équipe" },
+    { "src": "/images/team/collaboration.avif", "alt": "Espace de collaboration" },
+    { "src": "/images/team/discussion.avif", "alt": "Discussion informelle entre collègues" },
+    { "src": "/images/team/binome.avif", "alt": "Travail en binôme" },
+    { "src": "/images/team/detente.avif", "alt": "Espace détente avec vélo" }
   ],
   "stats": [
     { "value": "36", "label": "Talents", "icon": "users" },

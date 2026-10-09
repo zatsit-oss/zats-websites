@@ -8,3 +8,10 @@ const escapeHtml = (text: string) =>
 
 export const withBoldBrand = (text: string) =>
   escapeHtml(text).replace(/\bzatsit\b/g, '<strong>zatsit</strong>');
+
+/** Same escaping, then also sets each of `terms` in bold (role names, for instance). */
+export const withBoldTerms = (text: string, terms: string[]) =>
+  terms.reduce(
+    (html, term) => html.split(escapeHtml(term)).join(`<strong>${escapeHtml(term)}</strong>`),
+    withBoldBrand(text),
+  );

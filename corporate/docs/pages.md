@@ -14,16 +14,13 @@ These components appear on every page.
 
 **Elements**:
 - Logo (links to homepage)
-- Navigation links, in order, each hidden when its page is disabled through `DISABLED_PAGES`:
+- Navigation, in order. An entry whose page is disabled through `DISABLED_PAGES` disappears, and a menu left with no card disappears with it:
   - Accueil → `/`
-  - L'équipe → `/team/`
-  - Notre tech → `/tech/`
-  - Rejoins-nous → `/join-us/`
-  - Travaillons ensemble → `/work-with-us/`
-  - Nos offres d'emploi → `/careers/`
-  - Nous trouver → `/find-us/`
-  - Nos offres d'emplois → LinkedIn jobs (external)
-- Contact email (desktop only)
+  - Offres (mega menu): Nos offres → `/offres/`, Nos formations → `/formations/`, Travaillons ensemble → `/work-with-us/`. The Manifesto card is commented out for now; `/manifeste/` is still built and reachable by URL
+  - Le collectif (mega menu): Qui nous sommes → `/team/`, Ce que nous partageons → `/contributions/`
+  - Rejoins-nous (mega menu): Ton package → `/join-us/`, Carrière → `/careers/`, Postuler → `/apply/`
+- A menu with four cards lays them out as a 2 x 2 block, up to three sit on one row
+- Ecosystem icons, always visible: blog, sustainability portal, LinkedIn, GitHub, mail
 - Theme toggle (light/dark)
 - Mobile menu (hamburger)
 
@@ -164,6 +161,39 @@ Each card includes:
 ---
 
 ## Secondary Pages
+
+### Team (`src/pages/team.astro`)
+
+**URL**: `/team/`, labelled "Qui nous sommes" in the header
+
+**Content**: pillars, photo carousel, contract types and shared governance, video interviews ("Paroles de Zat's"), then "Nos événements": one entry per event (`src/content/events/events.json`) with a scroll-snap photo strip, no script, keyboard-scrollable once focused.
+
+---
+
+### Contributions (`src/pages/contributions.astro`)
+
+**URL**: `/contributions/`, labelled "Ce que nous partageons" in the header
+
+**Data**: `src/content/contributions/contributions.json`
+
+**Content**:
+- Two anchor buttons, "Sur scène" and "Open source"
+- Both sections show their cards on one row that slides horizontally (scroll-snap, keyboard-scrollable once focused). Prev/next buttons above the row, revealed by a small script only when the row overflows, disabled at each end; a thin visible scrollbar as a second cue
+- Above the talks, an invite to have a talk given at the visitor's company, linking to `/work-with-us/` (hidden when that page is disabled)
+- **Sur scène**: talks, most recent first. A talk given several times is one card, its other editions listed in `alsoGivenAt`. A talk dated `YYYY-MM-DD` after the build day carries an "À venir" badge.
+- **Open source**: projects, the card linking to the live tool when there is one, with a separate "Code source" link
+
+---
+
+### Formations (`src/pages/formations.astro`)
+
+**URL**: `/formations/`, labelled "Nos formations" in the "Offres" menu
+
+**Data**: `src/content/trainings/trainings.json`
+
+**Content**: a "Demander une formation" button in the hero, then one wide card per training (programme, formats, "À venir" badge when `upcoming`), then a single CTA to `/work-with-us/`. A training whose visual exists in two palettes sets `thumbnailDark`, and the page shows the one matching the theme.
+
+---
 
 ### Join Us (`src/pages/join-us.astro`)
 

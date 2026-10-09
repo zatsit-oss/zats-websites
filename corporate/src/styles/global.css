@@ -316,6 +316,8 @@ a[target="_blank"]:not(:has(svg)):hover::after {
 .nav-link {
   @apply font-medium transition-colors;
   color: var(--color-text-muted);
+  /* A 24px target at least (WCAG 2.5.8), the line box alone is 23px */
+  padding-block: 0.25rem;
 }
 
 .nav-link:hover {
@@ -487,6 +489,24 @@ a[target="_blank"]:not(:has(svg)):hover::after {
    agreement between them. Change them in all four, or in none.
    ========================================================================== */
 
+/* Height of the sticky header bar, so anchors and other sticky layers can sit
+   under it. Below 360px the ecosystem icons wrap onto a second line (see
+   .header-ecosystem), which makes the bar 89px tall. */
+:root {
+  --header-h: 4rem;
+}
+@media (max-width: 359px) {
+  :root { --header-h: 5.5625rem; }
+}
+@media (min-width: 768px) {
+  :root { --header-h: 5rem; }
+}
+
+/* Every in-page anchor lands below the header, with a little air */
+html {
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+}
+
 .header {
   @apply sticky top-0 z-50;
 }
@@ -569,7 +589,8 @@ a[target="_blank"]:not(:has(svg)):hover::after {
 }
 
 .mega-cards {
-  @apply grid grid-cols-3 gap-4 list-none m-0 p-0;
+  @apply grid gap-4 list-none m-0 p-0;
+  grid-template-columns: repeat(var(--mega-cols, 3), minmax(0, 1fr));
 }
 
 .mega-cards > li {
@@ -743,6 +764,17 @@ a[target="_blank"]:not(:has(svg)):hover::after {
   @apply lg:hidden;
   border-top: 1px solid var(--color-border);
   background-color: var(--color-bg);
+  /* The panel hangs from the sticky header, so it scrolls on its own: taller
+     than the screen, its last links would otherwise be out of reach.
+     --mobile-menu-top is set by the header script when the panel opens. */
+  max-height: calc(100dvh - var(--mobile-menu-top, var(--header-h)));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* The page behind the open mobile menu does not scroll */
+html.mobile-menu-open {
+  overflow: hidden;
 }
 
 .mobile-menu-content {
@@ -759,8 +791,14 @@ a[target="_blank"]:not(:has(svg)):hover::after {
 }
 
 .mobile-nav-group-title {
-  @apply py-2 text-lg font-semibold;
+  @apply pt-2 text-lg font-semibold;
   color: var(--color-text);
+}
+
+/* The mega menu's baseline, so the mobile groups keep the same voice */
+.mobile-nav-group-baseline {
+  @apply pb-3 text-sm font-semibold leading-snug;
+  color: var(--color-text-muted);
 }
 
 .mobile-mega-cards {
@@ -1985,4 +2023,38 @@ a.bcorp-badge[target="_blank"]::after {
   );
   border: 1px solid color-mix(in srgb, var(--color-primary) 35%, transparent);
   border-radius: var(--radius-lg);
+}
+
+/* Prev/next controls of the horizontal scroll-snap rows, driven by src/scripts/scroll-strips.ts */
+.strip-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  max-width: 72rem;
+  margin: 0 auto 0.75rem;
+}
+.strip-controls[hidden] { display: none; }
+.strip-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--color-text-muted);
+  border-radius: 999px;
+  color: var(--color-text);
+  background: transparent;
+  cursor: pointer;
+}
+.strip-btn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.strip-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+.strip-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
 }
