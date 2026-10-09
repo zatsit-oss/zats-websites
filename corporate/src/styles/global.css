@@ -791,8 +791,14 @@ html.mobile-menu-open {
 }
 
 .mobile-nav-group-title {
-  @apply py-2 text-lg font-semibold;
+  @apply pt-2 text-lg font-semibold;
   color: var(--color-text);
+}
+
+/* The mega menu's baseline, so the mobile groups keep the same voice */
+.mobile-nav-group-baseline {
+  @apply pb-3 text-sm font-semibold leading-snug;
+  color: var(--color-text-muted);
 }
 
 .mobile-mega-cards {

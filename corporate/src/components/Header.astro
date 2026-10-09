@@ -64,7 +64,7 @@ const megaMenus: Record<string, MegaMenu> = {
       tagline: "Des seniors dans vos équipes, la spec avant le code, la facture mesurée.",
     },
     items: [
-      { href: '/offres/', label: 'Nos offres', description: 'Quatre packages, du diagnostic par le code au pilote spec-driven, et ce que nous refusons de vendre.', icon: Layers },
+      { href: '/offres/', label: 'Nos offres', description: 'Quatre Enablers AI, nos deux métiers historiques, et ce que nous refusons de vendre.', icon: Layers },
       // Manifesto hidden from the menu for now, the page stays reachable by URL
       // (re-import ScrollText from @lucide/astro when restoring it):
       // { href: '/manifeste/', label: 'Manifesto', description: 'La conviction derrière nos offres.', icon: ScrollText },
@@ -295,6 +295,7 @@ const isMenuCurrent = (menu: MegaMenu) => menu.items.some(item => isCurrent(item
         return (
         <li>
           <p class="mobile-nav-group-title" id={`mobile-${menu.id}-title`}>{link.label}</p>
+          <p class="mobile-nav-group-baseline">{menu.intro.title} <span class="text-gradient">{menu.intro.highlight}</span></p>
           <ul class="mobile-mega-cards" aria-labelledby={`mobile-${menu.id}-title`}>
             {menu.items.map(item => (
               <li>
