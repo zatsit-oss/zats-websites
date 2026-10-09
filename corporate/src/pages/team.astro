@@ -231,15 +231,13 @@ const contractIcons: Record<string, typeof Heart> = {
                     <ul>
                       {event.photos.map((photo) => (
                         <li>
-                          {/* Sized on the desktop slide height (.team-event-strip img),
-                              capped at 1.5x density to keep the strip light */}
                           <Image
                             src={photo.src}
                             alt={photo.alt}
-                            height={320}
-                            densities={[1, 1.5]}
+                            widths={[480, 720]}
+                            sizes="(min-width: 768px) 26rem, 80vw"
                             format="avif"
-                            quality={35}
+                            quality={40}
                             loading="lazy"
                           />
                         </li>
