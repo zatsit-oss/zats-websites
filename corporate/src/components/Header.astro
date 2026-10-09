@@ -28,7 +28,7 @@ import ThemeToggle from './ThemeToggle.astro';
 import LinkedinIcon from '../assets/icons/linkedin.svg';
 import GithubIcon from '../assets/icons/github.svg';
 import SustainabilityIcon from '../assets/icons/sustainability.svg';
-import { ArrowUpRight, ChevronDown, CodeXml, Compass, ExternalLink, FilePenLine, GraduationCap, Handshake, Layers, Mail, Menu, Mic, Package, ScrollText, Users, X } from '@lucide/astro';
+import { ArrowUpRight, ChevronDown, CodeXml, Compass, ExternalLink, FilePenLine, GraduationCap, Handshake, Layers, Mail, Menu, Mic, Package, Users, X } from '@lucide/astro';
 import { isPageDisabled } from '../lib/pages';
 
 interface NavLink {
@@ -65,7 +65,9 @@ const megaMenus: Record<string, MegaMenu> = {
     },
     items: [
       { href: '/offres/', label: 'Nos offres', description: 'Quatre packages, du diagnostic par le code au pilote spec-driven, et ce que nous refusons de vendre.', icon: Layers },
-      { href: '/manifeste/', label: 'Manifesto', description: 'La conviction derrière nos offres.', icon: ScrollText },
+      // Manifesto hidden from the menu for now, the page stays reachable by URL
+      // (re-import ScrollText from @lucide/astro when restoring it):
+      // { href: '/manifeste/', label: 'Manifesto', description: 'La conviction derrière nos offres.', icon: ScrollText },
       { href: '/formations/', label: 'Nos formations', description: 'Coding agentique et Spec-Driven Development, en atelier pratique.', icon: GraduationCap },
       { href: '/work-with-us/', label: 'Travaillons ensemble', description: 'Parlez-nous de votre projet et de vos idées.', icon: Handshake },
     ],

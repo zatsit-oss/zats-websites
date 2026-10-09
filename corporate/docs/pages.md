@@ -16,7 +16,7 @@ These components appear on every page.
 - Logo (links to homepage)
 - Navigation, in order. An entry whose page is disabled through `DISABLED_PAGES` disappears, and a menu left with no card disappears with it:
   - Accueil → `/`
-  - Offres (mega menu): Nos offres → `/offres/`, Manifesto → `/manifeste/`, Nos formations → `/formations/`, Travaillons ensemble → `/work-with-us/`
+  - Offres (mega menu): Nos offres → `/offres/`, Nos formations → `/formations/`, Travaillons ensemble → `/work-with-us/`. The Manifesto card is commented out for now; `/manifeste/` is still built and reachable by URL
   - Le collectif (mega menu): Qui nous sommes → `/team/`, Ce que nous partageons → `/contributions/`
   - Rejoins-nous (mega menu): Ton package → `/join-us/`, Carrière → `/careers/`, Postuler → `/apply/`
 - A menu with four cards lays them out as a 2 x 2 block, up to three sit on one row
