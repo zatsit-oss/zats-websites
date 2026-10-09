@@ -66,6 +66,7 @@ const megaMenus: Record<string, MegaMenu> = {
     items: [
       { href: '/offres/', label: 'Nos offres', description: 'Quatre packages, du diagnostic par le code au pilote spec-driven, et ce que nous refusons de vendre.', icon: Layers },
       { href: '/manifeste/', label: 'Manifesto', description: 'La conviction derrière nos offres.', icon: ScrollText },
+      { href: '/formations/', label: 'Nos formations', description: 'Coding agentique et Spec-Driven Development, en atelier pratique.', icon: GraduationCap },
       { href: '/work-with-us/', label: 'Travaillons ensemble', description: 'Parlez-nous de votre projet et de vos idées.', icon: Handshake },
     ],
   },
@@ -80,7 +81,6 @@ const megaMenus: Record<string, MegaMenu> = {
     items: [
       { href: '/team/', label: 'Qui nous sommes', description: 'Nos statuts, notre gouvernance et les interviews de nos Zat\'s.', icon: Users },
       { href: '/contributions/', label: 'Ce que nous partageons', description: 'Nos talks en conférence et nos projets open source.', icon: Mic },
-      { href: '/formations/', label: 'Nos formations', description: 'Coding agentique et Spec-Driven Development, en atelier pratique.', icon: GraduationCap },
     ],
   },
   '#join-us': {
@@ -168,7 +168,9 @@ const isMenuCurrent = (menu: MegaMenu) => menu.items.some(item => isCurrent(item
                 <p class="mega-title">{menu.intro.title} <span class="text-gradient">{menu.intro.highlight}</span></p>
                 <p class="mega-tagline" set:html={menu.intro.tagline} />
               </div>
-              <ul class="mega-cards" aria-label={link.label}>
+              {/* Up to three cards on one row; four make a 2 x 2 block rather than
+                  four narrow columns */}
+              <ul class="mega-cards" aria-label={link.label} style={`--mega-cols: ${menu.items.length === 4 ? 2 : menu.items.length}`}>
                 {menu.items.map((item, index) => (
                   <li style={`--i: ${index}`}>
                     <a href={item.href} class="mega-card" aria-current={isCurrent(item.href) ? 'page' : undefined}>

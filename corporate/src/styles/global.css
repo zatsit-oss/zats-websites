@@ -569,7 +569,8 @@ a[target="_blank"]:not(:has(svg)):hover::after {
 }
 
 .mega-cards {
-  @apply grid grid-cols-3 gap-4 list-none m-0 p-0;
+  @apply grid gap-4 list-none m-0 p-0;
+  grid-template-columns: repeat(var(--mega-cols, 3), minmax(0, 1fr));
 }
 
 .mega-cards > li {

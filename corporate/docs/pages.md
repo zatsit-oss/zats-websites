@@ -16,9 +16,10 @@ These components appear on every page.
 - Logo (links to homepage)
 - Navigation, in order. An entry whose page is disabled through `DISABLED_PAGES` disappears, and a menu left with no card disappears with it:
   - Accueil → `/`
-  - Offres (mega menu): Nos offres → `/offres/`, Manifesto → `/manifeste/`, Travaillons ensemble → `/work-with-us/`
-  - Le collectif (mega menu): Qui nous sommes → `/team/`, Ce que nous partageons → `/contributions/`, Nos formations → `/formations/`
+  - Offres (mega menu): Nos offres → `/offres/`, Manifesto → `/manifeste/`, Nos formations → `/formations/`, Travaillons ensemble → `/work-with-us/`
+  - Le collectif (mega menu): Qui nous sommes → `/team/`, Ce que nous partageons → `/contributions/`
   - Rejoins-nous (mega menu): Ton package → `/join-us/`, Carrière → `/careers/`, Postuler → `/apply/`
+- A menu with four cards lays them out as a 2 x 2 block, up to three sit on one row
 - Ecosystem icons, always visible: blog, sustainability portal, LinkedIn, GitHub, mail
 - Theme toggle (light/dark)
 - Mobile menu (hamburger)
@@ -186,11 +187,11 @@ Each card includes:
 
 ### Formations (`src/pages/formations.astro`)
 
-**URL**: `/formations/`, labelled "Nos formations" in the header
+**URL**: `/formations/`, labelled "Nos formations" in the "Offres" menu
 
 **Data**: `src/content/trainings/trainings.json`
 
-**Content**: one wide card per training (programme, formats, "À venir" badge when `upcoming`), then a single CTA to `/work-with-us/`. A training whose visual exists in two palettes sets `thumbnailDark`, and the page shows the one matching the theme.
+**Content**: a "Demander une formation" button in the hero, then one wide card per training (programme, formats, "À venir" badge when `upcoming`), then a single CTA to `/work-with-us/`. A training whose visual exists in two palettes sets `thumbnailDark`, and the page shows the one matching the theme.
 
 ---
 

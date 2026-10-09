@@ -28,6 +28,12 @@ const contactDisabled = isPageDisabled('work-with-us');
         <p class="section-description hero-subtitle">
           Des ateliers où vous pilotez les agents vous-mêmes : la pratique avant les slides.
         </p>
+        {!contactDisabled && (
+          <a href="/work-with-us/" class="btn-primary">
+            Demander une formation
+            <ArrowRight class="icon-sm" aria-hidden="true" />
+          </a>
+        )}
       </div>
     </div>
   </section>
