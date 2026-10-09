@@ -469,6 +469,10 @@ const contractIcons: Record<string, typeof Heart> = {
   @media (min-width: 768px) {
     .team-event-strip img { height: 20rem; }
   }
+  /* A lone photo has nothing to scroll to: it fits its column instead,
+     cropped to the slide height, rather than leaving a stub to scroll */
+  .team-event-strip li:only-child { flex: 1 1 auto; max-width: 100%; }
+  .team-event-strip li:only-child img { width: 100%; max-width: 30rem; }
   @media (prefers-reduced-motion: no-preference) {
     .team-event-strip { scroll-behavior: smooth; }
   }
