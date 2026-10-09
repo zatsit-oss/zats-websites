@@ -1,6 +1,17 @@
 {
   "events": [
     {
+      "title": "Les Zatsdays",
+      "eyebrow": "Le dernier vendredi de chaque mois",
+      "description": "Chaque mois, hors juillet, août et décembre, le collectif quitte ses missions le dernier vendredi pour se retrouver en présentiel, à l'agence ou ailleurs. Au programme : des formations tech, les résultats et les objectifs de l'entreprise, des prises de parole libres, des groupes de travail (paie, congés, redistribution, formation) et du bénévolat dans des associations.",
+      "photos": [
+        {
+          "src": "./photos/zatsday-binome.webp",
+          "alt": "Le collectif réuni autour d'une grande table à l'agence, ordinateurs ouverts, lors d'un Zatsday"
+        }
+      ]
+    },
+    {
       "title": "Le séminaire des 3 ans",
       "eyebrow": "Baie de Somme, septembre 2026",
       "description": "Pour fêter nos trois ans, nous avons laissé les écrans de côté le temps de deux jours en baie de Somme : marche dans les prés salés, balade au Parc du Marquenterre, défis en équipe, et une météo bien picarde qui n'a découragé personne. Du temps ensemble, loin des missions, pour souder le collectif.",
