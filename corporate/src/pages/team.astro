@@ -201,7 +201,7 @@ const contractIcons: Record<string, typeof Heart> = {
         </div>
         <ul class="team-events">
           {events.map((event, eventIndex) => (
-            <li class="team-event">
+            <li class:list={['team-event', { 'team-event--half': event.half }]}>
               <div class="team-event-text">
                 <p class="team-event-eyebrow">{event.eyebrow}</p>
                 <h3 class="team-event-title">{event.title}</h3>
@@ -246,7 +246,6 @@ const contractIcons: Record<string, typeof Heart> = {
                   </div>
                 </div>
               )}
-              {eventIndex < events.length - 1 && <hr class="team-event-separator" />}
             </li>
           ))}
         </ul>
@@ -474,10 +473,20 @@ const contractIcons: Record<string, typeof Heart> = {
     .team-event-strip { scroll-behavior: smooth; }
   }
 
-  .team-event-separator {
-    margin-top: 1.5rem;
-    border: 0;
+  /* A rule between events. Two half events share a row on wide screens,
+     so no rule runs between them there. */
+  .team-event + .team-event {
+    padding-top: 3rem;
     border-top: 1px solid var(--color-border);
+  }
+  @media (min-width: 768px) {
+    .team-events { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 3rem; }
+    .team-event { grid-column: 1 / -1; }
+    .team-event--half { grid-column: auto; }
+    .team-event--half + .team-event--half {
+      padding-top: 0;
+      border-top: 0;
+    }
   }
 
   .interview-transcript p {

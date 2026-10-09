@@ -9,6 +9,19 @@
           "src": "./photos/zatsday-binome.webp",
           "alt": "Le collectif réuni autour d'une grande table à l'agence, ordinateurs ouverts, lors d'un Zatsday"
         }
+      ],
+      "half": true
+    },
+    {
+      "title": "AfterWork",
+      "eyebrow": "Hors des missions",
+      "description": "Le collectif se retrouve aussi pour le plaisir, sans ordre du jour. Ici, une partie de Quiz Room.",
+      "half": true,
+      "photos": [
+        {
+          "src": "./photos/afterwork-quiz-room.jpg",
+          "alt": "Le collectif dans une salle de Quiz Room aux murs bleus et jaunes, rassemblé autour des pupitres de jeu, pouces levés vers l'objectif"
+        }
       ]
     },
     {

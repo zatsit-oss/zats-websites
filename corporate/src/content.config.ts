@@ -306,6 +306,8 @@ const eventsCollection = defineCollection({
       eyebrow: z.string(),
       description: z.string(),
       quote: z.string().optional(),
+      // Half width on wide screens: two consecutive half events share a row
+      half: z.boolean().default(false),
       photos: z.array(z.object({
         src: image(),
         alt: z.string(),
