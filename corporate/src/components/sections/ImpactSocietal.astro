@@ -36,12 +36,12 @@ const engagements = [
             Nous sommes fiers de notre gouvernance d'entreprise transparente et partagée, où la collaboration et la responsabilité sont au cœur de notre modèle.
           </p>
           <p>
-            Consultez notre <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="link-primary">Github <ExternalLink class="icon-sm" size={16} /></a> pour découvrir nos premières initiatives open source à vocation d'impact.
+            Consultez notre <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="link-primary">Github <ExternalLink class="icon-sm" size={16} /><span class="sr-only">, dans un nouvel onglet</span></a> pour découvrir nos premières initiatives open source à vocation d'impact.
           </p>
         </div>
       </div>
 
-      <div id="engagement-triangle" class="engagement-triangle">
+      <div id="engagement-triangle" class="engagement-triangle" data-cluster-reveal>
         {engagements.map((engagement, index) => (
           <div
             class="partner-card active"
@@ -58,51 +58,5 @@ const engagements = [
 </section>
 
 <script>
-  function initEngagementTriangle() {
-    const container = document.getElementById('engagement-triangle');
-    if (!container) return;
-
-    const cards = Array.from(container.querySelectorAll('.partner-card'));
-    if (cards.length === 0) return;
-
-    // Reduced motion: keep every card in its final high-contrast state, no animation.
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      cards.forEach(card => card.classList.add('active'));
-      return;
-    }
-
-    // Start from the dimmed state. The section sits below the fold on load,
-    // so stripping the baseline 'active' class here is not visible.
-    cards.forEach(card => card.classList.remove('active'));
-
-    let revealed = false;
-    const revealSequentially = () => {
-      if (revealed) return;
-      revealed = true;
-      // Highlight each card once, in order, and leave it highlighted (no loop).
-      cards.forEach((card, index) => {
-        setTimeout(() => card.classList.add('active'), index * 400);
-      });
-    };
-
-    // Trigger the reveal only when the block enters the viewport.
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          revealSequentially();
-          observer.disconnect();
-        }
-      });
-    }, { threshold: 0.4 });
-
-    observer.observe(container);
-
-    // Cleanup on page navigation (ViewTransitions)
-    document.addEventListener('astro:before-swap', () => {
-      observer.disconnect();
-    }, { once: true });
-  }
-
-  initEngagementTriangle();
-  document.addEventListener('astro:after-swap', initEngagementTriangle);
+  import '../../scripts/cluster-reveal';
 </script>

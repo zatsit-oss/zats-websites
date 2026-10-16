@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/sections/Hero.astro';
+import ImpactSocietal from '../components/sections/ImpactSocietal.astro';
+import ImpactEnvironmental from '../components/sections/ImpactEnvironmental.astro';
+import Consultants from '../components/sections/Consultants.astro';
+import Clients from '../components/sections/Clients.astro';
+import Services from '../components/sections/Services.astro';
+import { ArrowRight } from '@lucide/astro';
+// The home page before the redesign, kept for comparison. It stays out of
+// indexing (noindex here, absent from getIndexablePages) and is hidden from
+// production builds through DISABLED_PAGES.
+---
+
+<Layout title="Accueil précédent" description="La page d'accueil de zatsit avant sa refonte, gardée pour comparaison." noindex>
+  <Hero />
+  <ImpactSocietal />
+  <ImpactEnvironmental />
+  <Consultants />
+  <Clients />
+  <Services />
+
+  <section class="section">
+    <div class="container">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="section-title mb-4">
+          Vous avez un projet <span class="text-gradient">à fort impact</span> ?
+        </h2>
+        <a href="/work-with-us/" class="btn-primary">
+          Travaillons ensemble
+          <ArrowRight class="icon-sm" size={18} />
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

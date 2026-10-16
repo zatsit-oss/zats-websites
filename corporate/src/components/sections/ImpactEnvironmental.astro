@@ -22,7 +22,7 @@ const partners = [
   { name: 'Mobilité douce', icon: 'bike', x: 290, y: 75 },    // Top right
   { name: 'Frame.work', icon: 'laptop', x: 290, y: 205 },     // Bottom right
   { name: 'Ekip', icon: 'ticket', x: 160, y: 280 },           // Bottom center
-  { name: 'B Corp', icon: 'badge', x: 30, y: 205 },           // Bottom left
+  { name: 'B Corp™', icon: 'badge', x: 30, y: 205 },           // Bottom left
   { name: 'EcoVadis', icon: 'leaf', x: 30, y: 75 },           // Top left
 ];
 ---
@@ -40,15 +40,15 @@ const partners = [
             <b>zatsit</b> s'engage également pour l'environnement. Nous optimisons nos développements pour avoir un impact le plus faible possible sur notre planète.
           </p>
           <p>
-            Nos sites sont éco-conçus. Consultez notre <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="link-primary">blog <ExternalLink class="icon-sm" size={16} /></a> pour concevoir un peu plus green.
+            Nos sites sont éco-conçus. Consultez notre <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="link-primary">blog <ExternalLink class="icon-sm" size={16} /><span class="sr-only">, dans un nouvel onglet</span></a> pour concevoir un peu plus green.
           </p>
           <p>
-            Nous utilisons <a href="https://frame.work/sustainability" target="_blank" rel="noopener noreferrer" class="link-primary">Frame.work <ExternalLink class="icon-sm" size={16} /></a> au quotidien. <a href="https://www.ekip.app/pourquoi-ekip" target="_blank" rel="noopener noreferrer" class="link-primary">Ekip <ExternalLink class="icon-sm" size={16} /></a> nous fournit des tickets restaurants écoresponsables et durables. Nos process internes nous ont menés à la certification <a href="https://www.bcorporation.net/" target="_blank" rel="noopener noreferrer" class="link-primary">B Corp <ExternalLink class="icon-sm" size={16} /></a>, et ce n'est que le début.
+            Nous utilisons <a href="https://frame.work/sustainability" target="_blank" rel="noopener noreferrer" class="link-primary">Frame.work <ExternalLink class="icon-sm" size={16} /><span class="sr-only">, dans un nouvel onglet</span></a> au quotidien. <a href="https://www.ekip.app/pourquoi-ekip" target="_blank" rel="noopener noreferrer" class="link-primary">Ekip <ExternalLink class="icon-sm" size={16} /><span class="sr-only">, dans un nouvel onglet</span></a> nous fournit des tickets restaurants écoresponsables et durables. Nos process internes nous ont menés à la certification <a href="https://www.bcorporation.net/" target="_blank" rel="noopener noreferrer" class="link-primary">B Corp™ <ExternalLink class="icon-sm" size={16} /><span class="sr-only">, dans un nouvel onglet</span></a>, et ce n'est que le début.
           </p>
         </div>
       </div>
 
-      <div id="partner-hexagon" class="partner-hexagon">
+      <div id="partner-hexagon" class="partner-hexagon" data-cluster-reveal>
         {partners.map((partner, index) => (
           <div
             class="partner-card active"
@@ -65,51 +65,5 @@ const partners = [
 </section>
 
 <script>
-  function initPartnerHexagon() {
-    const container = document.getElementById('partner-hexagon');
-    if (!container) return;
-
-    const cards = Array.from(container.querySelectorAll('.partner-card'));
-    if (cards.length === 0) return;
-
-    // Reduced motion: keep every card in its final high-contrast state, no animation.
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      cards.forEach(card => card.classList.add('active'));
-      return;
-    }
-
-    // Start from the dimmed state. The section sits below the fold on load,
-    // so stripping the baseline 'active' class here is not visible.
-    cards.forEach(card => card.classList.remove('active'));
-
-    let revealed = false;
-    const revealSequentially = () => {
-      if (revealed) return;
-      revealed = true;
-      // Highlight each card once, in order, and leave it highlighted (no loop).
-      cards.forEach((card, index) => {
-        setTimeout(() => card.classList.add('active'), index * 400);
-      });
-    };
-
-    // Trigger the reveal only when the block enters the viewport.
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          revealSequentially();
-          observer.disconnect();
-        }
-      });
-    }, { threshold: 0.4 });
-
-    observer.observe(container);
-
-    // Cleanup on page navigation (ViewTransitions)
-    document.addEventListener('astro:before-swap', () => {
-      observer.disconnect();
-    }, { once: true });
-  }
-
-  initPartnerHexagon();
-  document.addEventListener('astro:after-swap', initPartnerHexagon);
+  import '../../scripts/cluster-reveal';
 </script>
