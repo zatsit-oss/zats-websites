@@ -69,13 +69,15 @@ Six custom response headers on the backend bucket. This closed six of the twenty
 ```bash
 gcloud compute backend-buckets update zatsit-corporate-prod-v1 \
   --project=sites-web-407116 \
-  --custom-response-header="Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.websitecarbon.com; frame-src https://docs.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'none'; object-src 'none'" \
+  --custom-response-header="Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.websitecarbon.com; frame-src https://docs.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'none'; object-src 'none'" \
   --custom-response-header="Strict-Transport-Security: max-age=31536000" \
   --custom-response-header="X-Content-Type-Options: nosniff" \
   --custom-response-header="X-Frame-Options: DENY" \
   --custom-response-header="Referrer-Policy: strict-origin-when-cross-origin" \
   --custom-response-header="Permissions-Policy: camera=(), microphone=(), geolocation=()"
 ```
+
+**`'wasm-unsafe-eval'` is required by the site search.** Pagefind runs its query engine as WebAssembly, which a `script-src` without that keyword refuses to compile (a `CompileError` in the console, and an empty result list on screen). It allows WebAssembly compilation only, not JavaScript `eval`. The blog carries the same keyword for the same reason. As of 2026-10-16 the live header still lacks it: the command above has to be run once before the search ships to production. Staging serves no CSP, so the search works there as is.
 
 **Repeat the flag, one header per occurrence.** It is not a comma-separated list, and gcloud's `^|^` alternate-delimiter syntax does **not** apply here: passing it stores a single malformed header literally named `^|^Strict-Transport-Security`, the describe output looks plausible, and nothing at all is served. That cost a round trip on 10 September.
 

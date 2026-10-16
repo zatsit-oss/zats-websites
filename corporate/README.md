@@ -98,6 +98,7 @@ corporate/
 - Accessibility (ARIA labels, keyboard navigation, WCAG AA contrast)
 - Typed environment variables
 - Machine-readable head and discoverability files (see below)
+- Site search with Pagefind, built after the Astro build and loaded only when the search opens (under `astro dev` it uses the index of the last `npm run build`)
 
 ## Discoverability
 

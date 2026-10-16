@@ -37,6 +37,10 @@ interface Props {
   breadcrumbs?: { name: string; href: string }[];
   /** Set on pages that exist without being content, such as the 404 body. */
   noindex?: boolean;
+  /** Indexed by the site search. Off for noindex pages; legal pages opt out. */
+  searchable?: boolean;
+  /** The page's name in search results, when its title is a whole sentence. */
+  searchTitle?: string;
 }
 
 const {
@@ -44,6 +48,8 @@ const {
   description = SITE_DESCRIPTION,
   breadcrumbs = [],
   noindex = false,
+  searchable = !noindex,
+  searchTitle = title,
 } = Astro.props;
 ---
 
@@ -103,7 +109,14 @@ const {
 
     <Header />
 
-    <main id="main-content" class="flex-1">
+    {/* Pagefind indexes only what sits in data-pagefind-body: the page content,
+        never the header or footer. The meta title names the page in results,
+        where its h1 is often a whole sentence. */}
+    <main
+      id="main-content"
+      class="flex-1"
+      {...(searchable ? { 'data-pagefind-body': '', 'data-pagefind-meta': `title:${searchTitle}` } : {})}
+    >
       <slot />
     </main>
 

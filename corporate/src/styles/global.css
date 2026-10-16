@@ -794,6 +794,17 @@ html.mobile-menu-open {
   color: var(--color-text-muted);
 }
 
+/* Opens the site search from the mobile menu, below `sm` */
+.mobile-search-link {
+  @apply inline-flex items-center gap-3 py-2 text-lg font-medium transition-colors;
+  min-height: 2.75rem;
+  color: var(--color-text-muted);
+}
+
+.mobile-search-link:hover {
+  color: var(--color-text);
+}
+
 .mobile-nav-link:hover {
   color: var(--color-text);
 }
