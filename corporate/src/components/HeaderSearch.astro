@@ -149,6 +149,7 @@ import { Search as SearchIcon, X } from '@lucide/astro';
   }
   .site-search-results:empty { display: none; }
   .site-search-group + .site-search-group { margin-top: 1rem; }
+  .site-search-notice { color: var(--color-text-muted); }
   .site-search-group-title {
     margin: 0 0 0.25rem;
     font-size: 0.75rem;
@@ -224,13 +225,14 @@ import { Search as SearchIcon, X } from '@lucide/astro';
         } catch (error) {
           // Expected under `astro dev`, where the index does not exist yet
           console.error('[search] Pagefind could not be loaded.', error);
-          status.textContent = "La recherche n'est pas disponible pour le moment.";
+          status.textContent = UNAVAILABLE;
           state.loading = null;
         }
       })();
       return state.loading;
     }
 
+    const UNAVAILABLE = "La recherche n'est pas disponible pour le moment.";
     const plural = (count, word) => `${count} ${word}${count > 1 ? 's' : ''}`;
 
     function init() {
@@ -334,7 +336,16 @@ import { Search as SearchIcon, X } from '@lucide/astro';
         lastQuery = query;
         if (!query) return render([], '');
         await load(status);
-        if (!state.pagefind) return;
+        if (!state.pagefind) {
+          // Said on screen too, not only to screen readers: a silent empty
+          // panel reads as "no result"
+          const notice = document.createElement('li');
+          notice.className = 'site-search-notice';
+          notice.textContent = UNAVAILABLE;
+          list.replaceChildren(notice);
+          list.hidden = false;
+          return;
+        }
         const response = await state.pagefind.search(query);
         const results = await Promise.all(response.results.slice(0, MAX_RESULTS).map((r) => r.data()));
         // A slower answer to an older query must not overwrite a newer one

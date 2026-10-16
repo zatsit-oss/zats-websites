@@ -2,6 +2,7 @@
 import { defineConfig, envField } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import buildCleanup from './src/lib/build-hook.ts';
+import pagefindDev from './src/lib/pagefind-dev.ts';
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,7 +21,7 @@ export default defineConfig({
     defaultStrategy: 'hover',
   },
 
-  integrations: [buildCleanup()],
+  integrations: [buildCleanup(), pagefindDev()],
 
   vite: {
     plugins: [tailwindcss()]
