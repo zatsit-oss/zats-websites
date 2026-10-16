@@ -1,0 +1,181 @@
+---
+import { getEntry } from 'astro:content';
+import { ArrowRight, ChevronDown } from '@lucide/astro';
+import { isPageDisabled } from '../lib/pages';
+
+interface Props {
+  // Role titles, as the offers collection lists them
+  roles: string[];
+}
+
+const { roles } = Astro.props;
+
+const careersData = await getEntry('careers', 'careers');
+if (!careersData) throw new Error('Careers data not found');
+const careersShown = !isPageDisabled('careers');
+
+// Each title resolves to its careers entry; an unknown title stays a plain tag
+const chips = roles.map((title) => ({
+  title,
+  role: careersData.data.roles.find((role) => role.title === title),
+}));
+---
+
+<ul class="role-chips" aria-label="Rôles mobilisés" data-role-chips>
+  {chips.map(({ title, role }) => (
+    <li>
+      {role ? (
+        <details class="role-chip">
+          <summary class="role-chip-tag">
+            {title}
+            <ChevronDown class="role-chip-chevron" aria-hidden="true" />
+          </summary>
+          <div class="role-chip-layer">
+            <p class="role-chip-summary">{role.offerSummary}</p>
+            {careersShown && (
+              <a href={`/careers/#${role.id}`} class="role-chip-link">
+                Voir le rôle<span class="sr-only"> {title}</span>
+                <ArrowRight class="icon-sm" aria-hidden="true" />
+              </a>
+            )}
+          </div>
+        </details>
+      ) : (
+        <span class="tag">{title}</span>
+      )}
+    </li>
+  ))}
+</ul>
+
+<script>
+  // One role layer open at a time per page; Escape or a click elsewhere closes
+  // it. Without this script each tag still opens and closes natively.
+  function initRoleChips() {
+    const chips = [...document.querySelectorAll<HTMLDetailsElement>('[data-role-chips] .role-chip')];
+    if (!chips.length || document.documentElement.dataset.roleChips === 'ready') return;
+    document.documentElement.dataset.roleChips = 'ready';
+
+    chips.forEach((chip) => {
+      chip.addEventListener('toggle', () => {
+        if (!chip.open) return;
+        chips.forEach((other) => { if (other !== chip) other.open = false; });
+      });
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      const open = chips.find((chip) => chip.open);
+      if (!open) return;
+      open.open = false;
+      open.querySelector('summary')?.focus();
+    });
+
+    document.addEventListener('click', (event) => {
+      const target = event.target as Node;
+      chips.forEach((chip) => { if (chip.open && !chip.contains(target)) chip.open = false; });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initRoleChips);
+  // The DOM is swapped on navigation: let the next page wire its own chips
+  document.addEventListener('astro:before-swap', () => { delete document.documentElement.dataset.roleChips; });
+</script>
+
+<style>
+  .role-chips {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .role-chip-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 44px;
+    padding: 0 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    list-style: none;
+    cursor: pointer;
+    color: var(--color-primary);
+    background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 35%, transparent);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+  .role-chip-tag::-webkit-details-marker { display: none; }
+  .role-chip-tag:hover,
+  .role-chip[open] .role-chip-tag {
+    background: color-mix(in srgb, var(--color-primary) 18%, transparent);
+    border-color: var(--color-primary);
+  }
+  .role-chip-tag:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .role-chip-tag :global(.role-chip-chevron) {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.25s ease;
+  }
+  .role-chip[open] :global(.role-chip-chevron) { transform: rotate(180deg); }
+
+  /* The layer drops below the whole row of tags, as wide as the row, over
+     what follows */
+  .role-chip-layer {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    z-index: 20;
+    width: min(100%, 26rem);
+    min-width: min(18rem, 100%);
+    padding: 1.25rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-primary);
+    background: var(--color-bg);
+    color: var(--color-text);
+    box-shadow:
+      0 18px 40px -16px rgba(0, 0, 0, 0.35),
+      0 0 28px -10px color-mix(in srgb, var(--color-primary) 60%, transparent);
+  }
+  .role-chip-summary {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+  .role-chip-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 44px;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+  .role-chip-link:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .role-chip[open] .role-chip-layer {
+      animation: role-layer-drop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  }
+  @keyframes role-layer-drop {
+    from {
+      opacity: 0;
+      transform: translateY(-0.5rem);
+      clip-path: inset(0 0 100% 0 round var(--radius-lg));
+    }
+    to {
+      opacity: 1;
+      transform: none;
+      clip-path: inset(0 0 0 0 round var(--radius-lg));
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .role-chip-tag,
+    .role-chip-tag :global(.role-chip-chevron) { transition: none; }
+  }
+</style>
