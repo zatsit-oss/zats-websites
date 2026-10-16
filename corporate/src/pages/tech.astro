@@ -61,7 +61,7 @@ const methodIcons: Record<string, typeof Badge> = {
           const IconComponent = statIcons[stat.icon];
           return (
             <div class="text-center">
-              {IconComponent && <IconComponent class="icon-lg icon-primary mx-auto mb-2" {...(stat.icon !== 'opensource' && { size: 28 })} />}
+              {IconComponent && <IconComponent class="icon-lg icon-primary mx-auto mb-2" aria-hidden="true" {...(stat.icon !== 'opensource' && { size: 28 })} />}
               <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-gradient">{stat.value}</div>
               <div class="text-sm text-muted mt-1">{stat.label}</div>
             </div>
@@ -84,7 +84,7 @@ const methodIcons: Record<string, typeof Badge> = {
           return (
             <div class="orbit-card" style={`--orbit-index: ${index}`}>
               <div class="orbit-card-content">
-                {IconComponent && <IconComponent class="partner-icon" />}
+                {IconComponent && <IconComponent class="partner-icon" aria-hidden="true" />}
                 <span class="partner-name">{role.role}</span>
               </div>
             </div>
@@ -107,7 +107,7 @@ const methodIcons: Record<string, typeof Badge> = {
           return (
             <div class="card p-4 md:p-6">
               <div class="flex items-center gap-3 mb-4">
-                {IconComponent && <IconComponent class="icon-md icon-primary" />}
+                {IconComponent && <IconComponent class="icon-md icon-primary" aria-hidden="true" />}
                 <h3 class="font-semibold">{stack.name}</h3>
               </div>
               <div class="flex flex-wrap gap-2">
@@ -132,7 +132,7 @@ const methodIcons: Record<string, typeof Badge> = {
             <div class="card p-4 md:p-6">
               <div class="flex items-start gap-4">
                 <div class="w-10 h-10 rounded-lg bg-[var(--color-primary)] flex items-center justify-center flex-shrink-0">
-                  {IconComponent && <IconComponent class="icon-md text-[var(--color-on-primary)]" />}
+                  {IconComponent && <IconComponent class="icon-md text-[var(--color-on-primary)]" aria-hidden="true" />}
                 </div>
                 <div>
                   <h3 class="font-semibold mb-2">{method.title}</h3>
@@ -155,7 +155,7 @@ const methodIcons: Record<string, typeof Badge> = {
           et n'hésitons pas à promouvoir nos initiatives sur notre page GitHub.
         </p>
         <a href="https://github.com/zatsit-oss" target="_blank" rel="noopener noreferrer" class="btn-primary">
-          <GithubIcon class="icon-md" />
+          <GithubIcon class="icon-md" aria-hidden="true" />
           Voir notre GitHub
         </a>
       </div>
