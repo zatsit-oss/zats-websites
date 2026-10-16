@@ -16,9 +16,9 @@ These components appear on every page.
 - Logo (links to homepage)
 - Navigation, in order. An entry whose page is disabled through `DISABLED_PAGES` disappears, and a menu left with no card disappears with it:
   - Accueil → `/`
-  - Offres (mega menu): Nos offres → `/offres/`, Nos formations → `/formations/`, Travaillons ensemble → `/work-with-us/`. The Manifesto card is commented out for now; `/manifeste/` is still built and reachable by URL
+  - Offres (mega menu): Nos offres → `/offers/`, Nos formations → `/trainings/`, Travaillons ensemble → `/work-with-us/`. The Manifesto card is commented out for now; `/manifesto/` is still built and reachable by URL
+  - Rejoins-nous (mega menu): Carrière → `/careers/`, Ton package → `/join-us/`, Postuler → `/apply/`
   - Le collectif (mega menu): Qui nous sommes → `/team/`, Ce que nous partageons → `/contributions/`
-  - Rejoins-nous (mega menu): Ton package → `/join-us/`, Carrière → `/careers/`, Postuler → `/apply/`
 - A menu with four cards lays them out as a 2 x 2 block, up to three sit on one row
 - Ecosystem icons, always visible: blog, sustainability portal, LinkedIn, GitHub, mail
 - Theme toggle (light/dark)
@@ -64,7 +64,17 @@ These components appear on every page.
 
 **URL**: `/`
 
-**Purpose**: Present Zatsit's mission, values, services, and calls-to-action for clients and consultants.
+**Purpose**: Say what zatsit sells before who it is, and route each visitor to the right offer.
+
+**Content**: a hero ("Livrer avec l'IA, sans perdre la main."), a situation selector (tabs) naming the Enablers AI offer that fits, with links to the two foundation offers; the collective (pillars and rituals); verifiable proofs (talks, trainings, open source projects, blog post count fetched from the blog RSS at build time, B Corp and EcoVadis); a closing call to `/work-with-us/`. Offer data comes from the `offers` collection.
+
+---
+
+## Previous homepage (`src/pages/home-previous.astro`)
+
+**URL**: `/home-previous/`, labelled "Accueil précédent" in the header
+
+**Purpose**: The home page before its redesign, kept for comparison. It carries `noindex`, stays out of `getIndexablePages()` (`NON_INDEXABLE_PAGES`), and is hidden from production and staging builds through `DISABLED_PAGES`, which also removes its header entry. Its sections follow.
 
 ### Sections (in order):
 
@@ -177,17 +187,18 @@ Each card includes:
 **Data**: `src/content/contributions/contributions.json`
 
 **Content**:
-- Two anchor buttons, "Sur scène" and "Open source"
-- Both sections show their cards on one row that slides horizontally (scroll-snap, keyboard-scrollable once focused). Prev/next buttons above the row, revealed by a small script only when the row overflows, disabled at each end; a thin visible scrollbar as a second cue
+- Three anchor buttons, "Sur scène", "Open source" and "En veille"
+- The first two sections show their cards on one row that slides horizontally (scroll-snap, keyboard-scrollable once focused). Prev/next buttons above the row, revealed by a small script only when the row overflows, disabled at each end; a thin visible scrollbar as a second cue
 - Above the talks, an invite to have a talk given at the visitor's company, linking to `/work-with-us/` (hidden when that page is disabled)
 - **Sur scène**: talks, most recent first. A talk given several times is one card, its other editions listed in `alsoGivenAt`. A talk dated `YYYY-MM-DD` after the build day carries an "À venir" badge.
 - **Open source**: projects, the card linking to the live tool when there is one, with a separate "Code source" link
+- **En veille**: the public watch portals (`watch`), three cards in a static grid. A portal not online yet sets `upcoming`, has no `url`, and shows an "À venir" badge with a dashed outline
 
 ---
 
-### Formations (`src/pages/formations.astro`)
+### Formations (`src/pages/trainings.astro`)
 
-**URL**: `/formations/`, labelled "Nos formations" in the "Offres" menu
+**URL**: `/trainings/`, labelled "Nos formations" in the "Offres" menu
 
 **Data**: `src/content/trainings/trainings.json`
 
@@ -210,14 +221,14 @@ Each card includes:
 
 ### Careers (`src/pages/careers.astro`)
 
-**URL**: `/careers`
+**URL**: `/careers/`, labelled "Carrière" in the "Rejoins-nous" menu
 
-**Purpose**: Redirect to job offers.
+**Data**: `src/content/careers/careers.json`, plus `src/content/offers/offers.json` for the offers each role serves
 
 **Content**:
-- Headline: "Nos offres d'emploi"
-- Invitation to join the collective
-- CTA: Link to Welcome to the Jungle
+- The practices of the collective ("Augmentés, pas automatisés")
+- Five roles, each a `<details>` on the SDLC pipeline it covers, with "Ton quotidien" and "Mobilisé sur": the offers whose `roles` list the role, linked to their anchor on `/offers/` (plain tags when that page is disabled). A link to `/careers/#<role-id>` opens the matching role.
+- How to grow at zatsit, then a call to `/apply/`
 
 ---
 

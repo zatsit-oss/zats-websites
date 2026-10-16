@@ -36,12 +36,13 @@ zatsit-website/
 │   │   └── Layout.astro        # Main page layout
 │   ├── pages/                  # File-based routing
 │   │   ├── index.astro         # Home
-│   │   ├── offres.astro        # Offers
-│   │   ├── manifeste.astro     # Manifesto
+│   │   ├── home-previous.astro # Previous home, for comparison (noindex)
+│   │   ├── offers.astro        # Offers
+│   │   ├── manifesto.astro     # Manifesto
 │   │   ├── work-with-us.astro  # Work with us (contact form)
 │   │   ├── team.astro          # Team
-│   │   ├── contributions.astro # Contributions (talks and open source projects)
-│   │   ├── formations.astro    # Trainings
+│   │   ├── contributions.astro # Contributions (talks, open source projects and watch portals)
+│   │   ├── trainings.astro    # Trainings
 │   │   ├── join-us.astro       # Join us
 │   │   ├── careers.astro       # Careers
 │   │   ├── apply.astro         # Apply (candidate form)
