@@ -22,6 +22,7 @@
       "id": "forward-deployed-engineer",
       "title": "Forward Deployed Engineer",
       "pitch": "Tu t'embarques chez le client, côté métier comme côté technique, tu prends en main un problème prioritaire et tu le mènes jusqu'en production, puis jusqu'à ce qu'il soit vraiment utilisé.",
+      "offerSummary": "S'installe chez vous, côté métier comme côté technique, prend en main un problème prioritaire et le mène jusqu'en production, puis jusqu'à ce qu'il soit vraiment utilisé.",
       "profile": "Adapté à des profils seniors, tu codes jusqu'en production et tu alimentes les discussions avec les directions métier.",
       "daily": [
         "Diagnostic avec les directions métier et les opérationnels : le vrai besoin, pas la demande telle qu'elle arrive",
@@ -36,17 +37,13 @@
         "tests",
         "deploiement",
         "mco"
-      ],
-      "augmentedBy": [
-        "Diagnostics IA",
-        "Reprise de code legacy",
-        "Context Engineering"
       ]
     },
     {
       "id": "product-engineer",
       "title": "Product Engineer",
       "pitch": "Tu pilotes l'ensemble du cycle produit, de la spécification à la mise en production, avec l'IA comme levier de productivité. Tu couvres la majeure partie du périmètre technique avec tes agents : UX, UI, front, API, back, sécurité.",
+      "offerSummary": "Pilote tout le cycle produit, de la spécification à la mise en production, et couvre avec ses agents l'essentiel du technique : UX, UI, front, API, back, sécurité.",
       "profile": "Autonome et 5 ans d'expérience minimum.",
       "daily": [
         "Spécifications rigoureuses, contrats d'API écrits avant le code",
@@ -55,20 +52,18 @@
         "Supervision proactive des applications en production"
       ],
       "sdlcPhases": [
+        "cadrage",
         "conception",
         "implementation",
         "tests",
         "deploiement"
-      ],
-      "augmentedBy": [
-        "Spec Driven Development",
-        "Harness Engineering"
       ]
     },
     {
       "id": "tech-lead",
       "title": "Tech Lead Agentic",
       "pitch": "Tu gardes un système et une équipe cohérents dans la durée.",
+      "offerSummary": "Garde votre système et votre équipe cohérents dans la durée : architecture documentée, revues de code, choix tracés, stack agentique de l'équipe.",
       "profile": "Capacité d'encadrement et 5 ans d'expérience minimum.",
       "daily": [
         "Architecture adaptée au contexte (N-tiers, hexagonale, etc.), documentée as code (C4 Model, diagrammes Mermaid, etc.)",
@@ -81,16 +76,13 @@
         "conception",
         "implementation",
         "tests"
-      ],
-      "augmentedBy": [
-        "Orchestration d'agents",
-        "Audits agentiques"
       ]
     },
     {
-      "id": "developpeur-augmente",
+      "id": "augmented-engineer",
       "title": "Augmented Engineer",
       "pitch": "Tu écris la spec, tu fais générer le code, tu le relis et tu le testes. L'IA t'accélère, tu es garant du résultat.",
+      "offerSummary": "Écrit la spec, fait générer le code par ses agents, le relit et le teste. L'IA accélère le travail, la responsabilité du résultat reste la sienne.",
       "daily": [
         "Specs et contrats d'API écrits avant le code, le code est généré par tes agents",
         "Contextes cadrés : l'agent voit ce dont il a besoin, rien de plus",
@@ -101,17 +93,13 @@
         "conception",
         "implementation",
         "tests"
-      ],
-      "augmentedBy": [
-        "Spec Driven Development",
-        "Context Engineering",
-        "Harness Engineering"
       ]
     },
     {
       "id": "platform-engineer",
       "title": "Platform Engineer",
       "pitch": "Tu codes l'infrastructure, tu outilles les déploiements et tu tiens la production. Tu as déjà tenu une production et tu préfères l'automatiser plutôt que la subir.",
+      "offerSummary": "Code l'infrastructure, outille les déploiements et tient votre production, en automatisant plutôt qu'en subissant.",
       "profile": "Automatisation addict et 5 ans d'expérience minimum.",
       "daily": [
         "Infrastructure as code (Terraform, Ansible, etc.)",
@@ -122,10 +110,6 @@
         "conception",
         "deploiement",
         "mco"
-      ],
-      "augmentedBy": [
-        "Context Engineering",
-        "Garde-fous de sécurité"
       ]
     }
   ],

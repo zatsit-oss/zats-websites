@@ -4,6 +4,7 @@
     "highlight": "Quelqu'un doit en répondre.",
     "subtitle": "C'est ce que nous appelons le product engineering augmenté. Des Product Engineers et des Forward Deployed Engineers seniors dans vos équipes : la spec avant le code, le modèle choisi selon la tâche, la facture mesurée. Quatre Enablers AI pour commencer, une seule méthode.",
     "primaryCta": "Voir les Enablers AI",
+    "foundationCta": "Voir les offres socle",
     "secondaryCta": "Écrivez-nous"
   },
   "method": {
@@ -13,7 +14,7 @@
   },
   "packages": [
     {
-      "id": "audit-maturite-ia",
+      "id": "ai-maturity-audit",
       "navLabel": "Audit maturité IA",
       "situation": "Mes développeurs utilisent déjà des copilotes. Personne n'a écrit de règle.",
       "title": "Audit de maturité IA",
@@ -28,11 +29,11 @@
       ],
       "form": "Un forfait court. Le périmètre est fixé avec vous avant de commencer.",
       "deliverable": "Une note par pan de votre cycle de développement (infra, outillage, licences, processus, équipes), ce que l'IA vous coûte déjà sur ce qui se trace (licences, appels d'API), en euros, et la feuille de route pour progresser, priorisée.",
-      "measured": "Ce que coûtent vos outils IA aujourd'hui, et si les modèles en place sont taillés pour leurs tâches ou trop gros pour elles.",
-      "sovereign": "La carte des données qui ne doivent pas sortir, et les options d'hébergement qui existent vraiment pour elles."
+      "measured": "Votre niveau de maturité en développement agentique, puis ce que coûtent vos outils IA et s'ils sont pertinents pour les tâches qui leur sont confiées.",
+      "frugal": "Chaque tâche confiée au plus petit modèle qui la fait bien, local quand c'est possible. Et vos données sensibles gardées chez vous."
     },
     {
-      "id": "projet-sdd",
+      "id": "sdd-pilot",
       "navLabel": "Pilote spec-driven",
       "situation": "Je veux voir la méthode tourner avant de l'adopter partout.",
       "title": "Un pilote spec-driven (SDD), le dépôt comme preuve",
@@ -52,36 +53,10 @@
       "form": "Un pilote borné. Un périmètre, une durée, nos seniors dans votre équipe.",
       "deliverable": "Le dépôt, et tout ce qui l'entoure. Lisible ligne à ligne, par vous.",
       "measured": "Le coût d'exécution et la consommation mesurés dès le début du pilote. Une architecture dimensionnée sur le besoin réel, pas sur le besoin imaginé.",
-      "sovereign": "Le modèle et l'hébergement décidés tâche par tâche, en local quand c'est possible. Nous notons le pourquoi de chaque choix.",
-      "tree": [
-        {
-          "path": "specs/",
-          "note": "la spécification, écrite avant la première ligne de code"
-        },
-        {
-          "path": "contracts/",
-          "note": "OpenAPI et AsyncAPI, le code est généré depuis eux"
-        },
-        {
-          "path": "harness/",
-          "note": "ce que les agents de code voient, et rien d'autre"
-        },
-        {
-          "path": "src/",
-          "note": "le code généré, relu par des seniors"
-        },
-        {
-          "path": "tests/",
-          "note": "écrits avec le code, pas après"
-        },
-        {
-          "path": ".github/workflows/",
-          "note": "la CI qui refuse ce qui ne passe pas"
-        }
-      ]
+      "frugal": "Le plus petit modèle qui fait la tâche, en local quand c'est possible : moins d'énergie, et vos données restent chez vous. Nous notons le pourquoi de chaque choix."
     },
     {
-      "id": "desendettement",
+      "id": "debt-reduction",
       "navLabel": "Désendettement",
       "situation": "Ma facture cloud monte. Mon code, lui, n'a pas changé.",
       "title": "Désendettement : le coût du code oublié",
@@ -97,15 +72,15 @@
         "Platform Engineer"
       ],
       "form": "Un diagnostic au forfait d'abord. Ensuite des lots séparés, chacun avec son chiffrage. Vous en prenez un, plusieurs, ou aucun.",
-      "deliverable": "Les corrections à faire, classées : le gain chiffré en euros, l'effort et le risque qualifiés pour chacune. Un document que vous pouvez confier à qui vous voulez.",
+      "deliverable": "Les corrections à faire, classées, du simple retrait à la migration ou à la réécriture d'une brique : le gain chiffré en euros, l'effort et le risque qualifiés pour chacune. Un document que vous pouvez confier à qui vous voulez.",
       "measured": "Une mesure avant les travaux, une mesure après : coût d'exécution, dépendances, calcul inutile. Ce qui est retiré est compté.",
-      "sovereign": "Nous rapatrions les briques pour lesquelles ça tient, techniquement et financièrement. Pas de rapatriement par principe."
+      "frugal": "Ce qui tourne pour rien est retiré : calcul inutile, données jamais lues, ressources oubliées. Une migration ou une réécriture ciblée vers une stack plus légère peut être le plus gros levier, quand le code la justifie."
     },
     {
-      "id": "dev-augmente",
-      "navLabel": "Dev augmenté",
+      "id": "augmented-development",
+      "navLabel": "Développement augmenté",
       "situation": "Mes développeurs produisent plus vite. Je ne sais pas si c'est mieux.",
-      "title": "Du dev augmenté, pas du vibe-coding",
+      "title": "Du développement augmenté, pas du vibe-coding",
       "pitch": "Le vibe-coding, c'est laisser l'IA écrire et espérer. Le dev augmenté, c'est spécifier, cadrer le contexte, choisir le modèle, relire, mesurer. Nous pratiquons le second chez nous. Nous l'installons chez vous : une équipe en pilote, puis les autres si les chiffres du pilote le justifient.",
       "stations": [
         "spec",
@@ -119,8 +94,8 @@
       ],
       "form": "Un pilote avec une équipe volontaire, trois demi-journées de formation comprises. Ensuite, nos formations (prompt engineering, SDD, squad agentique) pour élargir : vous ne financez que la journée du formateur.",
       "deliverable": "Des skills et des agents propres à votre contexte, des workflows agentiques calés sur votre cycle de développement, une revue pensée pour le code généré, un tableau de bord des coûts IA bâti sur vos factures et vos appels d'API. Le tout pensé pour tourner sans nous.",
-      "measured": "Ce que consomment vos outils IA, semaine après semaine. Et pour chaque tâche, le modèle retenu et pourquoi.",
-      "sovereign": "La charte dit quelles données, quels modèles, ce qui sort, ce qui reste. Noir sur blanc, pas dans la tête de chacun."
+      "measured": "Ce que l'IA change vraiment dans votre équipe : la qualité de ce qui est livré et le rythme de livraison, mesurés avant le pilote puis semaine après semaine. Et ce que vos outils IA consomment pour y arriver.",
+      "frugal": "La charte fixe la taille des modèles par tâche, et quelles données sortent. Le gros modèle seulement quand la tâche l'exige."
     }
   ],
   "foundation": {
@@ -128,33 +103,36 @@
     "intro": "Les Enablers AI reposent sur nos deux métiers historiques. L'IA ne change pas leur nature, elle change leur vitesse.",
     "offers": [
       {
-        "id": "conseil",
+        "id": "consulting",
         "situation": "J'ai une décision technique lourde à prendre, et personne pour la challenger.",
-        "title": "Conseil, par les associés",
-        "pitch": "Une trajectoire d'architecture, un choix de plateforme, une équipe à réorganiser autour des agents : ce sont les associés de zatsit qui viennent, en direct. Nous apportons ce que l'IA ne sait pas (encore) faire : arbitrer, en connaissant le terrain.",
+        "title": "Conseil et Architecture",
+        "pitch": "Une trajectoire d'architecture, un choix de plateforme, une équipe à réorganiser autour des agents : ce sont les profils les plus expérimentés de zatsit qui viennent, en direct. Nous apportons ce que l'IA ne sait pas (encore) faire : arbitrer, en connaissant le terrain.",
         "form": "Au temps passé, quelques jours ou quelques demi-journées, sur une question posée.",
+        "frugal": "L'empreinte entre dans l'arbitrage, au même titre que le coût et la sécurité : une architecture dimensionnée sur le besoin réel, pas sur le besoin imaginé.",
         "roles": [
-          "Associés"
+          "Forward Deployed Engineer"
         ]
       },
       {
-        "id": "ingenieur-augmente",
-        "situation": "Il me manque des bras pour construire, et je veux qu'ils arrivent avec la méthode.",
+        "id": "augmented-engineer",
+        "situation": "J'ai plus à construire que mon équipe ne peut porter, et je veux des ingénieurs qui arrivent avec la méthode.",
         "title": "Ingénieur·e augmenté·e",
         "pitch": "Notre métier historique : des consultantes et consultants qualifiés rejoignent vos équipes pour construire. La différence tient à ce qu'ils apportent avec eux, la pratique agentique que nous appliquons chez nous. La vélocité de l'IA, sans la dette du vibe-coding.",
         "form": "Un renfort dans votre équipe, au temps passé, sur la durée de votre projet.",
+        "frugal": "Nos consultants arrivent sensibilisés à l'éco-conception web : des pages légères, des requêtes qui servent, et du code qui ne calcule pas pour rien.",
         "roles": [
           "Augmented Engineer",
-          "Product Engineer"
+          "Product Engineer",
+          "Tech Lead Agentic"
         ]
       }
     ]
   },
-  "refusalsTitle": "Ce que nous refusons de vendre",
+  "refusalsTitle": "Pas de fausses promesses",
   "refusals": [
     {
       "claim": "Une souveraineté garantie.",
-      "why": "Souverain engage votre conformité, pas notre plaquette. Nous ne sommes ni hébergeur ni éditeur de modèle : nous étudions les alternatives, nous ne les garantissons pas."
+      "why": "Souverain engage votre conformité, pas notre plaquette. Nous ne sommes ni hébergeur ni éditeur de modèle : nous étudions les meilleures alternatives pour vous, quand elles sont tenables."
     },
     {
       "claim": "Un pourcentage d'économies avant mesure.",
@@ -166,15 +144,11 @@
     },
     {
       "claim": "Un compteur de votre consommation IA clés en main.",
-      "why": "Pas encore. Nous mesurons avec ce qui existe chez vous : factures, appels d'API, métriques d'exécution. L'outillage dédié viendra quand il tiendra."
+      "why": "Nous mesurons avec ce qui existe chez vous : factures, appels d'API, métriques d'exécution. L'outillage dédié viendra quand il tiendra."
     },
     {
       "claim": "Un diagnostic qui n'a de valeur qu'avec nous.",
       "why": "Le livrable dit noir sur blanc qu'il se réalise avec zatsit ou sans. Un diagnostic qui ne sert qu'à vendre la suite s'appelle de l'avant-vente."
-    },
-    {
-      "claim": "Un plan IA pour votre comité de direction.",
-      "why": "Ce n'est pas notre métier. Le nôtre, c'est le code, le déploiement, la mesure. La stratégie, dans notre groupe, c'est aiko."
     }
   ],
   "proofsTitle": "Vérifiez, ne nous croyez pas",
@@ -187,25 +161,51 @@
       "label": "Voir nos dépôts sur GitHub"
     },
     {
+      "lead": "En public",
+      "text": "Huit conférences données par nos consultants, et des formations au coding agentique et au Spec-Driven Development. Ce que nous appliquons chez vous, nous l'enseignons.",
+      "links": [
+        {
+          "href": "/contributions/",
+          "label": "Voir nos contributions"
+        },
+        {
+          "href": "/trainings/",
+          "label": "Voir nos formations"
+        }
+      ]
+    },
+    {
       "lead": "0,04 g",
-      "text": "C'est ce que ce site émet en CO2 par page. Le dimensionnement juste que nous vendons commence par notre propre vitrine."
+      "text": "C'est ce que ce site émet en CO2 par page. Le dimensionnement juste que nous proposons commence par notre propre vitrine."
+    },
+    {
+      "lead": "Sensibilisés",
+      "text": "Trois talks sur l'empreinte du numérique, de Cloud Carbon Footprint à l'EcoScore des API. Un outil open source, Zats Green Score. Des Zatsdays consacrés au green IT, et les ressources de la Green Software Foundation pour nous former.",
+      "links": [
+        {
+          "href": "https://greenscore.zatsit.fr/",
+          "label": "Zats Green Score"
+        },
+        {
+          "href": "https://sustainability.zatsit.fr/landscape/",
+          "label": "Notre landscape"
+        },
+        {
+          "href": "/contributions/",
+          "label": "Voir nos talks"
+        }
+      ]
     },
     {
       "lead": "Des dizaines",
       "text": "Des dizaines de talents, 9 ans d'expérience en moyenne. Des seniors sur le clavier, pas seulement sur la plaquette.",
       "href": "/team/",
       "label": "Voir le collectif"
-    },
-    {
-      "lead": "B Corp",
-      "text": "Et médaille d'argent EcoVadis. Deux grilles d'achat RSE où nous cochons déjà la case, documents à l'appui.",
-      "href": "https://www.bcorporation.net/",
-      "label": "Voir la certification B Corp"
     }
   ],
   "cta": {
     "title": "Décrivez votre situation, nous nommons l'offre",
-    "text": "Trois lignes suffisent : votre système, votre équipe, ce qui coince. Nous vous répondons par quelle offre entrer, ou qu'aucun ne convient. Les deux réponses tiennent en un mail.",
+    "text": "Trois lignes suffisent : votre système, votre équipe, ce qui coince. Nous vous répondons par quelle offre entrer, ou qu'aucune ne convient. Les deux réponses tiennent en un mail.",
     "button": "Écrivez-nous"
   }
 }

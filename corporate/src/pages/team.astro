@@ -2,7 +2,7 @@
 import { getEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import { Heart, CalendarHeart, ChevronLeft, ChevronRight, FileText, Rocket, ShieldCheck, CodeXml, Leaf, HeartHandshake } from '@lucide/astro';
+import { Heart, CalendarHeart, ChevronLeft, ChevronRight, FileText, Rocket, ShieldCheck, CodeXml, Leaf, HeartHandshake, Bot } from '@lucide/astro';
 import { isPageDisabled } from '../lib/pages';
 import { readFileSync } from 'node:fs';
 import { MEDIA_BASE_URL } from 'astro:env/server';
@@ -53,7 +53,7 @@ const contractIcons: Record<string, typeof Heart> = {
           Notre <span class="text-gradient-glow inline-block">collectif</span>
         </h1>
         <p class="section-description hero-subtitle">
-          Des dizaines de talents qui partagent leur quotidien au sein d'une néo-ESN.
+          Des dizaines de talents qui partagent leur quotidien au sein d'une ESN engagée.
         </p>
       </div>
       <ul class="team-pillars">
@@ -68,6 +68,10 @@ const contractIcons: Record<string, typeof Heart> = {
         <li>
           <HeartHandshake class="icon-lg icon-primary" aria-hidden="true" />
           <span>Engagés pour un <span class="text-gradient">numérique responsable</span></span>
+        </li>
+        <li>
+          <Bot class="icon-lg icon-primary" aria-hidden="true" />
+          <span>Augmentés par <span class="text-gradient">l'IA</span></span>
         </li>
       </ul>
     </div>
@@ -289,14 +293,17 @@ const contractIcons: Record<string, typeof Heart> = {
   .team-pillars {
     display: grid;
     gap: 1.5rem;
-    max-width: 60rem;
+    max-width: 72rem;
     margin: 2.5rem auto 0;
     padding: 0;
     list-style: none;
     text-align: center;
   }
-  @media (min-width: 768px) {
-    .team-pillars { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  @media (min-width: 640px) {
+    .team-pillars { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  }
+  @media (min-width: 1024px) {
+    .team-pillars { grid-template-columns: repeat(4, 1fr); }
   }
   .team-pillars li {
     display: flex;

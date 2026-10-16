@@ -1,10 +1,10 @@
 # Challenge de l'offre zatsit
 
-Octobre 2026. Document de travail interne, pour décider de la forme de l'offre avant de réécrire la page `/offres/`.
+Octobre 2026. Document de travail interne, pour décider de la forme de l'offre avant de réécrire la page `/offers/`.
 
 ## Pourquoi ce document
 
-Les associés ne sont pas à l'aise avec les deux offres actuelles de la page `/offres/` :
+Les associés ne sont pas à l'aise avec les deux offres actuelles de la page `/offers/` :
 
 - **Offre A, « Conseil éco-conception mesuré »** : diagnostic GreenScore, trajectoire de remédiation, refonte sur une architecture sobre.
 - **Offre B, « Pratique IA souveraine et frugale »** : conseil embarqué pour cadrer le développement assisté par IA et dimensionner les modèles.
@@ -13,7 +13,7 @@ La page a d'abord été retravaillée sur la forme, après une critique de desig
 
 ## Méthode
 
-Trois relecteurs fictifs ont lu, chacun de leur côté, le texte complet de `/offres/`, le manifeste, les offres de l'accueil (`services.json`) et la page tech (`tech.json`). Ils avaient aussi le contexte de zatsit : 36 personnes, une activité surtout en régie, B Corp, EcoVadis argent, GreenScore, et une offre B qui n'a encore aucun client.
+Trois relecteurs fictifs ont lu, chacun de leur côté, le texte complet de `/offers/`, le manifeste, les offres de l'accueil (`services.json`) et la page tech (`tech.json`). Ils avaient aussi le contexte de zatsit : 36 personnes, une activité surtout en régie, B Corp, EcoVadis argent, GreenScore, et une offre B qui n'a encore aucun client.
 
 | Relecteur | Profil |
 |---|---|
@@ -142,7 +142,7 @@ Ce que ça règle par rapport aux relecteurs :
 
 Reste à régler : un cas réel à montrer, et la méthode de notation GreenScore publiée.
 
-**Mise en œuvre** : la page `/offres/` a été réécrite sur cette base (branche `feat/header-us`, PR #44). Les textes de la page vivent dans `corporate/src/content/offers/offers.json`.
+**Mise en œuvre** : la page `/offers/` a été réécrite sur cette base (branche `feat/header-us`, PR #44). Les textes de la page vivent dans `corporate/src/content/offers/offers.json`.
 
 ### Comment les textes ont été écrits
 
@@ -221,4 +221,4 @@ Le cinquième rôle a d'abord été nommé « Développeur augmenté », puis re
 
 ## Ensuite
 
-Une fois la structure choisie, réécrire `/offres/` (et son résumé dans `src/consts.ts`) à partir de ce document, puis faire relire la nouvelle version par les trois mêmes relecteurs pour mesurer l'écart.
+Une fois la structure choisie, réécrire `/offers/` (et son résumé dans `src/consts.ts`) à partir de ce document, puis faire relire la nouvelle version par les trois mêmes relecteurs pour mesurer l'écart.

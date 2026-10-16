@@ -147,12 +147,13 @@ const careersCollection = defineCollection({
       id: z.string(),
       title: z.string(),
       pitch: z.string(),
+      // The same role told to a client, shown when a role tag opens on /offers/
+      offerSummary: z.string(),
       // Seniority expected, printed under the pitch when set
       profile: z.string().optional(),
       daily: z.array(z.string()),
       // Phases of the shared SDLC pipeline this role mostly works on
       sdlcPhases: z.array(sdlcPhase).min(1),
-      augmentedBy: z.array(z.string()),
     })),
     growth: z.array(z.object({
       title: z.string(),
@@ -172,6 +173,8 @@ const offersCollection = defineCollection({
       highlight: z.string(),
       subtitle: z.string(),
       primaryCta: z.string(),
+      // Jumps to the two historical offers
+      foundationCta: z.string(),
       secondaryCta: z.string(),
     }),
     method: z.object({
@@ -194,9 +197,8 @@ const offersCollection = defineCollection({
       form: z.string(),
       deliverable: z.string(),
       measured: z.string(),
-      sovereign: z.string(),
-      // Optional: the deliverable shown as a repository tree, one entry per path
-      tree: z.array(z.object({ path: z.string(), note: z.string() })).optional(),
+      // Frugality: model size, wasted compute, and what data leaves
+      frugal: z.string(),
     })).min(1).max(4),
     // The historical offers the packages rest on, shown after them
     foundation: z.object({
@@ -208,6 +210,7 @@ const offersCollection = defineCollection({
         title: z.string(),
         pitch: z.string(),
         form: z.string(),
+        frugal: z.string(),
         roles: z.array(z.string()).min(1),
       })).min(1),
     }),
@@ -226,6 +229,8 @@ const offersCollection = defineCollection({
       text: z.string(),
       href: z.string().optional(),
       label: z.string().optional(),
+      // Several links under one proof, instead of href and label
+      links: z.array(z.object({ href: z.string(), label: z.string() })).optional(),
     })),
     cta: z.object({
       title: z.string(),
@@ -271,6 +276,18 @@ const contributionsCollection = defineCollection({
       maintainers: z.array(z.string()).default([]),
       thumbnail: image().optional(),
       stack: z.array(z.string()).default([]),
+    })).default([]),
+    // Public portals where the collective shares what it watches. An
+    // upcoming portal has no URL yet and shows an "À venir" badge instead.
+    watch: z.array(z.object({
+      name: z.string(),
+      kind: z.string(),
+      description: z.string(),
+      url: z.string().url().optional(),
+      upcoming: z.boolean().default(false),
+      topics: z.array(z.string()).default([]),
+    }).refine((portal) => portal.upcoming || portal.url, {
+      message: 'A portal that is not upcoming needs a url',
     })).default([]),
   }),
 });
@@ -318,7 +335,23 @@ const eventsCollection = defineCollection({
   }),
 });
 
+// The glossary behind /glossary/: one entry per term, its id is the anchor
+const glossaryCollection = defineCollection({
+  loader: jsonIn('glossary'),
+  schema: z.object({
+    intro: z.string(),
+    terms: z.array(z.object({
+      id: z.string(),
+      term: z.string(),
+      // Short form printed beside the term, expanded by an <abbr>
+      abbr: z.string().optional(),
+      definition: z.string(),
+    })).min(1),
+  }),
+});
+
 export const collections = {
+  glossary: glossaryCollection,
   events: eventsCollection,
   trainings: trainingsCollection,
   contributions: contributionsCollection,
