@@ -405,6 +405,18 @@ const [closeLead, closeAccent] = (() => {
 
     panels.forEach((panel) => { panel.hidden = panel.dataset.initial !== 'true'; });
     root.classList.add('is-ready');
+
+    // A link to a heading inside a hidden answer (a search result) selects that
+    // answer's tab, then scrolls to the heading
+    const showTarget = () => {
+      const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      const index = target ? panels.findIndex((panel) => panel.contains(target)) : -1;
+      if (index < 0) return;
+      select(index, false);
+      target!.scrollIntoView({ block: 'start' });
+    };
+    showTarget();
+    window.addEventListener('hashchange', showTarget);
   }
 
   // Glowing tiles light up one after the other, once, when their row reaches
