@@ -1,0 +1,367 @@
+---
+/**
+ * Site search, ported from the blog (zats-blog `Search.astro`).
+ *
+ * Pagefind builds a fragmented index after the Astro build and fetches only
+ * the fragments a query needs. The library loads when the panel first opens,
+ * never with the page, so a visitor who does not search pays nothing for it.
+ * The low-level API is used rather than pagefind-ui, whose bundled interface
+ * outweighs the search itself; `scripts/prune-pagefind.mjs` deletes it.
+ *
+ * Unlike the blog, the field does not sit inline in the bar: the corporate
+ * header already holds five menu entries and seven icon controls, so a
+ * magnifier opens a panel under the bar instead. The bar keeps its height, so
+ * `--header-h` and every sticky offset stay true.
+ *
+ * The trigger is a disclosure button (`aria-expanded` is valid on a button).
+ * The field itself is a plain searchbox followed by a list of links reached
+ * with Tab, so, as on the blog, it claims no combobox role it could not honour;
+ * the live region announces the result count.
+ *
+ * Everything is hidden until the script runs: a search that does nothing is
+ * worse than none.
+ */
+import { Search as SearchIcon, X } from '@lucide/astro';
+---
+
+<button
+  type="button"
+  id="site-search-btn"
+  class="header-action site-search-trigger"
+  aria-label="Rechercher sur le site"
+  aria-expanded="false"
+  aria-controls="site-search-panel"
+  hidden
+  data-site-search-trigger
+>
+  <SearchIcon class="icon-md" aria-hidden="true" />
+</button>
+
+{/* Positioned against the sticky header, like the mega panels, so it spans
+    the whole bar */}
+<div id="site-search-panel" class="site-search-panel" hidden data-site-search-panel>
+  <div class="container site-search-inner">
+    <div role="search" class="site-search-form">
+      <label class="sr-only" for="site-search-input">Rechercher sur le site</label>
+      <SearchIcon class="site-search-icon" aria-hidden="true" />
+      <input
+        id="site-search-input"
+        class="site-search-input"
+        type="search"
+        placeholder="Une offre, un rôle, un terme…"
+        autocomplete="off"
+        aria-describedby="site-search-status"
+        aria-controls="site-search-results"
+      />
+      <button type="button" class="site-search-close" aria-label="Fermer la recherche" data-site-search-close>
+        <X class="icon-md" aria-hidden="true" />
+      </button>
+    </div>
+    <p id="site-search-status" class="sr-only" role="status" aria-live="polite"></p>
+    <ul id="site-search-results" class="site-search-results" hidden></ul>
+  </div>
+</div>
+
+<style>
+  /* From `sm` only: below it a seventh icon wraps the bar onto two lines, so
+     the mobile menu carries a "Rechercher sur le site" entry instead */
+  .site-search-trigger { display: none; }
+  @media (min-width: 640px) {
+    .site-search-trigger { display: inline-flex; }
+  }
+  .site-search-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 60;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg);
+    box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.35);
+  }
+  .site-search-inner {
+    padding-block: 1rem 1.25rem;
+    max-height: calc(100vh - var(--header-h));
+    overflow-y: auto;
+  }
+  .site-search-form {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+  .site-search-form :global(.site-search-icon) {
+    position: absolute;
+    left: 1rem;
+    width: 1.125rem;
+    height: 1.125rem;
+    color: var(--color-text-muted);
+    pointer-events: none;
+  }
+  .site-search-input {
+    flex: 1;
+    min-width: 0;
+    min-height: 2.75rem;
+    padding: 0 1rem 0 2.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-text) 5%, transparent);
+    color: var(--color-text);
+    font: inherit;
+    appearance: none;
+  }
+  .site-search-input::placeholder { color: var(--color-text-muted); }
+  .site-search-input:hover { border-color: var(--color-text-muted); }
+  .site-search-input:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  /* Safari's own clear button collides with the pill */
+  .site-search-input::-webkit-search-decoration,
+  .site-search-input::-webkit-search-cancel-button { appearance: none; }
+  .site-search-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
+  }
+  .site-search-close:hover { color: var(--color-text); background: var(--color-surface); }
+  .site-search-close:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+</style>
+
+{/* Global on purpose: the results are created at runtime and carry no scoped
+    attribute, so scoped rules would match nothing. Every selector stays under
+    .site-search-results. */}
+<style is:global>
+  .site-search-results {
+    max-width: 48rem;
+    margin: 1rem auto 0;
+    padding: 0;
+    list-style: none;
+  }
+  .site-search-results:empty { display: none; }
+  .site-search-group + .site-search-group { margin-top: 1rem; }
+  .site-search-group-title {
+    margin: 0 0 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  .site-search-hits {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-left: 1px solid var(--color-border);
+  }
+  .site-search-hit a {
+    display: block;
+    padding: 0.625rem 0.875rem;
+    color: var(--color-text);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  }
+  .site-search-hit a:hover,
+  .site-search-hit a:focus-visible {
+    background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  }
+  .site-search-hit a:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+  }
+  .site-search-hit-title {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+  .site-search-hit-excerpt {
+    display: block;
+    margin-top: 0.125rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+  /* Pinned text colour: inherited near-white text on yellow is unreadable in
+     the dark theme */
+  .site-search-hit mark {
+    padding-inline: 0.1em;
+    border-radius: 2px;
+    background: #ffe564;
+    color: #1c1e21;
+  }
+</style>
+
+{/* type="module" because Safari refuses a dynamic import in a classic script.
+    is:inline because /pagefind/pagefind.js only exists after the Astro build:
+    run through Vite, the import gets a preload helper that leaves an
+    unsubstituted __VITE_PRELOAD__ marker (the blog hit exactly that). */}
+<script is:inline type="module">
+  (() => {
+    const MAX_RESULTS = 5;
+    const MAX_SECTIONS = 3;
+    const PAGEFIND_URL = '/pagefind/pagefind.js';
+
+    // Kept on window: with view transitions this script runs again on every
+    // navigation, and the library should load once per visit.
+    const state = (window.__zatsitSearch ??= { pagefind: null, loading: null });
+
+    async function load(status) {
+      if (state.pagefind) return;
+      if (state.loading) return state.loading;
+      state.loading = (async () => {
+        try {
+          const pagefind = await import(PAGEFIND_URL);
+          await pagefind.options({ excerptLength: 18 });
+          state.pagefind = pagefind;
+        } catch (error) {
+          // Expected under `astro dev`, where the index does not exist yet
+          console.error('[search] Pagefind could not be loaded.', error);
+          status.textContent = "La recherche n'est pas disponible pour le moment.";
+          state.loading = null;
+        }
+      })();
+      return state.loading;
+    }
+
+    const plural = (count, word) => `${count} ${word}${count > 1 ? 's' : ''}`;
+
+    function init() {
+      const trigger = document.querySelector('[data-site-search-trigger]');
+      const panel = document.querySelector('[data-site-search-panel]');
+      const input = document.getElementById('site-search-input');
+      const list = document.getElementById('site-search-results');
+      const status = document.getElementById('site-search-status');
+      const closeButton = panel?.querySelector('[data-site-search-close]');
+      if (!trigger || !panel || !input || !list || !status || !closeButton) return;
+      if (trigger.dataset.ready === 'true') return;
+      trigger.dataset.ready = 'true';
+      // The bar's magnifier, plus the mobile menu entry that stands in for it
+      const openers = [trigger, ...document.querySelectorAll('[data-site-search-open]')];
+      openers.forEach((opener) => { opener.hidden = false; });
+      let lastOpener = trigger;
+
+      const render = (results, query) => {
+        list.replaceChildren();
+        if (!query) {
+          list.hidden = true;
+          status.textContent = '';
+          return;
+        }
+        if (results.length === 0) {
+          list.hidden = true;
+          status.textContent = `Aucun résultat pour « ${query} »`;
+          return;
+        }
+        status.textContent = `${plural(results.length, 'page')} trouvée${results.length > 1 ? 's' : ''}`;
+
+        for (const result of results) {
+          const group = document.createElement('li');
+          group.className = 'site-search-group';
+          const heading = document.createElement('p');
+          heading.className = 'site-search-group-title';
+          heading.textContent = result.meta?.title ?? result.url;
+          const hits = document.createElement('ul');
+          hits.className = 'site-search-hits';
+
+          // Pagefind splits a page into its headings that carry an id; a page
+          // without any falls back to the page itself
+          const sections = result.sub_results?.length
+            ? result.sub_results.slice(0, MAX_SECTIONS)
+            : [{ title: result.meta?.title ?? '', url: result.url, excerpt: result.excerpt }];
+
+          for (const section of sections) {
+            const item = document.createElement('li');
+            item.className = 'site-search-hit';
+            const link = document.createElement('a');
+            link.href = section.url;
+            const title = document.createElement('span');
+            title.className = 'site-search-hit-title';
+            title.textContent = section.title;
+            const excerpt = document.createElement('span');
+            excerpt.className = 'site-search-hit-excerpt';
+            // Pagefind's own markup (it wraps matches in <mark>), built from
+            // our pages at build time, never from what the visitor typed
+            excerpt.innerHTML = section.excerpt;
+            link.append(title, excerpt);
+            item.append(link);
+            hits.append(item);
+          }
+          group.append(heading, hits);
+          list.append(group);
+        }
+        list.hidden = false;
+      };
+
+      const setExpanded = (expanded) =>
+        openers.forEach((opener) => opener.setAttribute('aria-expanded', String(expanded)));
+      const open = (opener) => {
+        lastOpener = opener;
+        // Opened from the mobile menu: close the menu first, the panel takes over
+        const menuButton = document.getElementById('mobile-menu-btn');
+        if (opener !== trigger && menuButton?.getAttribute('aria-expanded') === 'true') menuButton.click();
+        panel.hidden = false;
+        setExpanded(true);
+        input.focus();
+        void load(status);
+      };
+      const close = (restoreFocus) => {
+        if (panel.hidden) return;
+        panel.hidden = true;
+        setExpanded(false);
+        if (!restoreFocus) return;
+        // The menu entry is gone with the closed menu: fall back to the menu button
+        const target = lastOpener.offsetParent ? lastOpener : document.getElementById('mobile-menu-btn') ?? trigger;
+        target.focus();
+      };
+
+      openers.forEach((opener) =>
+        opener.addEventListener('click', () => (panel.hidden ? open(opener) : close(true))),
+      );
+      closeButton.addEventListener('click', () => close(true));
+
+      let timer;
+      let lastQuery = '';
+      const search = async () => {
+        const query = input.value.trim();
+        lastQuery = query;
+        if (!query) return render([], '');
+        await load(status);
+        if (!state.pagefind) return;
+        const response = await state.pagefind.search(query);
+        const results = await Promise.all(response.results.slice(0, MAX_RESULTS).map((r) => r.data()));
+        // A slower answer to an older query must not overwrite a newer one
+        if (query === lastQuery) render(results, query);
+      };
+      input.addEventListener('input', () => {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(search, 200);
+      });
+
+      // Escape clears the field first, then closes the panel
+      panel.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        if (input.value) {
+          input.value = '';
+          render([], '');
+          input.focus();
+        } else {
+          close(true);
+        }
+      });
+      document.addEventListener('click', (event) => {
+        if (!panel.contains(event.target) && !openers.some((opener) => opener.contains(event.target))) close(false);
+      });
+    }
+
+    init();
+    document.addEventListener('astro:page-load', init);
+  })();
+</script>

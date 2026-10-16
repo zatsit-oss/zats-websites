@@ -170,7 +170,7 @@ const stationLabels =(keys: readonly string[]) =>
             <span class="pack-index" aria-hidden="true">{offerIndex(index)}</span>
             <p class="pack-situation">{pack.situation}</p>
             <span class="sr-only">Étapes couvertes : {stationLabels(pack.stations)}.</span>
-            <ol class="track" aria-hidden="true" data-reveal>
+            <ol class="track" aria-hidden="true" data-reveal data-pagefind-ignore>
               {STATIONS.map((station, stationIndex) => {
                 const on = pack.stations.includes(station.key);
                 const next = STATIONS[stationIndex + 1];
@@ -785,6 +785,9 @@ const stationLabels =(keys: readonly string[]) =>
   html[data-reveal-js] .track:not([data-reveal="done"]) .track-stop--linked::after { transform: translateY(-50%) scaleX(0); }
 
   .pack-title {
+    /* Search results link to the title itself: clear the sticky table of
+       contents, as .pack does */
+    scroll-margin-top: 4.5rem;
     font-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.75rem);
     line-height: 1.1;
     letter-spacing: -0.025em;

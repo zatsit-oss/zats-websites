@@ -102,6 +102,15 @@ Reveal animations (typewriter effects, fade-ins, etc.) must trigger when the tar
 
 Keep the reveal pacing slow and gentle, and always gate motion behind `prefers-reduced-motion: reduce` (render the final state instantly for users who opt out). See `src/components/sections/Services.astro` for the reference implementation.
 
+### Site search
+
+Pagefind, as on the blog. `npm run build` runs `astro build`, then `pagefind --site dist` and `scripts/prune-pagefind.mjs`, which deletes the ~400 kB of Pagefind UIs the site does not use. Pagefind runs after `build-hook.ts` has deleted the `DISABLED_PAGES`, so the index only ever holds published pages.
+
+- Indexed: the `<main>` of every page through `data-pagefind-body`, set in `Layout.astro`. A `noindex` page is left out, legal pages pass `searchable={false}`, and `searchTitle` names a page in results when its title is a sentence. Wrap decorative or duplicated text in `data-pagefind-ignore`. Results link to headings that carry an `id`.
+- UI: `src/components/HeaderSearch.astro`, the low-level Pagefind API with a custom result list. A magnifier in the bar from `sm`, a "Rechercher sur le site" entry in the mobile menu below it (a seventh icon wraps the bar). Nothing from Pagefind loads before the panel opens.
+- Under `astro dev` the index does not exist and the search answers nothing: test it with `npm run build && npm run preview`.
+- Production needs `'wasm-unsafe-eval'` in the CSP `script-src`, see `docs/production-serving.md`.
+
 ### Environment Variables
 
 Typed via Astro's `env` schema in `astro.config.mjs`. All variables have default values and are public/client-accessible. No `.env` file is required for local development.

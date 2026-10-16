@@ -25,10 +25,11 @@
 import { BLOG_URL, LINKEDIN_URL, GITHUB_URL, SUSTAINABILITY_URL } from 'astro:env/client';
 import Logo from './Logo.astro';
 import ThemeToggle from './ThemeToggle.astro';
+import HeaderSearch from './HeaderSearch.astro';
 import LinkedinIcon from '../assets/icons/linkedin.svg';
 import GithubIcon from '../assets/icons/github.svg';
 import SustainabilityIcon from '../assets/icons/sustainability.svg';
-import { ArrowUpRight, ChevronDown, CodeXml, Compass, ExternalLink, FilePenLine, GraduationCap, Handshake, Layers, Mail, Menu, Mic, Package, ScrollText, Users, X } from '@lucide/astro';
+import { ArrowUpRight, ChevronDown, CodeXml, Compass, ExternalLink, FilePenLine, GraduationCap, Handshake, Layers, Mail, Menu, Mic, Package, ScrollText, Search, Users, X } from '@lucide/astro';
 import { isPageDisabled } from '../lib/pages';
 
 interface NavLink {
@@ -214,6 +215,8 @@ const isMenuCurrent = (menu: MegaMenu) => menu.items.some(item => isCurrent(item
     </ul>
 
     <div class="header-actions">
+      <HeaderSearch />
+
       <ul class="header-ecosystem">
         <li>
           <a
@@ -290,6 +293,14 @@ const isMenuCurrent = (menu: MegaMenu) => menu.items.some(item => isCurrent(item
       every width, so repeating them here would be a duplicate. */}
   <div id="mobile-menu" class="mobile-menu" hidden>
     <ul class="container mobile-menu-content">
+      {/* Below `sm` the bar has no room for the magnifier (a seventh icon wraps
+          it onto two lines): the search opens from here instead */}
+      <li class="sm:hidden">
+        <button type="button" class="mobile-search-link" aria-controls="site-search-panel" hidden data-site-search-open>
+          <Search class="icon-md" aria-hidden="true" />
+          Rechercher sur le site
+        </button>
+      </li>
       {filteredNavLinks.map(link => megaMenus[link.href] ? (() => {
         const menu = megaMenus[link.href];
         return (
