@@ -92,7 +92,7 @@ const PILLARS = [
 
 // Event names without their edition: "Cloud Nord 2026" and "Cloud Nord 2024" count once
 const talkEvents = [...new Set(talks.map((talk) => talk.event.replace(/\s+(\d{4}|#\d+)$/, '')))];
-const listInFrench = (items: string[]) =>
+const listItems = (items: string[]) =>
   items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} et ${items[items.length - 1]}`;
 
 // The closing title lights its second clause, like the current home's last call
@@ -286,19 +286,19 @@ const [closeLead, closeAccent] = (() => {
         <li class="stat">
           <Mic class="stat-icon" aria-hidden="true" />
           <p class="stat-figure"><span class="text-gradient-glow">{talks.length}</span> conférences</p>
-          <p class="stat-line">Tenues par nos consultants à {listInFrench(talkEvents)}.</p>
+          <p class="stat-line">Tenues par nos consultants à {listItems(talkEvents)}.</p>
           {shows('contributions') && <a href="/contributions/" class="arrow-link">Voir nos contributions <ArrowRight class="icon-sm" aria-hidden="true" /></a>}
         </li>
         <li class="stat">
           <GraduationCap class="stat-icon" aria-hidden="true" />
           <p class="stat-figure"><span class="text-gradient-glow">{trainings.length}</span> formations</p>
-          <p class="stat-line">{listInFrench(trainings.map((training) => training.title))}, que nous donnons aussi à d'autres équipes.</p>
+          <p class="stat-line">{listItems(trainings.map((training) => training.title))}, que nous donnons aussi à d'autres équipes.</p>
           {shows('trainings') && <a href="/trainings/" class="arrow-link">Consulter nos formations <ArrowRight class="icon-sm" aria-hidden="true" /></a>}
         </li>
         <li class="stat">
           <span class="stat-icon stat-icon--code" aria-hidden="true">&lt;/&gt;</span>
           <p class="stat-figure"><span class="text-gradient-glow">{projects.length}</span> projets open source</p>
-          <p class="stat-line">{listInFrench(projects.map((project) => project.name))}, en accès libre.</p>
+          <p class="stat-line">{listItems(projects.map((project) => project.name))}, en accès libre.</p>
           <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="arrow-link">
             Découvrir nos dépôts GitHub <ExternalLink class="icon-sm" aria-hidden="true" /><span class="sr-only">, dans un nouvel onglet</span>
           </a>
