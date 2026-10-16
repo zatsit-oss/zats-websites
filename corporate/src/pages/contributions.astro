@@ -2,13 +2,13 @@
 import { getEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import { ArrowDown, ArrowRight, ArrowUpRight, CalendarClock, ChevronLeft, ChevronRight, ExternalLink, Mic, Play, Presentation } from '@lucide/astro';
+import { ArrowDown, ArrowRight, ArrowUpRight, CalendarClock, ChevronLeft, ChevronRight, ExternalLink, Mic, Play, Presentation, Telescope } from '@lucide/astro';
 import GithubIcon from '../assets/icons/github.svg';
 import { isPageDisabled } from '../lib/pages';
 
 const contributionsData = await getEntry('contributions', 'contributions');
 if (!contributionsData) throw new Error('Contributions data not found');
-const { projects } = contributionsData.data;
+const { projects, watch } = contributionsData.data;
 const contactDisabled = isPageDisabled('work-with-us');
 
 // Most recent first: `YYYY-MM` sorts correctly as a string
@@ -27,7 +27,7 @@ const today = new Date().toISOString().slice(0, 10);
 const isUpcoming = (date: string) => hasDay(date) && date >= today;
 ---
 
-<Layout title="Ce que nous partageons" description="Les conférences où les consultants zatsit ont pris la parole et les projets open source que nous maintenons.">
+<Layout title="Ce que nous partageons" description="Les conférences où les consultants zatsit ont pris la parole, les projets open source que nous maintenons et la veille que nous partageons.">
   <section class="section--hero !pb-10 md:!pb-16">
     <div class="hero-decoration">
       <div class="hero-blob hero-blob--primary"></div>
@@ -41,7 +41,7 @@ const isUpcoming = (date: string) => hasDay(date) && date >= today;
           Nos <span class="text-gradient-glow inline-block">contributions</span>
         </h1>
         <p class="section-description hero-subtitle">
-          Ce que nous apprenons en mission, nous le rendons : sur scène et en open source.
+          Ce que nous apprenons en mission, nous le rendons : sur scène, en open source et dans notre veille.
         </p>
         <div class="flex flex-wrap justify-center gap-4">
           <a href="#talks" class="btn-primary">
@@ -52,6 +52,12 @@ const isUpcoming = (date: string) => hasDay(date) && date >= today;
             Open source
             <ArrowDown class="icon-sm" aria-hidden="true" />
           </a>
+          {watch.length > 0 && (
+            <a href="#watch" class="btn-secondary">
+              En veille
+              <ArrowDown class="icon-sm" aria-hidden="true" />
+            </a>
+          )}
         </div>
       </div>
     </div>
@@ -105,6 +111,7 @@ const isUpcoming = (date: string) => hasDay(date) && date >= today;
                 </div>
               )}
               <div class="contribution-body">
+                <h3 class="contribution-title">{talk.title}</h3>
                 <p class="contribution-eyebrow">
                   {isUpcoming(talk.date) && (
                     <span class="contribution-badge">
@@ -119,7 +126,6 @@ const isUpcoming = (date: string) => hasDay(date) && date >= today;
                     </span>
                   ))}
                 </p>
-                <h3 class="contribution-title">{talk.title}</h3>
                 <p class="contribution-meta">{talk.speakers.join(', ')}</p>
                 {talk.summary && <p class="contribution-summary">{talk.summary}</p>}
                 {(talk.video || talk.slides || talk.page || talk.alsoGivenAt.some((edition) => edition.video)) && (
@@ -237,6 +243,49 @@ const isUpcoming = (date: string) => hasDay(date) && date >= today;
       )}
     </div>
   </section>
+  {watch.length > 0 && (
+    <section id="watch" class="section contributions-tight" aria-labelledby="watch-title">
+      <div class="container">
+        <div class="contributions-heading">
+          <Telescope class="icon-lg icon-primary flex-shrink-0" aria-hidden="true" />
+          <h2 id="watch-title" class="section-title">En veille</h2>
+        </div>
+        <p class="section-description watch-intro">
+          Ce que nous lisons, testons et cartographions, ouvert à tous : nos clients comme nos futurs collègues.
+        </p>
+        <ul class="watch-grid">
+          {watch.map((portal) => (
+            <li class:list={['card contribution', portal.url && !portal.upcoming ? 'card--hover contribution--project' : 'watch--upcoming']}>
+              <h3 class="contribution-title">
+                {portal.url && !portal.upcoming ? (
+                  <a href={portal.url} target="_blank" rel="noopener noreferrer" class="contribution-stretched">
+                    {portal.name}
+                    <ArrowUpRight class="icon-sm contribution-arrow" aria-hidden="true" />
+                    <span class="sr-only">, dans un nouvel onglet</span>
+                  </a>
+                ) : portal.name}
+              </h3>
+              <p class="contribution-eyebrow">
+                {portal.upcoming && (
+                  <span class="contribution-badge">
+                    <CalendarClock class="icon-sm" aria-hidden="true" />
+                    À venir
+                  </span>
+                )}
+                <span>{portal.kind}</span>
+              </p>
+              <p class="contribution-summary">{portal.description}</p>
+              {portal.topics.length > 0 && (
+                <ul class="contribution-stack" aria-label="Thèmes">
+                  {portal.topics.map((topic) => <li class="tag">{topic}</li>)}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
 </Layout>
 
 <script>
@@ -364,7 +413,10 @@ const isUpcoming = (date: string) => hasDay(date) && date >= today;
     background: var(--color-primary);
   }
 
+  /* After the title in the DOM, so a screen reader hears the title first and
+     the "À venir" badge with it; shown above the title */
   .contribution-eyebrow {
+    order: -1;
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.05em;
@@ -438,6 +490,35 @@ const isUpcoming = (date: string) => hasDay(date) && date >= today;
     margin-top: auto;
     padding: 0.5rem 0 0;
     list-style: none;
+  }
+
+  .watch-intro {
+    max-width: 48rem;
+    margin: -1rem auto 2.5rem;
+    text-align: center;
+  }
+  .watch-grid {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 768px) {
+    .watch-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  /* Portal names wrap: an inline link keeps the arrow after the last word */
+  .watch-grid .contribution-stretched { display: inline; }
+  .watch-grid :global(.contribution-arrow) {
+    display: inline;
+    margin-left: 0.25rem;
+    vertical-align: -0.125em;
+  }
+  /* Not online yet: no link, a dashed outline instead of the card border */
+  .watch--upcoming {
+    border-style: dashed;
+    border-color: var(--color-text-muted);
   }
 
   .contributions-empty {

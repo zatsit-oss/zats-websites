@@ -1,0 +1,71 @@
+{
+  "intro": "Certains intitulés de poste, méthodes ou outils peuvent nécessiter un éclairage, nous les mettons en lumière ici.",
+  "terms": [
+    {
+      "id": "agentic-audits",
+      "term": "Audits agentiques",
+      "definition": "Des audits de code, d'architecture ou de sécurité menés avec des agents IA : l'agent parcourt le système et signale, un ingénieur vérifie et tranche."
+    },
+    {
+      "id": "context-engineering",
+      "term": "Context Engineering",
+      "definition": "Choisir ce qu'un agent voit pour sa tâche : les fichiers, la documentation et les règles utiles, rien d'autre. Un contexte cadré donne des réponses justes, et coûte moins cher."
+    },
+    {
+      "id": "ai-diagnostics",
+      "term": "Diagnostics IA",
+      "definition": "L'état des lieux de l'IA dans une équipe : comment elle est déjà utilisée, ce qu'elle coûte, et si les modèles en place sont taillés pour leurs tâches ou trop gros pour elles."
+    },
+    {
+      "id": "eco-design",
+      "term": "Éco-conception",
+      "definition": "Concevoir un service numérique pour qu'il consomme le juste nécessaire : des pages légères, des requêtes qui servent, un calcul dimensionné sur le besoin réel. Chez nous, elle découle de l'exigence technique."
+    },
+    {
+      "id": "enablers-ai",
+      "term": "Enablers AI",
+      "definition": "Nos quatre offres pour installer l'IA dans une équipe de développement : Audit maturité IA, Pilote spec-driven, Désendettement et Développement augmenté. Elles reposent sur nos deux métiers historiques, le conseil et l'ingénierie."
+    },
+    {
+      "id": "forward-deployed-engineer",
+      "term": "Forward Deployed Engineer",
+      "definition": "Un ingénieur senior qui s'installe chez le client, côté métier comme côté technique, prend en main un problème prioritaire et le mène jusqu'en production, puis jusqu'à ce qu'il soit vraiment utilisé."
+    },
+    {
+      "id": "security-guardrails",
+      "term": "Garde-fous de sécurité",
+      "definition": "Les règles et les contrôles qui encadrent ce qu'un agent IA peut faire : des accès limités, des secrets protégés, une validation humaine pour les actions sensibles, et une revue de tout ce qu'il produit."
+    },
+    {
+      "id": "harness-engineering",
+      "term": "Harness Engineering",
+      "definition": "Concevoir l'environnement de travail d'un agent de code : ses outils, ses règles, ses commandes de test, et ce qu'il voit, rien d'autre. Un harness bien conçu rend l'agent prévisible."
+    },
+    {
+      "id": "agent-orchestration",
+      "term": "Orchestration d'agents",
+      "definition": "Faire travailler plusieurs agents IA ensemble, chacun sur sa tâche (spécifier, coder, tester, relire), avec un ingénieur qui répartit le travail et valide le résultat."
+    },
+    {
+      "id": "augmented-product-engineering",
+      "term": "Product engineering augmenté",
+      "definition": "Notre façon de travailler : des ingénieurs qui mènent un produit de la spécification à la production, avec l'IA comme levier. La spec avant le code, le modèle choisi selon la tâche, la facture mesurée."
+    },
+    {
+      "id": "legacy-code-takeover",
+      "term": "Reprise de code legacy",
+      "definition": "Reprendre un système existant que plus personne ne maîtrise : le lire, le comprendre, le documenter, puis le faire évoluer sans tout réécrire. L'IA accélère la lecture, l'ingénieur décide."
+    },
+    {
+      "id": "spec-driven-development",
+      "term": "Spec-Driven Development",
+      "abbr": "SDD",
+      "definition": "Écrire la spécification avant le code : contrats d'API, critères d'acceptation, décisions tracées. Le code est ensuite généré à partir d'elle, puis relu et testé."
+    },
+    {
+      "id": "vibe-coding",
+      "term": "Vibe-coding",
+      "definition": "Laisser l'IA écrire du code et espérer qu'il marche, sans spécification, sans cadre et sans relecture. Rapide au début, coûteux ensuite : c'est la dette que le développement augmenté évite."
+    }
+  ]
+}

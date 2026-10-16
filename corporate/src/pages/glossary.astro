@@ -1,0 +1,157 @@
+---
+import { getEntry } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import { withBoldBrand } from '../lib/brand';
+
+const glossaryData = await getEntry('glossary', 'glossary');
+if (!glossaryData) throw new Error('Glossary data not found');
+const { intro, terms } = glossaryData.data;
+
+// French alphabetical order, accents ignored: "Éco-conception" files under E
+const letterOf = (term: string) => term.normalize('NFD').charAt(0).toUpperCase();
+const sorted = [...terms].sort((a, b) => a.term.localeCompare(b.term, 'fr', { sensitivity: 'base' }));
+const groups = sorted.reduce<{ letter: string; terms: typeof terms }[]>((acc, term) => {
+  const letter = letterOf(term.term);
+  const last = acc[acc.length - 1];
+  if (last?.letter === letter) last.terms.push(term);
+  else acc.push({ letter, terms: [term] });
+  return acc;
+}, []);
+---
+
+<Layout title="Lexique" description="Les termes du métier de zatsit, définis en une phrase : Spec-Driven Development, Context Engineering, Harness Engineering, orchestration d'agents, vibe-coding, éco-conception.">
+  <section class="section--hero !pb-10 md:!pb-16">
+    <div class="hero-decoration">
+      <div class="hero-blob hero-blob--primary"></div>
+      <div class="hero-blob hero-blob--secondary"></div>
+    </div>
+    <div class="dot-grid"></div>
+
+    <div class="container">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="section-title--lg hero-title break-words">
+          <span class="text-gradient-glow inline-block">Lexique</span>
+        </h1>
+        <p class="section-description hero-subtitle" set:html={withBoldBrand(intro)} />
+      </div>
+
+      <nav class="glossary-index" aria-label="Lettres du lexique">
+        <ol>
+          {groups.map((group) => (
+            <li><a href={`#letter-${group.letter.toLowerCase()}`}>{group.letter}</a></li>
+          ))}
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section class="section !pt-6" aria-label="Termes">
+    <div class="container">
+      {groups.map((group) => (
+        <div class="glossary-group" id={`letter-${group.letter.toLowerCase()}`}>
+          {/* A real heading: the letter index lands here, and screen readers can jump letter to letter */}
+          <h2 class="glossary-letter">{group.letter}</h2>
+          <dl class="glossary-terms">
+            {group.terms.map((entry) => (
+              <div class="glossary-entry" id={entry.id}>
+                <dt>
+                  <a href={`#${entry.id}`} class="glossary-term">
+                    {entry.term}
+                    {entry.abbr && <> (<abbr title={entry.term}>{entry.abbr}</abbr>)</>}
+                  </a>
+                </dt>
+                <dd class="glossary-definition">{entry.definition}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* ---- Letter index: only the letters that have terms ---- */
+  .glossary-index {
+    margin-top: 2.5rem;
+  }
+  .glossary-index ol {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .glossary-index a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-border);
+    font-weight: 700;
+    color: var(--color-text);
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .glossary-index a:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  /* ---- One block per letter: the letter large on the left, its terms on the right ---- */
+  .glossary-group {
+    display: grid;
+    gap: 1rem;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--color-border);
+    scroll-margin-top: 1rem;
+  }
+  @media (min-width: 768px) {
+    .glossary-group {
+      grid-template-columns: 8rem minmax(0, 1fr);
+      column-gap: 3rem;
+    }
+  }
+  .glossary-letter {
+    margin: 0;
+    font-size: clamp(3rem, 2rem + 4vw, 5rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-primary);
+  }
+  .glossary-terms {
+    display: grid;
+    gap: 2rem;
+    margin: 0;
+  }
+  .glossary-entry {
+    max-width: 60ch;
+    scroll-margin-top: 1rem;
+  }
+  .glossary-term {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+  }
+  .glossary-term:hover { color: var(--color-primary); }
+  .glossary-term abbr { text-decoration: none; }
+  /* The term someone landed on through its anchor */
+  .glossary-entry:target .glossary-term { color: var(--color-primary); }
+  .glossary-definition {
+    margin: 0.25rem 0 0;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--color-text-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .glossary-index a { transition: none; }
+  }
+</style>

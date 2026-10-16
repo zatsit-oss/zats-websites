@@ -141,5 +141,43 @@
         "Go"
       ]
     }
+  ],
+  "watch": [
+    {
+      "name": "Zats Tech Watch",
+      "kind": "Veille collaborative",
+      "description": "Les articles, outils et tendances repérés par nos consultants, partagés au fil de l'eau. Une veille brute, sans tri éditorial : ce qui nous occupe vraiment, semaine après semaine.",
+      "url": "https://techwatcher.zatsit.fr/",
+      "topics": [
+        "IA",
+        "Craft",
+        "DevOps",
+        "Green IT",
+        "Sécurité"
+      ]
+    },
+    {
+      "name": "Landscape du numérique responsable",
+      "kind": "Carte éco-conception",
+      "description": "Les organismes, référentiels, certifications et outils de mesure de l'éco-conception logicielle, rangés sur une seule carte.",
+      "url": "https://sustainability.zatsit.fr/landscape/",
+      "topics": [
+        "Référentiels",
+        "Certifications",
+        "Outils de mesure"
+      ]
+    },
+    {
+      "name": "Landscape IA pour les développeurs",
+      "kind": "Carte IA",
+      "description": "Les assistants de code, agents, modèles et protocoles que nous suivons, avec les référentiels d'IA responsable, rangés sur une seule carte.",
+      "upcoming": true,
+      "topics": [
+        "Agents",
+        "Modèles",
+        "Protocoles",
+        "IA responsable"
+      ]
+    }
   ]
 }
