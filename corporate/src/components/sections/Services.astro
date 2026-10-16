@@ -15,7 +15,7 @@ const {
   items,
 } = entry.data;
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, typeof Code> = {
   'code-bracket': Code,
   'tablet-smartphone': TabletSmartphone,
   'rocket': Rocket,
@@ -27,13 +27,20 @@ const iconMap: Record<string, any> = {
 // Fixed SDLC pipeline, in order. Labels are structural (kept in the component);
 // per-service positioning lives in the content collection.
 const SDLC_PIPELINE = [
-  { key: 'cadrage', label: 'Cadr.' },
-  { key: 'conception', label: 'Conç.' },
-  { key: 'implementation', label: 'Impl.' },
-  { key: 'tests', label: 'Test' },
-  { key: 'deploiement', label: 'Dépl.' },
-  { key: 'mco', label: 'Run' }
+  { key: 'cadrage', label: 'Cadr.', name: 'Cadrage' },
+  { key: 'conception', label: 'Conç.', name: 'Conception' },
+  { key: 'implementation', label: 'Impl.', name: 'Implémentation' },
+  { key: 'tests', label: 'Test', name: 'Tests' },
+  { key: 'deploiement', label: 'Dépl.', name: 'Déploiement' },
+  { key: 'mco', label: 'Run', name: 'Run' }
 ] as const;
+
+// The track shows coverage by fill alone and abbreviates its labels, so screen
+// readers get a sentence instead, as on the offers page
+const coveredPhases = (service: { transverse?: boolean; sdlcPhases: string[] }) =>
+  SDLC_PIPELINE.filter((phase) => service.transverse || service.sdlcPhases.includes(phase.key))
+    .map((phase) => phase.name)
+    .join(', ');
 ---
 
 <section class="section section--surface services" data-view="traditional">
@@ -79,7 +86,8 @@ const SDLC_PIPELINE = [
             <p class="sdlc-cap">
               <abbr title="cycle de vie du développement logiciel">SDLC</abbr> · {service.sdlcLabel}
             </p>
-            <ul class="sdlc-track" aria-label={`Étapes du cycle : ${service.sdlcLabel}`}>
+            <p class="sr-only">Étapes du cycle couvertes : {coveredPhases(service)}.</p>
+            <ul class="sdlc-track" aria-hidden="true">
               {SDLC_PIPELINE.map((phase) => {
                 const active = service.transverse || service.sdlcPhases.includes(phase.key);
                 const cls = active ? 'sdlc-seg sdlc-seg--on' : 'sdlc-seg';

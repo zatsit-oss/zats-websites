@@ -27,6 +27,8 @@
   --color-on-primary: #ffffff;
   --color-primary: #0f15fd;
   --color-primary-hover: #0a0ecc;
+  /* The other theme's primary, for panels drawn in inverted colours */
+  --color-primary-inverse: #f1be51;
   --color-secondary: #7c3aed;
   --color-secondary-hover: #6d28d9;
   --color-accent-1: #06b6d4;
@@ -51,6 +53,8 @@
     --color-on-primary: #1b1b1d;
     --color-primary: #f1be51;
     --color-primary-hover: #f3b851;
+    /* The other theme's primary, for panels drawn in inverted colours */
+    --color-primary-inverse: #0f15fd;
     --color-secondary: #E1601F;
     --color-secondary-hover: #f1be51;
     --color-text-gradient: linear-gradient(45deg, #f1be51, #ffd580);
@@ -72,6 +76,8 @@
   --color-on-primary: #ffffff;
   --color-primary: #0f15fd;
   --color-primary-hover: #0a0ecc;
+  /* The other theme's primary, for panels drawn in inverted colours */
+  --color-primary-inverse: #f1be51;
   --color-secondary: #0f15fd;
   --color-secondary-hover: #0a0ecc;
   --color-text-gradient: linear-gradient(to bottom, #0F15FD 0%, #020466 100%);
@@ -92,6 +98,8 @@
   --color-on-primary: #1b1b1d;
   --color-primary: #f1be51;
   --color-primary-hover: #f3b851;
+  /* The other theme's primary, for panels drawn in inverted colours */
+  --color-primary-inverse: #0f15fd;
   --color-secondary: #E1601F;
   --color-secondary-hover: #f1be51;
   --color-accent-1: #f59e0b;
@@ -1836,7 +1844,8 @@ a.bcorp-badge[target="_blank"]::after {
 
 /* Eye-catching pulse inviting the click (traditional only) */
 .services:not([data-view="ai"]) .services-switch {
-  animation: services-pulse 2.2s ease-in-out infinite;
+  /* Two pulses, under the 5s past which moving content needs a pause control (WCAG 2.2.2) */
+  animation: services-pulse 2.2s ease-in-out 2;
 }
 @keyframes services-pulse {
   0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--sdlc-ai-deco) 55%, transparent); }
@@ -1876,6 +1885,12 @@ a.bcorp-badge[target="_blank"]::after {
   position: relative;
   transition: border-color 0.3s ease;
 }
+/* Hit area grown to 44px tall without changing the drawn track */
+.services-switch::after {
+  content: "";
+  position: absolute;
+  inset: -8px -2px;
+}
 .services[data-view="ai"] .services-switch {
   /* solid (not 60% mix) so the control boundary stays >=3:1 vs the surface in AI mode */
   border-color: var(--sdlc-ai-deco);
@@ -1905,7 +1920,7 @@ a.bcorp-badge[target="_blank"]::after {
 /* SDLC pipeline (text segments) */
 .sdlc-cap {
   font-family: var(--sdlc-mono);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -1929,7 +1944,7 @@ a.bcorp-badge[target="_blank"]::after {
   flex: 1;
   text-align: center;
   font-family: var(--sdlc-mono);
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-text-muted);
   padding: 0.4rem 0.15rem;
@@ -1950,7 +1965,7 @@ a.bcorp-badge[target="_blank"]::after {
   opacity: 0;
   overflow: hidden;
   margin-top: 0;
-  border-left: 2px solid var(--sdlc-ai-deco);
+  border-left: 1px solid var(--sdlc-ai-deco);
   padding-left: 0.75rem;
   transition: max-height 0.5s ease, opacity 0.35s ease, margin 0.35s ease;
 }
@@ -1961,7 +1976,7 @@ a.bcorp-badge[target="_blank"]::after {
 }
 .ai-track__h {
   font-family: var(--sdlc-mono);
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--sdlc-ai);
   margin-bottom: 0.5rem;
@@ -1973,7 +1988,7 @@ a.bcorp-badge[target="_blank"]::after {
 }
 .ai-tag {
   font-family: var(--sdlc-mono);
-  font-size: 0.58rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--sdlc-ai);
   background: color-mix(in srgb, var(--sdlc-ai) 10%, transparent);

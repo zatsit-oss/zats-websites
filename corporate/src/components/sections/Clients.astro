@@ -46,7 +46,7 @@ const values = [
 
       </div>
 
-      <div id="values-square" class="values-square">
+      <div id="values-square" class="values-square" data-cluster-reveal>
         {values.map((value, index) => (
           <div
             class="partner-card active"
@@ -63,51 +63,5 @@ const values = [
 </section>
 
 <script>
-  function initValuesSquare() {
-    const container = document.getElementById('values-square');
-    if (!container) return;
-
-    const cards = Array.from(container.querySelectorAll('.partner-card'));
-    if (cards.length === 0) return;
-
-    // Reduced motion: keep every card in its final high-contrast state, no animation.
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      cards.forEach(card => card.classList.add('active'));
-      return;
-    }
-
-    // Start from the dimmed state. The section sits below the fold on load,
-    // so stripping the baseline 'active' class here is not visible.
-    cards.forEach(card => card.classList.remove('active'));
-
-    let revealed = false;
-    const revealSequentially = () => {
-      if (revealed) return;
-      revealed = true;
-      // Highlight each card once, in order, and leave it highlighted (no loop).
-      cards.forEach((card, index) => {
-        setTimeout(() => card.classList.add('active'), index * 400);
-      });
-    };
-
-    // Trigger the reveal only when the block enters the viewport.
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          revealSequentially();
-          observer.disconnect();
-        }
-      });
-    }, { threshold: 0.4 });
-
-    observer.observe(container);
-
-    // Cleanup on page navigation (ViewTransitions)
-    document.addEventListener('astro:before-swap', () => {
-      observer.disconnect();
-    }, { once: true });
-  }
-
-  initValuesSquare();
-  document.addEventListener('astro:after-swap', initValuesSquare);
+  import '../../scripts/cluster-reveal';
 </script>
