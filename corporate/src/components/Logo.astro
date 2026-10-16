@@ -8,4 +8,5 @@ interface Props {
 const { class: className = '' } = Astro.props;
 ---
 
-<LogoIcon class={className} />
+{/* Decorative: every use sits next to the "zatsit" wordmark text */}
+<LogoIcon class={className} aria-hidden="true" />
