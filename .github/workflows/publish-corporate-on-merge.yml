@@ -88,15 +88,22 @@ jobs:
       # empty bucket.
       - name: Publish to Cloud Storage
         run: |
+          # 1. Fingerprinted assets first, and never pruned: HTML cached by a
+          #    browser or the CDN keeps pointing at the previous hashes, so
+          #    deleting them rendered every stale page unstyled (the 404 is
+          #    served as text/html). Pages are uploaded after, so a new page
+          #    never references a missing file.
+          gcloud storage rsync corporate/dist/_astro "gs://${{ env.bucket_name }}/_astro" \
+            --recursive \
+            --cache-control="public, max-age=31536000, immutable"
+          # 2. Everything else, pruned. _astro is excluded so old hashes
+          #    survive. Short TTL and no stale-while-revalidate: a deploy is
+          #    visible within a minute.
           gcloud storage rsync corporate/dist "gs://${{ env.bucket_name }}" \
             --recursive \
             --delete-unmatched-destination-objects \
-            --cache-control="public, max-age=300, stale-while-revalidate=86400"
-          # Astro fingerprints the file names it emits under /_astro, so that
-          # content is safe to cache for a year. Pages keep the short TTL set
-          # above, which makes a deploy visible within minutes.
-          gcloud storage objects update "gs://${{ env.bucket_name }}/_astro/**" \
-            --cache-control="public, max-age=31536000, immutable"
+            --exclude='^_astro/.*' \
+            --cache-control="public, max-age=60"
 
       # needed to avoid the post action error
       - name: Checkout repository
