@@ -1,5 +1,7 @@
 export const ALWAYS_GENERATED_PAGES = ['index', 'legal-notice', 'privacy-policy']
-export const CONTROLLABLE_PAGES = ['apply', 'careers', 'contributions', 'find-us', 'formations', 'join-us', 'manifeste', 'offres', 'team', 'tech', 'work-with-us']
+// Pages built for comparison: generated, but never advertised to crawlers
+export const NON_INDEXABLE_PAGES = ['home-previous']
+export const CONTROLLABLE_PAGES = ['apply', 'careers', 'contributions', 'find-us', 'glossary', 'home-previous', 'join-us', 'manifesto', 'offers', 'team', 'tech', 'trainings', 'work-with-us']
 
 export function getDisabledPages(): string[] {
   const DISABLED_PAGES = process.env.DISABLED_PAGES ?? ''
@@ -37,6 +39,6 @@ export interface IndexablePage {
 export function getIndexablePages(): IndexablePage[] {
   const disabled = getDisabledPages()
   return [...ALWAYS_GENERATED_PAGES, ...CONTROLLABLE_PAGES]
-    .filter(slug => !disabled.includes(slug))
+    .filter(slug => !disabled.includes(slug) && !NON_INDEXABLE_PAGES.includes(slug))
     .map(slug => ({ slug, path: slug === 'index' ? '/' : `/${slug}/` }))
 }

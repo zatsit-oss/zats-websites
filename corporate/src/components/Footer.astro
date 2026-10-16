@@ -6,6 +6,7 @@ import LinkedinIcon from '../assets/icons/linkedin.svg';
 import SustainabilityIcon from '../assets/icons/sustainability.svg';
 import { CodeXml, Mail, MapPin } from '@lucide/astro';
 import { Image } from 'astro:assets';
+import { isPageDisabled } from '../lib/pages';
 import ecovadisMedal from '../assets/ecovadis-medal.webp';
 // As URLs, not inline components: the two badges weighed 30 KB in every page's
 // HTML, and only the one for the current theme is fetched as a background
@@ -143,7 +144,7 @@ import bcorpLightUrl from '../assets/bcorp-light.svg?url';
           href="https://www.bcorporation.net/"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Certification B Corp, dans un nouvel onglet"
+          aria-label="Entreprise certifiée B Corp, dans un nouvel onglet"
           class="bcorp-badge"
           style={`--bcorp-black: url(${bcorpBlackUrl}); --bcorp-light: url(${bcorpLightUrl})`}
         ></a>
@@ -156,6 +157,9 @@ import bcorpLightUrl from '../assets/bcorp-light.svg?url';
     <div class="container py-4 flex flex-col md:flex-row md:justify-between items-start md:items-center gap-2 text-xs text-muted">
       <p>zatsit - {new Date().getFullYear()} &bull; Site statique éco-conçu</p>
       <div class="flex flex-wrap gap-x-6">
+        {!isPageDisabled('glossary') && (
+          <a href="/glossary/" class="link inline-flex items-center min-h-6">Lexique</a>
+        )}
         <a href={ETI_RAPPORT_URL} target="_blank" rel="noopener noreferrer" class="link inline-flex items-center min-h-6">Rapport ETI<span class="sr-only">, dans un nouvel onglet</span></a>
         <a href="/legal-notice/" class="link inline-flex items-center min-h-6">Mentions légales</a>
         <a href="/privacy-policy/" class="link inline-flex items-center min-h-6">Politique de confidentialité</a>
