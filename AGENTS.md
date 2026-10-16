@@ -84,6 +84,16 @@ git commit -m "docs: update contributing guide"
 - In text: **zatsit** (lowercase, bold)
 - In titles/logo: Zatsit (capital Z)
 
+### B Corp in text (B Lab rules, [brand.bcorp.com](https://brand.bcorp.com/fr/visual-identity))
+
+A guardrail for every site: B Lab enforces these rules on certified companies.
+
+- Write **B Corp™**, two words, capital B and C. Never `BCorp`, `B-Corp`, `Bcorp` or `B corp`.
+- Add the **™** at least on the first visible use on each page, title or running text. The same goes for B Corporation™, Certified B Corporation™ and B Lab™. Leave it out of `aria-label`, `alt` and structured data, where it would only be read aloud.
+- The certification belongs to the **company**, never to a product, an offer, a site or a person: "**zatsit**, entreprise certifiée B Corp™", not "offre certifiée B Corp" nor "nous sommes certifiés".
+- Use the official logo only (the French "Entreprise Certifiée" files in `corporate/src/assets/`), with its ® untouched. Never use it in place of the letter B in a word, and never recolour, crop or redraw it.
+- On print or physical media, the logo comes with "En savoir plus sur bcorp.com".
+
 ## Tech Stack (shared)
 
 - **Astro** — Static site generator (SSG, zero JS by default)

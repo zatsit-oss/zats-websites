@@ -14,6 +14,10 @@
 - **Sustainability** - Eco-design, responsible tech
 - **Partnership** - Clients as partners, consultants at the heart of strategy
 
+## B Corp in text
+
+The rules B Lab sets for certified companies are in the root `AGENTS.md` ("B Corp in text"): **B Corp™** with the ™ on the first visible use per page, the certification named as the company's ("entreprise certifiée B Corp™"), the official logo with its ® untouched.
+
 ## Brand Voice
 
 ### Tone
@@ -76,4 +80,5 @@
 ### Eco-responsibility
 - Eco-designed websites
 - EcoVadis Silver certified
-- Partners: Framework, Ekip, BCorp orientation
+- Certified B Corp™ company (see "B Corp in text" below)
+- Partners: Framework, Ekip

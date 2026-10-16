@@ -95,12 +95,14 @@ src/components/
 
 ### Pages
 - `src/pages/index.astro`: Home
-- `src/pages/offres.astro`: Offers
-- `src/pages/manifeste.astro`: Manifesto
+- `src/pages/home-previous.astro`: Previous home, kept for comparison, noindex, hidden in production
+- `src/pages/offers.astro`: Offers
+- `src/pages/manifesto.astro`: Manifesto
+- `src/pages/glossary.astro`: Glossary, one definition per term, linked from the footer legal bar
 - `src/pages/work-with-us.astro`: Work with us (contact form)
 - `src/pages/team.astro`: Team
 - `src/pages/contributions.astro`: Contributions (talks and open source projects)
-- `src/pages/formations.astro`: Trainings
+- `src/pages/trainings.astro`: Trainings
 - `src/pages/join-us.astro`: Join us
 - `src/pages/careers.astro`: Careers
 - `src/pages/apply.astro`: Apply (candidate form)
