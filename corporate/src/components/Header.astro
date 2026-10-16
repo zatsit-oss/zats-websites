@@ -28,7 +28,7 @@ import ThemeToggle from './ThemeToggle.astro';
 import LinkedinIcon from '../assets/icons/linkedin.svg';
 import GithubIcon from '../assets/icons/github.svg';
 import SustainabilityIcon from '../assets/icons/sustainability.svg';
-import { ArrowUpRight, ChevronDown, CodeXml, Compass, ExternalLink, FilePenLine, GraduationCap, Handshake, Layers, Mail, Menu, Mic, Package, Users, X } from '@lucide/astro';
+import { ArrowUpRight, ChevronDown, CodeXml, Compass, ExternalLink, FilePenLine, GraduationCap, Handshake, Layers, Mail, Menu, Mic, Package, ScrollText, Users, X } from '@lucide/astro';
 import { isPageDisabled } from '../lib/pages';
 
 interface NavLink {
@@ -64,11 +64,8 @@ const megaMenus: Record<string, MegaMenu> = {
       tagline: "Des seniors dans vos équipes, la spec avant le code, la facture mesurée.",
     },
     items: [
-      { href: '/offres/', label: 'Nos offres', description: 'Quatre Enablers AI, nos deux métiers historiques, et ce que nous refusons de vendre.', icon: Layers },
-      // Manifesto hidden from the menu for now, the page stays reachable by URL
-      // (re-import ScrollText from @lucide/astro when restoring it):
-      // { href: '/manifeste/', label: 'Manifesto', description: 'La conviction derrière nos offres.', icon: ScrollText },
-      { href: '/formations/', label: 'Nos formations', description: 'Coding agentique et Spec-Driven Development, en atelier pratique.', icon: GraduationCap },
+      { href: '/offers/', label: 'Nos offres', description: 'Quatre Enablers AI, nos deux métiers historiques, et pas de fausses promesses.', icon: Layers },
+      { href: '/trainings/', label: 'Nos formations', description: 'Coding agentique et Spec-Driven Development, en atelier pratique.', icon: GraduationCap },
       { href: '/work-with-us/', label: 'Travaillons ensemble', description: 'Parlez-nous de votre projet et de vos idées.', icon: Handshake },
     ],
   },
@@ -83,6 +80,7 @@ const megaMenus: Record<string, MegaMenu> = {
     items: [
       { href: '/team/', label: 'Qui nous sommes', description: 'Nos statuts, notre gouvernance et les interviews de nos Zat\'s.', icon: Users },
       { href: '/contributions/', label: 'Ce que nous partageons', description: 'Nos talks en conférence et nos projets open source.', icon: Mic },
+      { href: '/manifesto/', label: 'Notre manifeste', description: 'La conviction derrière nos offres.', icon: ScrollText },
     ],
   },
   '#join-us': {
@@ -94,8 +92,8 @@ const megaMenus: Record<string, MegaMenu> = {
       tagline: "Chez <strong>zatsit</strong>, nous prenons soin de ceux qui font l'entreprise.",
     },
     items: [
-      { href: '/join-us/', label: 'Ton package', description: 'Zatsday, mutuelle prise en charge à 100 %, matériel durable.', icon: Package },
       { href: '/careers/', label: 'Carrière', description: 'Nos rôles types et les chemins pour évoluer avec nous.', icon: Compass },
+      { href: '/join-us/', label: 'Ton package', description: 'Zatsday, mutuelle prise en charge à 100 %, matériel durable.', icon: Package },
       { href: '/apply/', label: 'Postuler', description: 'Envoie-nous ta candidature, nous répondons à chacune.', icon: FilePenLine },
     ],
   },
@@ -109,9 +107,11 @@ for (const menu of Object.values(megaMenus)) {
 // /tech/ is no longer promoted: it stays reachable by URL
 const navLinks: NavLink[] = [
   { href: '/', label: 'Accueil' },
+  // The home before its redesign, for comparison; hidden wherever DISABLED_PAGES lists it
+  { href: '/home-previous/', label: 'Accueil précédent' },
   { href: '#offers', label: 'Offres' },
-  { href: '#collective', label: 'Le collectif' },
   { href: '#join-us', label: 'Rejoins-nous' },
+  { href: '#collective', label: 'Le collectif' },
 ];
 
 // Filter out disabled pages

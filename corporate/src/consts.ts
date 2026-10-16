@@ -18,15 +18,13 @@ export const SITE_TITLE = 'zatsit';
  * already contains the brand, which is what stops BaseHead appending it twice.
  * The wording is the company tagline, so it says the same thing as the hero.
  */
-export const HOME_TITLE = "zatsit, la tech au service de l'impact des entreprises";
+export const HOME_TITLE = "zatsit, livrer avec l'IA sans perdre la main";
 
 /**
- * 158 characters, inside the 120 to 160 a result page shows without cutting.
- * It was 164, which an audit flagged. The inclusive wording is kept and the
- * four characters came off the connectors instead.
+ * 142 characters, inside the 120 to 160 a result page shows without cutting.
  */
 export const SITE_DESCRIPTION =
-  "zatsit accompagne les entreprises sur leurs enjeux tech : architecture, cloud, data, IA, éco-conception. Un collectif de consultantes et consultants, à Lille.";
+  "zatsit, un collectif d'ingénieurs expérimentés à Lille, installe l'IA dans vos équipes de développement, du besoin jusqu'à la mesure en production.";
 
 export const SITE_LANG = 'fr';
 export const SITE_INLANGUAGE = 'fr-FR';
@@ -85,9 +83,9 @@ export const PAGE_SUMMARIES: Record<string, { label: string; summary: string }> 
   },
   contributions: {
     label: 'Ce que nous partageons',
-    summary: 'les conférences où les consultants de zatsit ont pris la parole et les projets open source que nous maintenons',
+    summary: 'les conférences où les consultants de zatsit ont pris la parole, les projets open source que nous maintenons et les portails de veille que nous partageons',
   },
-  formations: {
+  trainings: {
     label: 'Nos formations',
     summary: 'les formations au coding agentique et au Spec-Driven Development que donnent les consultants de zatsit, gratuites ou dans les locaux du client',
   },
@@ -100,11 +98,15 @@ export const PAGE_SUMMARIES: Record<string, { label: string; summary: string }> 
     label: 'Carrière',
     summary: 'les rôles chez zatsit (Forward Deployed Engineer, Product Engineer, Tech Lead Agentic, Augmented Engineer, Platform Engineer) et notre façon de travailler augmentée par l’IA',
   },
-  offres: {
+  offers: {
     label: 'Nos offres',
     summary: "les offres de zatsit : quatre Enablers AI (audit maturité IA, pilote spec-driven, désendettement du code existant, dev augmenté en équipe) posés sur deux métiers historiques (le conseil par les associés, l'ingénieur·e augmenté·e en renfort), ce qui est mesuré et ce que zatsit refuse de promettre",
   },
-  manifeste: {
+  glossary: {
+    label: 'Lexique',
+    summary: "les termes du métier de zatsit définis en une phrase : Spec-Driven Development, Context Engineering, Harness Engineering, orchestration d'agents, vibe-coding, éco-conception",
+  },
+  manifesto: {
     label: 'Manifeste',
     summary: 'la conviction derrière nos offres : une ingénierie sobre parce que bien architecturée',
   },
