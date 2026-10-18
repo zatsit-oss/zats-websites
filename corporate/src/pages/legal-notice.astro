@@ -8,6 +8,6 @@ if (!entry) throw new Error('Legal notice data not found');
 const { title, titleHighlight, description } = entry.data;
 ---
 
-<Layout title={`${title} ${titleHighlight}`} description={description}>
+<Layout searchable={false} title={`${title} ${titleHighlight}`} description={description}>
   <LegalPageLayout entry={entry} />
 </Layout>

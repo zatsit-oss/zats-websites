@@ -30,7 +30,8 @@ const chips = roles.map((title) => ({
             {title}
             <ChevronDown class="role-chip-chevron" aria-hidden="true" />
           </summary>
-          <div class="role-chip-layer">
+          {/* Out of the search index: it repeats the careers page summary */}
+          <div class="role-chip-layer" data-pagefind-ignore>
             <p class="role-chip-summary">{role.offerSummary}</p>
             {careersShown && (
               <a href={`/careers/#${role.id}`} class="role-chip-link">

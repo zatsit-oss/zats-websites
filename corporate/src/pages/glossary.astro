@@ -48,22 +48,24 @@ const groups = sorted.reduce<{ letter: string; terms: typeof terms }[]>((acc, te
   <section class="section !pt-6" aria-label="Termes">
     <div class="container">
       {groups.map((group) => (
-        <div class="glossary-group" id={`letter-${group.letter.toLowerCase()}`}>
-          {/* A real heading: the letter index lands here, and screen readers can jump letter to letter */}
-          <h2 class="glossary-letter">{group.letter}</h2>
-          <dl class="glossary-terms">
+        <div class="glossary-group">
+          {/* Real headings, letters and terms: the letter index and the anchors
+              land on them, screen readers jump from one to the next, and the
+              site search links each result to its term */}
+          <h2 class="glossary-letter" id={`letter-${group.letter.toLowerCase()}`}>{group.letter}</h2>
+          <div class="glossary-terms">
             {group.terms.map((entry) => (
-              <div class="glossary-entry" id={entry.id}>
-                <dt>
+              <div class="glossary-entry">
+                <h3 class="glossary-entry-title" id={entry.id}>
                   <a href={`#${entry.id}`} class="glossary-term">
                     {entry.term}
                     {entry.abbr && <> (<abbr title={entry.term}>{entry.abbr}</abbr>)</>}
                   </a>
-                </dt>
-                <dd class="glossary-definition">{entry.definition}</dd>
+                </h3>
+                <p class="glossary-definition">{entry.definition}</p>
               </div>
             ))}
-          </dl>
+          </div>
         </div>
       ))}
     </div>
@@ -117,6 +119,7 @@ const groups = sorted.reduce<{ letter: string; terms: typeof terms }[]>((acc, te
   }
   .glossary-letter {
     margin: 0;
+    scroll-margin-top: 1rem;
     font-size: clamp(3rem, 2rem + 4vw, 5rem);
     font-weight: 700;
     line-height: 1;
@@ -127,8 +130,9 @@ const groups = sorted.reduce<{ letter: string; terms: typeof terms }[]>((acc, te
     gap: 2rem;
     margin: 0;
   }
-  .glossary-entry {
-    max-width: 60ch;
+  .glossary-entry { max-width: 60ch; }
+  .glossary-entry-title {
+    margin: 0;
     scroll-margin-top: 1rem;
   }
   .glossary-term {
@@ -143,7 +147,7 @@ const groups = sorted.reduce<{ letter: string; terms: typeof terms }[]>((acc, te
   .glossary-term:hover { color: var(--color-primary); }
   .glossary-term abbr { text-decoration: none; }
   /* The term someone landed on through its anchor */
-  .glossary-entry:target .glossary-term { color: var(--color-primary); }
+  .glossary-entry-title:target .glossary-term { color: var(--color-primary); }
   .glossary-definition {
     margin: 0.25rem 0 0;
     font-size: 1.0625rem;

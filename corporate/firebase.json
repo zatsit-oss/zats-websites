@@ -2,6 +2,21 @@
     "hosting": {
         "target": "zatsit-corporate-dev",
         "public": "dist",
-        "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ],
+        "headers": [
+            {
+                "source": "/pagefind/**",
+                "headers": [
+                    {
+                        "key": "Cache-Control",
+                        "value": "public, max-age=0, must-revalidate"
+                    }
+                ]
+            }
+        ]
     }
 }

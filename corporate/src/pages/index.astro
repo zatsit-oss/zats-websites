@@ -92,7 +92,7 @@ const PILLARS = [
 
 // Event names without their edition: "Cloud Nord 2026" and "Cloud Nord 2024" count once
 const talkEvents = [...new Set(talks.map((talk) => talk.event.replace(/\s+(\d{4}|#\d+)$/, '')))];
-const listInFrench = (items: string[]) =>
+const listItems = (items: string[]) =>
   items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} et ${items[items.length - 1]}`;
 
 // The closing title lights its second clause, like the current home's last call
@@ -102,7 +102,7 @@ const [closeLead, closeAccent] = (() => {
 })();
 ---
 
-<Layout title={HOME_TITLE} description={SITE_DESCRIPTION}>
+<Layout title={HOME_TITLE} description={SITE_DESCRIPTION} searchTitle="Accueil">
   {/* ---- Hero: the promise, then the visitor's own situation ---- */}
   <section class="home2-hero" aria-labelledby="home2-title">
     {/* The previous home's atmosphere: dot grid, warm mesh and drifting blobs */}
@@ -286,21 +286,21 @@ const [closeLead, closeAccent] = (() => {
         <li class="stat">
           <Mic class="stat-icon" aria-hidden="true" />
           <p class="stat-figure"><span class="text-gradient-glow">{talks.length}</span> conférences</p>
-          <p class="stat-line">Tenues par nos consultants à {listInFrench(talkEvents)}.</p>
+          <p class="stat-line">Tenues par nos consultants à {listItems(talkEvents)}.</p>
           {shows('contributions') && <a href="/contributions/" class="arrow-link">Voir nos contributions <ArrowRight class="icon-sm" aria-hidden="true" /></a>}
         </li>
         <li class="stat">
           <GraduationCap class="stat-icon" aria-hidden="true" />
           <p class="stat-figure"><span class="text-gradient-glow">{trainings.length}</span> formations</p>
-          <p class="stat-line">{listInFrench(trainings.map((training) => training.title))}, que nous donnons aussi à d'autres équipes.</p>
+          <p class="stat-line">{listItems(trainings.map((training) => training.title))}, que nous donnons aussi à d'autres équipes.</p>
           {shows('trainings') && <a href="/trainings/" class="arrow-link">Consulter nos formations <ArrowRight class="icon-sm" aria-hidden="true" /></a>}
         </li>
         <li class="stat">
           <span class="stat-icon stat-icon--code" aria-hidden="true">&lt;/&gt;</span>
           <p class="stat-figure"><span class="text-gradient-glow">{projects.length}</span> projets open source</p>
-          <p class="stat-line">{listInFrench(projects.map((project) => project.name))}, en accès libre.</p>
+          <p class="stat-line">{listItems(projects.map((project) => project.name))}, en accès libre.</p>
           <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="arrow-link">
-            Découvrir nos dépôts sur GitHub <ExternalLink class="icon-sm" aria-hidden="true" /><span class="sr-only">, dans un nouvel onglet</span>
+            Découvrir nos dépôts GitHub <ExternalLink class="icon-sm" aria-hidden="true" /><span class="sr-only">, dans un nouvel onglet</span>
           </a>
         </li>
         <li class="stat">
@@ -329,7 +329,7 @@ const [closeLead, closeAccent] = (() => {
           ></a>
         </li>
         <li>
-          <Image src={ecovadisMedal} alt="EcoVadis, médaille d'argent, top 15 %" width={140} height={140} densities={[1, 2]} class="labels-ecovadis" />
+          <Image src={ecovadisMedal} alt="EcoVadis, médaille d'argent, top 15 %" width={100} height={100} densities={[1, 2]} class="labels-ecovadis" />
         </li>
       </ul>
     </div>
@@ -405,6 +405,18 @@ const [closeLead, closeAccent] = (() => {
 
     panels.forEach((panel) => { panel.hidden = panel.dataset.initial !== 'true'; });
     root.classList.add('is-ready');
+
+    // A link to a heading inside a hidden answer (a search result) selects that
+    // answer's tab, then scrolls to the heading
+    const showTarget = () => {
+      const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      const index = target ? panels.findIndex((panel) => panel.contains(target)) : -1;
+      if (index < 0) return;
+      select(index, false);
+      target!.scrollIntoView({ block: 'start' });
+    };
+    showTarget();
+    window.addEventListener('hashchange', showTarget);
   }
 
   // Glowing tiles light up one after the other, once, when their row reaches
@@ -872,7 +884,7 @@ const [closeLead, closeAccent] = (() => {
     align-items: center;
     gap: 3rem;
   }
-  /* Same height for both marks: the badge keeps its 76 x 116 ratio */
+  /* The badge keeps its 76 x 116 ratio */
   .labels-bcorp {
     width: 92px;
     height: 140px;
@@ -882,9 +894,11 @@ const [closeLead, closeAccent] = (() => {
     outline: 2px solid var(--color-primary);
     outline-offset: 4px;
   }
+  /* The round medal reads larger than the tall badge at equal height: same
+     ratio as the footer, 84 for a 116 badge */
   .labels-ecovadis {
-    width: 140px;
-    height: 140px;
+    width: 100px;
+    height: 100px;
   }
   /* ---- Close: centred, under the same warm mesh as the hero ---- */
   .close-section {

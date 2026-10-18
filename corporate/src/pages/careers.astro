@@ -138,14 +138,14 @@ const phaseLabels = (phases: readonly string[]) =>
 
             <div class="role-body">
               <div>
-                <h4 class="role-body-title">Ton quotidien</h4>
+                <h4 class="role-body-title" id={`${role.id}-daily`}>Ton quotidien<span class="sr-only"> : {role.title}</span></h4>
                 <ul class="role-daily">
                   {role.daily.map((item) => <li>{item}</li>)}
                 </ul>
               </div>
               {offersFor(role.title).length > 0 && (
                 <div>
-                  <h4 class="role-body-title">Mobilisé sur</h4>
+                  <h4 class="role-body-title" id={`${role.id}-offers`}>Mobilisé sur<span class="sr-only"> : {role.title}</span></h4>
                   <ul class="role-offers">
                     {offersFor(role.title).map((offer) => (
                       <li>
@@ -242,10 +242,12 @@ const phaseLabels = (phases: readonly string[]) =>
   function openTargetRole() {
     const id = decodeURIComponent(window.location.hash.slice(1));
     if (!id) return;
-    const role = document.getElementById(id);
-    if (!(role instanceof HTMLDetailsElement) || !role.classList.contains('role')) return;
+    // The role itself, or a heading inside it (search results link there)
+    const target = document.getElementById(id);
+    const role = target?.closest('details.role');
+    if (!target || !(role instanceof HTMLDetailsElement)) return;
     role.open = true;
-    role.scrollIntoView({ block: 'start' });
+    target.scrollIntoView({ block: 'start' });
   }
 
   document.addEventListener('astro:page-load', initRolesReveal);
