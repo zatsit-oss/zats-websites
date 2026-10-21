@@ -77,7 +77,7 @@ gcloud compute backend-buckets update zatsit-corporate-prod-v1 \
   --custom-response-header="Permissions-Policy: camera=(), microphone=(), geolocation=()"
 ```
 
-**`'wasm-unsafe-eval'` is required by the site search.** Pagefind runs its query engine as WebAssembly, which a `script-src` without that keyword refuses to compile (a `CompileError` in the console, and an empty result list on screen). It allows WebAssembly compilation only, not JavaScript `eval`. The blog carries the same keyword for the same reason. As of 2026-10-16 the live header still lacks it: the command above has to be run once before the search ships to production. Staging serves no CSP, so the search works there as is.
+**`'wasm-unsafe-eval'` is required by the site search.** Pagefind runs its query engine as WebAssembly, which a `script-src` without that keyword refuses to compile (a `CompileError` in the console, and an empty result list on screen). It allows WebAssembly compilation only, not JavaScript `eval`. The blog carries the same keyword for the same reason. The command above, with this keyword and `media-src`, has been live since 2026-10-21. Staging serves no CSP, so the search works there as is.
 
 **Repeat the flag, one header per occurrence.** It is not a comma-separated list, and gcloud's `^|^` alternate-delimiter syntax does **not** apply here: passing it stores a single malformed header literally named `^|^Strict-Transport-Security`, the describe output looks plausible, and nothing at all is served. That cost a round trip on 10 September.
 
