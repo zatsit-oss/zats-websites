@@ -69,7 +69,7 @@ Six custom response headers on the backend bucket. This closed six of the twenty
 ```bash
 gcloud compute backend-buckets update zatsit-corporate-prod-v1 \
   --project=sites-web-407116 \
-  --custom-response-header="Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.websitecarbon.com; frame-src https://docs.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'none'; object-src 'none'" \
+  --custom-response-header="Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self' https://storage.googleapis.com/zatsit-corporate-media-prod/; font-src 'self'; connect-src 'self' https://api.websitecarbon.com; frame-src https://docs.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'none'; object-src 'none'" \
   --custom-response-header="Strict-Transport-Security: max-age=31536000" \
   --custom-response-header="X-Content-Type-Options: nosniff" \
   --custom-response-header="X-Frame-Options: DENY" \
@@ -90,6 +90,7 @@ It was derived from the built site rather than guessed, then tested in a headles
 - **`frame-src https://docs.google.com`** — the contact form on `/work-with-us/` is a Google Forms iframe. Without this it breaks.
 - **`img-src ... data:`** — a first attempt with `img-src 'self'` blocked the external-link icon in `global.css`, a `mask-image: url('data:image/svg+xml…')`. A static grep for `url(data:` missed it because the value is single-quoted; only the browser caught it.
 - **`connect-src https://api.websitecarbon.com`** — the carbon badge fetches its measurement at runtime.
+- **`media-src ... https://storage.googleapis.com/zatsit-corporate-media-prod/`**: the team interviews on `/team/` stream from the media bucket, not from the site. Without it `media-src` falls back to `default-src 'self'` and every video refuses to play (found on 2026-10-21). The path keeps the rest of `storage.googleapis.com` blocked.
 
 `'unsafe-inline'` is needed for both scripts and styles: the layout carries a pre-paint theme script, and static hosting cannot issue nonces.
 
