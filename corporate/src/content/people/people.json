@@ -76,10 +76,10 @@
     }
   ],
   "interviews": [
-    { "slug": "flavien", "name": "Flavien Bailleul", "role": "Co-fondateur", "duration": "3 min 20" },
-    { "slug": "ludovic", "media": "ludovic-v2", "name": "Ludovic Dussart", "role": "CTO associé", "duration": "2 min 27" },
-    { "slug": "celia", "name": "Célia Doolaeghe", "role": "Développeuse Full Stack", "duration": "1 min 39" },
-    { "slug": "guillaume", "name": "Guillaume Gayot", "role": "Développeur", "duration": "3 min 13" },
-    { "slug": "lucas", "name": "Lucas Perreau", "role": "Développeur", "duration": "2 min 58" }
+    { "slug": "flavien", "media": "flavien-v2", "name": "Flavien Bailleul", "role": "Co-fondateur", "duration": "3 min 14" },
+    { "slug": "ludovic", "media": "ludovic-v3", "name": "Ludovic Dussart", "role": "CTO associé", "duration": "2 min 27" },
+    { "slug": "celia", "media": "celia-v2", "name": "Célia Doolaeghe", "role": "Développeuse Full Stack", "duration": "1 min 35" },
+    { "slug": "guillaume", "media": "guillaume-v2", "name": "Guillaume Gayot", "role": "Développeur", "duration": "3 min 09" },
+    { "slug": "lucas", "media": "lucas-v2", "name": "Lucas Perreau", "role": "Développeur", "duration": "2 min 57" }
   ]
 }

@@ -22,7 +22,8 @@ function readTranscript(slug: string): string {
   return vtt
     .split('\n')
     .filter((line) => line.trim() !== '' && line !== 'WEBVTT' && !line.includes('-->'))
-    .join(' ');
+    .join(' ')
+    .replace(/<\/?[a-z][^>]*>/g, ''); // cue markup such as <i> for off-screen voices
 }
 
 const interviewItems = interviews.map((interview) => ({
